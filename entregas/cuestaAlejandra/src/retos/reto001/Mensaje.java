@@ -1,3 +1,5 @@
+import java.util.Random;
+
 class Mensaje {
     String texto;
     Random random = new Random();
@@ -5,7 +7,6 @@ class Mensaje {
     public Mensaje(String texto) {
         this.texto = texto;
     }
-
     
     public static Mensaje generar(int longitud) {
         Random random = new Random();
