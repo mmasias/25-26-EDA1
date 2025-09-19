@@ -3,6 +3,7 @@ import java.util.Random;
 class Nino {
     String nombre;
     String pizarrin;
+    Random random = new Random();
 
     public Nino(String nombre) {
         this.nombre = nombre;
