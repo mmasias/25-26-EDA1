@@ -2,10 +2,10 @@ public class TelefonoEscacharradoClient {
     public static void main(String[] args) {
         TelefonoEscacharrado telefono = new TelefonoEscacharrado();
 
-        for (int minuto = 0; minuto < 120; minuto++) {
+        while (telefono.tiempo < 120) {
             telefono.lleganNinos();
 
-            if (telefono.numNinos > 5 && telefono.juegoIniciado) {
+            while (telefono.numNinos > 5 && telefono.juegoIniciado && telefono.tiempo < 120) {
                 telefono.prepararNinos();
                 telefono.jugar();
                 telefono.getResultados();
