@@ -30,7 +30,6 @@ public class TelefonoEscacharrado {
 
         if (numNinos > 5 && !juegoIniciado) {
             juegoIniciado = true;
-            // quitar prepararNinos() de aquí
         }
 
         tiempo++;
@@ -48,11 +47,11 @@ public class TelefonoEscacharrado {
         String mensaje = profesora.mensajeOriginal;
         for (int i = 0; i < numNinos; i++) {
             mensaje = ninosParticipando[i].escribirMensaje(mensaje);
-            tiempo++; // Cada niño tarda 1 minuto
+            tiempo++; 
         }
         mensajeFinal = mensaje;
         System.out.println("Mensaje final: " + mensajeFinal);
-        tiempo++; // El último niño escribe en la pizarra (1 minuto más)
+        tiempo++;
     }
 
     public void getResultados() {

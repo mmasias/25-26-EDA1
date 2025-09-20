@@ -10,9 +10,8 @@ public class Nino {
     }
 
     public String escribirMensaje(String mensajeAnterior) {
-        // Modifica una o dos letras aleatorias del mensaje
         char[] chars = mensajeAnterior.toCharArray();
-        int cambios = 1 + (Math.random() < 0.5 ? 0 : 1); // 1 o 2 cambios
+        int cambios = 1 + (Math.random() < 0.5 ? 0 : 1);
         for (int c = 0; c < cambios; c++) {
             if (chars.length > 0) {
                 int idx = (int) (Math.random() * chars.length);
