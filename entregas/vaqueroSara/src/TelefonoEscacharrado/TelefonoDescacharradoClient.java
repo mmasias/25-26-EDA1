@@ -1,6 +1,6 @@
-public class TelefonoEscacharradoClient {
+public class TelefonoDescacharradoClient {
     public static void main(String[] args) {
-        TelefonoEscacharrado telefono = new TelefonoEscacharrado();
+        TelefonoDescacharrado telefono = new TelefonoDescacharrado();
 
         while (telefono.tiempo < 120) {
             telefono.lleganNinos();

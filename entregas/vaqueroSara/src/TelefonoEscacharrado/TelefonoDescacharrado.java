@@ -1,4 +1,4 @@
-public class TelefonoEscacharrado {
+public class TelefonoDescacharrado {
 
     int tiempo = 0;
     int numNinos = 0;
