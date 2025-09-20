@@ -1,5 +1,3 @@
-package EDA1.TelefonoEscacharrado;
-
 public class TelefonoEscacharrado {
 
     int tiempo = 0;
@@ -9,12 +7,15 @@ public class TelefonoEscacharrado {
     Profesora profesora = new Profesora(); 
 
     public void lleganNinos() {
+        
         int llegadas;
 
         if (tiempo < 10) {
-            llegadas = (int) (Math.random() * 3); 
+            llegadas = (int) (Math.random() * 3);
+            System.out.println("Llegan " + llegadas + " niños. La profe Lydia les saluda"); 
         } else if (tiempo < 20) {
             llegadas = (Math.random() < 0.5) ? 1 : 0; 
+            System.out.println("Llegan " + llegadas + " niños. La profe Lydia les saluda");
         } else {
             llegadas = 0; 
         }
@@ -31,7 +32,6 @@ public class TelefonoEscacharrado {
             prepararNinos();
         }
 
-        tiempo++;
     }
 
     public void prepararNinos() {
@@ -42,10 +42,16 @@ public class TelefonoEscacharrado {
     }
 
     public void jugar() {
-        profesora.escribirMensaje();
+        profesora.setMensajeOriginal();
         for (int i = 0; i < numNinos; i++) {
             ninosParticipando[i].escribirMensaje();
         }
     }
+
+    public void getResultados() {
+       
+    }
+
+    tiempo++;
 
 }

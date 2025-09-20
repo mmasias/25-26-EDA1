@@ -1,6 +1,8 @@
 public class Profesora {
-    
-    public void escribirMensaje() {
 
+    String mensajeOriginal;
+    
+    public void setMensajeOriginal() {
+        this.mensajeOriginal = "Septiembre";
     }
 }
