@@ -2,12 +2,11 @@ package EDA1.TelefonoEscacharrado;
 
 public class TelefonoEscacharradoClient {
     public static void main(String[] args) {
-        Ludoteca ludoteca = new Ludoteca();
+        TelefonoEscacharrado telefonoEscacharrado = new TelefonoEscacharrado();
 
-        ludoteca.lleganNinos();
-        
-        ludoteca.iniciarJuego();
-
-        ludoteca.getResultados();
+        telefonoEscacharrado.lleganNinos();
+        telefonoEscacharrado.prepararNinos();
+        telefonoEscacharrado.iniciarJuego();
+        telefonoEscacharrado.getResultados();
     }
 }
