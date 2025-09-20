@@ -1,4 +1,3 @@
-
 public class Nino {
 
     public void hacerFila() {
@@ -11,7 +10,7 @@ public class Nino {
 
     public String escribirMensaje(String mensajeAnterior) {
         char[] chars = mensajeAnterior.toCharArray();
-        int cambios = 1 + (Math.random() < 0.5 ? 0 : 1);
+        int cambios = (int) (Math.random() * 3);
         for (int c = 0; c < cambios; c++) {
             if (chars.length > 0) {
                 int idx = (int) (Math.random() * chars.length);

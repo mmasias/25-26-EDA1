@@ -1,4 +1,3 @@
-
 public class TelefonoEscacharrado {
 
     int tiempo = 0;
@@ -44,13 +43,13 @@ public class TelefonoEscacharrado {
 
     public void jugar() {
         profesora.setMensajeOriginal();
+        System.out.println("Mensaje inicial en el pizarrín: " + profesora.mensajeOriginal);
         String mensaje = profesora.mensajeOriginal;
         for (int i = 0; i < numNinos; i++) {
             mensaje = ninosParticipando[i].escribirMensaje(mensaje);
             tiempo++; 
         }
         mensajeFinal = mensaje;
-        System.out.println("Mensaje final: " + mensajeFinal);
         tiempo++;
     }
 
