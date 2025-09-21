@@ -1,32 +1,82 @@
-# Telefono descacharrado
+# 📞 Teléfono Descacharrado
 
-Las monitoras Lydia y Aisha han organizado una ludoteca a la que asisten varios niños, entre ellos varios sobrinos de Lidia.
+Las monitoras **Lydia** y **Aisha** han organizado una ludoteca a la que asisten varios niños, entre ellos varios sobrinos de Lydia.
 
-Entre los juegos tienen una versión muy particular del popular juego del teléfono descacharrado, el cual sigue las reglas que se indican a continuación:
+Entre los juegos, tienen una versión muy particular del popular *Teléfono Descacharrado*. Las reglas son las siguientes:
 
-Para empezar, cuando abre la ludoteca, Lydia es la encargada de recibir a los niños. Conforme llegan, se los pasa a Aisha que va formando una fila, colocando a los niños que recibe al final de la misma y dándole un pizarrin a cada uno de ellos. 
+---
 
-Cuando la fila tiene más de 5 niños, Aisha empieza a jugar:
+## 1. Organización inicial
 
-- Para empezar, limpia la pizarra del salón y les pide a los niños que limpien sus pizarrines.
-- Luego de esto, escribe un texto de 10 letras en un pizarrín y se lo muestra al primer niño de la cola.
-- El primer niño, recibido el mensaje, debe escribirlo en su pizarrín y luego mostrárselo al niño que le sigue.
-- Esto se repite de niño en niño, hasta que llega el mensaje al último niño, el cual debe ir corriendo y escribir en la pizarra del salón el mensaje que ha recibido.
+* Al abrir la ludoteca, **Lydia** recibe a los niños.
+* Conforme van llegando, se los pasa a **Aisha**, quien:
 
-Los niños, dado que están muy emocionados con los juegos (es sábado, se la pasan pipa con sus tías más queridas y no viven aún con el estrés de rendir exámenes), a veces *inadvertidamente* suelen cambiar una o dos letras del mensaje al escribirlo, con lo cual el mensaje se va deformando conforme avanza la cola (a más niños en cola,  más *destrozos*).
+  * Forma una fila colocando a cada nuevo niño al final.
+  * Entrega a cada niño un **pizarrín**.
 
-El ritmo de llegada de los niños es como sigue: durante los primeros 10 minutos llegan entre cero y dos niños por minuto. Los siguientes 20 minutos puede llegar un niño cada 3 minutos (50% de probabilidad de llegada). Luego de ese tiempo ya no llegan más niños.
+---
 
-Cuando está en curso un juego pueden seguir llegando niños, pero se quedan con Lidia quien los sienta y no los pasa a cola sino hasta que termina el juego actual.
+## 2. Inicio del juego
 
-El tiempo que tarda un niño en leer el mensaje y anotarlo en su pizarra es de 1 minuto. Lo mismo al inicio (el tiempo de Sara) y al final (el tiempo que le toma al último niño el ir a la pizarra y escribirlo).
+Cuando la fila tiene **más de 5 niños**, Aisha da comienzo al juego:
 
-## Retos
+1. **Preparación**
 
-- Simule este escenario. La ludoteca está abierta dos horas y el juego es tan divertido que se pasan jugando las dos horas completas.
-  - Se sugiere resolver primero el escenario del paso del mensaje y luego la deformación del mismo.
+   * Limpia la pizarra del salón.
+   * Pide a los niños que limpien sus pizarrines.
 
-### Se debe entregar
+2. **Transmisión del mensaje**
 
-- El código fuente del programa, **obligatorio**
-- Todos los demás artefactos, **optativos**.
+   * Escribe un **texto de 10 letras** en un pizarrín y se lo muestra al **primer niño de la cola**.
+   * El primer niño lo copia en su pizarrín y se lo muestra al siguiente.
+   * El proceso se repite hasta llegar al **último niño**.
+
+3. **Finalización**
+
+   * El último niño corre a la pizarra del salón y escribe allí el mensaje recibido.
+
+---
+
+## 3. Distorsión del mensaje
+
+Los niños están tan emocionados (es sábado, están con sus tías favoritas y no piensan en exámenes 😄) que, al copiar, a veces cambian **una o dos letras**.
+
+* Resultado: el mensaje se **va deformando progresivamente**.
+* Cuantos más niños haya en la fila, **mayor será la distorsión**.
+
+---
+
+## 4. Llegada de los niños
+
+El ritmo de llegada es el siguiente:
+
+* **Primeros 10 minutos**: llegan entre **0 y 2 niños por minuto**.
+* **Siguientes 20 minutos**: puede llegar **1 niño cada 3 minutos** (con un **50% de probabilidad**).
+* **Después de 30 minutos**: ya no llegan más niños.
+
+📌 Nota: si un juego está en curso, los nuevos niños se quedan con Lydia, quien los sienta y los pasa a la fila **solo cuando termine el juego actual**.
+
+---
+
+## 5. Duración de las acciones
+
+* Cada niño tarda **1 minuto** en leer el mensaje y copiarlo.
+* También se contabiliza **1 minuto inicial** (cuando Aisha muestra el mensaje) y **1 minuto final** (cuando el último niño escribe en la pizarra del salón).
+
+---
+
+## 6. Retos de la simulación
+
+La ludoteca está abierta durante **2 horas**. El juego resulta tan divertido que los niños **juegan sin parar durante todo ese tiempo**.
+
+Los retos a resolver son:
+
+1. Simular el paso del mensaje entre los niños.
+2. Implementar la deformación progresiva del mensaje.
+
+---
+
+## 7. Entregables
+
+* **Obligatorio**: código fuente del programa.
+* **Optativo**: cualquier otro artefacto adicional.
