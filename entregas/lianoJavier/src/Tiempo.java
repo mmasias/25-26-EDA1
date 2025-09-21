@@ -1,19 +1,17 @@
-
 public class Tiempo {
 
+    private int minutosTotales = 0;
+
     public int horas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'horas'");
+        return minutosTotales / 60;
     }
 
     public void pasarMinuto() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pasarMinuto'");
+        minutosTotales++;
     }
 
     public int minutos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minutos'");
+        return minutosTotales % 60;
     }
 
 }
