@@ -9,6 +9,7 @@ public class Juego {
     private int cantidadEsperando;
     private int tiempoJuego;
     private GeneradorMensaje generador;
+    private boolean juegoEnCurso;
 
     public Juego() {
         fila = new Nino[MAX_NINOS];
@@ -17,10 +18,11 @@ public class Juego {
         cantidadEsperando = 0;
         tiempoJuego = -1;
         generador = new GeneradorMensaje();
+        juegoEnCurso = false;
     }
 
     public void recibirNino(Nino nino) {
-        if (tiempoJuego == -1) {
+        if (!juegoEnCurso) {
             fila[cantidadFila] = nino;
             cantidadFila++;
         } else {
@@ -30,28 +32,54 @@ public class Juego {
     }
 
     public void avanzarTiempo() {
-        if (tiempoJuego == -1 && cantidadFila > TAMANO_MINIMO_FILA) {
-            tiempoJuego = iniciarJuego();
+        if (!juegoEnCurso && cantidadFila > TAMANO_MINIMO_FILA) {
+            iniciarJuego();
         }
-        if (tiempoJuego > 0) {
+
+        if (juegoEnCurso) {
             tiempoJuego--;
-        } else if (tiempoJuego == 0) {
-            for (int i = 0; i < cantidadEsperando; i++) {
-                fila[cantidadFila] = esperando[i];
-                cantidadFila++;
+            if (tiempoJuego <= 0) {
+                juegoEnCurso = false;
+                // pasar los niños esperando a la fila
+                for (int i = 0; i < cantidadEsperando; i++) {
+                    fila[cantidadFila] = esperando[i];
+                    cantidadFila++;
+                }
+                cantidadEsperando = 0;
             }
-            cantidadEsperando = 0;
-            tiempoJuego = -1;
         }
     }
 
-    private int iniciarJuego() {
+    private void iniciarJuego() {
+        juegoEnCurso = true;
+        tiempoJuego = cantidadFila + DURACION_EXTRA;
+        System.out.println("Fila completa (> 5): Aisha inicia un juego");
+        System.out.println("Aisha limpia la pizarra");
+        System.out.println("Aisha pide a los niños que limpien sus pizarrines");
+        System.out.println("Juego iniciado con " + cantidadFila + " participantes");
+
         String mensaje = generador.generarMensaje();
+        System.out.println("Aisha escribe la palabra: " + mensaje);
+
         String recibido = mensaje;
-        int duracion = cantidadFila + DURACION_EXTRA;
         for (int i = 0; i < cantidadFila; i++) {
+            System.out.println("Aisha muestra palabra al niño " + i + ": " + recibido);
             recibido = fila[i].recibir(recibido);
+            if (i < cantidadFila - 1) {
+                System.out.println("Niño " + i + " muestra al siguiente");
+                System.out.println("Mensaje transmitido: " + recibido);
+            }
         }
-        return duracion;
+
+        System.out.println("Último niño va a la pizarra y escribe");
+        System.out.println("Pizarra: \"" + recibido + "\"");
+    }
+
+    public void imprimirEstado() {
+        System.out.print("Lydia:\nAisha:");
+        for (int i = 0; i < cantidadFila; i++) {
+            System.out.print(" _o_");
+        }
+        System.out.println("\n");
     }
 }

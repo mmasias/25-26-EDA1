@@ -15,4 +15,3 @@ public class GeneradorMensaje {
         return (int) (Math.random() * (maximo - minimo + 1)) + minimo;
     }
 }
-
