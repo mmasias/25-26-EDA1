@@ -9,3 +9,10 @@ public class JuegoTelefono {
         this.pizarraSalon = new Mensaje("");
     }
 }
+private void esperarUnMinuto() {
+    try {
+        Thread.sleep(200);
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+    }
+}
