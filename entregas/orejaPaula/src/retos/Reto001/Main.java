@@ -42,3 +42,4 @@ if (fila.tamano() > 5 && tiempo % 15 == 0) {
     System.out.println("Mensaje original: " + mensaje.obtenerTexto());
     juego.jugar(mensaje, esperaLidia);
 }
+System.out.println("\nLa ludoteca cerró. Fin de la simulación.");
