@@ -41,7 +41,6 @@ public class Main {
 
             tiempo++;
         }
-
-        System.out.println("\nLa ludoteca cerró. Fin de la simulación.");
     }
 }
+
