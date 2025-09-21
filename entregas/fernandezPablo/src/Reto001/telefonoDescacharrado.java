@@ -1,4 +1,3 @@
-// TelefonoDescacharrado.java
 public class telefonoDescacharrado {
     private colaNiños colaNiños;
     private int minimoNiños;
