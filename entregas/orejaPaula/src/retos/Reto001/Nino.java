@@ -10,3 +10,6 @@ public class Nino {
 public String getNombre() {
     return nombre;
 }
+public void limpiarPizarrin() {
+    pizarrin = "";
+}
