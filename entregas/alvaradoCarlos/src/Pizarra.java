@@ -1,13 +1,20 @@
 public class Pizarra {
 
+    private String contenido;
+
+    public Pizarra() {
+        this.contenido = "";
+    }
+
     public void limpiar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'limpiar'");
+        contenido = "";
     }
 
     public void escribir(String mensaje) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'escribir'");
+        contenido = mensaje;
     }
-    
+
+    public String contenido() {
+        return contenido;
+    }
 }
