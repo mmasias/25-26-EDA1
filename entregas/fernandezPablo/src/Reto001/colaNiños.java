@@ -1,10 +1,10 @@
-public class ColaNiños {
+public class colaNiños {
     private Niño[] cola;
     private int inicioCola;
     private int finalCola;
     private int cantidadCola;
 
-    public ColaNiños() {
+    public colaNiños() {
         cola = new Niño[100];
         inicioCola = 0;
         finalCola = 0;
