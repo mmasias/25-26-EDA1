@@ -12,7 +12,7 @@ public class Tiempo {
 
     public static String deformar(String mensaje, Random random) {
         char[] chars = mensaje.toCharArray();
-        int cambios = random.nextInt(3); 
+        int cambios = random.nextInt(3); // 0, 1 o 2 cambios
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         for (int i = 0; i < cambios; i++) {

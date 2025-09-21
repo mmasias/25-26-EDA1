@@ -17,7 +17,6 @@ public class Ludoteca {
         int partida = 1;
 
         while (tiempo < tiempoTotal) {
-    
             if (tiempo < 10) {
                 int nuevos = random.nextInt(3);
                 for (int i = 0; i < nuevos; i++) {
@@ -29,12 +28,11 @@ public class Ludoteca {
                 }
             }
 
-     
             if (!aisha.estaJugando() && lydia.tieneNinos()) {
                 aisha.recibirNinos(lydia.pasarNinos());
             }
 
-   
+            
             if (aisha.puedeJugar()) {
                 System.out.println("---- Partida " + partida + " ----");
 
