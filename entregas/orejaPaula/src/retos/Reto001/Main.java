@@ -36,3 +36,9 @@ else if (tiempo < 30) {
         }
     }
 }
+if (fila.tamano() > 5 && tiempo % 15 == 0) {
+    Mensaje mensaje = Utils.generarMensajeAleatorio(10);
+    System.out.println("\n--- Nuevo Juego ---");
+    System.out.println("Mensaje original: " + mensaje.obtenerTexto());
+    juego.jugar(mensaje, esperaLidia);
+}
