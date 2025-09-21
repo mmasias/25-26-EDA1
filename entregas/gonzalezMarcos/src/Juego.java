@@ -26,14 +26,14 @@ public class Juego {
             if (tiempo < INTERVALO_RAPIDO) {
                 int llegadas = (int) (Math.random() * (MAX_LLEGADAS + 1));
                 for (int i = 0; i < llegadas; i++) {
-                    Niño n = new Niño("Niño" + contadorNinos++);
+                    Nino n = new Nino("Niño" + contadorNinos++);
                     cola.añadirNiño(n);
                     System.out.println("Llega el niño: " + n.getNombre());
                 }
 
             } else if (tiempo < INTERVALO_LENTO) {
                 if (Math.random() < 0.5 && tiempo % MOD_LENTO == 0) {
-                    Niño n = new Niño("Niño" + contadorNinos++);
+                    Nino n = new Nino("Niño" + contadorNinos++);
                     cola.añadirNiño(n);
                     System.out.println("Llega el niño: " + n.getNombre());
                 }
@@ -49,7 +49,7 @@ public class Juego {
                 System.out.println("Mensaje original: " + mensaje);
                 System.out.println("Mensaje final en la pizarra:");
 
-                Niño[] ninosCola = cola.obtenerNiñosCola();
+                Nino[] ninosCola = cola.obtenerNiñosCola();
                 for (int i = 0; i < ninosCola.length; i++) {
                     mensaje = ninosCola[i].escribirEnPizarra(mensaje);
                     System.out.println(ninosCola[i]);
@@ -64,7 +64,7 @@ public class Juego {
 
     private void limpiarPizarras() {
         System.out.println("Limpiando pizarras...");
-        Niño[] ninosCola = cola.obtenerNiñosCola();
+        Nino[] ninosCola = cola.obtenerNiñosCola();
         for (int i = 0; i < ninosCola.length; i++) {
             ninosCola[i].limpiarPizarra();
         }
