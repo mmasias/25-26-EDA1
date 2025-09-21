@@ -3,16 +3,19 @@ import java.util.Random;
 public class Juego {
     public static void jugar(Nino[] jugadores, int cantidad, int minutoInicio) {
         String mensaje = generarMensaje();
-        String original = mensaje;
+        System.out.println("\n🎲 Nuevo juego comienza en minuto " + minutoInicio);
+        System.out.println("Mensaje original: " + mensaje);
+
         int tiempo = minutoInicio;
 
         for (int i = 0; i < cantidad; i++) {
             tiempo++;
-            mensaje = Nino.transmitir(mensaje);
+            mensaje = Nino.transmitirPaso(mensaje, jugadores[i].getNombre(), i + 1);
         }
-        tiempo++;
 
-        System.out.println("Inicio: " + original + " | Final: " + mensaje + " | Duración: " + (tiempo - minutoInicio) + " min");
+        tiempo++;
+        System.out.println("Mensaje final en la pizarra: " + mensaje);
+        System.out.println("Duración total del juego: " + (tiempo - minutoInicio) + " min\n");
     }
 
     private static String generarMensaje() {
