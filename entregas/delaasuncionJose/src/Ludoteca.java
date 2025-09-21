@@ -9,6 +9,7 @@ public class Ludoteca {
     private String pizarraSalon;
     private int tiempo;
     private boolean juegoEnCurso;
+    private int tiempoAbierto;
 
     public Ludoteca() {
         this.lydia = new Monitor("Lydia");
@@ -18,10 +19,11 @@ public class Ludoteca {
         this.pizarraSalon = "";
         this.tiempo = 0;
         this.juegoEnCurso = false;
+        this.tiempoAbierto = 120
     }
 
     public void simular() {
-        while (tiempo < 30) {
+        while (tiempo < tiempoAbierto) {
             llegadaNinos();
 
             if (!juegoEnCurso && fila.tamano() > 5) {
