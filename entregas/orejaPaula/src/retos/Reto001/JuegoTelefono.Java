@@ -29,3 +29,7 @@ for (Nino nino : fila.obtenerCola()) {
 esperarUnMinuto();
 pizarraSalon.setTexto(mensaje);
 System.out.println("Mensaje final en la pizarra: " + pizarraSalon.obtenerTexto());
+for (Nino n : esperaLidia) {
+    fila.agregarNino(n);
+}
+esperaLidia.clear();
