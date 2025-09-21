@@ -1,29 +1,28 @@
-
 public class Juego {
 
+    private boolean iniciado = false;
+    private int posicion = -1;
+
     public boolean estaIniciado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'estaIniciado'");
+        return iniciado;
     }
 
     public void inicia() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inicia'");
+        iniciado = true;
+        posicion = -1;
     }
 
     public void termina() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'termina'");
+        iniciado = false;
+        posicion = -1;
     }
 
     public int getPosicion() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosicion'");
+        return posicion;
     }
 
     public void siguiente() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'siguiente'");
+        posicion++;
     }
 
 }
