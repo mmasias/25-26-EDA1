@@ -18,6 +18,7 @@ public class TelefonoEscacharrado {
     private String[] nombres;
     private Mensaje texto;
     private java.util.Random random;
+    private boolean juegoEnCurso;
 
     public TelefonoEscacharrado() {
         this.cola = new ColaNiños();
@@ -26,13 +27,13 @@ public class TelefonoEscacharrado {
         this.tiempo = 0;
         this.totalMinutos = DURACION_LUDOTECA;
         this.indiceNombreActual = 0;
+        this.juegoEnCurso = false;
 
-        // 🔹 Lista de nombres
         this.nombres = new String[]{
-            "Andres", "Beatriz", "Camilo", "Diana", "Esteban",
+            "Andrés", "Beatriz", "Camilo", "Diana", "Esteban",
             "Fernanda", "Guillermo", "Helena", "Ismael", "Julieta",
-            "Kevin", "Lorena", "Mateo", "Natalia", "Oscar",
-            "Paula", "Rafael", "Sofia", "Tomas", "Valeria"
+            "Kevin", "Lorena", "Mateo", "Natalia", "Óscar",
+            "Paula", "Rafael", "Sofía", "Tomás", "Valeria"
         };
 
         this.texto = new Mensaje();
@@ -44,22 +45,39 @@ public class TelefonoEscacharrado {
             if (tiempo < MINUTOS_LLEGADA_RAPIDA) {
                 int llegadas = random.nextInt(MAXIMO_LLEGADAS);
                 for (int i = 0; i < llegadas && indiceNombreActual < nombres.length; i++) {
-                    cola.añadirNiño(new Niño(nombres[indiceNombreActual++]));
+                    Niño nuevo = new Niño(nombres[indiceNombreActual++]);
+                    if (juegoEnCurso) {
+                        esperando[esperandoContador++] = nuevo;
+                    } else {
+                        cola.añadirNiño(nuevo);
+                    }
                 }
             } else if (tiempo < MINUTOS_LLEGADA_LENTA) {
                 if (random.nextBoolean() && indiceNombreActual < nombres.length && tiempo % MODULO_LLEGADA_LENTA == 0) {
-                    cola.añadirNiño(new Niño(nombres[indiceNombreActual++]));
+                    Niño nuevo = new Niño(nombres[indiceNombreActual++]);
+                    if (juegoEnCurso) {
+                        esperando[esperandoContador++] = nuevo;
+                    } else {
+                        cola.añadirNiño(nuevo);
+                    }
                 }
             }
+
             if (cola.tamañoCola() >= MINIMO_NIÑOS_JUEGO) {
+                juegoEnCurso = true;
                 limpiarPizarras();
                 String mensaje = generarMensaje();
                 texto.mensajeLn("Juego en minuto " + tiempo + ":");
                 texto.mensajeLn("Mensaje original: " + mensaje);
                 String mensajeFinal = pasarMensaje(cola.obtenerNiñosCola(), cola.tamañoCola(), mensaje);
                 texto.mensajeLn("Mensaje final en la pizarra: " + mensajeFinal);
-                for (int i = 0; i < esperandoContador; i++) cola.añadirNiño(esperando[i]);
+
+                for (int i = 0; i < esperandoContador; i++) {
+                    cola.añadirNiño(esperando[i]);
+                }
                 esperandoContador = 0;
+                juegoEnCurso = false;
+
                 tiempo += cola.tamañoCola() + TIEMPO_EXTRA;
             } else {
                 tiempo++;
@@ -69,9 +87,9 @@ public class TelefonoEscacharrado {
 
     private void limpiarPizarras() {
         texto.mensajeLn("Limpieza de pizarras");
-        Niño[] niños = cola.obtenerNiñosCola();
+        Niño[] ninos = cola.obtenerNiñosCola();
         for (int i = 0; i < cola.tamañoCola(); i++) {
-            niños[i].limpiarPizarra();
+            ninos[i].limpiarPizarra();
         }
     }
 
