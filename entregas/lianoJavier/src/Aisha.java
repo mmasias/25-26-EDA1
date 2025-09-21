@@ -3,7 +3,7 @@ import java.util.Random;
 public class Aisha {
 
     private Fila fila = new Fila();
-    private String palabraInicial;
+    private char[] palabraInicial = new char[10];
     private Random random = new Random();
 
     public Fila getFila() {
@@ -26,22 +26,20 @@ public class Aisha {
         }
     }
 
-    public void muestraPizarrin(Object posicion) {
-        if (posicion instanceof Ninho) {
-            ((Ninho) posicion).recibeMensaje(palabraInicial);
-        }
+    public void muestraPizarrin(Ninho ninho) {
+        ninho.recibeMensaje(palabraInicial.clone());
     }
 
     public void escribePalabra() {
         palabraInicial = generarPalabra();
     }
 
-    private String generarPalabra() {
+    private char[] generarPalabra() {
         char[] palabra = new char[10];
         for (int i = 0; i < 10; i++) {
             palabra[i] = (char) ('a' + random.nextInt(26));
         }
-        return new String(palabra);
+        return palabra;
     }
 
     public Ninho[] sientaNinhos() {
