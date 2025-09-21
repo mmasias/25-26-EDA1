@@ -63,6 +63,8 @@ public class Monitora {
 
         cantidadActual -= tamaño;
 
+        System.out.println("Se entregó un grupo de " + grupo.length + " niños a Aisha");
+
         return grupo;
     }
 
@@ -71,7 +73,7 @@ public class Monitora {
 
         for (int i = 0; i < cantidad; i++) {
             niños[i].recibirPizarrin(pizarrines[i]);
-            System.out.println("Niño " + i + " recibio un pizarrín de " + nombre());
+            System.out.println("Niño " + i + " recibio un pizarrín de " + nombre);
         }
     }
 
@@ -89,21 +91,14 @@ public class Monitora {
         }
     }
 
-    public String escribeMensaje(Pizarra pizarra) {
-        String[] mensajes = {
-                "¡Hola niños!",
-                "Vamos a jugar juntos",
-                "Atentos al mensaje",
-                "Escribe con cuidado",
-                "Diviértanse mucho"
-        };
-
-        String mensaje = mensajes[random.nextInt(mensajes.length)];
+    public Mensaje escribeMensaje(Pizarra pizarra) {
+        String[] mensajes = { "¡Hola niños!", "Vamos a jugar", "Atentos al mensaje" };
+        String mensaje = mensajes[new Random().nextInt(mensajes.length)];
 
         pizarra.escribir(mensaje);
         System.out.println(nombre() + " escribió en la pizarra: " + mensaje);
 
-        return mensaje;
+        return new Mensaje(mensaje, 1);
     }
 
     public void terminaJuegoActual() {
@@ -116,5 +111,18 @@ public class Monitora {
         cantidadActual = 0;
         System.out.println(nombre() + " terminó el juego y liberó a todos los niños");
     }
+
+    public void recibeNiñosParaJugar(Niño[] grupo) {
+    for (int i = 0; i < grupo.length; i++) {
+        if (cantidadActual < niños.length) {
+            niños[cantidadActual] = grupo[i];
+            cantidadActual++;
+            System.out.println(nombre + " recibió al niño " + i + " de golpe");
+        } else {
+            System.out.println(nombre + " no tiene espacio para el niño " + i);
+        }
+    }
+}
+
 
 }
