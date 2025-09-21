@@ -80,3 +80,9 @@ Los retos a resolver son:
 
 * **Obligatorio**: código fuente del programa.
 * **Optativo**: cualquier otro artefacto adicional.
+
+## 8. Documentación Adicional
+
+* **[Desarrollo del Proyecto](desarrollo_proyecto.md)**: Documento que explica el proceso de construcción del proyecto.
+* **[Diagrama de Clases](../documentosUML/diagrama_clases.md)**: Diagrama UML de clases que muestra la estructura estática del proyecto.
+* **[Diagrama de Workflow](../documentosUML/diagrama_workflow.md)**: Diagrama de secuencia que ilustra el flujo dinámico de la simulación.
