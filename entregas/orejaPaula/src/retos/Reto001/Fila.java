@@ -14,4 +14,7 @@ public void agregarNino(Nino nino) {
 public List<Nino> obtenerCola() {
     return cola;
 }
+public int tamano() {
+    return cola.size();
+}
 
