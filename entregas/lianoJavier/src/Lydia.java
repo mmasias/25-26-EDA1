@@ -8,16 +8,17 @@ public class Lydia {
     public void recibeNiño(Tiempo tiempo) {
         int totalMin = tiempo.horas() * 60 + tiempo.minutos();
         if (totalMin < 10) {
-            int num = random.nextInt(3); // 0-2 niños
+            int[] limite = {0,2};
+            int num = random.nextInt((limite[1]-limite[2])+1);
             for (int i = 0; i < num; i++) {
                 esperando.enqueue(new Ninho());
             }
         } else if (totalMin < 30) {
-            if (random.nextDouble() < 0.5) { // 50% probabilidad
+            double probabilidad = 0.5;
+            if (random.nextDouble() < probabilidad) {
                 esperando.enqueue(new Ninho());
             }
         }
-        // Después de 30 min, no llegan más
     }
 
     public boolean tieneEsperando() {
