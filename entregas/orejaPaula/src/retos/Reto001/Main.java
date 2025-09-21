@@ -17,3 +17,13 @@ int contadorNinos = 1;
 while (tiempo < tiempoTotal) {
     tiempo++;
 }
+if (tiempo < 10) {
+    int nuevos = random.nextInt(3);
+    for (int i = 0; i < nuevos; i++) {
+        if (fila.tamano() > 5) {
+            esperaLidia.add(new Nino("Niño" + contadorNinos++));
+        } else {
+            fila.agregarNino(new Nino("Niño" + contadorNinos++));
+        }
+    }
+}
