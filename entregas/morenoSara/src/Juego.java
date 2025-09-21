@@ -3,7 +3,7 @@ import java.util.Random;
 public class Juego {
     public static void jugar(Nino[] jugadores, int cantidad, int minutoInicio) {
         String mensaje = generarMensaje();
-        System.out.println("\n🎲 Nuevo juego comienza en minuto " + minutoInicio);
+        System.out.println("\nNuevo juego comienza en minuto " + minutoInicio);
         System.out.println("Mensaje original: " + mensaje);
 
         int tiempo = minutoInicio;
