@@ -1,5 +1,5 @@
 @startuml
-' Diagrama de clases de Teléfono Descacharrado
+' Diagrama de clases de Teléfono Descacharrado (versión con ArrayList)
 
 class Mensaje {
     - contenido : String
@@ -22,25 +22,12 @@ class Niño {
     - eliminarPalabra(mensaje : String) : String
 }
 
-class ColaNiños {
-    - cola : Niño[100]
-    - inicioCola : int
-    - finalCola : int
-    - cantidadCola : int
-    + ColaNiños()
-    + añadirNiño(niño : Niño)
-    + obtenerNiñosCola() : Niño[]
-    + tamañoCola() : int
-    + limpiarCola()
-}
-
 class TelefonoDescacharrado {
-    - colaNiños : ColaNiños
-    - minNiños : int
-    - ronda : int
-    + TelefonoDescacharrado(minNiños : int)
+    - niños : ArrayList<Niño>
+    - capacidad : int
+    + TelefonoDescacharrado(capacidad : int)
     + agregarNiño(niño : Niño)
-    + jugarUnaRonda()
+    + jugarVariasRondas(numRondas : int)
 }
 
 class Launcher {
@@ -48,9 +35,8 @@ class Launcher {
 }
 
 ' Relaciones
-TelefonoDescacharrado --> ColaNiños : usa
-TelefonoDescacharrado --> Niño : usa (a través de ColaNiños)
+TelefonoDescacharrado --> Niño : contiene
 TelefonoDescacharrado --> Mensaje : usa
-ColaNiños --> Niño : contiene
-
+Launcher --> TelefonoDescacharrado : crea
 @enduml
+
