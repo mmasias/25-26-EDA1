@@ -8,4 +8,7 @@ public class Fila {
         cola = new ArrayList<>();
     }
 }
+public void agregarNino(Nino nino) {
+    cola.add(nino);
+}
 
