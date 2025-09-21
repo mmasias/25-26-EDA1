@@ -2,26 +2,25 @@ import java.util.Random;
 
 public class Ludoteca {
     private static final int DURACION = 120;
-    private static final int MAX_NINOS = 100;
-    
-    private Nino[] cola = new Nino[MAX_NINOS];
-    private int topeCola = 0;
+    private static final int MAX_NINOS = 50;
 
-    private Nino[] salaEspera = new Nino[MAX_NINOS];
-    private int topeEspera = 0;
+    private static Nino[] cola = new Nino[MAX_NINOS];
+    private static int topeCola = 0;
 
-    private int contadorNinos = 1;
-    private Random random = new Random();
+    private static Nino[] salaEspera = new Nino[MAX_NINOS];
+    private static int topeEspera = 0;
 
-    public void iniciar() {
+    private static int contadorNinos = 1;
+    private static Random random = new Random();
+
+    public static void iniciar() {
         for (int minuto = 0; minuto < DURACION; minuto++) {
             llegadaDeNinos(minuto);
 
             if (topeCola > 5) {
-                Juego juego = new Juego(cola, topeCola);
-                juego.iniciar(minuto);
+                Juego.jugar(cola, topeCola, minuto);
 
-                // Mover niños de la sala de espera a la cola
+                // Pasar niños de la sala de espera a la cola
                 for (int i = 0; i < topeEspera; i++) {
                     cola[topeCola++] = salaEspera[i];
                 }
@@ -30,10 +29,11 @@ public class Ludoteca {
         }
     }
 
-    private void llegadaDeNinos(int minuto) {
+    private static void llegadaDeNinos(int minuto) {
         int llegadas = 0;
+
         if (minuto < 10) {
-            llegadas = random.nextInt(3);
+            llegadas = random.nextInt(3); // 0-2 niños
         } else if (minuto < 30) {
             if (minuto % 3 == 0 && random.nextBoolean()) {
                 llegadas = 1;
@@ -41,7 +41,7 @@ public class Ludoteca {
         }
 
         for (int i = 0; i < llegadas; i++) {
-            Nino nino = new Nino("Niño" + (contadorNinos++));
+            Nino nino= new Nino("Niño" + (contadorNinos++));
             if (topeCola > 5) {
                 salaEspera[topeEspera++] = nino;
             } else {
@@ -50,3 +50,4 @@ public class Ludoteca {
         }
     }
 }
+
