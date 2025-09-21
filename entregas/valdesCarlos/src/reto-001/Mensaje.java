@@ -1,4 +1,4 @@
-package reto-001;
+
 
 class Mensaje {
     private String texto;
