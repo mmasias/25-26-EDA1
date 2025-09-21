@@ -27,3 +27,12 @@ if (tiempo < 10) {
         }
     }
 }
+else if (tiempo < 30) {
+    if (tiempo % 3 == 0 && random.nextBoolean()) {
+        if (fila.tamano() > 5) {
+            esperaLidia.add(new Nino("Niño" + contadorNinos++));
+        } else {
+            fila.agregarNino(new Nino("Niño" + contadorNinos++));
+        }
+    }
+}
