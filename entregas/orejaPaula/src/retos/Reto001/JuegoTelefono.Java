@@ -26,3 +26,6 @@ for (Nino nino : fila.obtenerCola()) {
     mensaje = nino.entregarMensaje().obtenerTexto();
     System.out.println(nino.getNombre() + " recibió y pasó: " + mensaje);
 }
+esperarUnMinuto();
+pizarraSalon.setTexto(mensaje);
+System.out.println("Mensaje final en la pizarra: " + pizarraSalon.obtenerTexto());
