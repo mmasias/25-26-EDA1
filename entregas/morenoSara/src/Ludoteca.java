@@ -18,7 +18,7 @@ public class Ludoteca {
             llegadaDeNinos(minuto);
 
             if (topeCola > 5) {
-                System.out.println("\n📌 Aisha empieza un juego con " + topeCola + " niños");
+                System.out.println("\n Aisha empieza un juego con " + topeCola + " niños");
                 Juego.jugar(cola, topeCola, minuto);
 
                 for (int i = 0; i < topeEspera; i++) {
