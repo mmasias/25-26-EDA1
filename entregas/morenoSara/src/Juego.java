@@ -2,30 +2,32 @@ import java.util.Random;
 
 public class Juego {
     public static void jugar(Nino[] jugadores, int cantidad, int minutoInicio) {
+        System.out.println("Se limpia la pizarra y los niños limpian sus pizarrines");
         String mensaje = generarMensaje();
-        System.out.println("\n Nuevo juego comienza en minuto " + minutoInicio);
-        System.out.println("Mensaje original: " + mensaje);
+        System.out.println("Mensaje escrito por Aisha: " + mensaje);
 
-        int tiempo = minutoInicio;
+        int tiempo = minutoInicio + 1; // tiempo de Aisha mostrando el mensaje
 
         for (int i = 0; i < cantidad; i++) {
             tiempo++;
             mensaje = Nino.transmitirPaso(mensaje, jugadores[i].getNombre(), i + 1);
         }
 
-        tiempo++;
-        System.out.println("Mensaje final en la pizarra: " + mensaje);
-        System.out.println("Duración total del juego: " + (tiempo - minutoInicio) + " min\n");
+        tiempo++; // tiempo para que el último niño escriba en la pizarra
+        System.out.println(" Mensaje final en la pizarra: " + mensaje);
+        System.out.println(" Duración del juego: " + (tiempo - minutoInicio) + " minutos\n");
     }
 
     private static String generarMensaje() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String mensaje = "";
+        Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            int idx = (int)(Math.random() * letras.length());
+            int idx = random.nextInt(letras.length());
             mensaje += letras.charAt(idx);
         }
         return mensaje;
     }
 }
+
 
