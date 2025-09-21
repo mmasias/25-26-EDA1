@@ -5,3 +5,6 @@ public class Mensaje {
         this.texto = texto;
     }
 }
+public String obtenerTexto() {
+    return texto;
+}
