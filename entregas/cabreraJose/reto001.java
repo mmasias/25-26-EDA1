@@ -1,159 +1,202 @@
 package entregas.cabreraJose;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class reto001 {
+  public static final int TOTAL_MINUTES = 120;
+  public static final int MESSAGE_LENGTH = 10;
+  public static final int MINIMUM_CHILDREN_TO_START = 6;
+
   public static void main(String[] args) {
-    long seed = args.length > 0 ? Long.parseLong(args[0]) : 42L;
-    int totalMinutes = 120;
-    int messageLength = 10;
-    double pOneChange = 0.3;
-    double pTwoChanges = 0.1;
-    SimulationEngine engine = new SimulationEngine(totalMinutes, messageLength, seed, pOneChange, pTwoChanges);
-    List<GameSummary> summaries = engine.run();
-    for (int i = 0; i < summaries.size(); i++) {
-      GameSummary s = summaries.get(i);
-      System.out.println(
-        "Juego " + (i + 1) +
-        " | inicio=" + s.startMinute +
-        " | participantes=" + s.participants +
-        " | duracion=" + s.duration +
-        " | original=" + s.initialMessage +
-        " | final=" + s.finalMessage
-      );
+    ArrivalProcess arrivalProcess = new ArrivalProcess();
+    MessageMutator messageMutator = new MessageMutator();
+    SimulationEngine simulationEngine = new SimulationEngine(
+      TOTAL_MINUTES,
+      MESSAGE_LENGTH,
+      MINIMUM_CHILDREN_TO_START,
+      arrivalProcess,
+      messageMutator
+    );
+    simulationEngine.run();
+  }
+}
+
+class SimulationEngine {
+  private final int totalSimulationMinutes;
+  private final int messageLength;
+  private final int minimumChildrenToStart;
+  private final ArrivalProcess arrivalProcess;
+  private final MessageMutator messageMutator;
+
+  private int currentMinute = 0;
+  private int numberOfChildrenInQueue = 0;
+  private int numberOfWaitingChildren = 0;
+
+  private boolean gameInProgress = false;
+  private int setupMinutesRemaining = 0;
+  private int messagePassesRemaining = 0;
+  private int finalWriteMinutesRemaining = 0;
+  private int participantsInCurrentGame = 0;
+
+  private char[] messageBuffer = new char[0];
+  private String initialMessage = "";
+
+  public SimulationEngine(
+    int totalSimulationMinutes,
+    int messageLength,
+    int minimumChildrenToStart,
+    ArrivalProcess arrivalProcess,
+    MessageMutator messageMutator
+  ) {
+    this.totalSimulationMinutes = totalSimulationMinutes;
+    this.messageLength = messageLength;
+    this.minimumChildrenToStart = minimumChildrenToStart;
+    this.arrivalProcess = arrivalProcess;
+    this.messageMutator = messageMutator;
+  }
+
+  public void run() {
+    while (currentMinute < totalSimulationMinutes) {
+      int arrivalsThisMinute = arrivalProcess.getArrivalsAtMinute(currentMinute);
+      if (gameInProgress) {
+        numberOfWaitingChildren += arrivalsThisMinute;
+      } else {
+        numberOfChildrenInQueue += arrivalsThisMinute;
+      }
+      if (!gameInProgress && numberOfChildrenInQueue >= minimumChildrenToStart) {
+        tryStartGame();
+      }
+      if (gameInProgress) {
+        advanceOneMinuteInGame();
+      } else {
+        currentMinute++;
+      }
     }
   }
 
-  static final class SimulationEngine {
-    final int totalSimulationMinutes;
-    final int messageLength;
-    final Random random;
-    final double probabilityOneChange;
-    final double probabilityTwoChanges;
+  private void tryStartGame() {
+    int plannedDuration = 1 + numberOfChildrenInQueue + 1;
+    if (currentMinute + plannedDuration > totalSimulationMinutes) return;
+    gameInProgress = true;
+    setupMinutesRemaining = 1;
+    messagePassesRemaining = numberOfChildrenInQueue;
+    finalWriteMinutesRemaining = 1;
+    participantsInCurrentGame = numberOfChildrenInQueue;
+    messageBuffer = createRandomMessage(messageLength);
+    initialMessage = new String(messageBuffer);
+  }
 
-    int currentMinute = 0;
-    int queueLength = 0;
-    int waitingRoomCount = 0;
-    boolean gameInProgress = false;
-
-    int setupPhaseMinutesRemaining = 0;
-    int messagePassesRemaining = 0;
-    int finalWriteMinutesRemaining = 0;
-    int participantsInCurrentGame = 0;
-
-    String initialMessage = "";
-    char[] messageBuffer = new char[0];
-
-    final List<GameSummary> gameResults = new ArrayList<>();
-
-    SimulationEngine(int totalSimulationMinutes, int messageLength, long seed, double p1, double p2) {
-      this.totalSimulationMinutes = totalSimulationMinutes;
-      this.messageLength = messageLength;
-      this.random = new Random(seed);
-      this.probabilityOneChange = p1;
-      this.probabilityTwoChanges = p2;
+  private void advanceOneMinuteInGame() {
+    if (setupMinutesRemaining > 0) {
+      setupMinutesRemaining--;
+      currentMinute++;
+      return;
     }
-
-    List<GameSummary> run() {
-      while (currentMinute < totalSimulationMinutes) {
-        int arrivals = arrivalsForMinute(currentMinute);
-        if (gameInProgress) waitingRoomCount += arrivals; else queueLength += arrivals;
-        if (!gameInProgress && queueLength > 5) startGameIfFits();
-        if (gameInProgress) tickGame(); else currentMinute++;
+    if (messagePassesRemaining > 0) {
+      messageMutator.mutateMessage(messageBuffer);
+      messagePassesRemaining--;
+      currentMinute++;
+      return;
+    }
+    if (finalWriteMinutesRemaining > 0) {
+      finalWriteMinutesRemaining--;
+      currentMinute++;
+      if (finalWriteMinutesRemaining == 0) {
+        finishGame();
       }
-      return gameResults;
-    }
-
-    int arrivalsForMinute(int minute) {
-      if (minute < 10) return random.nextInt(3);
-      if (minute < 30) return ((minute - 10) % 3 == 0) && random.nextBoolean() ? 1 : 0;
-      return 0;
-    }
-
-    void startGameIfFits() {
-      int duration = 1 + queueLength + 1;
-      if (currentMinute + duration > totalSimulationMinutes) return;
-      gameInProgress = true;
-      setupPhaseMinutesRemaining = 1;
-      messagePassesRemaining = queueLength;
-      finalWriteMinutesRemaining = 1;
-      participantsInCurrentGame = queueLength;
-      initialMessage = randomMessage(messageLength);
-      messageBuffer = initialMessage.toCharArray();
-    }
-
-    void tickGame() {
-      if (setupPhaseMinutesRemaining > 0) {
-        setupPhaseMinutesRemaining--;
-        currentMinute++;
-        return;
-      }
-      if (messagePassesRemaining > 0) {
-        mutate(messageBuffer);
-        messagePassesRemaining--;
-        currentMinute++;
-        return;
-      }
-      if (finalWriteMinutesRemaining > 0) {
-        finalWriteMinutesRemaining--;
-        currentMinute++;
-        if (finalWriteMinutesRemaining == 0) finishGame();
-      }
-    }
-
-    void finishGame() {
-      int start = currentMinute - (1 + participantsInCurrentGame + 1);
-      gameResults.add(new GameSummary(start, participantsInCurrentGame, initialMessage, new String(messageBuffer), 1 + participantsInCurrentGame + 1));
-      gameInProgress = false;
-      queueLength += waitingRoomCount;
-      waitingRoomCount = 0;
-    }
-
-    String randomMessage(int len) {
-      StringBuilder sb = new StringBuilder(len);
-      for (int i = 0; i < len; i++) sb.append((char) ('A' + random.nextInt(26)));
-      return sb.toString();
-    }
-
-    void mutate(char[] msg) {
-      double r = random.nextDouble();
-      int changes = r < probabilityOneChange ? 1 : (r < probabilityOneChange + probabilityTwoChanges ? 2 : 0);
-      if (changes == 0) return;
-      if (changes == 1) {
-        int i = random.nextInt(msg.length);
-        char c;
-        do { c = (char) ('A' + random.nextInt(26)); } while (c == msg[i]);
-        msg[i] = c;
-        return;
-      }
-      int i = random.nextInt(msg.length);
-      int j = random.nextInt(msg.length - 1);
-      if (j >= i) j++;
-      char c1, c2;
-      do { c1 = (char) ('A' + random.nextInt(26)); } while (c1 == msg[i]);
-      do { c2 = (char) ('A' + random.nextInt(26)); } while (c2 == msg[j]);
-      msg[i] = c1;
-      msg[j] = c2;
     }
   }
 
-  static final class GameSummary {
-    final int startMinute;
-    final int participants;
-    final String initialMessage;
-    final String finalMessage;
-    final int duration;
-    GameSummary(int startMinute, int participants, String initialMessage, String finalMessage, int duration) {
-      this.startMinute = startMinute;
-      this.participants = participants;
-      this.initialMessage = initialMessage;
-      this.finalMessage = finalMessage;
-      this.duration = duration;
+  private void finishGame() {
+    int gameDuration = 1 + participantsInCurrentGame + 1;
+    int startMinute = currentMinute - gameDuration;
+    GameSummary summary = new GameSummary(
+      startMinute,
+      participantsInCurrentGame,
+      initialMessage,
+      new String(messageBuffer),
+      gameDuration
+    );
+    System.out.println(
+      "Juego | inicio=" + summary.startMinute +
+      " | participantes=" + summary.participants +
+      " | duracion=" + summary.duration +
+      " | original=" + summary.initialMessage +
+      " | final=" + summary.finalMessage
+    );
+    gameInProgress = false;
+    numberOfChildrenInQueue = numberOfWaitingChildren;
+    numberOfWaitingChildren = 0;
+  }
+
+  private char[] createRandomMessage(int length) {
+    char[] buffer = new char[length];
+    for (int positionIndex = 0; positionIndex < length; positionIndex++) {
+      buffer[positionIndex] = (char) ('A' + (int) (Math.random() * 26));
     }
+    return buffer;
+  }
+}
+
+class ArrivalProcess {
+  public int getArrivalsAtMinute(int minuteIndex) {
+    if (minuteIndex < 10) {
+      return (int) (Math.random() * 3);
+    }
+    if (minuteIndex < 30) {
+      boolean isArrivalMinute = ((minuteIndex - 10) % 3) == 0;
+      boolean coinFlip = Math.random() < 0.5;
+      return isArrivalMinute && coinFlip ? 1 : 0;
+    }
+    return 0;
+  }
+}
+
+class MessageMutator {
+  private static final double PROBABILITY_NO_CHANGE = 0.5;
+  private static final double PROBABILITY_ONE_CHANGE_UPPER_BOUND = 0.85;
+
+  public void mutateMessage(char[] messageBuffer) {
+    double randomValue = Math.random();
+    int numberOfChanges = computeNumberOfChanges(randomValue);
+    if (numberOfChanges <= 0) return;
+    if (numberOfChanges == 1) {
+      int indexOne = (int) (Math.random() * messageBuffer.length);
+      messageBuffer[indexOne] = differentRandomUppercaseLetter(messageBuffer[indexOne]);
+      return;
+    }
+    int indexOne = (int) (Math.random() * messageBuffer.length);
+    int indexTwo = (int) (Math.random() * (messageBuffer.length - 1));
+    if (indexTwo >= indexOne) indexTwo++;
+    messageBuffer[indexOne] = differentRandomUppercaseLetter(messageBuffer[indexOne]);
+    messageBuffer[indexTwo] = differentRandomUppercaseLetter(messageBuffer[indexTwo]);
+  }
+
+  private int computeNumberOfChanges(double randomValue) {
+    if (randomValue < PROBABILITY_NO_CHANGE) return 0;
+    if (randomValue < PROBABILITY_ONE_CHANGE_UPPER_BOUND) return 1;
+    return 2;
+  }
+
+  private char differentRandomUppercaseLetter(char currentLetter) {
+    char candidate = currentLetter;
+    while (candidate == currentLetter) {
+      candidate = (char) ('A' + (int) (Math.random() * 26));
+    }
+    return candidate;
+  }
+}
+
+class GameSummary {
+  public final int startMinute;
+  public final int participants;
+  public final String initialMessage;
+  public final String finalMessage;
+  public final int duration;
+
+  public GameSummary(int startMinute, int participants, String initialMessage, String finalMessage, int duration) {
+    this.startMinute = startMinute;
+    this.participants = participants;
+    this.initialMessage = initialMessage;
+    this.finalMessage = finalMessage;
+    this.duration = duration;
   }
 }
