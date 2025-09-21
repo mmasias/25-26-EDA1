@@ -23,19 +23,19 @@ public class Cola {
         size++;
     }
 
-private void alargar(int numero) {
-    capacidad += numero;
-    Nino[] nuevaLista = new Nino[capacidad];
-
-    for (int i = 0; i < size; i++) {
-        int index = (frente + i) % capacidad;
-        nuevaLista[i] = elementos[index];
+    private void alargar(int numero) {
+        capacidad += numero;
+        Nino[] nuevaLista = new Nino[capacidad];
+    
+        for (int i = 0; i < size; i++) {
+            int index = (frente + i) % capacidad;
+            nuevaLista[i] = elementos[index];
+        }
+    
+        elementos = nuevaLista;
+        frente = 0;
+        fin = size - 1;
     }
-
-    elementos = nuevaLista;
-    frente = 0;
-    fin = size - 1;
-}
 
 
     public Nino desencolar() {
