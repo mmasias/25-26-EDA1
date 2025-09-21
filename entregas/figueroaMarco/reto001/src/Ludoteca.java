@@ -5,7 +5,7 @@ public class Ludoteca {
     private static final int MINIMO_NINOS_PARA_JUGAR = 5;
     private static final int TIEMPO_POR_NINO_MINUTOS = 1;
     private static final int DURACION_LUDOTECA_MINUTOS = 120;
-    private static final int MAX_NINOS = 100;
+    private static final int MAX_NINOS = 6;
     private static final int MAX_JUEGOS = 50;
     
     private final Nino[] colaJuego;
