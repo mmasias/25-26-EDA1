@@ -8,10 +8,11 @@ public class Juego {
 
     public Juego(int duracionEnHoras) {
         this.duracionEnHoras = duracionEnHoras;
-        this.monitora1 = new Monitora("Lydia", 0);
-        this.monitora2 = new Monitora("Aisha", 0);
+        this.monitora1 = new Monitora("Lydia", 10);
+        this.monitora2 = new Monitora("Aisha", 5);
         this.pizarra = new Pizarra();
         this.pizarrines = new Pizarra[5];
+
         for (int i = 0; i < 5; i++) {
             pizarrines[i] = new Pizarra();
         }
@@ -25,8 +26,7 @@ public class Juego {
             monitora1.recibeNiños(minuto);
 
             while (monitora1.cantidadDeNiños() >= 5) {
-                Niño[] grupo = monitora1.entregaNiños(monitora2);
-                if (grupo.length != 5) break; 
+                Niño[] grupo = monitora1.entregaNiños();
 
                 monitora2.entregaPizarrin(pizarrines, grupo);
 

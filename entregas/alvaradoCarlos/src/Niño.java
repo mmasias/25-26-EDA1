@@ -19,5 +19,15 @@ public class Niño {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'tienePizarrin'");
     }
+
+    public void recibirPizarrin(Pizarra pizarra) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'recibirPizarrin'");
+    }
+
+    public void limpiarPizarrin() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'limpiarPizarrin'");
+    }
     
 }
