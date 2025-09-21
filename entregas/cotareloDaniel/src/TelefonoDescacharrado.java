@@ -59,14 +59,16 @@ public class TelefonoDescacharrado extends Juego {
             dentroPrimerTramo = minutoActual < PRIMER_TRAMO_MINUTOS;
 
             boolean dentroSegundoTramo;
-            dentroSegundoTramo = minutoActual >= PRIMER_TRAMO_MINUTOS && minutoActual < PRIMER_TRAMO_MINUTOS + SEGUNDO_TRAMO_MINUTOS;
+            dentroSegundoTramo = minutoActual >= PRIMER_TRAMO_MINUTOS
+                    && minutoActual < PRIMER_TRAMO_MINUTOS + SEGUNDO_TRAMO_MINUTOS;
 
             int llegadasEsteMinuto;
             llegadasEsteMinuto = 0;
 
             if (!juegoEnCurso) {
                 if (dentroPrimerTramo) {
-                    llegadasEsteMinuto = Utilidades.numeroEnteroAleatorio(LLEGADAS_MIN_PRIMER_TRAMO, LLEGADAS_MAX_PRIMER_TRAMO);
+                    llegadasEsteMinuto = Utilidades.numeroEnteroAleatorio(LLEGADAS_MIN_PRIMER_TRAMO,
+                            LLEGADAS_MAX_PRIMER_TRAMO);
                 } else {
                     llegadasEsteMinuto = 0;
                 }
@@ -120,7 +122,8 @@ public class TelefonoDescacharrado extends Juego {
 
                     juegoEnCurso = true;
                     posicionPasoActual = 0;
-                    duracionJuegoRestante = DURACION_LECTURA_INICIAL + cantidadNinosParaRonda * DURACION_PASO_POR_NINO + DURACION_ESCRITURA_FINAL;
+                    duracionJuegoRestante = DURACION_LECTURA_INICIAL + cantidadNinosParaRonda * DURACION_PASO_POR_NINO
+                            + DURACION_ESCRITURA_FINAL;
 
                     System.out.println("Juego iniciado en el minuto " + minutoActual);
                     System.out.println("Mensaje original: " + mensajeInicial);
@@ -130,7 +133,8 @@ public class TelefonoDescacharrado extends Juego {
                 esLecturaInicial = posicionPasoActual == 0;
 
                 boolean esEscrituraFinal;
-                esEscrituraFinal = posicionPasoActual == DURACION_LECTURA_INICIAL + colaAisha.tamano() * DURACION_PASO_POR_NINO;
+                esEscrituraFinal = posicionPasoActual == DURACION_LECTURA_INICIAL
+                        + colaAisha.tamano() * DURACION_PASO_POR_NINO;
 
                 boolean esPasoDeNino;
                 esPasoDeNino = !esLecturaInicial && !esEscrituraFinal && duracionJuegoRestante > 0;
@@ -155,7 +159,8 @@ public class TelefonoDescacharrado extends Juego {
                         int indiceColumna;
                         indiceColumna = 0;
                         while (indiceColumna < LONGITUD_MENSAJE) {
-                            historialMensajes[indiceNinoQueRecibe + 1][indiceColumna] = mensajeEscritoPorNino.charAt(indiceColumna);
+                            historialMensajes[indiceNinoQueRecibe + 1][indiceColumna] = mensajeEscritoPorNino
+                                    .charAt(indiceColumna);
                             indiceColumna = indiceColumna + 1;
                         }
 
@@ -215,17 +220,21 @@ public class TelefonoDescacharrado extends Juego {
                 esMinutoLlegadasDuranteJuegoPrimerTramo = minutoActual < PRIMER_TRAMO_MINUTOS;
 
                 boolean esMinutoLlegadasDuranteJuegoSegundoTramo;
-                esMinutoLlegadasDuranteJuegoSegundoTramo = minutoActual >= PRIMER_TRAMO_MINUTOS && minutoActual < PRIMER_TRAMO_MINUTOS + SEGUNDO_TRAMO_MINUTOS && minutoActual % PERIODO_SEGUNDO_TRAMO == 0;
+                esMinutoLlegadasDuranteJuegoSegundoTramo = minutoActual >= PRIMER_TRAMO_MINUTOS
+                        && minutoActual < PRIMER_TRAMO_MINUTOS + SEGUNDO_TRAMO_MINUTOS
+                        && minutoActual % PERIODO_SEGUNDO_TRAMO == 0;
 
                 int llegadasDuranteJuego;
                 llegadasDuranteJuego = 0;
 
                 if (esMinutoLlegadasDuranteJuegoPrimerTramo) {
-                    llegadasDuranteJuego = Utilidades.numeroEnteroAleatorio(LLEGADAS_MIN_PRIMER_TRAMO, LLEGADAS_MAX_PRIMER_TRAMO);
+                    llegadasDuranteJuego = Utilidades.numeroEnteroAleatorio(LLEGADAS_MIN_PRIMER_TRAMO,
+                            LLEGADAS_MAX_PRIMER_TRAMO);
                 } else {
                     if (esMinutoLlegadasDuranteJuegoSegundoTramo) {
                         boolean ocurreLlegadaDuranteJuego;
-                        ocurreLlegadaDuranteJuego = Utilidades.ocurreConPorcentaje(PROBABILIDAD_LLEGADA_SEGUNDO_TRAMO_PORCENTAJE);
+                        ocurreLlegadaDuranteJuego = Utilidades
+                                .ocurreConPorcentaje(PROBABILIDAD_LLEGADA_SEGUNDO_TRAMO_PORCENTAJE);
                         if (ocurreLlegadaDuranteJuego) {
                             llegadasDuranteJuego = 1;
                         } else {
