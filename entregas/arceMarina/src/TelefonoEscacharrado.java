@@ -20,6 +20,9 @@ public class TelefonoEscacharrado {
     private java.util.Random random;
     private boolean juegoEnCurso;
 
+    private Profesora.Lydia lydia;
+    private Profesora.Aisha aisha;
+
     public TelefonoEscacharrado() {
         this.cola = new ColaNiños();
         this.esperando = new Niño[MAXIMOS_ESPERANDO];
@@ -38,6 +41,8 @@ public class TelefonoEscacharrado {
 
         this.texto = new Mensaje();
         this.random = new java.util.Random();
+        this.lydia = new Profesora.Lydia();
+        this.aisha = new Profesora.Aisha();
     }
 
     public void iniciarJuego() {
@@ -46,20 +51,12 @@ public class TelefonoEscacharrado {
                 int llegadas = random.nextInt(MAXIMO_LLEGADAS);
                 for (int i = 0; i < llegadas && indiceNombreActual < nombres.length; i++) {
                     Niño nuevo = new Niño(nombres[indiceNombreActual++]);
-                    if (juegoEnCurso) {
-                        esperando[esperandoContador++] = nuevo;
-                    } else {
-                        cola.añadirNiño(nuevo);
-                    }
+                    lydia.recibirNiño(nuevo, esperando, new int[]{esperandoContador}, juegoEnCurso, cola);
                 }
             } else if (tiempo < MINUTOS_LLEGADA_LENTA) {
                 if (random.nextBoolean() && indiceNombreActual < nombres.length && tiempo % MODULO_LLEGADA_LENTA == 0) {
                     Niño nuevo = new Niño(nombres[indiceNombreActual++]);
-                    if (juegoEnCurso) {
-                        esperando[esperandoContador++] = nuevo;
-                    } else {
-                        cola.añadirNiño(nuevo);
-                    }
+                    lydia.recibirNiño(nuevo, esperando, new int[]{esperandoContador}, juegoEnCurso, cola);
                 }
             }
 
@@ -77,7 +74,6 @@ public class TelefonoEscacharrado {
                 }
                 esperandoContador = 0;
                 juegoEnCurso = false;
-
                 tiempo += cola.tamañoCola() + TIEMPO_EXTRA;
             } else {
                 tiempo++;
@@ -97,7 +93,7 @@ public class TelefonoEscacharrado {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String mensaje = "";
         for (int i = 0; i < LONGITUD_MENSAJE; i++) {
-            mensaje = mensaje + letras.charAt(random.nextInt(letras.length()));
+            mensaje += letras.charAt(random.nextInt(letras.length()));
         }
         return mensaje;
     }

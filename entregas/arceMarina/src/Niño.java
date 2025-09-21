@@ -15,13 +15,12 @@ public class Niño {
 
     public String escribirEnPizarra(String mensaje, java.util.Random random) {
         pizarra = mensaje;
-
         char[] chars = pizarra.toCharArray();
-        int cambioPizarra = random.nextInt(CAMBIOS_MAXIMOS);
-        for (int i = 0; i < cambioPizarra; i++) {
-            int posicion = random.nextInt(chars.length);
+        int cambios = random.nextInt(CAMBIOS_MAXIMOS);
+        for (int i = 0; i < cambios; i++) {
+            int pos = random.nextInt(chars.length);
             char nueva = (char) ('A' + random.nextInt(NUMERO_LETRAS));
-            chars[posicion] = nueva;
+            chars[pos] = nueva;
         }
         pizarra = new String(chars);
         return pizarra;
