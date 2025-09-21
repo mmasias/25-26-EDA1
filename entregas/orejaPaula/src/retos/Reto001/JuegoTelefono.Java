@@ -16,3 +16,7 @@ private void esperarUnMinuto() {
         Thread.currentThread().interrupt();
     }
 }
+public void jugar(Mensaje mensajeInicial, List<Nino> esperaLidia) {
+    fila.limpiarPizarras();
+    String mensaje = mensajeInicial.obtenerTexto();
+}
