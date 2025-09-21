@@ -20,7 +20,6 @@ public class Ludoteca {
             if (topeCola > 5) {
                 Juego.jugar(cola, topeCola, minuto);
 
-                // Pasar niños de la sala de espera a la cola
                 for (int i = 0; i < topeEspera; i++) {
                     cola[topeCola++] = salaEspera[i];
                 }
@@ -33,7 +32,7 @@ public class Ludoteca {
         int llegadas = 0;
 
         if (minuto < 10) {
-            llegadas = random.nextInt(3); // 0-2 niños
+            llegadas = random.nextInt(3);
         } else if (minuto < 30) {
             if (minuto % 3 == 0 && random.nextBoolean()) {
                 llegadas = 1;
@@ -41,13 +40,16 @@ public class Ludoteca {
         }
 
         for (int i = 0; i < llegadas; i++) {
-            Nino nino= new Nino("Niño" + (contadorNinos++));
+            Nino n = new Nino("Niño" + (contadorNinos++));
             if (topeCola > 5) {
-                salaEspera[topeEspera++] = nino;
+                salaEspera[topeEspera++] = n;
+                System.out.println(n.getNombre() + " llegó y espera en sala.");
             } else {
-                cola[topeCola++] = nino;
+                cola[topeCola++] = n;
+                System.out.println(n.getNombre() + " llegó a la cola.");
             }
         }
     }
 }
+
 
