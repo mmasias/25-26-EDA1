@@ -9,11 +9,13 @@ public class Juego {
     private static final int CANTIDAD_MINIMA = 6;
 
     private final Cola filaEspera;
+    private final Monitoras monitoras;
     private int momentoActual;
     private final int duracionMaxima;
 
     public Juego() {
         filaEspera = new Cola();
+        monitoras = new Monitoras();
         momentoActual = 0;
         duracionMaxima = TIEMPO_LIMITE;
     }
@@ -30,16 +32,16 @@ public class Juego {
             } else if (momentoActual < PERIODO_SECUNDARIO) {
                 if (evaluarProbabilidad() && validarMomento()) {
                     Nino participante = new Nino("Niño" + contadorParticipantes++);
-                    filaEspera.insertarNino(participante);
-                    System.out.println("Llega el niño: " + participante.obtenerNombre());
+                    monitoras.lydiaRecibeNino(participante, filaEspera);
                 }
             }
 
             System.out.println("Niños en la cola: " + filaEspera.representarCola());
+            System.out.println("Estado monitoras: " + monitoras.obtenerEstadoMonitoras());
 
             int cantidadActual = filaEspera.obtenerTamano();
-            if (cantidadActual >= CANTIDAD_MINIMA) {
-                procesarRonda();
+            if (cantidadActual >= CANTIDAD_MINIMA && !monitoras.hayJuegoEnCurso()) {
+                procesarRondaConMonitoras();
                 momentoActual += cantidadActual + BONUS_TEMPORAL;
             } else {
                 momentoActual++;
@@ -55,8 +57,7 @@ public class Juego {
         int llegadas = calcularLlegadas();
         for (int i = 0; i < llegadas; i++) {
             Nino participante = new Nino("Niño" + (numeroBase + i));
-            filaEspera.insertarNino(participante);
-            System.out.println("Llega el niño: " + participante.obtenerNombre());
+            monitoras.lydiaRecibeNino(participante, filaEspera);
         }
     }
 
@@ -72,33 +73,28 @@ public class Juego {
         return momentoActual % FACTOR_MODULO == 0;
     }
 
-    private void procesarRonda() {
+    private void procesarRondaConMonitoras() {
+        monitoras.aishaIniciaJuego();
         prepararTableros();
-        String textoInicial = crearTexto();
-        System.out.println("Mensaje original: " + textoInicial);
+        String textoInicial = monitoras.aishaGeneraMensaje();
+
         System.out.println("Mensaje final en la pizarra:");
 
         Nino[] participantes = filaEspera.extraerNinos();
-        for (Nino participante : participantes) {
-            textoInicial = participante.modificarTexto(textoInicial);
-            System.out.println(participante.mostrarEstado());
+        for (int i = 0; i < participantes.length; i++) {
+            boolean esUltimo = (i == participantes.length - 1);
+            textoInicial = participantes[i].modificarTexto(textoInicial);
+            monitoras.aishaSupervisa(participantes[i], textoInicial, esUltimo);
+            System.out.println(participantes[i].mostrarEstado());
         }
+
+        monitoras.aishaTerminaJuego(filaEspera);
     }
 
     private void prepararTableros() {
-        System.out.println("Limpiando pizarras...");
         Nino[] participantes = filaEspera.extraerNinos();
         for (Nino participante : participantes) {
             participante.resetearTablero();
         }
-    }
-
-    private String crearTexto() {
-        String alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String resultado = "";
-        for (int i = 0; i < CARACTERES_TEXTO; i++) {
-            resultado += alfabeto.charAt((int) (Math.random() * alfabeto.length()));
-        }
-        return resultado;
     }
 }
