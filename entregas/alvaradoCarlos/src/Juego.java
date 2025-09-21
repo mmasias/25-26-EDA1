@@ -2,10 +2,9 @@ public class Juego {
 
     private Monitora monitora1;
     private Monitora monitora2;
-    private Niño[] niños;
-    private int duracionEnHoras;
     private Pizarra[] pizarrines;
     private Pizarra pizarra;
+    private int duracionEnHoras;
 
     public Juego(int duracionEnHoras) {
         this.duracionEnHoras = duracionEnHoras;
@@ -13,35 +12,40 @@ public class Juego {
         this.monitora2 = new Monitora("Aisha", 0);
         this.pizarra = new Pizarra();
         this.pizarrines = new Pizarra[5];
+        for (int i = 0; i < 5; i++) {
+            pizarrines[i] = new Pizarra();
+        }
     }
 
     public void iniciar() {
-
         int minutosTotales = convertirHorasAMinutos(duracionEnHoras);
 
         for (int minuto = 0; minuto < minutosTotales; minuto++) {
+
             monitora1.recibeNiños(minuto);
 
-            if (monitora1.cantidadDeNiños() >= 5) {
-                niños = monitora1.entregaNiños(monitora2);
-                if (monitora2.cantidadDeNiños() == 5) {
-                    monitora2.entregaPizarrin(pizarrines, niños);
-                    if (todosTienenPizarrin()) {
-                        monitora2.limpiaPizarra(pizarra);
-                        monitora2.pideLimpiarPizarrines(pizarrines, niños);
+            while (monitora1.cantidadDeNiños() >= 5) {
+                Niño[] grupo = monitora1.entregaNiños(monitora2);
+                if (grupo.length != 5) break; 
 
-                        String mensaje = monitora2.escribeMensaje(pizarra);
+                monitora2.entregaPizarrin(pizarrines, grupo);
 
-                        niños[0].recibeMensaje(mensaje, pizarrines[0]);
-                        for (int i = 0; i < niños.length - 1; i++) {
-                            niños[i].muestraMensaje(mensaje, niños[i + 1]);
-                            niños[i + 1].recibeMensaje(mensaje, pizarrines[i + 1]);
-                        }
+                if (todosTienenPizarrin(grupo)) {
+                    monitora2.limpiaPizarra(pizarra);
+                    monitora2.pideLimpiarPizarrines(pizarrines, grupo);
 
-                        niños[niños.length - 1].escribeEnPizarra(pizarra, mensaje);
-                        monitora2.terminaJuegoActual();
-                        System.out.println("Un juego terminó en el minuto " + minuto);
+                    String mensaje = monitora2.escribeMensaje(pizarra);
+
+                    grupo[0].recibeMensaje(mensaje, pizarrines[0]);
+                    for (int i = 0; i < grupo.length - 1; i++) {
+                        grupo[i].muestraMensaje(mensaje, grupo[i + 1]);
+                        grupo[i + 1].recibeMensaje(mensaje, pizarrines[i + 1]);
                     }
+
+                    grupo[grupo.length - 1].escribeEnPizarra(pizarra, mensaje);
+
+                    monitora2.terminaJuegoActual();
+                    System.out.println("Juego completado en el minuto " + minuto);
                 }
             }
         }
@@ -53,14 +57,10 @@ public class Juego {
         return duracionEnHoras * 60;
     }
 
-    private boolean todosTienenPizarrin() {
-        if (niños == null)
-            return false;
-        for (Niño niño : niños) {
-            if (niño == null || !niño.tienePizarrin())
-                return false;
+    private boolean todosTienenPizarrin(Niño[] grupo) {
+        for (Niño niño : grupo) {
+            if (!niño.tienePizarrin()) return false;
         }
         return true;
     }
-
 }
