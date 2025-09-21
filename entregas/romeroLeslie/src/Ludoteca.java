@@ -1,4 +1,3 @@
-package reto001;
 
 public class Ludoteca {
     private Fila mainFila = new Fila(16);
