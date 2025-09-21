@@ -20,3 +20,9 @@ public void jugar(Mensaje mensajeInicial, List<Nino> esperaLidia) {
     fila.limpiarPizarras();
     String mensaje = mensajeInicial.obtenerTexto();
 }
+for (Nino nino : fila.obtenerCola()) {
+    esperarUnMinuto();
+    nino.recibirMensaje(new Mensaje(mensaje));
+    mensaje = nino.entregarMensaje().obtenerTexto();
+    System.out.println(nino.getNombre() + " recibió y pasó: " + mensaje);
+}
