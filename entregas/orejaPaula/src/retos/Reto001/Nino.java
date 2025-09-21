@@ -22,3 +22,6 @@ public void recibirMensaje(Mensaje mensaje) {
     }
     this.pizarrin = new String(chars);
 }
+public Mensaje entregarMensaje() {
+    return new Mensaje(pizarrin);
+}
