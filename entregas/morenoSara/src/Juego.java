@@ -1,35 +1,28 @@
 import java.util.Random;
 
 public class Juego {
-    private Nino[] jugadores;
-    private int cantidadJugadores;
-    private Random random = new Random();
-
-    public Juego(Nino[] jugadores, int cantidadJugadores) {
-        this.jugadores = jugadores;
-        this.cantidadJugadores = cantidadJugadores;
-    }
-
-    public void iniciar(int minutoInicio) {
-        String mensajeOriginal = generarMensaje();
-        String mensaje = mensajeOriginal;
+    public static void jugar(Nino[] jugadores, int cantidad, int minutoInicio) {
+        String mensaje = generarMensaje();
+        String original = mensaje;
         int tiempo = minutoInicio;
 
-        for (int i = 0; i < cantidadJugadores; i++) {
+        for (int i = 0; i < cantidad; i++) {
             tiempo++;
-            mensaje = jugadores[i].transmitir(mensaje);
+            mensaje = Nino.transmitir(mensaje);
         }
         tiempo++;
 
-        System.out.println("Inicio: " + mensajeOriginal + " | Final: " + mensaje + " | Duración: " + (tiempo - minutoInicio) + " min");
+        System.out.println("Inicio: " + original + " | Final: " + mensaje + " | Duración: " + (tiempo - minutoInicio) + " min");
     }
 
-    private String generarMensaje() {
+    private static String generarMensaje() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        StringBuilder sb = new StringBuilder();
+        String mensaje = "";
         for (int i = 0; i < 10; i++) {
-            sb.append(letras.charAt(random.nextInt(letras.length())));
+            int idx = (int)(Math.random() * letras.length());
+            mensaje += letras.charAt(idx);
         }
-        return sb.toString();
+        return mensaje;
     }
 }
+
