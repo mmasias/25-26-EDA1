@@ -11,4 +11,7 @@ public class Fila {
 public void agregarNino(Nino nino) {
     cola.add(nino);
 }
+public List<Nino> obtenerCola() {
+    return cola;
+}
 
