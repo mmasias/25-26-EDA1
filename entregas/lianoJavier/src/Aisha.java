@@ -1,39 +1,51 @@
+import java.util.Random;
 
 public class Aisha {
 
+    private Fila fila = new Fila();
+    private String palabraInicial;
+    private Random random = new Random();
+
     public Fila getFila() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'fila'");
+        return fila;
     }
 
     public void pideNinho(Lydia lydia) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pideNinho'");
+        if (lydia.tieneEsperando()) {
+            fila.agregar(lydia.darNinho());
+        }
     }
 
     public void limpia(Pizarra pizarra) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'limpia'");
+        pizarra.limpiar();
     }
 
     public void pideLimpiarPizarrines() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pideLimpiarPizarrines'");
+        for (Ninho n : fila.toArray()) {
+            n.limpiarPizarrin();
+        }
     }
 
     public void muestraPizarrin(Object posicion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'muestraPizarrin'");
+        if (posicion instanceof Ninho) {
+            ((Ninho) posicion).recibeMensaje(palabraInicial);
+        }
     }
 
     public void escribePalabra() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'escribePalabra'");
+        palabraInicial = generarPalabra();
+    }
+
+    private String generarPalabra() {
+        char[] palabra = new char[10];
+        for (int i = 0; i < 10; i++) {
+            palabra[i] = (char) ('a' + random.nextInt(26));
+        }
+        return new String(palabra);
     }
 
     public Ninho[] sientaNinhos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sientaNinhos'");
+        return fila.toArray();
     }
 
 }
