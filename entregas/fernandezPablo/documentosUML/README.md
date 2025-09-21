@@ -1,1 +1,1 @@
-Código fuente de plantUML aquí
+![Diagrama de Clases](DiagramaClases.png)

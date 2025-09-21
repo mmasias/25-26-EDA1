@@ -1,0 +1,56 @@
+@startuml
+' Diagrama de clases de Teléfono Descacharrado
+
+class Mensaje {
+    - contenido : String
+    - random : Random
+    + Mensaje()
+    + Mensaje(contenido : String)
+    + getContenido() : String
+    + setContenido(contenido : String)
+    - generarMensajePalabras(cantidad : int) : String
+}
+
+class Niño {
+    - nombre : String
+    - modo : String
+    - random : Random
+    + Niño(nombre : String, modo : String)
+    + getNombre() : String
+    + transformar(mensaje : String) : String
+    - sustituirSimbolos(mensaje : String) : String
+    - eliminarPalabra(mensaje : String) : String
+}
+
+class ColaNiños {
+    - cola : Niño[100]
+    - inicioCola : int
+    - finalCola : int
+    - cantidadCola : int
+    + ColaNiños()
+    + añadirNiño(niño : Niño)
+    + obtenerNiñosCola() : Niño[]
+    + tamañoCola() : int
+    + limpiarCola()
+}
+
+class TelefonoDescacharrado {
+    - colaNiños : ColaNiños
+    - minNiños : int
+    - ronda : int
+    + TelefonoDescacharrado(minNiños : int)
+    + agregarNiño(niño : Niño)
+    + jugarUnaRonda()
+}
+
+class Launcher {
+    + main(args : String[])
+}
+
+' Relaciones
+TelefonoDescacharrado --> ColaNiños : usa
+TelefonoDescacharrado --> Niño : usa (a través de ColaNiños)
+TelefonoDescacharrado --> Mensaje : usa
+ColaNiños --> Niño : contiene
+
+@enduml
