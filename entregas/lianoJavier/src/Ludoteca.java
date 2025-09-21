@@ -18,32 +18,29 @@ public class Ludoteca {
         while (estaAbierto(tiempo)) {
             lydia.recibeNiño(tiempo);
 
-            if (!aisha.getFila().estaCompleto() || !juego.estaIniciado()) {
+            if (!aisha.getFila().estaCompleto()) {
                 aisha.pideNinho(lydia);
+            } else if (!juego.estaIniciado()) {
+                juego.inicia();
+                ninhos = aisha.sientaNinhos();
+                aisha.limpia(pizarra);
+                aisha.pideLimpiarPizarrines();
             } else {
-                if (!juego.estaIniciado()) {
-                    juego.inicia();
-                    ninhos = aisha.sientaNinhos();
-                    aisha.limpia(pizarra);
-                    aisha.pideLimpiarPizarrines();
-                }
-
-                if (ninhos != null) {
-                    if (juego.getPosicion() != (ninhos.length - 1)) {
-                        if (juego.getPosicion() == -1) {
-                            aisha.escribePalabra();
-                            aisha.muestraPizarrin(ninhos[juego.getPosicion() + 1]);
-                        } else {
-                            ninhos[juego.getPosicion()].muestraPizarrin(ninhos[juego.getPosicion() + 1]);
-                        }
-                        juego.siguiente();
-                    } else {
-                        ninhos[juego.getPosicion()].escribe(pizarra);
-                        pizarra.imprimir();
-                        juego.termina();
+                if (juego.getPosicion() == -1) {
+                    aisha.escribePalabra();
+                    aisha.muestraPizarrin(ninhos[0]);
+                    juego.siguiente();
+                } else if (juego.getPosicion() < ninhos.length - 1) {
+                    ninhos[juego.getPosicion()].muestraPizarrin(ninhos[juego.getPosicion() + 1]);
+                    juego.siguiente();
+                } else {
+                    ninhos[juego.getPosicion()].escribe(pizarra);
+                    pizarra.imprimir();
+                    juego.termina();
+                    while (lydia.tieneEsperando()) {
+                        aisha.pideNinho(lydia);
                     }
                 }
-
             }
             tiempo.pasarMinuto();
         }
