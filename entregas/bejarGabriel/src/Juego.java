@@ -1,64 +1,67 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class Juego {
-    private final Queue<Niño> colaSnapshot;
-    private final Mensaje mensajeInicial;
+
+    private final List<Niño> participantes;
     private final Random rnd;
 
-    private final double probCambios1 = 0.30;
-    private final double probCambios2 = 0.10;
+    private int duracion;
+    private int distanciaHamming;
 
-    private final List<String> mensajesPorPaso = new ArrayList<>();
-    private String mensajeEnPizarraFinal;
-    private int tiempoTotalMinutos;
-
-    public Juego(Queue<Niño> colaSnapshot, Random rnd) {
-        this.colaSnapshot = new LinkedList<>(colaSnapshot);
+    public Juego(List<Niño> participantes, Random rnd) {
+        if (participantes == null || participantes.isEmpty()) {
+            throw new IllegalArgumentException("La lista de participantes no puede estar vacía.");
+        }
+        this.participantes = participantes;
         this.rnd = rnd;
-        this.mensajeInicial = Mensaje.aleatorio(rnd);
+        this.duracion = 0;
+        this.distanciaHamming = 0;
     }
 
     public int ejecutar(boolean imprimirDetalles) {
-        mensajesPorPaso.clear();
-        String actual = mensajeInicial.getContenido();
-        mensajesPorPaso.add("Aisha (inicio) -> " + actual);
-
-        int tiempo = 1;
-
-        for (Niño n : colaSnapshot) {
-            double u = rnd.nextDouble();
-            int cambios = (u < probCambios2) ? 2 : (u < probCambios2 + probCambios1 ? 1 : 0);
-
-            String nuevo = new Mensaje(actual).deformar(rnd, cambios);
-            mensajesPorPaso.add("Niño#" + n.getId() + " copia (cambios=" + cambios + ") -> " + nuevo);
-            n.setPizarrin(nuevo);
-
-            actual = nuevo;
-            tiempo++;
-        }
-
-        tiempo++;
-        mensajeEnPizarraFinal = actual;
-        tiempoTotalMinutos = tiempo;
+        duracion = 5 + rnd.nextInt(11);
 
         if (imprimirDetalles) {
-            System.out.println("  Mensaje inicial (Aisha): " + mensajeInicial);
-            for (String paso : mensajesPorPaso) {
-                System.out.println("   > " + paso);
-            }
-            System.out.println("  Mensaje final en pizarra: " + mensajeEnPizarraFinal +
-                    " (distancia Hamming = " + mensajeInicial.hamming(mensajeEnPizarraFinal) + ")");
-            System.out.println("  Duración juego (minutos): " + tiempoTotalMinutos);
+            System.out.println("Juego iniciado con " + participantes.size() + " participantes.");
+            System.out.println("Duración estimada: " + duracion + " minutos.");
         }
-        return tiempoTotalMinutos;
+
+        for (int minuto = 1; minuto <= duracion; minuto++) {
+            if (imprimirDetalles) {
+                System.out.println("Minuto " + minuto + " del juego...");
+            }
+        }
+
+
+        distanciaHamming = calcularDistanciaHamming();
+
+        if (imprimirDetalles) {
+            System.out.println("Distancia Hamming calculada: " + distanciaHamming);
+        }
+
+        return duracion;
     }
 
-    public Mensaje getMensajeInicial() { return mensajeInicial; }
-    public String getMensajeFinalEnPizarra() { return mensajeEnPizarraFinal; }
-    public int getDistanciaHamming() { return mensajeInicial.hamming(mensajeEnPizarraFinal); }
-    public int getNumeroParticipantes() { return colaSnapshot.size(); }
+    private int calcularDistanciaHamming() {
+        int distancia = 0;
+        for (int i = 0; i < participantes.size() - 1; i++) {
+            int id1 = participantes.get(i).getId();
+            int id2 = participantes.get(i + 1).getId();
+            distancia += Integer.bitCount(id1 ^ id2);
+        }
+        return distancia;
+    }
+
+    public int getNumeroParticipantes() {
+        return participantes.size();
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public int getDistanciaHamming() {
+        return distanciaHamming;
+    }
 }

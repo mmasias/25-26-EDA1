@@ -1,57 +1,59 @@
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Mensaje {
-    private final String contenido; 
-    private static final String ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public Mensaje(String contenido) {
-        if (contenido.length() != 10)
-            throw new IllegalArgumentException("El mensaje debe tener exactamente 10 letras.");
-        this.contenido = contenido.toUpperCase();
+    private final String remitente;
+    private final String destinatario;
+    private final String contenido;
+    private final LocalDateTime fechaHora;
+
+    public Mensaje(String remitente, String destinatario, String contenido, LocalDateTime fechaHora) {
+        this.remitente = Objects.requireNonNull(remitente, "Remitente no puede ser nulo");
+        this.destinatario = Objects.requireNonNull(destinatario, "Destinatario no puede ser nulo");
+        this.contenido = Objects.requireNonNull(contenido, "Contenido no puede ser nulo");
+        this.fechaHora = Objects.requireNonNull(fechaHora, "Fecha y hora no puede ser nulo");
     }
 
-    public static Mensaje aleatorio(Random rnd) {
-        StringBuilder sb = new StringBuilder(10);
-        for (int i = 0; i < 10; i++) {
-            sb.append(ALFABETO.charAt(rnd.nextInt(ALFABETO.length())));
-        }
-        return new Mensaje(sb.toString());
+    public String getRemitente() {
+        return remitente;
     }
 
-    public String getContenido() { return contenido; }
-
-    public String deformar(Random rnd, int cambios) {
-        if (cambios <= 0) return contenido;
-        char[] arr = contenido.toCharArray();
-        int len = arr.length;
-        Set<Integer> posiciones = new HashSet<>();
-        while (posiciones.size() < Math.min(cambios, len)) {
-            posiciones.add(rnd.nextInt(len));
-        }
-        for (int pos : posiciones) {
-            char original = arr[pos];
-            char nuevo;
-            do {
-                nuevo = ALFABETO.charAt(rnd.nextInt(ALFABETO.length()));
-            } while (nuevo == original);
-            arr[pos] = nuevo;
-        }
-        return new String(arr);
+    public String getDestinatario() {
+        return destinatario;
     }
 
-    public int hamming(String otro) {
-        if (otro.length() != contenido.length())
-            throw new IllegalArgumentException("Longitudes distintas al calcular Hamming.");
-        int d = 0;
-        for (int i = 0; i < contenido.length(); i++)
-            if (contenido.charAt(i) != otro.charAt(i)) d++;
-        return d;
+    public String getContenido() {
+        return contenido;
+    }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
     }
 
     @Override
     public String toString() {
-        return contenido;
+        return "Mensaje{" +
+                "remitente='" + remitente + '\'' +
+                ", destinatario='" + destinatario + '\'' +
+                ", contenido='" + contenido + '\'' +
+                ", fechaHora=" + fechaHora +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Mensaje)) return false;
+        Mensaje mensaje = (Mensaje) o;
+        return remitente.equals(mensaje.remitente) &&
+                destinatario.equals(mensaje.destinatario) &&
+                contenido.equals(mensaje.contenido) &&
+                fechaHora.equals(mensaje.fechaHora);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(remitente, destinatario, contenido, fechaHora);
     }
 }

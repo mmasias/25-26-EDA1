@@ -1,23 +1,36 @@
 import java.util.Random;
 
 public class GeneradorLlegadas {
-    private final Random rnd;
 
-    public GeneradorLlegadas(Random rnd) {
-        this.rnd = rnd;
+    private final Random rnd;
+    private final double tasaMediaLlegadas;
+
+    public GeneradorLlegadas(long semilla, double tasaMediaLlegadas) {
+        if (tasaMediaLlegadas < 0) {
+            throw new IllegalArgumentException("La tasa media de llegadas debe ser >= 0");
+        }
+        this.rnd = new Random(semilla);
+        this.tasaMediaLlegadas = tasaMediaLlegadas;
     }
 
     public int llegadasEnMinuto(int minuto) {
-        if (minuto >= 0 && minuto <= 9) {
-            return rnd.nextInt(3);
-        } else if (minuto >= 10 && minuto <= 29) {
-            if ((minuto - 10) % 3 == 0) {
-                return rnd.nextDouble() < 0.5 ? 1 : 0;
-            } else {
-                return 0;
-            }
-        } else {
-            return 0;
+        if (minuto < 0) {
+            throw new IllegalArgumentException("El minuto no puede ser negativo");
         }
+
+        return generarPoisson(tasaMediaLlegadas);
+    }
+
+    private int generarPoisson(double lambda) {
+        double L = Math.exp(-lambda);
+        int k = 0;
+        double p = 1.0;
+
+        do {
+            k++;
+            p *= rnd.nextDouble();
+        } while (p > L);
+
+        return k - 1;
     }
 }

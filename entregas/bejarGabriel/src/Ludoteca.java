@@ -1,84 +1,95 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class Ludoteca {
+
+    private static final int MIN_PARTICIPANTES_JUEGO = 5;
+
     private final int duracionMinutos;
-    private final Random rnd;
     private final GeneradorLlegadas generador;
-    private final Queue<Niño> colaAisha = new LinkedList<>();
-    private final List<Niño> conLydia = new ArrayList<>();
-    private final Estadisticas estadisticas = new Estadisticas();
+    private final Estadisticas estadisticas;
+    private final Random rnd;
     private final boolean imprimirDetalles;
 
-    private int minutoActual = 0;
+    private final LinkedList<Niño> colaAisha = new LinkedList<>();
+    private final LinkedList<Niño> conLydia = new LinkedList<>();
 
-    public Ludoteca(int duracionMinutos, long seed, boolean imprimirDetalles) {
+    public Ludoteca(int duracionMinutos, GeneradorLlegadas generador, Estadisticas estadisticas, Random rnd, boolean imprimirDetalles) {
         this.duracionMinutos = duracionMinutos;
-        this.rnd = new Random(seed);
-        this.generador = new GeneradorLlegadas(rnd);
+        this.generador = generador;
+        this.estadisticas = estadisticas;
+        this.rnd = rnd;
         this.imprimirDetalles = imprimirDetalles;
     }
-
-    public Estadisticas getEstadisticas() { return estadisticas; }
 
     public void simular() {
         boolean juegoEnCurso = false;
         int minutosRestantesJuego = 0;
+        Juego juegoActual = null;
 
-        for (minutoActual = 0; minutoActual < duracionMinutos; minutoActual++) {
-            if (imprimirDetalles) System.out.println("\n--- Minuto " + minutoActual + " ---");
-
-            int llegadas = generador.llegadasEnMinuto(minutoActual);
-            estadisticas.registrarLlegadas(llegadas);
-
-            for (int i = 0; i < llegadas; i++) {
-                Niño n = new Niño();
-                if (juegoEnCurso) {
-                    conLydia.add(n);
-                    if (imprimirDetalles) System.out.println("Llegada: " + n + " -> con Lydia (juego en curso).");
-                } else {
-                    colaAisha.add(n);
-                    if (imprimirDetalles) System.out.println("Llegada: " + n + " -> a la cola de Aisha.");
-                }
+        for (int minutoActual = 0; minutoActual < duracionMinutos; minutoActual++) {
+            if (imprimirDetalles) {
+                System.out.println("\n--- Minuto " + minutoActual + " ---");
             }
 
-            if (!juegoEnCurso && colaAisha.size() > 5) {
-                if (imprimirDetalles) System.out.println("Aisha inicia juego con " + colaAisha.size() + " participantes.");
-                Juego juego = new Juego(colaAisha, new Random(rnd.nextLong()));
-                int duracionJuego = juego.ejecutar(imprimirDetalles);
+            procesarLlegadas(minutoActual, juegoEnCurso);
 
-                estadisticas.registrarJuego(juego.getNumeroParticipantes(), juego.getDistanciaHamming());
-
+            if (!juegoEnCurso && colaAisha.size() > MIN_PARTICIPANTES_JUEGO) {
+                juegoActual = iniciarJuego();
                 juegoEnCurso = true;
-                minutosRestantesJuego = duracionJuego;
+                minutosRestantesJuego = juegoActual.getDuracion();
+            }
 
-                while (minutosRestantesJuego > 0) {
-                    minutoActual++;
-                    minutosRestantesJuego--;
-
-                    if (minutoActual >= duracionMinutos) break;
-
-                    if (imprimirDetalles) System.out.println("\n--- Minuto " + minutoActual + " (juego en curso) ---");
-                    int lleg = generador.llegadasEnMinuto(minutoActual);
-                    estadisticas.registrarLlegadas(lleg);
-                    for (int i = 0; i < lleg; i++) {
-                        Niño n = new Niño();
-                        conLydia.add(n);
-                        if (imprimirDetalles) System.out.println("Llegada: " + n + " -> con Lydia (juego en curso).");
-                    }
+            if (juegoEnCurso) {
+                minutosRestantesJuego--;
+                if (minutosRestantesJuego == 0) {
+                    finalizarJuego(juegoActual);
+                    juegoEnCurso = false;
+                    juegoActual = null;
                 }
-
-                if (imprimirDetalles) System.out.println("Juego finalizado. Lydia pasa " + conLydia.size() + " niños a la cola.");
-                colaAisha.addAll(conLydia);
-                conLydia.clear();
-                juegoEnCurso = false;
-
-                if (minutoActual >= duracionMinutos - 1) break;
             }
         }
-        if (imprimirDetalles) System.out.println("\nSimulación finalizada.");
+
+        if (imprimirDetalles) {
+            System.out.println("\nSimulación finalizada.");
+        }
+    }
+
+    private void procesarLlegadas(int minutoActual, boolean juegoEnCurso) {
+        int llegadas = generador.llegadasEnMinuto(minutoActual);
+        estadisticas.registrarLlegadas(llegadas);
+
+        for (int i = 0; i < llegadas; i++) {
+            Niño n = new Niño();
+            if (juegoEnCurso) {
+                conLydia.add(n);
+                if (imprimirDetalles) {
+                    System.out.println("Llegada: " + n + " -> con Lydia (juego en curso).");
+                }
+            } else {
+                colaAisha.add(n);
+                if (imprimirDetalles) {
+                    System.out.println("Llegada: " + n + " -> a la cola de Aisha.");
+                }
+            }
+        }
+    }
+
+    private Juego iniciarJuego() {
+        if (imprimirDetalles) {
+            System.out.println("Aisha inicia juego con " + colaAisha.size() + " participantes.");
+        }
+        Juego juego = new Juego(colaAisha, new Random(rnd.nextLong()));
+        int duracion = juego.ejecutar(imprimirDetalles);
+        estadisticas.registrarJuego(juego.getNumeroParticipantes(), juego.getDistanciaHamming());
+        return juego;
+    }
+
+    private void finalizarJuego(Juego juego) {
+        if (imprimirDetalles) {
+            System.out.println("Juego finalizado. Lydia pasa " + conLydia.size() + " niños a la cola.");
+        }
+        colaAisha.addAll(conLydia);
+        conLydia.clear();
     }
 }
