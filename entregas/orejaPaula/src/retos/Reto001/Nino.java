@@ -7,3 +7,6 @@ public class Nino {
         this.pizarrin = "";
     }
 }
+public String getNombre() {
+    return nombre;
+}
