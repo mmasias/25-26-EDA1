@@ -1,4 +1,4 @@
-public class Llegada {
+public class GeneradorLlegadas {
     public int ninosQueLlegan(int minuto) {
         if (minuto < 10) {
             return (int)(Math.random() * 3);

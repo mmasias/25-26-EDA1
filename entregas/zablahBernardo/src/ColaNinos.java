@@ -1,10 +1,10 @@
-public class Fila {
+public class ColaNinos {
     private Nino[] datos;
     private int frente;
     private int fin;
     private int size;
 
-    public Fila(int capacidad) {
+    public ColaNinos(int capacidad) {
         datos = new Nino[capacidad];
         frente = 0;
         fin = 0;
@@ -48,7 +48,7 @@ public class Fila {
         return res;
     }
 
-    public void moverATo(Fila otra) {
+    public void moverATo(ColaNinos otra) {
         for (int i = 0; i < size; i++) {
             int indice = (frente + i);
             if (indice >= datos.length) indice = indice - datos.length;

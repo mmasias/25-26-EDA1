@@ -1,6 +1,6 @@
 public class Ludoteca {
-    private Fila mainFila = new Fila(16);
-    private Fila esperandoFila = new Fila(16);
+    private ColaNinos mainFila = new ColaNinos(16);
+    private ColaNinos esperandoFila = new ColaNinos(16);
     private int tiempoActual = 0;
     private int siguienteIdNino = 1;
     private int totalNinosLlegados = 0;
@@ -9,6 +9,7 @@ public class Ludoteca {
     private int totalLetrasCambiadas = 0;
     private int maxLetrasCambiadas = -1;
     private int minLetrasCambiadas = 9999;
+    private static final int DURACION_SIMULACION = 120;
 
     public static void main(String[] args) {
         Ludoteca ludoteca = new Ludoteca();
@@ -16,14 +17,16 @@ public class Ludoteca {
     }
 
     public void iniciar() {
-        int duracionSimulacion = 120;
         boolean juegoEnCurso = false;
         Juego juegoActual = null;
         int finJuego = -1;
 
-        Llegada llegada = new Llegada();
+        GeneradorLlegadas llegada = new GeneradorLlegadas();
 
-        while (true) {
+        boolean simulacionActiva = true;
+
+        while (simulacionActiva) {
+
             int nLlegadas = llegada.ninosQueLlegan(tiempoActual);
             for (int i = 0; i < nLlegadas; i++) {
                 Nino n = new Nino(siguienteIdNino++);
@@ -44,8 +47,10 @@ public class Ludoteca {
                 String mensajeFinal = juegoActual.jugar();
                 int letrasCambiadas = juegoActual.letrasCambiadas();
                 totalLetrasCambiadas += letrasCambiadas;
-                if (letrasCambiadas > maxLetrasCambiadas) maxLetrasCambiadas = letrasCambiadas;
-                if (letrasCambiadas < minLetrasCambiadas) minLetrasCambiadas = letrasCambiadas;
+                if (letrasCambiadas > maxLetrasCambiadas)
+                    maxLetrasCambiadas = letrasCambiadas;
+                if (letrasCambiadas < minLetrasCambiadas)
+                    minLetrasCambiadas = letrasCambiadas;
                 totalJuegos++;
 
                 System.out.println("Juego " + totalJuegos + ":");
@@ -63,12 +68,11 @@ public class Ludoteca {
                 juegoEnCurso = false;
             }
 
-            if (tiempoActual >= duracionSimulacion && !juegoEnCurso && esperandoFila.tamano() == 0) {
-                break;
+            if (tiempoActual >= DURACION_SIMULACION && !juegoEnCurso && esperandoFila.tamano() == 0) {
+                simulacionActiva = false;
             }
         }
 
-        
         System.out.println("--- Ludoteca finalizada ---");
         System.out.println("Niños llegados: " + totalNinosLlegados);
         System.out.println("Juegos realizados: " + totalJuegos);
