@@ -7,19 +7,24 @@ public class Fila {
     public Fila() {
         cola = new ArrayList<>();
     }
-}
-public void agregarNino(Nino nino) {
-    cola.add(nino);
-}
-public List<Nino> obtenerCola() {
-    return cola;
-}
-public int tamano() {
-    return cola.size();
-}
-public void limpiarPizarras() {
-    for (Nino n : cola) {
-        n.limpiarPizarrin();
+
+    public void agregarNino(Nino nino) {
+        cola.add(nino);
+    }
+
+    public List<Nino> obtenerCola() {
+        return cola;
+    }
+
+    public int tamano() {
+        return cola.size();
+    }
+
+    public void limpiarPizarras() {
+        for (Nino n : cola) {
+            n.limpiarPizarrin();
+        }
     }
 }
+
 
