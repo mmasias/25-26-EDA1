@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class Nino {
-    private static Random random = new Random();
     private String nombre;
+    private static Random random = new Random();
 
     public Nino(String nombre) {
         this.nombre = nombre;
@@ -16,12 +16,11 @@ public class Nino {
         char[] chars = mensaje.toCharArray();
 
         if (random.nextBoolean()) {
-            int pos = (int)(Math.random() * chars.length);
+            int pos = random.nextInt(chars.length);
             chars[pos] = letraAleatoria();
         }
-
         if (random.nextInt(4) == 0) {
-            int pos = (int)(Math.random() * chars.length);
+            int pos = random.nextInt(chars.length);
             chars[pos] = letraAleatoria();
         }
 
@@ -32,7 +31,7 @@ public class Nino {
 
     private static char letraAleatoria() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int idx = (int)(Math.random() * letras.length());
+        int idx = random.nextInt(letras.length());
         return letras.charAt(idx);
     }
 }
