@@ -1,12 +1,12 @@
 // TelefonoDescacharrado.java
 public class telefonoDescacharrado {
     private colaNiños colaNiños;
-    private int minNiños;
+    private int minimoNiños;
     private int ronda;
 
-    public telefonoDescacharrado(int minNiños) {
+    public telefonoDescacharrado(int minimoNiños) {
         this.colaNiños = new colaNiños();
-        this.minNiños = minNiños;
+        this.minimoNiños = minimoNiños;
         this.ronda = 1;
     }
 
@@ -15,7 +15,7 @@ public class telefonoDescacharrado {
     }
 
     public void jugarUnaRonda() {
-        if (colaNiños.tamañoCola() < minNiños) {
+        if (colaNiños.tamañoCola() < minimoNiños) {
             System.out.println("No hay suficientes niños para jugar.");
             return;
         }
