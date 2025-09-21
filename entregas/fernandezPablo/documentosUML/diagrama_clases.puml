@@ -1,0 +1,42 @@
+@startuml
+' Diagrama de clases de Teléfono Descacharrado (versión con ArrayList)
+
+class Mensaje {
+    - contenido : String
+    - random : Random
+    + Mensaje()
+    + Mensaje(contenido : String)
+    + getContenido() : String
+    + setContenido(contenido : String)
+    - generarMensajePalabras(cantidad : int) : String
+}
+
+class Niño {
+    - nombre : String
+    - modo : String
+    - random : Random
+    + Niño(nombre : String, modo : String)
+    + getNombre() : String
+    + transformar(mensaje : String) : String
+    - sustituirSimbolos(mensaje : String) : String
+    - eliminarPalabra(mensaje : String) : String
+}
+
+class TelefonoDescacharrado {
+    - niños : ArrayList<Niño>
+    - capacidad : int
+    + TelefonoDescacharrado(capacidad : int)
+    + agregarNiño(niño : Niño)
+    + jugarVariasRondas(numRondas : int)
+}
+
+class Launcher {
+    + main(args : String[])
+}
+
+' Relaciones
+TelefonoDescacharrado --> Niño : contiene
+TelefonoDescacharrado --> Mensaje : usa
+Launcher --> TelefonoDescacharrado : crea
+@enduml
+
