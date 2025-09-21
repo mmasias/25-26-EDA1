@@ -44,6 +44,16 @@ public class ColaNinho {
         return frente == null;
     }
 
+    public void imprimir() {
+        System.out.print("Aisha: ");
+        Nodo actual = frente;
+        while (actual != null) {
+            System.out.print("_o_ ");
+            actual = actual.siguiente;
+        }
+        System.out.println();
+    }
+
     private static class Nodo {
         Ninho dato;
         Nodo siguiente;

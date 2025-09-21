@@ -14,4 +14,8 @@ public class Tiempo {
         return minutosTotales % 60;
     }
 
+    public void imprimir() {
+        System.out.println(horas() + ":" + String.format("%02d", minutos()));
+    }
+
 }

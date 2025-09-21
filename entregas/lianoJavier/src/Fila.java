@@ -9,7 +9,7 @@ public class Fila {
     }
 
     public boolean estaCompleto() {
-        return size > 5;
+        return size >= 5;
     }
 
     public Ninho[] toArray() {
@@ -25,5 +25,16 @@ public class Fila {
             cola.enqueue(temp.dequeue());
         }
         return array;
+    }
+
+    public void imprimirLista() {
+        cola.imprimir();
+    }
+
+    public void vaciar() {
+        while (!cola.estaVacia()) {
+            cola.dequeue();
+        }
+        size = 0;
     }
 }

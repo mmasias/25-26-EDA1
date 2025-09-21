@@ -7,10 +7,18 @@ public class Ninho {
 
     public void recibeMensaje(char[] msg) {
         pizarrin = msg.clone();
+        System.out.println("Niño recibe mensaje: " + new String(msg));
+    }
+
+    public String getMensaje() {
+        return new String(pizarrin);
     }
 
     public void muestraPizarrin(Ninho siguiente) {
-        siguiente.recibeMensaje(distorsionar());
+        System.out.println("Niño muestra mensaje: " + getMensaje());
+        char[] dist = distorsionar();
+        System.out.println("Mensaje distorsionado: " + new String(dist));
+        siguiente.recibeMensaje(dist);
     }
 
     private char[] distorsionar() {
