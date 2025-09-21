@@ -13,3 +13,7 @@ Random random = new Random();
 int tiempo = 0;
 int tiempoTotal = 120;
 int contadorNinos = 1;
+
+while (tiempo < tiempoTotal) {
+    tiempo++;
+}
