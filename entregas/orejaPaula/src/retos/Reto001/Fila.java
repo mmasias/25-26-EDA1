@@ -17,4 +17,9 @@ public List<Nino> obtenerCola() {
 public int tamano() {
     return cola.size();
 }
+public void limpiarPizarras() {
+    for (Nino n : cola) {
+        n.limpiarPizarrin();
+    }
+}
 
