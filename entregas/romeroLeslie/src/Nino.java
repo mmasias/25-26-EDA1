@@ -7,6 +7,7 @@ public class Nino {
         this.pizarrin = "";
     }
 
+    
     public int id() {
         return id;
     }
