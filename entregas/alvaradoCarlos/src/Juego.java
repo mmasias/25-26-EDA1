@@ -42,11 +42,11 @@ public class Juego {
                     System.out.println("En el minuto " + minuto);
                     String mensaje = resultado.texto;
 
+                    String mensajeActual = mensaje;
                     for (int i = 0; i < grupo.length - 1; i++) {
-                        grupo[i].muestraMensaje(mensaje, grupo[i + 1]);
+                        mensajeActual = grupo[i].muestraMensaje(mensajeActual, grupo[i + 1]);
                     }
-
-                    grupo[grupo.length - 1].escribeEnPizarra(pizarra, mensaje);
+                    grupo[grupo.length - 1].escribeEnPizarra(pizarra, mensajeActual);
 
                     monitora2.terminaJuegoActual();
                     System.out.println("✅ Juego completado en el minuto " + minuto);

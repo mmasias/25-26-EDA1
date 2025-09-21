@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Niño {
 
     private Pizarra pizarrin;
@@ -14,15 +16,13 @@ public class Niño {
         return 1;
     }
 
-    public int muestraMensaje(String mensaje, Niño siguiente) {
+    public String muestraMensaje(String mensaje, Niño siguiente) {
+        String mensajeDeformado = deformarMensaje(mensaje);
         if (siguiente != null) {
-
-            siguiente.recibeMensaje(mensaje, siguiente.pizarrin);
-            System.out.println("El niño pasó el mensaje al siguiente niño");
-        } else {
-            System.out.println("No hay siguiente niño para pasar el mensaje");
+            siguiente.recibeMensaje(mensajeDeformado, siguiente.pizarrin); 
         }
-        return 1; 
+        System.out.println("El niño pasó el mensaje al siguiente: " + mensajeDeformado);
+        return mensajeDeformado;
     }
 
     public int escribeEnPizarra(Pizarra pizarra, String mensaje) {
@@ -46,6 +46,20 @@ public class Niño {
             pizarrin.limpiar();
             System.out.println("El niño limpió su pizarrín");
         }
+    }
+
+    private String deformarMensaje(String mensaje) {
+        Random random = new Random();
+        char[] chars = mensaje.toCharArray();
+
+        int cambios = 1 + random.nextInt(2); // 1 o 2 letras
+        for (int i = 0; i < cambios; i++) {
+            int pos = random.nextInt(chars.length); // posición aleatoria
+            char nuevaLetra = (char) ('a' + random.nextInt(26)); // letra aleatoria
+            chars[pos] = nuevaLetra;
+        }
+
+        return new String(chars);
     }
 
 }
