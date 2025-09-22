@@ -21,14 +21,9 @@ public class Juego {
     public void jugar() {
         lydia.recibirNiños(niños);
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Primer niño (" + niños.get(0).getNombre() + "), escribe 10 letras:");
-        String letras = sc.nextLine().toUpperCase();
-        if (letras.length() != 10) {
-            System.out.println("Debes escribir exactamente 10 letras.");
-            return;
-        }
-        niños.get(0).escribirLetras(letras);
+        aisha.escribirLetrasIniciales();
+
+        niños.get(0).copiarYModificar(aisha.getPizarra());
 
         for (int i = 1; i < niños.size(); i++) {
             niños.get(i).copiarYModificar(niños.get(i - 1));
@@ -36,9 +31,14 @@ public class Juego {
 
         Niño ultimo = niños.get(niños.size() - 1);
         pizarraPrincipal.setLetras(ultimo.getLetras());
-        System.out.println(ultimo.getNombre() + " escribe en la pizarra principal:");
+        System.out.println(ultimo.getNombre() + " escribe en el pizarrón grande de Aisha:");
         pizarraPrincipal.mostrar();
 
-        aisha.jugarConNiños(niños, pizarraPrincipal);
+        System.out.println("\nRecorrido de pizarras:");
+        System.out.println("Aisha: " + aisha.getPizarra().getLetras());
+        for (Niño n : niños) {
+            System.out.println(n.getNombre() + ": " + n.getLetras());
+        }
+        System.out.println("Pizarrón grande: " + pizarraPrincipal.getLetras());
     }
 }

@@ -1,12 +1,24 @@
-import java.util.List;
+import java.util.Scanner;
 
 public class Aisha {
-    public void jugarConNiños(List<Niño> niños, Pizarra pizarraPrincipal) {
-        System.out.println("Aisha observa el resultado final:");
-        pizarraPrincipal.mostrar();
-        System.out.println("Comparación de pizarras:");
-        for (Niño n : niños) {
-            System.out.println(n.getNombre() + ": " + n.getLetras());
+    private Pizarra pizarra;
+
+    public Aisha() {
+        this.pizarra = new Pizarra();
+    }
+
+    public void escribirLetrasIniciales() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Aisha, escribe 10 letras iniciales:");
+        String letras = sc.nextLine().toUpperCase();
+        if (letras.length() != 10) {
+            System.out.println("Debes escribir exactamente 10 letras.");
+            System.exit(1);
         }
+        pizarra.setLetras(letras);
+    }
+
+    public Pizarra getPizarra() {
+        return pizarra;
     }
 }
