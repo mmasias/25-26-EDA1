@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class TelefonoDescacharrado extends Juego {
     private static final int MINUTOS_APERTURA = 120;
     private static final int LONGITUD_MENSAJE = 10;
@@ -18,14 +16,12 @@ public class TelefonoDescacharrado extends Juego {
     private final Aisha aisha;
     private final ColaNinos colaAisha;
     private final ColaNinos colaLydia;
-    private final Scanner entradaConsola;
 
     public TelefonoDescacharrado() {
         this.lydia = new Lydia("Lydia");
         this.aisha = new Aisha("Aisha");
         this.colaAisha = new ColaNinos(500);
         this.colaLydia = new ColaNinos(500);
-        this.entradaConsola = new Scanner(System.in);
     }
 
     public void jugar() {

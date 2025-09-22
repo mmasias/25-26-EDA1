@@ -6,6 +6,10 @@ public class Nino extends Persona {
         this.minutoDeLlegada = minutoRecibido;
     }
 
+    public int obtenerMinutoDeLlegada() {
+        return this.minutoDeLlegada;
+    }
+
     public String escribirMensaje(String mensajeRecibido) {
         String mensajeEscrito;
         mensajeEscrito = Mensaje.deformarMensaje(mensajeRecibido);

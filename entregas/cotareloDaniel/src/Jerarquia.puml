@@ -1,5 +1,5 @@
 ```plantuml
-@startuml
+@startuml Jerarquía Ludoteca
 title Diagrama UML - Teléfono Descacharrado
 
 abstract class Persona {
