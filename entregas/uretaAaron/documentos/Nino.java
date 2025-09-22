@@ -1,4 +1,4 @@
-public class Nino  {
+ public class Nino extends Persona {
     private final int minutoDeLlegada;
 
     public Nino(String nombreRecibido, int minutoRecibido) {
