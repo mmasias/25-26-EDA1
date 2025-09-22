@@ -4,7 +4,7 @@
 - Guardar su nombre y el mensaje de su pizarrín.  
 - Limpiar su pizarrín.  
 - Recibir un mensaje y aplicarle la dinámica del teléfono.  
-- Pasar (entregar) el mensaje al siguiente.  
+- Pasar el mensaje al siguiente.  
 
 ---
 
