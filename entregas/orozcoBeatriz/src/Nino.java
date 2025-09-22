@@ -6,12 +6,12 @@ public class Nino {
         this.nombre = nombre;
     }
 
-    public void limpiarPizarra() {
+    public void limpiarPizarrin() {
         mensajeEnPizarra = "";
     }
 
-    public void escribirMensaje(String mensaje) {
-        mensajeEnPizarra = mensaje;
+    public void recibirMensaje(String mensaje, TelefonoDescacharrado dinamica) {
+        mensajeEnPizarra = dinamica.deformarMensaje(mensaje);
     }
 
     public String entregarMensaje() {
@@ -20,5 +20,9 @@ public class Nino {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public void escribirMensaje(String mensaje) {
+        mensajeEnPizarra = mensaje;
     }
 }
