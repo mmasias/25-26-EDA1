@@ -8,7 +8,7 @@ public class TelefonoDescacharradoApp {
         System.out.println("Pulsa ENTER para comenzar...");
         String ignorar = entradaUsuario.nextLine();
 
-        long semillaAleatoria = System.currentTimeMillis();
+        int semillaAleatoria = 1234; 
         Simulador simulador = new Simulador(semillaAleatoria);
         simulador.simular();
 
