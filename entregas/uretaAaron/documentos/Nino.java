@@ -1,13 +1,18 @@
-public class Nino {
-    int id;
-    int minutoLlegada;
+public class Nino  {
+    private final int minutoDeLlegada;
 
-    public Nino(int id, int minutoLlegada) {
-        this.id = id;
-        this.minutoLlegada = minutoLlegada;
+    public Nino(String nombreRecibido, int minutoRecibido) {
+        super(nombreRecibido);
+        this.minutoDeLlegada = minutoRecibido;
     }
 
-    public String toString() {
-        return "Nino#" + id;
+    public String escribirMensaje(String mensajeRecibido) {
+        String mensajeEscrito;
+        mensajeEscrito = Mensaje.deformarMensaje(mensajeRecibido);
+        return mensajeEscrito;
+    }
+
+    public void escribirEnPizarra(String mensajeRecibido) {
+        System.out.println("El ultimo nino escribe en pizarra: " + mensajeRecibido);
     }
 }
