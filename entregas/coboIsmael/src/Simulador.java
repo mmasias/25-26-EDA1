@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Simulador {
-    private final int duracionTotalMin = 120;
+    private final int DURACION_TOTAL_MIN = 120;
     private int tiempoActualMin;
     private int ninosEnCola;
     private int juegosRealizados;
@@ -25,7 +25,7 @@ public class Simulador {
         System.out.println("Cada juego dura: 1 min (inicio) + N (pase por N ninos) + 1 min (final) = N+2.");
         System.out.println("--------------------------------------------------");
 
-        while (tiempoActualMin < duracionTotalMin) {
+        while (tiempoActualMin < DURACION_TOTAL_MIN) {
             int llegadasEsteMinuto = Llegadas.llegadasEnMinuto(tiempoActualMin, azar);
             ninosEnCola = ninosEnCola + llegadasEsteMinuto;
 
@@ -36,7 +36,6 @@ public class Simulador {
                         tiempoActualMin + duracionJuego,
                         azar
                 );
-                ResultadoJuego resultado = JuegoTelefono.jugarUnaRonda(ninosEnCola, azar);
 
                 juegosRealizados = juegosRealizados + 1;
                 System.out.println();
@@ -44,9 +43,7 @@ public class Simulador {
                 System.out.println("Comenzo en el minuto: " + tiempoActualMin);
                 System.out.println("Ninos en cola (N): " + ninosEnCola);
                 System.out.println("Duracion del juego: " + duracionJuego + " min");
-                System.out.println("Mensaje original:  " + resultado.mensajeOriginal);
-                System.out.println("Mensaje final:     " + resultado.mensajeFinal);
-                System.out.println("Letras distintas entre original y final: " + resultado.diferencias);
+                JuegoTelefono.jugarUnaRonda(ninosEnCola, azar);
                 System.out.println("Llegaron " + ninosEsperandoConLydia + " ninos durante el juego (esperaron con Lydia).");
 
                 tiempoActualMin = tiempoActualMin + duracionJuego;
