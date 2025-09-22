@@ -1,0 +1,88 @@
+```plantuml
+@startuml
+title Diagrama UML - Teléfono Descacharrado
+
+abstract class Persona {
+    - nombre : String
+    + Persona(nombreRecibido : String)
+    + obtenerNombre() : String
+}
+
+abstract class Trabajadora {
+    + Trabajadora(nombreRecibido : String)
+}
+
+class Lydia {
+    - contadorNinos : int
+    + Lydia(nombreRecibido : String)
+    + recibirNino(minutoLlegada : int) : Nino
+}
+
+class Aisha {
+    + Aisha(nombreRecibido : String)
+    + limpiarPizarra() : void
+    + entregarMensajeAlPrimero() : void
+}
+
+class Nino {
+    - minutoDeLlegada : int
+    + Nino(nombreRecibido : String, minutoRecibido : int)
+    + escribirMensaje(mensajeRecibido : String) : String
+    + escribirEnPizarra(mensajeRecibido : String) : void
+}
+
+abstract class Juego {
+    + jugar() : void
+}
+
+class TelefonoDescacharrado {
+    - lydia : Lydia
+    - aisha : Aisha
+    - colaAisha : ColaNinos
+    - colaLydia : ColaNinos
+    + TelefonoDescacharrado()
+    + jugar() : void
+}
+
+class ColaNinos {
+    - datos : Nino[]
+    - indiceInicio : int
+    - indiceFin : int
+    - cantidad : int
+    + ColaNinos(capacidad : int)
+    + encolar(elemento : Nino) : void
+    + desencolar() : Nino
+    + obtener(posicionRelativa : int) : Nino
+    + tamano() : int
+}
+
+class Mensaje {
+    + generarMensajeAleatorio(longitud : int) : String
+    + deformarMensaje(mensajeOriginal : String) : String
+    + contarDiferencias(a : String, b : String) : int
+}
+
+class Utilidades {
+    + numeroEnteroAleatorio(minimo : int, maximo : int) : int
+    + ocurreConPorcentaje(porcentaje : int) : boolean
+}
+
+class Ludoteca {
+    + main(args : String[]) : void
+}
+
+Persona <|-- Trabajadora
+Trabajadora <|-- Lydia
+Trabajadora <|-- Aisha
+Persona <|-- Nino
+Juego <|-- TelefonoDescacharrado
+
+TelefonoDescacharrado --> Lydia
+TelefonoDescacharrado --> Aisha
+TelefonoDescacharrado --> ColaNinos : colaAisha
+TelefonoDescacharrado --> ColaNinos : colaLydia
+ColaNinos --> Nino
+Lydia --> Nino : crea
+Nino --> Mensaje : deforma
+
+@enduml
