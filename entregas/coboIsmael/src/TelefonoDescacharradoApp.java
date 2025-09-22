@@ -6,7 +6,7 @@ public class TelefonoDescacharradoApp {
 
         System.out.println("Simulacion: Telefono Descacharrado (2 horas)");
         System.out.println("Pulsa ENTER para comenzar...");
-        String ignorar = entradaUsuario.nextLine();
+        entradaUsuario.nextLine();
 
         int semillaAleatoria = 1234; 
         Simulador simulador = new Simulador(semillaAleatoria);
