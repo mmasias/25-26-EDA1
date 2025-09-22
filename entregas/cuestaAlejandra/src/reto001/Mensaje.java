@@ -21,7 +21,7 @@ class Mensaje {
     
     public String deformar() {
         StringBuilder deformado = new StringBuilder(this.texto);
-        int cambios = random.nextInt(3); // 0, 1 o 2 cambios
+        int cambios = random.nextInt(3); 
         for (int i = 0; i < cambios; i++) {
             int pos = random.nextInt(texto.length());
             char letraRandom = (char) ('A' + random.nextInt(26));
