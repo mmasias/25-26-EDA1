@@ -1,3 +1,6 @@
-public static void main(String[] args) {
-    Main.main(args);
+public class Launcher {
+    public static void main(String[] args) {
+        Juego juego = new Juego();
+        juego.jugar();
+    }
 }
