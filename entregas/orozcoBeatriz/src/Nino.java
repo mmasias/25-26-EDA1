@@ -6,7 +6,7 @@ public class Nino {
         this.nombre = nombre;
     }
 
-    public void limpiarPizarrin() {
+    public void limpiarPizarra() {
         mensajeEnPizarra = "";
     }
 
