@@ -1,3 +1,5 @@
+package VersionMia;
+
 public class TelefonoEscacharrado {
     private final int MAXIMOS_ESPERANDO = 100;
     private final int DURACION_LUDOTECA = 120;
@@ -75,10 +77,10 @@ public class TelefonoEscacharrado {
         return mensaje;
     }
 
-    private String pasarMensaje(Niño[] ninos, int cantidad, String mensaje) {
+    private String pasarMensaje(Niño[] niños, int cantidad, String mensaje) {
         String mensajeActual = mensaje;
         for (int i = 0; i < cantidad; i++) {
-            mensajeActual = ninos[i].escribirEnPizarra(mensajeActual, random);
+            mensajeActual = niños[i].escribirEnPizarra(mensajeActual, random);
         }
         return mensajeActual;
     }

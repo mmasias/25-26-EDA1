@@ -1,3 +1,5 @@
+package VersionMia;
+
 public class ColaNiños {
     private Niño[] cola;
     private int inicioCola;

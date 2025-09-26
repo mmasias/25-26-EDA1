@@ -1,3 +1,5 @@
+package VersionMia;
+
 public class Niño {
     private String nombre;
     private String pizarra;
