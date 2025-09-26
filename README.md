@@ -4,7 +4,7 @@ Repo de materiales y proyectos de la asignatura **Estructura de datos y algoritm
 
 ## Curso *[25][26]*
 
-- [Temario](temario/README.md)
+- [Temario](https://github.com/mmasias/EDA1/blob/main/README.md)
   - [A día de hoy, deberíamos saber...](temario/aDiaDeHoy.md)
   - [Casos de uso](temario/casosDeUso/README.md)
   - [Ejercicios](temario/ejercicios/README.md)
