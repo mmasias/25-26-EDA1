@@ -3,6 +3,13 @@ package v001;
 import utils.Console;
 
 class Mundo {
+    private static final int TIEMPO_APERTURA = 40;
+    private static final double PROBABILIDAD_LLEGADA_INICIAL = 0.3;
+    private static final double PROBABILIDAD_LLEGADA_MEDIA = 0.6;
+    private static final double PROBABILIDAD_LLEGADA_FINAL = 0.8;
+    private static final int TIEMPO_LLEGADA_INICIAL = 10;
+    private static final int TIEMPO_LLEGADA_MEDIA = 30;
+
     private Ludoteca ludoteca;
     private int tiempoTotal;
 
@@ -15,7 +22,7 @@ class Mundo {
 
         for (int minutoActual = 0; minutoActual < tiempoTotal; minutoActual++) {
             new Console().clearScreen();
-            new Console().writeln("=".repeat(30));
+            new Console().writeln("================================");
             new Console().writeln("Minuto " + minutoActual);
 
             if (llegaNiño(minutoActual)) {
@@ -31,8 +38,7 @@ class Mundo {
     }
 
     private boolean llegaNiño(int minuto) {
-
-        return Math.random() > ((minuto < 10) ? 0.3 : (minuto < 30) ? 0.6 : 0.8);
+        return Math.random() > ((minuto < TIEMPO_LLEGADA_INICIAL) ? PROBABILIDAD_LLEGADA_INICIAL : (minuto < TIEMPO_LLEGADA_MEDIA) ? PROBABILIDAD_LLEGADA_MEDIA : PROBABILIDAD_LLEGADA_FINAL);
     }
 
     private Niño generarNiño() {
@@ -53,13 +59,13 @@ class Mundo {
     }
 
     public static void main(String[] args) {
-        new Console().writeln("=".repeat(50));
+        new Console().writeln("=================================");
         new Console().writeln("TELÉFONO DESCACHARRADO v2.0 (Orientado a Objetos)");
         new Console().writeln("IMPORTANTE: Colas limitadas a 20 niños máximo");
-        new Console().writeln("=".repeat(50));
+        new Console().writeln("=================================");
 
         Ludoteca unaLudoteca = new Ludoteca();
-        Mundo elMundo = new Mundo(unaLudoteca, 40);
+        Mundo elMundo = new Mundo(unaLudoteca, TIEMPO_APERTURA);
         elMundo.iniciarSimulacion();
     }
 }

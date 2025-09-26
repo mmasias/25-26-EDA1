@@ -4,7 +4,9 @@ import utils.Console;
 
 class Monitor {
     private static final int CAPACIDAD_MAXIMA = 15;
-    
+    private static final int MINIMO_NIÑOS_PARA_JUGAR = 5;
+    private static final String MENSAJE_INICIAL = "ABCDEFGHIJKLM";
+
     private String nombre;
     private Niño[] niños;
     private int inicio;
@@ -28,7 +30,7 @@ class Monitor {
             new Console().writeln("ERROR: ¡" + nombre + " no puede recibir más niños! Cola llena.");
             return;
         }
-        
+
         niños[fin] = niño;
         fin = (fin + 1) % CAPACIDAD_MAXIMA;
         cantidad++;
@@ -39,7 +41,7 @@ class Monitor {
     }
 
     public boolean puedeJugar() {
-        return cantidad >= 5;
+        return cantidad >= MINIMO_NIÑOS_PARA_JUGAR;
     }
 
     public boolean estaJugando() {
@@ -73,7 +75,7 @@ class Monitor {
         if (cantidad == 0) {
             return null;
         }
-        
+
         Niño saliente = niños[inicio];
         niños[inicio] = null;
         inicio = (inicio + 1) % CAPACIDAD_MAXIMA;
@@ -96,11 +98,11 @@ class Monitor {
             turnoActual = 0;
             Niño primerNiño = obtenerNiño(turnoActual);
             if (primerNiño != null) {
-                primerNiño.recibirMensaje("ABCDEFGHIJKLM");
+                primerNiño.recibirMensaje(MENSAJE_INICIAL);
             }
         } else {
             Niño niñoActual = obtenerNiño(turnoActual);
-            
+
             if (turnoActual + 1 >= cantidad) {
                 estaJugando = false;
                 turnoActual = 0;
