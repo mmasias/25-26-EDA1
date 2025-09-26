@@ -1,0 +1,1 @@
+![Diagrama de clases](DiagramaClases.png)

@@ -1,0 +1,61 @@
+@startuml
+' Diagrama de clases para TelefonoEscacharrado y auxiliares
+
+class TelefonoEscacharrado {
+  - MAXIMOS_ESPERANDO : int
+  - DURACION_LUDOTECA : int
+  - MINIMO_NIÑOS_JUEGO : int
+  - LONGITUD_MENSAJE : int
+  - TIEMPO_EXTRA : int
+  - MAXIMO_LLEGADAS : int
+  - MINUTOS_LLEGADA_RAPIDA : int
+  - MINUTOS_LLEGADA_LENTA : int
+  - MODULO_LLEGADA_LENTA : int
+  - cola : ColaNiños
+  - esperando : Niño[]
+  - esperandoContador : int
+  - tiempo : int
+  - totalMinutos : int
+  - indiceNombreActual : int
+  - nombres : String[]
+  - texto : Mensaje
+  - random : Random
+  + TelefonoEscacharrado()
+  + iniciarJuego()
+}
+
+class ColaNiños {
+  - cola : Niño[]
+  - inicio : int
+  - fin : int
+  - cantidad : int
+  + ColaNiños()
+  + añadirNiño(Niño)
+  + tamañoCola() : int
+  + obtenerNiñosCola() : Niño[]
+  + limpiar()
+}
+
+class Niño {
+  - nombre : String
+  - pizarra : String
+  - NUMERO_LETRAS : int
+  - MAX_CAMBIOS : int
+  + Niño(String)
+  + limpiarPizarra()
+  + escribirEnPizarra(String, Random) : String
+  + getNombre() : String
+  + getPizarra() : String
+}
+
+class Mensaje {
+  + Mensaje()
+  + mensajeLn(String)
+  + mensaje(String)
+}
+
+TelefonoEscacharrado --> ColaNiños
+TelefonoEscacharrado --> Niño
+TelefonoEscacharrado --> Mensaje
+ColaNiños --> Niño
+@enduml
