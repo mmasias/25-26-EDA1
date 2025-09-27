@@ -5,9 +5,10 @@ public class ColaNiños {
     private int inicioCola;
     private int finalCola;
     private int cantidadCola;
+    private final int CAPACIDAD_MAXIMA = 20;
 
     public ColaNiños() {
-        cola = new Niño[100];
+        cola = new Niño[CAPACIDAD_MAXIMA];
         inicioCola = 0;
         finalCola = 0;
         cantidadCola = 0;
