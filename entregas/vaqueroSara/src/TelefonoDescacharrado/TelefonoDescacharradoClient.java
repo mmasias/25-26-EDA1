@@ -1,14 +1,15 @@
 public class TelefonoDescacharradoClient {
     public static void main(String[] args) {
         TelefonoDescacharrado telefono = new TelefonoDescacharrado();
-        while (telefono.tiempo < 120) {
+
+        while (telefono.getTiempo() < 120) {
             telefono.lleganNinos();
 
-            while (telefono.numNinos > 5 && telefono.juegoIniciado && telefono.tiempo < 120) {
+            while (telefono.getNumNinos() >= 5 && telefono.isJuegoIniciado()) {
                 telefono.prepararNinos();
                 telefono.jugar();
-                telefono.getResultados();
-                telefono.juegoIniciado = false;
+                telefono.resultados();
+                telefono.setJuegoIniciado(false);
                 telefono.pasarNinosDeLydia();
             }
         }

@@ -1,26 +1,44 @@
-public class Nino {
+import java.util.Random;
 
-    public void hacerFila() {
-        System.out.println("El niño se pone en la fila.");
+public class Nino {
+    private String nombre;
+    private Pizarra pizarrin;
+
+    public Nino(String nombre) {
+        this.nombre = nombre;
+        this.pizarrin = new Pizarra();
     }
 
     public void borrarPizarrin() {
-        System.out.println("El niño limpia su pizarrín.");
+        pizarrin.limpiar();
+        System.out.println(nombre + " limpia su pizarrín.");
     }
 
     public String escribirMensaje(String mensajeAnterior) {
         char[] chars = mensajeAnterior.toCharArray();
-        int cambios = (int) (Math.random() * 3);
+        Random rnd = new Random();
+        int cambios = rnd.nextInt(3); // 0, 1 o 2 cambios
+
         for (int c = 0; c < cambios; c++) {
             if (chars.length > 0) {
-                int idx = (int) (Math.random() * chars.length);
-                char nuevaLetra = (char) ('a' + (int) (Math.random() * 26));
+                int idx = rnd.nextInt(chars.length);
+                char nuevaLetra = (char) ('a' + rnd.nextInt(26));
                 chars[idx] = nuevaLetra;
             }
         }
+
         String mensajeModificado = new String(chars);
-        System.out.println("El niño escribe: " + mensajeModificado);
+        pizarrin.escribirMensaje(mensajeModificado);
+
+        System.out.println(nombre + " escribe: " + mensajeModificado);
         return mensajeModificado;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String leerMensaje() {
+        return pizarrin.leerMensaje();
+    }
 }

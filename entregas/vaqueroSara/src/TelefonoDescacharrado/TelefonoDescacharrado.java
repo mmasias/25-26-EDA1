@@ -1,13 +1,14 @@
+
 public class TelefonoDescacharrado {
 
-    int tiempo = 0;
-    int numNinos = 0;
-    boolean juegoIniciado = false;
-    Nino[] ninosParticipando = new Nino[100];
-    Lydia lydia = new Lydia();
-    Aisha aisha = new Aisha();
-    String mensajeFinal;
-    String mensajeOriginal;
+    private int tiempo = 0;
+    private boolean juegoIniciado = false;
+    private String mensajeOriginal;
+    private String mensajeFinal;
+
+    private Monitor lydia = new Monitor("Lydia");
+    private Monitor aisha = new Monitor("Aisha");
+    private Cola ninosParticipando = new Cola();
 
     public void lleganNinos() {
         int llegadas = 0;
@@ -19,17 +20,15 @@ public class TelefonoDescacharrado {
         }
 
         for (int i = 0; i < llegadas; i++) {
-            Nino nuevo = new Nino();
+            Nino nuevo = new Nino("Niño_" + tiempo + "_" + i);
             if (!juegoIniciado) {
-                if (numNinos < ninosParticipando.length) {
-                    ninosParticipando[numNinos++] = nuevo;
-                }
+                ninosParticipando.add(nuevo);
             } else {
                 lydia.recibirNino(nuevo);
             }
         }
 
-        if (numNinos > 5 && !juegoIniciado) {
+        if (ninosParticipando.size() >= 5 && !juegoIniciado) {
             juegoIniciado = true;
         }
 
@@ -37,35 +36,49 @@ public class TelefonoDescacharrado {
     }
 
     public void prepararNinos() {
-        aisha.limpiarPizarra();
-        for (int i = 0; i < numNinos; i++) {
-            ninosParticipando[i].hacerFila();
-            ninosParticipando[i].borrarPizarrin();
+        aisha.limpiarPizarras();
+        for (int i = 0; i < ninosParticipando.size(); i++) {
+            ninosParticipando.get(i).borrarPizarrin();
         }
-        tiempo++;
     }
 
     public void jugar() {
         mensajeOriginal = "Desarrollo";
-        System.out.println("Mensaje inicial en el pizarrín: " + mensajeOriginal);
         String mensaje = mensajeOriginal;
-        tiempo++;
+        System.out.println("Mensaje inicial: " + mensajeOriginal);
 
-        for (int i = 0; i < numNinos; i++) {
-            mensaje = ninosParticipando[i].escribirMensaje(mensaje);
-            tiempo++; 
+        for (int i = 0; i < ninosParticipando.size(); i++) {
+            mensaje = ninosParticipando.get(i).escribirMensaje(mensaje);
         }
 
         mensajeFinal = mensaje;
-        tiempo++; 
+        juegoIniciado = false;
     }
 
-    public void getResultados() {
+    public void resultados() {
         System.out.println("Mensaje original: " + mensajeOriginal);
-        System.out.println("Mensaje final en la pizarra: " + mensajeFinal);
+        System.out.println("Mensaje final: " + mensajeFinal);
     }
 
     public void pasarNinosDeLydia() {
-        numNinos = lydia.pasarNinosACola(ninosParticipando, numNinos);
+        while (lydia.tieneNinos()) {
+            ninosParticipando.add(lydia.getCola().remove());
+        }
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
+    public boolean isJuegoIniciado() {
+        return juegoIniciado;
+    }
+
+    public void setJuegoIniciado(boolean b) {
+        juegoIniciado = b;
+    }
+
+    public int getNumNinos() {
+        return ninosParticipando.size();
     }
 }
