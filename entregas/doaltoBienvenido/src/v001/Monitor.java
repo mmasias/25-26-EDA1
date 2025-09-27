@@ -26,9 +26,21 @@ class Monitor {
     }
 
     public void recibeNiño(Niño niño) {
+        agregarNiñoACola(niño, false);
+    }
+
+    public void recibeNiñoConPizarra(Niño niño) {
+        agregarNiñoACola(niño, true);
+    }
+
+    private void agregarNiñoACola(Niño niño, boolean asignarPizarra) {
         if (cantidad >= CAPACIDAD_MAXIMA) {
             new Console().writeln("ERROR: ¡" + nombre + " no puede recibir más niños! Cola llena.");
             return;
+        }
+
+        if (asignarPizarra) {
+            niño.recibirPizarrin(new Pizarra());
         }
 
         niños[fin] = niño;
@@ -58,16 +70,11 @@ class Monitor {
         new Console().writeln();
     }
 
-    private void recibeNiño(Niño niño, Pizarra pizarrin) {
-        niño.recibirPizarrin(pizarrin);
-        recibeNiño(niño);
-    }
-
     public void entregaNiños(Monitor otroMonitor) {
         while (tieneNiños()) {
             new Console().writeln(" >  " + this.nombre + " ENTREGA NIÑO");
             Niño unNiño = sacarNiño();
-            otroMonitor.recibeNiño(unNiño, new Pizarra());
+            otroMonitor.recibeNiñoConPizarra(unNiño);
         }
     }
 
