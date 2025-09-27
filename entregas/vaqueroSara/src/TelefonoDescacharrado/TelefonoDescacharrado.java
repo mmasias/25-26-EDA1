@@ -4,26 +4,28 @@ public class TelefonoDescacharrado {
     int numNinos = 0;
     boolean juegoIniciado = false;
     Nino[] ninosParticipando = new Nino[100];
-    Profesora profesora = new Profesora();
+    Lydia lydia = new Lydia();
+    Aisha aisha = new Aisha();
     String mensajeFinal;
+    String mensajeOriginal;
 
     public void lleganNinos() {
-        int llegadas;
+        int llegadas = 0;
 
         if (tiempo < 10) {
             llegadas = (int) (Math.random() * 3);
-            System.out.println("Llegan " + llegadas + " niños. La profe Lydia les saluda");
-        } else if (tiempo < 20) {
+        } else if (tiempo < 30) {
             llegadas = (Math.random() < 0.5) ? 1 : 0;
-            System.out.println("Llegan " + llegadas + " niños. La profe Lydia les saluda");
-        } else {
-            llegadas = 0;
         }
 
         for (int i = 0; i < llegadas; i++) {
-            if (numNinos < ninosParticipando.length) {
-                ninosParticipando[numNinos] = new Nino();
-                numNinos++;
+            Nino nuevo = new Nino();
+            if (!juegoIniciado) {
+                if (numNinos < ninosParticipando.length) {
+                    ninosParticipando[numNinos++] = nuevo;
+                }
+            } else {
+                lydia.recibirNino(nuevo);
             }
         }
 
@@ -35,26 +37,35 @@ public class TelefonoDescacharrado {
     }
 
     public void prepararNinos() {
+        aisha.limpiarPizarra();
         for (int i = 0; i < numNinos; i++) {
             ninosParticipando[i].hacerFila();
             ninosParticipando[i].borrarPizarrin();
         }
+        tiempo++;
     }
 
     public void jugar() {
-        profesora.setMensajeOriginal();
-        System.out.println("Mensaje inicial en el pizarrín: " + profesora.mensajeOriginal);
-        String mensaje = profesora.mensajeOriginal;
+        mensajeOriginal = "Desarrollo";
+        System.out.println("Mensaje inicial en el pizarrín: " + mensajeOriginal);
+        String mensaje = mensajeOriginal;
+        tiempo++;
+
         for (int i = 0; i < numNinos; i++) {
             mensaje = ninosParticipando[i].escribirMensaje(mensaje);
             tiempo++; 
         }
+
         mensajeFinal = mensaje;
-        tiempo++;
+        tiempo++; 
     }
 
     public void getResultados() {
-        System.out.println("Mensaje original: " + profesora.mensajeOriginal);
-        System.out.println("Mensaje final: " + mensajeFinal);
+        System.out.println("Mensaje original: " + mensajeOriginal);
+        System.out.println("Mensaje final en la pizarra: " + mensajeFinal);
+    }
+
+    public void pasarNinosDeLydia() {
+        numNinos = lydia.pasarNinosACola(ninosParticipando, numNinos);
     }
 }

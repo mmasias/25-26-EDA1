@@ -1,7 +1,6 @@
 public class TelefonoDescacharradoClient {
     public static void main(String[] args) {
         TelefonoDescacharrado telefono = new TelefonoDescacharrado();
-
         while (telefono.tiempo < 120) {
             telefono.lleganNinos();
 
@@ -10,6 +9,7 @@ public class TelefonoDescacharradoClient {
                 telefono.jugar();
                 telefono.getResultados();
                 telefono.juegoIniciado = false;
+                telefono.pasarNinosDeLydia();
             }
         }
     }
