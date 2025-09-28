@@ -15,4 +15,11 @@ public class Recepcionista extends Monitor {
         throw new UnsupportedOperationException("Unimplemented method 'imprimirEstado'");
     }
 
+    protected void pideNiño(Monitor otroMonitor) {
+        if (otroMonitor.getCola().hayNiños()) {
+            Niño niño = otroMonitor.getCola().sacar();
+            this.colaNiños.poner(niño);
+        }
+    }
+
 }

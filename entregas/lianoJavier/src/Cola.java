@@ -1,9 +1,10 @@
 
 public class Cola {
 
-        public boolean estaCompleta() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'estaCompleta'");
+        Niño[] niños;
+
+        public Cola() {
+                this.niños = new Niño[0];
         }
 
         public void poner(Niño niño) {
@@ -29,6 +30,11 @@ public class Cola {
         public static Niño getPosicion(int i) {
                 // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'getPosicion'");
+        }
+
+        public Object getCantidad() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'getCantidad'");
         }
 
 }

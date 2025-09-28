@@ -15,11 +15,6 @@ public abstract class Monitor {
         return colaNiños;
     }
     
-    public void pideNiño(Monitor otroMonitor) {
-        if (otroMonitor.getCola().hayNiños() && !this.colaNiños.estaCompleta()) {
-            Niño niño = otroMonitor.getCola().sacar();
-            this.colaNiños.poner(niño);
-        }
-    }
+    abstract void pideNiño(Monitor otroMonitor);
 
 }

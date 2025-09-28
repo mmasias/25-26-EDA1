@@ -55,4 +55,11 @@ public class Directriz extends Monitor {
         throw new UnsupportedOperationException("Unimplemented method 'escribirEnPizarrin'");
     }
 
+    public void pideNiño(Monitor otroMonitor) {
+        if (otroMonitor.getCola().hayNiños() && colaNiños.getCantidad() == partida.getMaximoJugadores()) {
+            Niño niño = otroMonitor.getCola().sacar();
+            this.colaNiños.poner(niño);
+        }
+    }
+
 }
