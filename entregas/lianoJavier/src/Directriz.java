@@ -36,23 +36,24 @@ public class Directriz extends Monitor {
     }
 
     protected void imprimirEstado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimirEstado'");
+        Console.imprimir("Directriz " + nombre + " con " + colaNiños.getCantidad() + " niños en cola.");
+        for (Niño niño : colaNiños.toArray()) {
+            Console.imprimir(" - " + niño.getNombre());
+        }
     }
+
+    final static int LONGITUD_PALABRA = 10;
 
     public String inventarPalabra() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inventarPalabra'");
+        return "LOSSECRETO";
     }
 
-    public void enseñarPizarrin(Object posicion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'enseñarPizarrin'");
+    public void enseñarPizarrin(Niño niño) {
+        niño.escribirEnPizarrin(niño.leer(pizarrin));
     }
 
     public void escribirEnPizarrin(String palabraSecreta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'escribirEnPizarrin'");
+        pizarrin.escribir(palabraSecreta);
     }
 
     public void pideNiño(Monitor otroMonitor) {

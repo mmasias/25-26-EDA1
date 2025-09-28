@@ -34,7 +34,7 @@ public class Partida {
                 return !jugando;
         }
 
-        public Object getMaximoJugadores() {
+        public int getMaximoJugadores() {
                 return MAXIMO_JUGADORES;
         }
 
