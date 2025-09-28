@@ -4,10 +4,10 @@ public class Ludoteca {
     private static final int DURACION = 120;
     private static final int MAX_NINOS = 50;
 
-    private static Nino[] cola = new Nino[MAX_NINOS];
+    private static Niño[] cola = new Niño[MAX_NINOS];
     private static int topeCola = 0;
 
-    private static Nino[] salaEspera = new Nino[MAX_NINOS];
+    private static Niño[] salaEspera = new Niño[MAX_NINOS];
     private static int topeEspera = 0;
 
     private static int contadorNinos = 1;
@@ -43,7 +43,7 @@ public class Ludoteca {
         }
 
         for (int i = 0; i < llegadas; i++) {
-            Nino n = new Nino("Niño" + (contadorNinos++));
+            Niño n = new Niño("Niño" + (contadorNinos++));
             if (topeCola > 5) {
                 salaEspera[topeEspera++] = n;
                 System.out.println("Lydia recibe a " + n.getNombre() + " y lo sienta a esperar");

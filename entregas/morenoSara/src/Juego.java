@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Juego {
-    public static void jugar(Nino[] jugadores, int cantidad, int minutoInicio) {
+    public static void jugar(Niño[] jugadores, int cantidad, int minutoInicio) {
         System.out.println("Se limpia la pizarra y los niños limpian sus pizarrines");
         String mensaje = generarMensaje();
         System.out.println("Mensaje escrito por Aisha: " + mensaje);
@@ -10,7 +10,7 @@ public class Juego {
 
         for (int i = 0; i < cantidad; i++) {
             tiempo++;
-            mensaje = Nino.transmitirPaso(mensaje, jugadores[i].getNombre(), i + 1);
+            mensaje = Niño.transmitirPaso(mensaje, jugadores[i].getNombre(), i + 1);
         }
 
         tiempo++; // tiempo para que el último niño escriba en la pizarra
