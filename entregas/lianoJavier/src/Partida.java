@@ -1,23 +1,37 @@
 
 public class Partida {
 
-        public Partida(Cola cola) {
-                //TODO Auto-generated constructor stub
+        private Directriz directriz;
+        private Cola jugadores;
+        private int posicion = 1;
+        private final int MAXIMO_JUGADORES = 5;
+        private boolean jugando = false;
+
+        public Partida(Directriz directriz, Cola cola) {
+                this.directriz = directriz;
+                this.jugadores = cola;
         }
 
         public void iniciar() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'iniciar'");
+                String palabraSecreta = directriz.inventarPalabra();
+                directriz.escribirEnPizarrin(palabraSecreta);
+                jugando = true;
+                directriz.enseñarPizarrin(Cola.getPosicion(posicion));
+                posicion++;
         }
 
         public void siguienteRonda() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'siguienteRonda'");
+                if (posicion != jugadores.toArray().length) {
+                        Cola.getPosicion(posicion).enseñarPizarrin(Cola.getPosicion(posicion + 1));
+                        posicion++;
+                } else {
+                        Cola.getPosicion(posicion).escribirEnPizarra();
+                        jugando = false;
+                }
         }
 
         public boolean isTerminada() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'isTerminada'");
+                return !jugando;
         }
 
 }

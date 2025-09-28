@@ -21,4 +21,14 @@ public class Cola {
                 throw new UnsupportedOperationException("Unimplemented method 'hayNiños'");
         }
 
+        public Niño[] toArray() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+        }
+
+        public static Niño getPosicion(int i) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'getPosicion'");
+        }
+
 }

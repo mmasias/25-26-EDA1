@@ -1,8 +1,8 @@
 
 public abstract class Monitor {
 
-    private String nombre;
-    private Cola colaNiños;
+    protected String nombre;
+    protected Cola colaNiños;
 
     public Monitor(String nombre) {
         this.nombre = nombre;
