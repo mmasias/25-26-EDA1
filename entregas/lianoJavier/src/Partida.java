@@ -16,16 +16,16 @@ public class Partida {
                 String palabraSecreta = directriz.inventarPalabra();
                 directriz.escribirEnPizarrin(palabraSecreta);
                 jugando = true;
-                directriz.enseñarPizarrin(Cola.getPosicion(posicion));
+                directriz.enseñarPizarrin(jugadores.getPosicion(posicion));
                 posicion++;
         }
 
         public void siguienteRonda() {
                 if (posicion != jugadores.toArray().length) {
-                        Cola.getPosicion(posicion).enseñarPizarrin(Cola.getPosicion(posicion + 1));
+                        jugadores.getPosicion(posicion).enseñarPizarrin(jugadores.getPosicion(posicion + 1));
                         posicion++;
                 } else {
-                        Cola.getPosicion(posicion).escribirEnPizarra();
+                        jugadores.getPosicion(posicion).escribirEnPizarra();
                         jugando = false;
                 }
         }

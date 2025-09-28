@@ -13,7 +13,7 @@ public class Ludoteca {
 	}
 
 	public void actualizar() {
-		if (!aisha.getCola().estaCompleta())
+		if (!aisha.estaCompleta())
 			aisha.pideNiño(lydia);
 		else if (!aisha.estaJugando())
 			aisha.juega();

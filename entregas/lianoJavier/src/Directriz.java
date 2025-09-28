@@ -63,4 +63,8 @@ public class Directriz extends Monitor {
         }
     }
 
+    public boolean estaCompleta() {
+        return colaNiños.getCantidad() == partida.getMaximoJugadores();
+    }
+
 }
