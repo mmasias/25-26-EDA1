@@ -1,25 +1,23 @@
 
 public class Directriz extends Monitor {
 
+    private Partida partida;
+
     public Directriz(String nombre) {
         super(nombre);
+        partida = new Partida(getCola());
     }
 
-
-
     public boolean estaJugando() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'estaJugando'");
+        return partida.isTerminada();
     }
 
     public void juega() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'juega'");
+        partida.iniciar();
     }
 
     public void siguienteRonda() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'siguienteRonda'");
+        partida.siguienteRonda();
     }
 
     protected void imprimirEstado() {
