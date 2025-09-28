@@ -19,6 +19,12 @@ public class Ludoteca {
 			aisha.juega();
 		else
 			aisha.siguienteRonda();
+		if (aisha.juegoTerminado()) {
+			while (aisha.getCola().hayNiños()) {
+				Niño niño = aisha.getCola().sacar();
+				lydia.recibir(niño);
+			}
+		}
 	}
 
 	public void imprimirEstado() {

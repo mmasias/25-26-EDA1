@@ -10,6 +10,10 @@ public class Directriz extends Monitor {
     }
 
     public boolean estaJugando() {
+        return !partida.isTerminada();
+    }
+
+    public boolean juegoTerminado() {
         return partida.isTerminada();
     }
 
