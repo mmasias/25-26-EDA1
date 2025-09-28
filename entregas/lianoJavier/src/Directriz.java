@@ -5,15 +5,7 @@ public class Directriz extends Monitor {
         super(nombre);
     }
 
-    public ColaNiños getCola() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCola'");
-    }
 
-    public void pideNiño(Recepcionista lydia) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pideNiño'");
-    }
 
     public boolean estaJugando() {
         // TODO Auto-generated method stub
