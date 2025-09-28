@@ -17,12 +17,14 @@ public class Ludoteca {
 			aisha.pideNiño(lydia);
 		else if (!aisha.estaJugando())
 			aisha.juega();
-		else
+		else {
 			aisha.siguienteRonda();
-		if (aisha.juegoTerminado()) {
-			while (aisha.getCola().hayNiños()) {
-				Niño niño = aisha.getCola().sacar();
-				lydia.recibir(niño);
+			if (aisha.juegoTerminado()) {
+				while (aisha.getCola().hayNiños()) {
+					Niño niño = aisha.getCola().sacar();
+					lydia.recibir(niño);
+				}
+				aisha.reset();
 			}
 		}
 	}

@@ -31,11 +31,16 @@ public class Partida {
         }
 
         public boolean isTerminada() {
-                return !jugando;
+        	return !jugando;
         }
-
+       
+        public void reset() {
+        	posicion = 1;
+        	jugando = false;
+        }
+       
         public int getMaximoJugadores() {
-                return MAXIMO_JUGADORES;
+        	return MAXIMO_JUGADORES;
         }
 
 }
