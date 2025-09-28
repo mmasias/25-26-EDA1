@@ -18,7 +18,7 @@ public class Mundo {
         Tiempo tiempo = new Tiempo(HORAS, MINUTOS);
         Mundo mundo = new Mundo(ludoteca, tiempo);
 
-        mundo.simular();
+        do { mundo.simular(); } while (!tiempo.terminado());
     }
 
     private void simular() {
