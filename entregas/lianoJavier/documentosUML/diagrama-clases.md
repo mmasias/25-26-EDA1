@@ -13,8 +13,10 @@ class Mundo {
     -presentacion()
 }
 class Ludoteca {
-    +recibir(niño: Nino["Niño"])
-    +recibir(monitor: Monitor)
+    -lydia: Recepcionista
+    -aisha: Directriz
+    +Ludoteca()
+    +recibir(niño: Nino)
     +actualizar()
     +imprimirEstado()
 }
@@ -30,7 +32,26 @@ class Nino["Niño"] {
     +getNombre(): String
 }
 class Monitor {
+    <<abstract>>
     +Monitor(nombre: String)
+    abstract imprimirEstado()
+}
+class Recepcionista {
+    +Recepcionista(nombre: String)
+    +recibir(niño: Nino)
+    protected imprimirEstado()
+}
+class Directriz {
+    +Directriz(nombre: String)
+    +getCola(): ColaNiños
+    +pideNiño(lydia: Recepcionista)
+    +estaJugando(): boolean
+    +juega()
+    +siguienteRonda()
+    protected imprimirEstado()
+}
+class ColaNiños {
+    +estaCompleta(): boolean
 }
 class Console {
     +separador(s: String)
@@ -41,5 +62,11 @@ class Console {
 }
 Mundo *-- Ludoteca
 Mundo *-- Tiempo
+Ludoteca *-- Recepcionista
+Ludoteca *-- Directriz
 Ludoteca o-- Nino
-Ludoteca o-- Monitor
+Directriz *-- ColaNiños
+Recepcionista o-- Nino
+Directriz --> Recepcionista
+Monitor <|-- Recepcionista
+Monitor <|-- Directriz

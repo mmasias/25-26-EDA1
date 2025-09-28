@@ -8,9 +8,7 @@ flowchart TD
     D -->|No| E[Simular]
     E --> F[Limpiar consola]
     F --> G[Imprimir tiempo]
-    G --> H[Crear monitores Lydia y Aisha]
-    H --> I[Recibir monitores en ludoteca]
-    I --> J{Llega niño?}
+    G --> J{Llega niño?}
     J -->|Sí| K[Crear niño con nombre aleatorio]
     K --> L[Imprimir llegada del niño]
     L --> M[Recibir niño en ludoteca]
