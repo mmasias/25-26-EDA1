@@ -1,29 +1,39 @@
+import java.util.Scanner;
 
 public class Console {
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static void separador(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'separador'");
+    public static void separador(String divisor) {
+        final int MULTIPLICADOR_BASE = 50;
+        separador(divisor, MULTIPLICADOR_BASE);
+    }
+
+    public static void separador(String divisor, int multiplicador) {
+        imprimir(divisor.repeat(multiplicador));
     }
 
     public static void imprimir(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        System.out.print(string);
+    }
+
+    public static void imprimirLinea() {
+        System.out.println();
     }
 
     public static String espacio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'espacio'");
+        return " ";
     }
 
     public static void waitUser() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'waitUser'");
+        imprimirLinea();
+        Console.imprimir("Presione ENTER para continuar...");
+        scanner.nextLine();
     }
 
     public static void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }
+

@@ -37,8 +37,10 @@ public class Directriz extends Monitor {
 
     protected void imprimirEstado() {
         Console.imprimir("Directriz " + nombre + " con " + colaNiños.getCantidad() + " niños en cola.");
+        Console.imprimirLinea();
         for (Niño niño : colaNiños.toArray()) {
             Console.imprimir(" - " + niño.getNombre());
+            Console.imprimirLinea();
         }
     }
 

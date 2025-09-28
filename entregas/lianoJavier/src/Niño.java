@@ -61,6 +61,7 @@ public class Niño {
 
     public void escribirEnPizarra() {
         Console.imprimir(nombre + " escribe en la pizarra: " + pizarrin.getTexto());
+        Console.imprimirLinea();
     }
 
 }

@@ -11,8 +11,10 @@ public class Recepcionista extends Monitor {
 
     protected void imprimirEstado() {
         Console.imprimir("Recepcionista " + nombre + " tiene " + colaNiños.toArray().length + " niños esperando.");
+        Console.imprimirLinea();
         for (Niño niño : colaNiños.toArray()) {
             Console.imprimir(" - " + niño.getNombre());
+            Console.imprimirLinea();
         }
     }
 

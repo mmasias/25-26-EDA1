@@ -19,6 +19,7 @@ public class Tiempo {
 
     public void imprimir() {
         Console.imprimir("Tiempo restante: " + (minutos / MINUTOS_POR_HORA) + " horas y " + (minutos % MINUTOS_POR_HORA) + " minutos.");
+        Console.imprimirLinea();
     }
 
     public int getMinutos() {

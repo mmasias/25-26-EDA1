@@ -28,6 +28,7 @@ public class Mundo {
         if (llegaNiño(tiempo)) {
             Niño niño = new Niño(nombrar());
             Console.imprimir("llega" + Console.espacio() + niño.getNombre());
+            Console.imprimirLinea();
             ludoteca.recibir(niño);
         }
 
@@ -82,9 +83,13 @@ public class Mundo {
 
     private static void presentacion() {
         Console.separador("*");
+        Console.imprimirLinea();
         Console.imprimir("Teléfono Escacharrado");
+        Console.imprimirLinea();
         Console.imprimir("Versión:" + Console.espacio() + VERSION);
+        Console.imprimirLinea();
         Console.separador("*");
+        Console.imprimirLinea();
         Console.waitUser();
     }
 }
