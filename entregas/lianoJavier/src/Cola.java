@@ -8,33 +8,34 @@ public class Cola {
         }
 
         public void poner(Niño niño) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'poner'");
+                Niño[] nuevosNiños = new Niño[niños.length + 1];
+                System.arraycopy(niños, 0, nuevosNiños, 0, niños.length);
+                nuevosNiños[nuevosNiños.length - 1] = niño;
+                this.niños = nuevosNiños;
         }
 
         public Niño sacar() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'sacar'");
+                Niño niñoSacado = niños[0];
+                Niño[] nuevosNiños = new Niño[niños.length - 1];
+                System.arraycopy(niños, 1, nuevosNiños, 0, nuevosNiños.length);
+                this.niños = nuevosNiños;
+                return niñoSacado;
         }
 
         public boolean hayNiños() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'hayNiños'");
+                return niños.length > 0;
         }
 
         public Niño[] toArray() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+                return niños;
         }
 
-        public static Niño getPosicion(int i) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'getPosicion'");
+        public Niño getPosicion(int posicion) {
+                return niños[posicion - 1];
         }
 
-        public Object getCantidad() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'getCantidad'");
+        public int getCantidad() {
+                return niños.length;
         }
 
 }
