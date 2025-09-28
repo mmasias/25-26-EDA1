@@ -1,8 +1,10 @@
 
-public class Monitor {
+public abstract class Monitor {
 
-    public Monitor(String string) {
+    public Monitor(String nombre) {
         //TODO Auto-generated constructor stub
     }
+
+    abstract void imprimirEstado();
 
 }

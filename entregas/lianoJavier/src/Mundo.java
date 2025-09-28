@@ -25,12 +25,6 @@ public class Mundo {
         Console.clear();
         tiempo.imprimir();
 
-        Monitor lydia = new Monitor("Lydia");
-        Monitor aisha = new Monitor("Aisha");
-
-        ludoteca.recibir(lydia);
-        ludoteca.recibir(aisha);
-
         if (llegaNiño(tiempo)) {
             Niño niño = new Niño(nombrar());
             Console.imprimir("llega" + Console.espacio() + niño.getNombre());

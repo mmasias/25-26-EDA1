@@ -1,24 +1,29 @@
-
 public class Ludoteca {
 
-    public void recibir(Niño niño) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recibir'");
-    }
+	private Recepcionista lydia;
+	private Directriz aisha;
 
-    public void recibir(Monitor lydia) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recibir'");
-    }
+	public Ludoteca() {
+		this.lydia = new Recepcionista("Lydia");
+		this.aisha = new Directriz("Aisha");
+	}
 
-    public void actualizar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizar'");
-    }
+	public void recibir(Niño niño) {
+		lydia.recibir(niño);
+	}
 
-    public void imprimirEstado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimirEstado'");
-    }
+	public void actualizar() {
+		if (!aisha.getCola().estaCompleta())
+			aisha.pideNiño(lydia);
+		else if (!aisha.estaJugando())
+			aisha.juega();
+		else
+			aisha.siguienteRonda();
+	}
+
+	public void imprimirEstado() {
+		lydia.imprimirEstado();
+		aisha.imprimirEstado();
+	}
 
 }
