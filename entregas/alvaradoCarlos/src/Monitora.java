@@ -45,27 +45,39 @@ public class Monitora {
         return nombre;
     }
 
-    public Niño[] entregaNiños() {
-        int tamaño = Math.min(5, cantidadActual);
-        Niño[] grupo = new Niño[tamaño];
+    public Niño[] entregaNiños(Monitora aisha) {
+        aisha.recibeNiñosParaJugar(niños);
 
-        for (int i = 0; i < tamaño; i++) {
-            grupo[i] = niños[i];
-        }
-
-        for (int i = tamaño; i < cantidadActual; i++) {
-            niños[i - tamaño] = niños[i];
-        }
-
-        for (int i = cantidadActual - tamaño; i < cantidadActual; i++) {
-            niños[i] = null;
-        }
+        int tamaño = calcularTamañoGrupo(aisha);
+        Niño[] grupo = extraerGrupo(tamaño);
+        reacomodarNiños(tamaño);
 
         cantidadActual -= tamaño;
 
-        System.out.println("Se entregó un grupo de " + grupo.length + " niños a Aisha");
+        System.out.println("Se entregó un grupo de " + grupo.length + " niños a " + aisha.nombre());
 
         return grupo;
+    }
+
+    private int calcularTamañoGrupo(Monitora aisha) {
+        return Math.min(aisha.cantidadDeNiños(), cantidadActual);
+    }
+
+    private Niño[] extraerGrupo(int tamaño) {
+        Niño[] grupo = new Niño[tamaño];
+        for (int i = 0; i < tamaño; i++) {
+            grupo[i] = niños[i];
+        }
+        return grupo;
+    }
+
+    private void reacomodarNiños(int tamaño) {
+        for (int i = tamaño; i < cantidadActual; i++) {
+            niños[i - tamaño] = niños[i];
+        }
+        for (int i = cantidadActual - tamaño; i < cantidadActual; i++) {
+            niños[i] = null;
+        }
     }
 
     public void entregaPizarrin(Pizarra[] pizarrines, Niño[] niños) {
@@ -73,6 +85,7 @@ public class Monitora {
 
         for (int i = 0; i < cantidad; i++) {
             niños[i].recibirPizarrin(pizarrines[i]);
+            niños[i].marcarParticipacion();
             System.out.println("Niño " + i + " recibio un pizarrín de " + nombre);
         }
     }
@@ -103,26 +116,43 @@ public class Monitora {
 
     public void terminaJuegoActual() {
         for (int i = 0; i < cantidadActual; i++) {
-            if (niños[i] != null) {
+            Niño niño = niños[i];
+            if (niño != null && niño.participoEnJuego()) {
                 System.out.println("Niño " + i + " ha terminado el juego con " + nombre());
+                niños[i] = null;
             }
-            niños[i] = null;
         }
-        cantidadActual = 0;
-        System.out.println(nombre() + " terminó el juego y liberó a todos los niños");
+
+        int niñosSinJugar = 0;
+        for (int i = 0; i < cantidadActual; i++) {
+            if (niños[i] != null) {
+                niños[niñosSinJugar++] = niños[i];
+            }
+        }
+        cantidadActual = niñosSinJugar;
+
+        System.out.println(nombre() + " terminó el juego y liberó a los niños que jugaron");
     }
 
-    public void recibeNiñosParaJugar(Niño[] grupo) {
-    for (int i = 0; i < grupo.length; i++) {
-        if (cantidadActual < niños.length) {
-            niños[cantidadActual] = grupo[i];
-            cantidadActual++;
-            System.out.println(nombre + " recibió al niño " + i + " de golpe");
-        } else {
-            System.out.println(nombre + " no tiene espacio para el niño " + i);
+    private void recibeNiñosParaJugar(Niño[] grupo) {
+        for (int i = 0; i < grupo.length; i++) {
+            if (cantidadActual < niños.length) {
+                niños[cantidadActual] = grupo[i];
+                cantidadActual++;
+                System.out.println(nombre + " recibió al niño " + i + " de golpe");
+            } else {
+                System.out.println(nombre + " no tiene espacio para el niño " + i);
+            }
         }
     }
-}
 
+    public boolean haJugado(Niño niño) {
+        for (int i = 0; i < cantidadActual; i++) {
+            if (niños[i] != null && niños[i].equals(niño) && niños[i].participoEnJuego()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
