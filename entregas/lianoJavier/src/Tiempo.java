@@ -1,28 +1,28 @@
 
 public class Tiempo {
 
-    public Tiempo(int hORAS, int mINUTOS) {
-        //TODO Auto-generated constructor stub
+    private static final int MINUTOS_POR_HORA = 60;
+    private int minutos;
+
+    public Tiempo(int horas, int minutos) {
+        this.minutos = horas * MINUTOS_POR_HORA + minutos;
     }
 
     public boolean terminado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'terminado'");
+        return minutos <= 0;
     }
 
     public void siguiente() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'siguiente'");
+        if (minutos > 0)
+            minutos--;
     }
 
     public void imprimir() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        Console.imprimir("Tiempo restante: " + (minutos / MINUTOS_POR_HORA) + " horas y " + (minutos % MINUTOS_POR_HORA) + " minutos.");
     }
 
     public int getMinutos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMinutos'");
+        return minutos;
     }
 
 }
