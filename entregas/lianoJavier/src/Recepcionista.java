@@ -6,13 +6,14 @@ public class Recepcionista extends Monitor {
     }
 
     public void recibir(Niño niño) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recibir'");
+        this.colaNiños.poner(niño);
     }
 
     protected void imprimirEstado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'imprimirEstado'");
+        Console.imprimir("Recepcionista " + nombre + " tiene " + colaNiños.toArray().length + " niños esperando.");
+        for (Niño niño : colaNiños.toArray()) {
+            Console.imprimir(" - " + niño.getNombre());
+        }
     }
 
     protected void pideNiño(Monitor otroMonitor) {
