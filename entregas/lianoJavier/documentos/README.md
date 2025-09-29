@@ -1,88 +1,49 @@
-# 📞 Teléfono Descacharrado
+# 📞 Juego: Teléfono Descacharrado 🎲
 
-Las monitoras **Lydia** y **Aisha** han organizado una ludoteca a la que asisten varios niños, entre ellos varios sobrinos de Lydia.
+## **👥 Participantes y Preparación**
 
-Entre los juegos, tienen una versión muy particular del popular *Teléfono Descacharrado*. Las reglas son las siguientes:
+* **Monitoras:** Lydia y Aisha están a cargo de la ludoteca.
+* **Niños:** Asisten varios niños, incluyendo sobrinos de Lydia.
+* **Inicio del día:**
+    1.  Lydia recibe a los niños a medida que llegan.
+    2.  Luego, se los pasa a Aisha.
+    3.  Aisha los organiza en una fila, añadiendo a cada nuevo niño al final.
+    4.  Cada niño recibe un pizarrín.
 
----
+## **📜 Reglas del Juego**
 
-## 1. Organización inicial
+El juego comienza cuando la fila tiene **más de 5 niños**.
 
-* Al abrir la ludoteca, **Lydia** recibe a los niños.
-* Conforme van llegando, se los pasa a **Aisha**, quien:
+1.  **Preparación Inicial:** Aisha limpia la pizarra grande del salón y pide a los niños que limpien sus pizarrines. 칠
+2.  **Mensaje Original:** Aisha escribe un texto de **10 letras** en un pizarrín y se lo muestra al primer niño de la fila. 📝
+3.  **Paso del Mensaje:**
+    * El primer niño escribe el mensaje en su pizarrín y se lo muestra al siguiente.
+    * Este proceso se repite sucesivamente hasta llegar al último niño. ➡️
+4.  **Mensaje Final:** El último niño corre hacia la pizarra del salón y escribe el mensaje que recibió. 🏃‍♂️💨
 
-  * Forma una fila colocando a cada nuevo niño al final.
-  * Entrega a cada niño un **pizarrín**.
+## **💥 La Deformación del Mensaje**
 
----
+Debido a la emoción del juego, los niños a veces cambian **una o dos letras** del mensaje al escribirlo. Esto causa que el mensaje se vaya deformando a medida que avanza por la fila.
 
-## 2. Inicio del juego
+* **Principio clave:** A más niños en la cola, mayor es la posible distorsión del mensaje final.
 
-Cuando la fila tiene **más de 5 niños**, Aisha da comienzo al juego:
+## **⏰ Ritmo y Tiempos del Escenario**
 
-1. **Preparación**
+* **Llegada de niños:**
+    * **Primeros 10 minutos:** Llegan entre 0 y 2 niños por minuto.
+    * **Siguientes 20 minutos:** Hay un 50% de probabilidad de que llegue 1 niño cada 3 minutos.
+    * **Después de 30 minutos:** No llegan más niños.
+* **Gestión de la Fila:** Si llegan niños mientras un juego está en curso, esperan con Lydia y no se unen a la fila hasta que la ronda actual termine.
+* **Duración por niño:** Cada niño tarda **1 minuto** en leer y escribir el mensaje. Este tiempo también aplica para el inicio (Aisha) y el final (el último niño escribiendo en la pizarra grande).
 
-   * Limpia la pizarra del salón.
-   * Pide a los niños que limpien sus pizarrines.
+## **🎯 Retos de la Simulación**
 
-2. **Transmisión del mensaje**
+1.  **Simular el escenario completo:** La ludoteca está abierta durante **dos horas**, y se juega sin parar.
+2.  **Sugerencia de desarrollo:**
+    * Primero, resolver la lógica del paso del mensaje.
+    * Luego, implementar la deformación del mismo.
 
-   * Escribe un **texto de 10 letras** en un pizarrín y se lo muestra al **primer niño de la cola**.
-   * El primer niño lo copia en su pizarrín y se lo muestra al siguiente.
-   * El proceso se repite hasta llegar al **último niño**.
+## **📦 Entregables**
 
-3. **Finalización**
-
-   * El último niño corre a la pizarra del salón y escribe allí el mensaje recibido.
-
----
-
-## 3. Distorsión del mensaje
-
-Los niños están tan emocionados (es sábado, están con sus tías favoritas y no piensan en exámenes 😄) que, al copiar, a veces cambian **una o dos letras**.
-
-* Resultado: el mensaje se **va deformando progresivamente**.
-* Cuantos más niños haya en la fila, **mayor será la distorsión**.
-
----
-
-## 4. Llegada de los niños
-
-El ritmo de llegada es el siguiente:
-
-* **Primeros 10 minutos**: llegan entre **0 y 2 niños por minuto**.
-* **Siguientes 20 minutos**: puede llegar **1 niño cada 3 minutos** (con un **50% de probabilidad**).
-* **Después de 30 minutos**: ya no llegan más niños.
-
-📌 Nota: si un juego está en curso, los nuevos niños se quedan con Lydia, quien los sienta y los pasa a la fila **solo cuando termine el juego actual**.
-
----
-
-## 5. Duración de las acciones
-
-* Cada niño tarda **1 minuto** en leer el mensaje y copiarlo.
-* También se contabiliza **1 minuto inicial** (cuando Aisha muestra el mensaje) y **1 minuto final** (cuando el último niño escribe en la pizarra del salón).
-
----
-
-## 6. Retos de la simulación
-
-La ludoteca está abierta durante **2 horas**. El juego resulta tan divertido que los niños **juegan sin parar durante todo ese tiempo**.
-
-Los retos a resolver son:
-
-1. Simular el paso del mensaje entre los niños.
-2. Implementar la deformación progresiva del mensaje.
-
----
-
-## 7. Entregables
-
-* **Obligatorio**: código fuente del programa.
-* **Optativo**: cualquier otro artefacto adicional.
-
-## 8. Documentación Adicional
-
-* **[Desarrollo del Proyecto](desarrollo_proyecto.md)**: Documento que explica el proceso de construcción del proyecto.
-* **[Diagrama de Clases](../documentosUML/diagrama_clases.md)**: Diagrama UML de clases que muestra la estructura estática del proyecto.
-* **[Diagrama de Workflow](../documentosUML/diagrama_workflow.md)**: Diagrama de secuencia que ilustra el flujo dinámico de la simulación.
+* **Obligatorio:** El código fuente del programa. ✅
+* **Opcional:** Todos los demás artefactos que se generen. 📄
