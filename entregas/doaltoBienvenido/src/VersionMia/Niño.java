@@ -1,4 +1,4 @@
-package VersionMia;
+package versionMia;
 
 public class Niño {
     private String nombre;

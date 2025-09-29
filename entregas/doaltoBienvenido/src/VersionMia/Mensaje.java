@@ -1,4 +1,4 @@
-package VersionMia;
+package versionMia;
 
 public class Mensaje {
     public Mensaje() {

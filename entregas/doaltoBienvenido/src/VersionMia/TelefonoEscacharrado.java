@@ -1,4 +1,4 @@
-package VersionMia;
+package versionMia;
 
 public class TelefonoEscacharrado {
     private final int MAXIMOS_ESPERANDO = 100;

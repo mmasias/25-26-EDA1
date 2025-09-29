@@ -1,14 +1,13 @@
-package VersionMia;
+package versionMia;
 
 public class ColaNiños {
     private Niño[] cola;
     private int inicioCola;
     private int finalCola;
     private int cantidadCola;
-    private final int CAPACIDAD_MAXIMA = 20;
 
     public ColaNiños() {
-        cola = new Niño[CAPACIDAD_MAXIMA];
+        cola = new Niño[100];
         inicioCola = 0;
         finalCola = 0;
         cantidadCola = 0;
