@@ -1,29 +1,50 @@
-import java.util.ArrayList;
-
 public class Aisha {
-    private ArrayList<Nino> fila;
+    private Nino[] fila;
+    private int cantidad;
     private boolean jugando;
 
     public Aisha() {
-        fila = new ArrayList<>();
+        fila = new Nino[10]; 
+        cantidad = 0;
         jugando = false;
     }
 
-    public void recibirNinos(ArrayList<Nino> nuevos) {
-        fila.addAll(nuevos);
+    public void recibirNinos(Nino[] nuevos, int numNuevos) {
+        for (int i = 0; i < numNuevos; i++) {
+            agregar(nuevos[i]);
+        }
+    }
+
+    private void agregar(Nino nino) {
+        if (cantidad == fila.length) {
+            crecer();
+        }
+        fila[cantidad++] = nino;
+    }
+
+    private void crecer() {
+        Nino[] nueva = new Nino[fila.length * 2];
+        System.arraycopy(fila, 0, nueva, 0, fila.length);
+        fila = nueva;
     }
 
     public boolean puedeJugar() {
-        return fila.size() > 5;
+        return cantidad > 5;
     }
 
-    public ArrayList<Nino> getFila() {
+    public Nino[] getFila() {
         jugando = true;
-        return fila;
+        Nino[] copia = new Nino[cantidad];
+        System.arraycopy(fila, 0, copia, 0, cantidad);
+        return copia;
+    }
+
+    public int getCantidad() {
+        return cantidad;
     }
 
     public void vaciarFila() {
-        fila.clear();
+        cantidad = 0;
         jugando = false;
     }
 

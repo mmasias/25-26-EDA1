@@ -1,15 +1,16 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Juego {
-    private ArrayList<Nino> fila;
+    private Nino[] fila;
+    private int cantidad;
     private Random random;
     private String mensajeOriginal;
     private String mensajeFinal;
     private int duracion;
 
-    public Juego(ArrayList<Nino> fila, Random random) {
+    public Juego(Nino[] fila, int cantidad, Random random) {
         this.fila = fila;
+        this.cantidad = cantidad;
         this.random = random;
     }
 
@@ -17,15 +18,15 @@ public class Juego {
         mensajeOriginal = Tiempo.generarMensaje(random);
 
         mensajeFinal = mensajeOriginal;
-        for (int i = 0; i < fila.size(); i++) {
+        for (int i = 0; i < cantidad; i++) {
             mensajeFinal = Tiempo.deformar(mensajeFinal, random);
         }
 
-        duracion = fila.size() + 2;
+        duracion = cantidad + 2;
 
         System.out.println("Mensaje original: " + mensajeOriginal);
         System.out.println("Mensaje final:    " + mensajeFinal);
-        System.out.println("Niños en la fila: " + fila.size());
+        System.out.println("Niños en la fila: " + cantidad);
         System.out.println("Duración: " + duracion + " minutos\n");
     }
 

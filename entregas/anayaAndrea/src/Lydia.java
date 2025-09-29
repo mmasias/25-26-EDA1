@@ -1,23 +1,37 @@
-import java.util.ArrayList;
-
 public class Lydia {
-    private ArrayList<Nino> salaEspera;
+    private Nino[] salaEspera;
+    private int cantidad;
 
     public Lydia() {
-        salaEspera = new ArrayList<>();
+        salaEspera = new Nino[10];
+        cantidad = 0;
     }
 
     public void recibirNino(Nino nino) {
-        salaEspera.add(nino);
+        if (cantidad == salaEspera.length) {
+            crecer();
+        }
+        salaEspera[cantidad++] = nino;
     }
 
-    public ArrayList<Nino> pasarNinos() {
-        ArrayList<Nino> copia = new ArrayList<>(salaEspera);
-        salaEspera.clear();
+    private void crecer() {
+        Nino[] nueva = new Nino[salaEspera.length * 2];
+        System.arraycopy(salaEspera, 0, nueva, 0, salaEspera.length);
+        salaEspera = nueva;
+    }
+
+    public Nino[] pasarNinos() {
+        Nino[] copia = new Nino[cantidad];
+        System.arraycopy(salaEspera, 0, copia, 0, cantidad);
+        cantidad = 0;
         return copia;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
     public boolean tieneNinos() {
-        return !salaEspera.isEmpty();
+        return cantidad > 0;
     }
 }

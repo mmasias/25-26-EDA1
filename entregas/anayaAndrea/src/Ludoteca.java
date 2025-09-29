@@ -29,14 +29,13 @@ public class Ludoteca {
             }
 
             if (!aisha.estaJugando() && lydia.tieneNinos()) {
-                aisha.recibirNinos(lydia.pasarNinos());
+                aisha.recibirNinos(lydia.pasarNinos(), lydia.getCantidad());
             }
 
-            
             if (aisha.puedeJugar()) {
                 System.out.println("---- Partida " + partida + " ----");
 
-                Juego juego = new Juego(aisha.getFila(), random);
+                Juego juego = new Juego(aisha.getFila(), aisha.getCantidad(), random);
                 juego.jugar();
 
                 tiempo += juego.getDuracion();
