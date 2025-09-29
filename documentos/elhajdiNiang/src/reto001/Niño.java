@@ -1,31 +1,54 @@
 package reto001;
 
+
+
 import java.util.Random;
+import utils.Console;
 
-public class Niño {
-    private int id;
-    private String pizarrin;
+class Niño {
+    private String nombre;
+    private Pizarra pizarrin;
+    
 
-    public Niño(int id) {
-        this.id = id;
+    public Niño(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String copiarMensaje(String mensaje, Random rand) {
-        StringBuilder sb = new StringBuilder(mensaje);
-        int errores = rand.nextInt(3);
+    public void recibirPizarrin(Pizarra pizarra) {
+        this.pizarrin = pizarra;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void recibirMensaje(String mensaje) {
+        pizarrin.escribirMensaje(modificarMensaje(mensaje));
+       new  Console().writeln("[" + nombre + "] recibe [" + mensaje + "] y ha escrito [" + pizarrin.leerMensaje() + "]");        
+    }
+
+    private String modificarMensaje(String mensaje) {
+        Random random = new Random();
+        final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
+
+        int errores = random.nextInt(2) + 1;
+        
         for (int i = 0; i < errores; i++) {
-            int pos = rand.nextInt(sb.length());
-            char letra;
-            do {
-                letra = (char) ('A' + rand.nextInt(26));
-            } while (letra == sb.charAt(pos));
-            sb.setCharAt(pos, letra);
+            if (mensaje.length() > 0) {
+                int indiceAleatorio = random.nextInt(mensaje.length());
+                char letraAleatoria = ALFABETO.charAt(random.nextInt(ALFABETO.length()));
+                
+                mensaje = mensaje.substring(0, indiceAleatorio) + letraAleatoria + mensaje.substring(indiceAleatorio + 1);
+            }
         }
-        pizarrin = sb.toString();
-        return pizarrin;
+        return mensaje;
     }
 
-    public int getId() {
-        return id;
+    public String mostrarMensaje() {
+        return pizarrin.leerMensaje();
+    }
+
+    public void limpiarPizarrin() {
+        pizarrin.limpiar();
     }
 }
