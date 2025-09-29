@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class TelefonoDescacharrado {
@@ -10,26 +6,104 @@ public class TelefonoDescacharrado {
     private static final int MIN_NINIOS_PARA_JUGAR = 5;
     private static final int TIEMPO_ESCRIBIR_MENSAJE = 1;
     private static final int LONGITUD_MENSAJE = 10;
+    private static final int MAX_NINIOS = 100;
 
-    private Queue<Nino> colaEspera;
-    private List<Nino> niniosJugando;
-    private List<Nino> niniosConLydia;
+    private Nino[] colaEspera;
+    private int inicioColaEspera;
+    private int finColaEspera;
+    private int tamColaEspera;
+
+    private Nino[] niniosJugando;
+    private int numNiniosJugando;
+
+    private Nino[] niniosConLydia;
+    private int numNiniosConLydia;
+
+    private ResultadoJuego[] resultadosJuegos;
+    private int numResultados;
+
     private boolean juegoEnCurso;
     private int tiempoActual;
     private int numeroJuego;
     private Random random;
 
-    private List<ResultadoJuego> resultadosJuegos;
-
     public TelefonoDescacharrado() {
-        this.colaEspera = new LinkedList<Nino>();
-        this.niniosJugando = new ArrayList<Nino>();
-        this.niniosConLydia = new ArrayList<Nino>();
+        this.colaEspera = new Nino[MAX_NINIOS];
+        this.inicioColaEspera = 0;
+        this.finColaEspera = 0;
+        this.tamColaEspera = 0;
+
+        this.niniosJugando = new Nino[MAX_NINIOS];
+        this.numNiniosJugando = 0;
+
+        this.niniosConLydia = new Nino[MAX_NINIOS];
+        this.numNiniosConLydia = 0;
+
+        this.resultadosJuegos = new ResultadoJuego[MAX_NINIOS];
+        this.numResultados = 0;
+
         this.juegoEnCurso = false;
         this.tiempoActual = 0;
         this.numeroJuego = 0;
         this.random = new Random();
-        this.resultadosJuegos = new ArrayList<ResultadoJuego>();
+    }
+
+    private void ofrecerColaEspera(Nino nino) {
+        if (tamColaEspera < MAX_NINIOS) {
+            colaEspera[finColaEspera] = nino;
+            finColaEspera = (finColaEspera + 1) % MAX_NINIOS;
+            tamColaEspera++;
+        }
+    }
+
+    private Nino sacarDeColaEspera() {
+        if (tamColaEspera == 0) {
+            return null;
+        }
+        Nino nino = colaEspera[inicioColaEspera];
+        colaEspera[inicioColaEspera] = null;
+        inicioColaEspera = (inicioColaEspera + 1) % MAX_NINIOS;
+        tamColaEspera--;
+        return nino;
+    }
+
+    private int getTamColaEspera() {
+        return tamColaEspera;
+    }
+
+    private void limpiarNiniosJugando() {
+        for (int i = 0; i < numNiniosJugando; i++) {
+            niniosJugando[i] = null;
+        }
+        numNiniosJugando = 0;
+    }
+
+    private void agregarNinoJugando(Nino nino) {
+        if (numNiniosJugando < MAX_NINIOS) {
+            niniosJugando[numNiniosJugando] = nino;
+            numNiniosJugando++;
+        }
+    }
+
+    private void agregarNinoConLydia(Nino nino) {
+        if (numNiniosConLydia < MAX_NINIOS) {
+            niniosConLydia[numNiniosConLydia] = nino;
+            numNiniosConLydia++;
+        }
+    }
+
+    private void limpiarNiniosConLydia() {
+        for (int i = 0; i < numNiniosConLydia; i++) {
+            niniosConLydia[i] = null;
+        }
+        numNiniosConLydia = 0;
+    }
+
+    private void agregarResultado(ResultadoJuego resultado) {
+        if (numResultados < MAX_NINIOS) {
+            resultadosJuegos[numResultados] = resultado;
+            numResultados++;
+        }
     }
 
     public void simular() {
@@ -39,7 +113,7 @@ public class TelefonoDescacharrado {
         while (tiempoActual < TIEMPO_TOTAL_LUDOTECA) {
             simularLlegadaNinios();
 
-            if (!juegoEnCurso && colaEspera.size() >= MIN_NIÑOS_PARA_JUGAR) {
+            if (!juegoEnCurso && getTamColaEspera() >= MIN_NINIOS_PARA_JUGAR) {
                 iniciarJuego();
             }
 
@@ -53,7 +127,7 @@ public class TelefonoDescacharrado {
         mostrarEstadisticasFinales();
     }
 
-    private void simularLlegadaNinos() {
+    private void simularLlegadaNinios() {
         int niniosLlegan = 0;
 
         if (tiempoActual < 10) {
@@ -64,15 +138,15 @@ public class TelefonoDescacharrado {
             }
         }
 
-        for (int i = 0; i < niñosLlegan; i++) {
-            Nino nuevoNinio = new Ninio("Ninio" + (getTotalNinios() + 1));
+        for (int i = 0; i < niniosLlegan; i++) {
+            Nino nuevoNinio = new Nino("Ninio" + (getTotalNinios() + 1));
 
             if (juegoEnCurso) {
-                niniosConLydia.add(nuevoNinio);
+                agregarNinoConLydia(nuevoNinio);
                 System.out.println("Minuto " + tiempoActual + ": " + nuevoNinio.getNombre() +
                         " llega y se queda con Lydia (juego en curso)");
             } else {
-                colaEspera.offer(nuevoNinio);
+                ofrecerColaEspera(nuevoNinio);
                 System.out.println("Minuto " + tiempoActual + ": " + nuevoNinio.getNombre() +
                         " llega y se une a la cola");
             }
@@ -83,33 +157,32 @@ public class TelefonoDescacharrado {
         numeroJuego++;
         juegoEnCurso = true;
 
-        niniosJugando.clear();
-        int niniosAJugar = Math.min(colaEspera.size(), 5 + random.nextInt(4));
+        limpiarNiniosJugando();
+        int niniosAJugar = Math.min(getTamColaEspera(), 5 + random.nextInt(4));
 
-        for (int i = 0; i < niniosAJugar && !colaEspera.isEmpty(); i++) {
-            niniosJugando.add(colaEspera.poll());
+        for (int i = 0; i < niniosAJugar && getTamColaEspera() > 0; i++) {
+            agregarNinoJugando(sacarDeColaEspera());
         }
 
         System.out.println("\nAisha limpia la pizarra del salon");
-        for (int i = 0; i < niniosJugando.size(); i++) {
-            Nino nino = niniosJugando.get(i);
-            System.out.println(ninio.getNombre() + " limpia su pizarrin");
+        for (int i = 0; i < numNiniosJugando; i++) {
+            Nino nino = niniosJugando[i];
+            System.out.println(nino.getNombre() + " limpia su pizarrin");
         }
 
         String mensajeOriginal = generarMensajeAleatorio();
 
         System.out.println("\n--- JUEGO " + numeroJuego + " INICIADO (Minuto " + tiempoActual + ") ---");
-        System.out.println("Ninios participantes: " + niniosJugando.size());
+        System.out.println("Ninios participantes: " + numNiniosJugando);
         System.out.println("Mensaje original de Aisha: \"" + mensajeOriginal + "\"");
 
         String mensajeFinal = simularPasoMensaje(mensajeOriginal);
 
         ResultadoJuego resultado = new ResultadoJuego(numeroJuego, mensajeOriginal,
-                mensajeFinal, niniosJugando.size(),
-                tiempoActual);
-        resultadosJuegos.add(resultado);
+                mensajeFinal, numNiniosJugando, tiempoActual);
+        agregarResultado(resultado);
 
-        int tiempoJuego = niniosJugando.size() + 1;
+        int tiempoJuego = numNiniosJugando + 1;
         tiempoActual += tiempoJuego - 1;
 
         System.out.println("Mensaje final en pizarra: \"" + mensajeFinal + "\"");
@@ -122,14 +195,14 @@ public class TelefonoDescacharrado {
     private String simularPasoMensaje(String mensajeOriginal) {
         String mensajeActual = mensajeOriginal;
 
-        for (int i = 0; i < niniosJugando.size(); i++) {
-            Ninio ninio = niniosJugando.get(i);
+        for (int i = 0; i < numNiniosJugando; i++) {
+            Nino ninio = niniosJugando[i];
 
             mensajeActual = deformarMensaje(mensajeActual);
 
             if (i == 0) {
                 System.out.println("  " + ninio.getNombre() + " (primero) recibe: \"" + mensajeActual + "\"");
-            } else if (i == niniosJugando.size() - 1) {
+            } else if (i == numNiniosJugando - 1) {
                 System.out.println("  " + ninio.getNombre() + " (ultimo) escribe en pizarra: \"" + mensajeActual + "\"");
             } else {
                 System.out.println("  " + ninio.getNombre() + " pasa: \"" + mensajeActual + "\"");
@@ -160,17 +233,19 @@ public class TelefonoDescacharrado {
     private void finalizarJuego() {
         juegoEnCurso = false;
 
-        for (Nino ninio : niniosConLydia) {
-            colaEspera.offer(ninio);
-            System.out.println("  " + nino.getNombre() + " pasa de Lydia a la cola");
+        for (int i = 0; i < numNiniosConLydia; i++) {
+            Nino ninio = niniosConLydia[i];
+            ofrecerColaEspera(ninio);
+            System.out.println("  " + ninio.getNombre() + " pasa de Lydia a la cola");
         }
-        ninosConLydia.clear();
+        limpiarNiniosConLydia();
 
-        for (Nino ninio : niniosJugando) {
-            colaEspera.offer(ninio);
+        for (int i = 0; i < numNiniosJugando; i++) {
+            Nino ninio = niniosJugando[i];
+            ofrecerColaEspera(ninio);
         }
 
-        System.out.println("Cola actual: " + colaEspera.size() + " ninios\n");
+        System.out.println("Cola actual: " + getTamColaEspera() + " ninios\n");
     }
 
     private void procesarJuego() {
@@ -201,7 +276,7 @@ public class TelefonoDescacharrado {
     }
 
     private int getTotalNinios() {
-        return colaEspera.size() + niñosJugando.size() + ninosConLydia.size();
+        return getTamColaEspera() + numNiniosJugando + numNiniosConLydia;
     }
 
     private void mostrarEstadisticasFinales() {
@@ -209,19 +284,19 @@ public class TelefonoDescacharrado {
         System.out.println("Juegos realizados: " + numeroJuego);
         System.out.println("Total de ninios que participaron: " + getTotalNinios());
 
-        if (!resultadosJuegos.isEmpty()) {
+        if (numResultados > 0) {
             double sumaPrecision = 0.0;
-            for (int i = 0; i < resultadosJuegos.size(); i++) {
-                ResultadoJuego resultado = resultadosJuegos.get(i);
+            for (int i = 0; i < numResultados; i++) {
+                ResultadoJuego resultado = resultadosJuegos[i];
                 sumaPrecision += calcularPrecision(resultado.getMensajeOriginal(), resultado.getMensajeFinal());
             }
-            double precisionPromedio = sumaPrecision / resultadosJuegos.size();
+            double precisionPromedio = sumaPrecision / numResultados;
 
             System.out.println("Precision promedio: " + formatearDecimal(precisionPromedio) + "%");
 
             System.out.println("\nDetalle de juegos:");
-            for (int i = 0; i < resultadosJuegos.size(); i++) {
-                ResultadoJuego resultado = resultadosJuegos.get(i);
+            for (int i = 0; i < numResultados; i++) {
+                ResultadoJuego resultado = resultadosJuegos[i];
                 System.out.println(resultado.toString());
             }
         }
