@@ -29,4 +29,9 @@ public void mostrarCola() {
         }
     }
 }
+public void transferirTodosA(Aisha aisha) {
+    while (!cola.isEmpty()) {
+        aisha.recibirNiño(cola.poll());
+    }
+}
 
