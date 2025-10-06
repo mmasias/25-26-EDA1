@@ -23,3 +23,6 @@ public void transferirTodosA(Monitora otra) {
         otra.recibirNiño(cola.poll());
     }
 }
+public int contarNiños() {
+    return cola.size();
+}
