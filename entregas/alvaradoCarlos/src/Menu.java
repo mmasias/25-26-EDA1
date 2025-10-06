@@ -1,45 +1,47 @@
 import java.util.Scanner;
 
 public class Menu {
-    
-    private Scanner scanner;
 
-    public Menu(){
-	this.scanner = new Scanner(System.in);
+    private Scanner scanner;
+    private Simulacion simulacion;
+
+    public Menu() {
+        this.scanner = new Scanner(System.in);
+        this.simulacion = new Simulacion();
     }
 
-    public void mostrar(){
-    	
-	int opcion;
+    public void mostrar() {
 
-	do {
-	   mostrarMenu();
-	   System.out.print("\nSeleccione una opción: ");
-	   while (!scanner.hasNextInt()) {
-	   	System.out.print("Por favor ingrese un número válido: ");
-		scanner.next();
-	   }
-	   opcion = scanner.nextInt();
+        int opcion;
 
-	   switch (opcion) {
-	   	case 1 -> simularLlegadaNino();
-                case 2 -> simularInicioJuego();
-                case 3 -> aishaPresentaYNinosSePresentan();
-                case 4 -> aishaPideNinosMayoresDe5();
-                case 5 -> aishaPideNinosPorLetra();
-                case 6 -> aishaPideCincoPrimeros();
-                case 7 -> aishaPideCincoUltimos();
-                case 8 -> aishaYLydiaCuentanNinos();
-                case 9 -> aishaPromedioEdad();
-                case 10 -> simularInicioJuegoRana();
-                case 11 -> pasarMenoresCincoADalsy();
-                case 12 -> activarProtocoloEmergencia();
-                case 13 -> mostrarMonitorasYNinos();
+        do {
+            mostrarMenu();
+            System.out.print("\nSeleccione una opción: ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("Por favor ingrese un número válido: ");
+                scanner.next();
+            }
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> simulacion.simularLlegadaNino();
+                case 2 -> simulacion.simularInicioJuego();
+                case 3 -> simulacion.aishaPresentaYNinosSePresentan();
+                case 4 -> simulacion.aishaPideNinosMayoresDe5();
+                case 5 -> simulacion.aishaPideNinosPorLetra();
+                case 6 -> simulacion.aishaPideCincoPrimeros();
+                case 7 -> simulacion.aishaPideCincoUltimos();
+                case 8 -> simulacion.aishaYLydiaCuentanNinos();
+                case 9 -> simulacion.aishaPromedioEdad();
+                case 10 -> simulacion.simularInicioJuegoRana();
+                case 11 -> simulacion.pasarMenoresCincoADalsy();
+                case 12 -> simulacion.activarProtocoloEmergencia();
+                case 13 -> simulacion.mostrarMonitorasYNinos();
                 case 0 -> System.out.println("Saliendo del menú...");
                 default -> System.out.println("Opción inválida. Intente nuevamente.");
-	   }
+            }
 
-	} while (opcion != 0);
+        } while (opcion != 0);
     }
 
     private void mostrarMenu() {
@@ -60,57 +62,5 @@ public class Menu {
         System.out.println("12. Alarma contra incendios y protocolo de emergencia");
         System.out.println("13. Mostrar monitoras y niños");
         System.out.println("0.  Salir");
-    }
-
-        private void simularLlegadaNino() {
-        System.out.println("Simulando llegada de niño...");
-    }
-
-    private void simularInicioJuego() {
-        System.out.println("Simulando intento de inicio de juego...");
-    }
-
-    private void aishaPresentaYNinosSePresentan() {
-        System.out.println("Aisha se presenta y los niños se presentan...");
-    }
-
-    private void aishaPideNinosMayoresDe5() {
-        System.out.println("Aisha pide que se presenten los niños mayores de 5 años...");
-    }
-
-    private void aishaPideNinosPorLetra() {
-        System.out.println("Aisha pide que se presenten los niños cuyo nombre empieza por cierta letra...");
-    }
-
-    private void aishaPideCincoPrimeros() {
-        System.out.println("Aisha pide que se presenten los cinco primeros niños...");
-    }
-
-    private void aishaPideCincoUltimos() {
-        System.out.println("Aisha pide que se presenten los cinco últimos niños...");
-    }
-
-    private void aishaYLydiaCuentanNinos() {
-        System.out.println("Aisha y Lydia dicen cuántos niños hay en cola...");
-    }
-
-    private void aishaPromedioEdad() {
-        System.out.println("Aisha dice la edad promedio de los niños en cola...");
-    }
-
-    private void simularInicioJuegoRana() {
-        System.out.println("Simulando intento de inicio del juego de la rana...");
-    }
-
-    private void pasarMenoresCincoADalsy() {
-        System.out.println("Pasando niños menores de 5 años a la monitora Dalsy...");
-    }
-
-    private void activarProtocoloEmergencia() {
-        System.out.println("¡Alarma contra incendios! Activando protocolo de emergencia...");
-    }
-
-    private void mostrarMonitorasYNinos() {
-        System.out.println("Mostrando monitoras y niños...");
     }
 }
