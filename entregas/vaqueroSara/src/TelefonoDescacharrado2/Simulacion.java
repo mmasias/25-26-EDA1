@@ -46,7 +46,8 @@ public class Simulacion {
                     }
                 }
 
-                case 3 -> aisha.presentarTodos();
+                case 3 ->
+                    aisha.presentarTodos();
                 case 4 -> {
                     System.out.print("Edad mínima: ");
                     int edadMinima = sc.nextInt();
@@ -57,8 +58,10 @@ public class Simulacion {
                     char letra = sc.next().charAt(0);
                     aisha.presentarPorInicial(letra);
                 }
-                case 6 -> aisha.presentarPrimeros(5);
-                case 7 -> aisha.presentarUltimos(5);
+                case 6 ->
+                    aisha.presentarPrimeros(5);
+                case 7 ->
+                    aisha.presentarUltimos(5);
                 case 8 -> {
                     System.out.println("CONTEO DE ASISTENCIA:");
                     int x = lydia.contarNiños();
@@ -70,9 +73,10 @@ public class Simulacion {
                     System.out.println("Total: " + (x + y + z) + " niños");
                 }
 
-                case 9 -> aisha.mostrarPromedioEdad();
+                case 9 ->
+                    aisha.mostrarPromedioEdad();
 
-                 case 10 ->  {
+                case 10 -> {
 
                     System.out.println("Verificando condiciones para el juego de la rana...");
                     int total = aisha.contarNiños();
@@ -88,9 +92,10 @@ public class Simulacion {
                     }
                 }
 
-                case 11 -> aisha.simularSeparacionMenores(5, dalsy);
+                case 11 ->
+                    aisha.simularSeparacionMenores(5, dalsy);
 
-                case 12 ->  {
+                case 12 -> {
                     System.out.println("¡ALARMA CONTRA INCENDIOS!\n");
                     System.out.println("PROTOCOLO DE EMERGENCIA ACTIVADO\n");
                     System.out.println("Dalsy transfiere TODOS sus niños a Lydia INMEDIATAMENTE");
@@ -111,8 +116,10 @@ public class Simulacion {
                     dalsy.mostrarEstado();
                 }
 
-                case 0 -> System.out.println("Saliendo de la simulación...");
-                default -> System.out.println("Opción no válida.");
+                case 0 ->
+                    System.out.println("Saliendo de la simulación...");
+                default ->
+                    System.out.println("Opción no válida.");
             }
 
             if (opcion != 0) {
@@ -138,6 +145,9 @@ public class Simulacion {
         System.out.println("7.  Aisha pide que se presenten los cinco últimos niños");
         System.out.println("8.  Aisha y Lydia dicen cuántos niños hay en cola");
         System.out.println("9.  Aisha dice la edad promedio de los niños en cola");
+        System.out.println("10. Simular intento de inicio del juego de la rana");
+        System.out.println("11. Paso de niños menores de 5 años a monitora Dalsy");
+        System.out.println("12. Alarma contra incendios y protocolo de emergencia");
         System.out.println("13. Mostrar monitoras y niños");
         System.out.println("0.  Salir");
         System.out.print("Seleccione una opción: ");
