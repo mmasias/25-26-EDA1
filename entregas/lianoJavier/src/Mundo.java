@@ -26,6 +26,7 @@ public class Mundo {
 
         private void iniciar() {
                 tiempo.iniciar();
+                ludoteca.abrir();
         }
 
         private Niño crearNiño() {
