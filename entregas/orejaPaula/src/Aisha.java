@@ -130,5 +130,20 @@ public boolean verificarJuegoRana() {
         return false;
     }
 }
+public void separarParaJuego(Dalsy dalsy) {
+    System.out.println("Separando niños para el juego de la rana...");
+    for (int i = 0; i < cola.size(); i++) {
+        Niño n = cola.get(i);
+        if (n.getEdad() < 5) {
+            dalsy.recibirNiño(n);
+            System.out.println("- " + n + " pasa con Dalsy");
+        }
+    }
+    cola.removeIf(n -> n.getEdad() < 5);
+    System.out.println("\nNiños que se quedan con Aisha para jugar:");
+    for (Niño n : cola) {
+        System.out.println("- " + n);
+    }
+}
 
 
