@@ -15,7 +15,7 @@ public class Ludoteca {
         }
 
         public void actualizar() {
-                if (aisha.puedeJugar()) aisha.juega(); else lydia.daNiñoA(aisha);
+                if (aisha.puedeJugar()) aisha.juega(); else if (!aisha.estaJugando()) lydia.daNiñoA(aisha);
         }
 
         public void abrir() {
