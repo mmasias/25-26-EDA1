@@ -107,5 +107,28 @@ public double edadPromedio() {
     System.out.printf("Edad promedio de los niños en la cola de Aisha: %.1f años%n", promedio);
     return promedio;
 }
+public boolean verificarJuegoRana() {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return false;
+    }
+    System.out.println("Verificando condiciones para el juego de la rana...");
+    int total = cola.size();
+    int mayores5 = 0;
+    for (Niño n : cola) {
+        if (n.getEdad() >= 5) mayores5++;
+    }
+    System.out.println("Total de niños: " + total);
+    System.out.println("Niños de 5 años o más: " + mayores5);
+    if (mayores5 > total / 2) {
+        System.out.println("¡Más de la mitad cumplen la condición!");
+        System.out.println("¡Pueden jugar al juego de la rana!");
+        return true;
+    } else {
+        System.out.println("No hay suficientes niños mayores de 5 años");
+        System.out.println("No pueden jugar todavía");
+        return false;
+    }
+}
 
 
