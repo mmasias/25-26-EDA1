@@ -15,3 +15,6 @@ public String getNombre() {
 public void recibirNiño(Niño n) {
     cola.add(n);
 }
+public List<Niño> getCola() {
+    return cola;
+}
