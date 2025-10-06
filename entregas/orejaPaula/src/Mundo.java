@@ -40,4 +40,61 @@ private void mostrarMenu() {
     System.out.println("0.  Salir");
     System.out.println();
 }
+private void procesarOpcion(int opcion) {
+    switch (opcion) {
+        case 1:
+            System.out.print("Ingrese nombre del niño: ");
+            String nombre = sc.nextLine();
+            int edad = leerInt("Ingrese edad del niño: ");
+            Niño n = new Niño(nombre, edad);
+            System.out.println("Llega " + n);
+            System.out.println(n.getNombre() + " pasa a la cola de Lidia");
+            ludoteca.getLidia().recibirNiño(n);
+            break;
+        case 2:
+            ludoteca.getLidia().pasarNiñosAAisha(ludoteca.getAisha());
+            break;
+        case 3:
+            ludoteca.getAisha().presentarseConNiños();
+            break;
+        case 4:
+            int edadMin = leerInt("Ingrese edad mínima: ");
+            ludoteca.getAisha().presentarseMayoresDe(edadMin);
+            break;
+        case 5:
+            System.out.print("Ingrese la letra inicial: ");
+            char letra = sc.nextLine().charAt(0);
+            ludoteca.getAisha().presentarsePorInicial(letra);
+            break;
+        case 6:
+            ludoteca.getAisha().primerosCinco();
+            break;
+        case 7:
+            ludoteca.getAisha().ultimosCinco();
+            break;
+        case 8:
+            ludoteca.conteoAsistencia();
+            break;
+        case 9:
+            ludoteca.getAisha().edadPromedio();
+            break;
+        case 10:
+            new JuegoRana(ludoteca.getAisha(), ludoteca.getDalsy()).puedeJugar();
+            break;
+        case 11:
+            ludoteca.getAisha().separarParaJuego(ludoteca.getDalsy());
+            break;
+        case 12:
+            ludoteca.emergencia();
+            break;
+        case 13:
+            ludoteca.mostrarEstado();
+            break;
+        case 0:
+            System.out.println("Saliendo de la simulación...");
+            break;
+        default:
+            System.out.println("Opción inválida");
+    }
+}
 
