@@ -19,6 +19,7 @@ class Mundo {
     private static final int MINIMO_NINIOS_PARA_INICIAR_JUEGO = 5;
     private static final int EDAD_MINIMA_JUEGO_RANA = 5;
     private static final int DIVISOR_MAYORIA_SIMPLE = 2;
+    private static final String SEPARADOR_VISUAL = "----------------------------------------";
 
     private Ludoteca ludoteca;
     private Scanner scanner;
@@ -37,6 +38,8 @@ class Mundo {
             opcionSimulacion = scanner.nextInt();
             scanner.nextLine(); 
             procesarOpcion(opcionSimulacion);
+            System.out.println();
+            System.out.println(SEPARADOR_VISUAL);
             System.out.println();
         } while (opcionSimulacion != OPCION_SALIR);
     }
