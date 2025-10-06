@@ -18,3 +18,8 @@ public void recibirNiño(Niño n) {
 public List<Niño> getCola() {
     return cola;
 }
+public void transferirTodosA(Monitora otra) {
+    while (!cola.isEmpty()) {
+        otra.recibirNiño(cola.poll());
+    }
+}
