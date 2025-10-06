@@ -7,7 +7,7 @@ public class Menu {
     private Aisha aisha;
     private Lydia lydia;
     private Pizarra pizarra;
-    private List<Juego> juegos; // Lista de juegos disponibles
+    private List<Juego> juegos; 
 
     public Menu() {
         scanner = new Scanner(System.in);
@@ -19,9 +19,7 @@ public class Menu {
     }
 
     private void inicializarJuegos() {
-        // Aquí puedes agregar todos los juegos disponibles
-        juegos.add(new Juego("Rana")); // Juego de la rana como ejemplo
-        // Agregar más juegos según necesites
+        juegos.add(new Juego("Rana")); 
     }
 
     public void agregarJuego(Juego juego) {
@@ -56,7 +54,7 @@ public class Menu {
             System.out.print("\nSeleccione una opción: ");
 
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
+            scanner.nextLine();
 
             procesarOpcion(opcion);
 
@@ -113,59 +111,56 @@ public class Menu {
         }
     }
 
-    // Métodos privados para cada opción del menú
     private void simularLlegadaNiño() {
-        // Implementar la lógica
+
     }
 
     private void simularInicioJuego() {
-        // Implementar la lógica
+
     }
 
     private void aishaPresentacionNiños() {
-        // Implementar la lógica
+
     }
 
     private void aishaPresentacionMayoresCinco() {
-        // Implementar la lógica
+
     }
 
     private void aishaPresentacionPorLetra() {
-        // Implementar la lógica
+
     }
 
     private void aishaPresentacionCincoPrimeros() {
-        // Implementar la lógica
+
     }
 
     private void aishaPresentacionCincoUltimos() {
-        // Implementar la lógica
+
     }
 
     private void contarNiñosEnCola() {
-        // Implementar la lógica
+
     }
 
     private void calcularEdadPromedio() {
-        // Implementar la lógica
+
     }
 
     private void iniciarJuegoRana() {
-        // Buscar el juego de la rana en la lista de juegos
+
         Juego juegoRana = juegos.stream()
                                .filter(j -> j.getNombre().equalsIgnoreCase("Rana"))
                                .findFirst()
                                .orElse(null);
         
         if (juegoRana != null) {
-            // Iniciar el juego de la rana
             juegoRana.iniciar();
         } else {
             System.out.println("El juego de la rana no está disponible");
         }
     }
 
-    // Método genérico para iniciar cualquier juego
     private void iniciarJuego(String nombreJuego) {
         Juego juego = juegos.stream()
                            .filter(j -> j.getNombre().equalsIgnoreCase(nombreJuego))
@@ -180,14 +175,11 @@ public class Menu {
     }
 
     private void pasarNiñosADalsy() {
-        // Implementar la lógica
     }
 
     private void protocoloEmergencia() {
-        // Implementar la lógica
     }
 
     private void mostrarMonitorasYNiños() {
-        // Implementar la lógica
     }
 }
