@@ -22,7 +22,11 @@ class Ludoteca {
         }
     }
 
-    public void presentacionesGenerales() { aisha.presentacionesGenerales(); }
+    public void presentacionesGenerales() {
+        System.out.println("Aisha: Hola, soy Aisha, monitora de esta ludoteca");
+        aisha.presentacionesGenerales();
+    }
+
     public void presentacionesEdadMin(int edad) { aisha.presentacionesEdadMin(edad); }
     public void presentacionesInicial(char letra) { aisha.presentacionesInicial(letra); }
     public void primerosCinco() { aisha.primerosCinco(); }
@@ -66,11 +70,13 @@ class Ludoteca {
     public void alarmaIncendios() {
         System.out.println("¡ALARMA CONTRA INCENDIOS!");
         System.out.println("PROTOCOLO DE EMERGENCIA ACTIVADO");
-        int transferidos = 0;
-        lydia.transferirNiños(lydia); // vacía Dalsy y Aisha hacia Lydia
-        aisha.transferirNiños(lydia);
+        int transferidos = lydia.numeroNiños() + aisha.numeroNiños() + dalsy.numeroNiños();
+        System.out.println("Dalsy transfiere TODOS sus niños a Lydia INMEDIATAMENTE");
+        System.out.println("Aisha transfiere TODOS sus niños a Lydia INMEDIATAMENTE");
         dalsy.transferirNiños(lydia);
-        System.out.println("Todos los niños transferidos a Lydia");
+        aisha.transferirNiños(lydia);
+        System.out.println(transferidos + " niños transferidos");
+        System.out.println("Lydia ahora tiene " + lydia.numeroNiños() + " niños listos para evacuar en orden");
     }
 
     public void mostrarEstado() {
