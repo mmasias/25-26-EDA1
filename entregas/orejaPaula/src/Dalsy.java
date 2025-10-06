@@ -12,3 +12,10 @@ public class Dalsy {
 public void recibirNiño(Niño n) {
     cola.add(n);
 }
+public LinkedList<Niño> getCola() {
+    return cola;
+}
+
+public int contarNiños() {
+    return cola.size();
+}
