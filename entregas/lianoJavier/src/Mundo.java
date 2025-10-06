@@ -17,7 +17,7 @@ public class Mundo {
         private void actualizar() {
                 if (ludoteca.estaAbierta(tiempo)) {
                         Niño nuevoNiño = crearNiño();
-                        ludoteca.recibirNiño(nuevoNiño);
+                        ludoteca.recibir(nuevoNiño);
                         ludoteca.actualizar();
                 }
                 tiempo.siguiente();
