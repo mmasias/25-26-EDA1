@@ -10,3 +10,7 @@ public class JuegoRana {
 public boolean puedeJugar() {
     return aisha.verificarJuegoRana();
 }
+public void iniciarJuego() {
+    aisha.separarParaJuego(dalsy);
+    System.out.println("Juego de la rana en progreso...");
+}
