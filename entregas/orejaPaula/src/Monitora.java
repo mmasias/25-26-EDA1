@@ -12,3 +12,6 @@ public Monitora(String nombre) {
 public String getNombre() {
     return nombre;
 }
+public void recibirNiño(Niño n) {
+    cola.add(n);
+}
