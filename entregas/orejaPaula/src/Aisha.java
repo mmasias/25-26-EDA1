@@ -70,5 +70,29 @@ public void presentarsePorInicial(char letra) {
         }
     }
 }
+public void primerosCinco() {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return;
+    }
+    System.out.println("Aisha pide que se presenten los primeros 5 niños:");
+    for (int i = 0; i < Math.min(5, cola.size()); i++) {
+        Niño n = cola.get(i);
+        System.out.println("Hola, soy " + n.getNombre());
+    }
+}
+
+public void ultimosCinco() {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return;
+    }
+    System.out.println("Aisha pide que se presenten los últimos 5 niños:");
+    int start = Math.max(cola.size() - 5, 0);
+    for (int i = start; i < cola.size(); i++) {
+        Niño n = cola.get(i);
+        System.out.println("Hola, soy " + n.getNombre());
+    }
+}
 
 
