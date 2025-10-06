@@ -15,8 +15,7 @@ public class Ludoteca {
         }
 
         public void actualizar() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'actualizar'");
+                if (aisha.puedeJugar()) aisha.juega(); else lydia.daNiñoA(aisha);
         }
 
         public void abrir() {
