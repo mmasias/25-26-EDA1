@@ -42,14 +42,14 @@ public class Monitor {
     }
 
     public void mostrarListaNiños() {
-        Console c = new Console();
+        Console console = new Console();
         if (contador == 0) {
-            c.writeln(nombre + " no tiene niños actualmente.");
+            console.writeln(nombre + " no tiene niños actualmente.");
             return;
         }
-        c.writeln(nombre + " tiene a los siguientes niños:");
+        console.writeln(nombre + " tiene a los siguientes niños:");
         for (int i = 0; i < contador; i++) {
-            c.writeln("- " + niños[i]);
+            console.writeln("- " + niños[i]);
         }
     }
 
