@@ -9,3 +9,6 @@ public class Dalsy {
         this.cola = new LinkedList<>();
     }
 }
+public void recibirNiño(Niño n) {
+    cola.add(n);
+}
