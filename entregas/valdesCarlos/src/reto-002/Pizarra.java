@@ -1,36 +1,26 @@
 
 public class Pizarra {
-    private String[] mensajes;
-    private int cantidad;
-
-    private static final int MAX_MENSAJES = 100;
+    private String mensaje;
 
     public Pizarra() {
-        mensajes = new String[MAX_MENSAJES];
-        cantidad = 0;
+        this.mensaje = "";
     }
 
-    
-    public void agregarMensaje(String msg) {
-        if (cantidad < MAX_MENSAJES) {
-            mensajes[cantidad] = msg;
-            cantidad++;
-        } else {
-            System.out.println("La pizarra está llena. No se pueden agregar más mensajes.");
-        }
-    }
-
-    
-    public void mostrar() {
-        System.out.println("=== PIZARRA DE LA LUDOTECA ===");
-        for (int i = 0; i < cantidad; i++) {
-            System.out.println(mensajes[i]);
-        }
-        System.out.println("==============================");
-    }
-
-    
     public void limpiar() {
-        cantidad = 0;
+        mensaje = "";
+    }
+
+    public void escribir(String texto) {
+        if (texto == null) texto = "";
+        this.mensaje = texto;
+    }
+
+    public String leer() {
+        return mensaje;
+    }
+
+    @Override
+    public String toString() {
+        return mensaje.isEmpty() ? "[Vacía]" : mensaje;
     }
 }
