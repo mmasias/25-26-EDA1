@@ -1,70 +1,33 @@
-package entregas.arceMarina;
-
-import utils.Console;
-
 public class Cola {
-    private static final int CAPACIDAD_MAXIMA = 15;
+    private static final int CAPACIDAD_MAXIMA = 20;
     private Niño[] niños;
-    private int inicio;
-    private int fin;
-    private int cantidad;
+    private int inicio, fin, cantidad;
 
-    public Cola() {
-        niños = new Niño[CAPACIDAD_MAXIMA];
-        inicio = 0;
-        fin = 0;
-        cantidad = 0;
-    }
+    public Cola() { niños = new Niño[CAPACIDAD_MAXIMA]; inicio = fin = cantidad = 0; }
 
-    public void addNiño(Niño niño) {
-        if (cantidad >= CAPACIDAD_MAXIMA) {
-            new Console().writeln("ERROR: ¡Cola llena! No puedo agregar a " + niño.getNombre());
-            return;
-        }
-        
-        niños[fin] = niño;
+    public void addNiño(Niño n) {
+        if (cantidad >= CAPACIDAD_MAXIMA) return;
+        niños[fin] = n;
         fin = (fin + 1) % CAPACIDAD_MAXIMA;
         cantidad++;
     }
 
     public Niño removeNiño() {
-        if (cantidad == 0) {
-            return null;
-        }
-        
-        Niño saliente = niños[inicio];
+        if (cantidad == 0) return null;
+        Niño n = niños[inicio];
         niños[inicio] = null;
         inicio = (inicio + 1) % CAPACIDAD_MAXIMA;
         cantidad--;
-        return saliente;
+        return n;
     }
 
-    public boolean hayNiños() {
-        return cantidad > 0;
-    }
+    public int size() { return cantidad; }
+    public boolean hayNiños() { return cantidad > 0; }
+    public Niño getNiño(int pos) { return niños[(inicio + pos) % CAPACIDAD_MAXIMA]; }
 
-    public int size() {
-        return cantidad;
-    }
-
-    public void listaNiños() {
-        int actual = inicio;
-        for (int i = 0; i < cantidad; i++) {
-            new Console().write(niños[actual].getNombre() + " / ");
-            actual = (actual + 1) % CAPACIDAD_MAXIMA;
-        }
-        new Console().writeln();
-    }
-
-    public Niño getNiño(int posicion) {
-        if (posicion >= cantidad) {
-            return null;
-        }
-        int indice = (inicio + posicion) % CAPACIDAD_MAXIMA;
-        return niños[indice];
-    }
-
-    public int numeroNiños() {
-        return cantidad;
+    public Niño[] getTodos() {
+        Niño[] copia = new Niño[cantidad];
+        for (int i = 0; i < cantidad; i++) copia[i] = getNiño(i);
+        return copia;
     }
 }
