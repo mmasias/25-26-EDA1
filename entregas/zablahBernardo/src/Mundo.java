@@ -196,6 +196,7 @@ class Mundo {
         console.writeln("Lydia ahora tiene " + ludoteca.getLydia().getCantidad() + " niños listos para evacuar en orden");
     }
 
+    
     public static void main(String[] args) {
         Mundo mundo = new Mundo();
         mundo.ejecutarSimulacion();
