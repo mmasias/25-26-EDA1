@@ -29,3 +29,8 @@ public void mostrarCola() {
         }
     }
 }
+public void transferirTodosA(Lidia lidia) {
+    while (!cola.isEmpty()) {
+        lidia.recibirNiño(cola.poll());
+    }
+}
