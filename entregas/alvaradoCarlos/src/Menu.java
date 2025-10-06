@@ -32,9 +32,9 @@ public class Menu {
                 case 6 -> simulacion.aishaPideCincoPrimeros();
                 case 7 -> simulacion.aishaPideCincoUltimos();
                 case 8 -> simulacion.aishaYLydiaCuentanNinos();
-                case 9 -> simulacion.aishaPromedioEdad();
+                case 9 -> simulacion.edadPromedioDeLosNiños();
                 case 10 -> simulacion.simularInicioJuegoRana();
-                case 11 -> simulacion.pasarMenoresCincoADalsy();
+                case 11 -> simulacion.pasarMenoresDeCincoADalsy();
                 case 12 -> simulacion.activarProtocoloEmergencia();
                 case 13 -> simulacion.mostrarMonitorasYNinos();
                 case 0 -> System.out.println("Saliendo del menú...");
