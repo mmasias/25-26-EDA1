@@ -107,4 +107,7 @@ private int leerInt(String mensaje) {
     sc.nextLine();
     return valor;
 }
+public static void main(String[] args) {
+    new Mundo().ejecutarSimulacion();
+}
 
