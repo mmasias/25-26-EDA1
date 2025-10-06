@@ -37,3 +37,32 @@ class Aisha {
     public List<Nino> mayoresParaJugar() {
         return ninos.stream().filter(n -> n.edad >= 5).collect(Collectors.toList());
     }
+
+    public void evacuar(List<Nino> ninosDalsy, List<Nino> ninosAisha, Lidia lidia) {
+    System.out.println("\n🔔 Aisha: ¡Atención chicos, suena la alarma de incendio!");
+    System.out.println("Aisha: Tranquilos, es solo un ejercicio. Dalsy y yo os sacaremos fuera.");
+    
+    System.out.println("\nDalsy: Yo voy primero con los más pequeños. Vamos de la mano:");
+    for (Nino n : ninosDalsy) {
+        System.out.println("👉 " + n.nombre + " sale con Dalsy.");
+    }
+
+    System.out.println("\nAisha: Ahora salimos los mayores, en fila y sin correr:");
+    for (Nino n : ninosAisha) {
+        System.out.println("👉 " + n.nombre + " sale con Aisha.");
+    }
+
+    // Todos fuera, Lidia pasa lista
+    List<Nino> todos = new ArrayList<>();
+    todos.addAll(ninosDalsy);
+    todos.addAll(ninosAisha);
+
+    System.out.println("\nLidia: Muy bien, ya estáis todos fuera.");
+    lidia.pasarListaEficiente(todos);
+
+    System.out.println("\n🚨 Lidia: Voy a revisar que no falte nadie...");
+    lidia.pasarListaFuera(todos);
+
+    System.out.println("\n✅ Aisha: ¡Perfecto! Era solo un simulacro. Podemos volver a jugar.");
+}
+
