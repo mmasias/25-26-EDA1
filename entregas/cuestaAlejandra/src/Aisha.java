@@ -52,7 +52,7 @@ class Aisha {
         System.out.println("👉 " + n.nombre + " sale con Aisha.");
     }
 
-    // Todos fuera, Lidia pasa lista
+    
     List<Nino> todos = new ArrayList<>();
     todos.addAll(ninosDalsy);
     todos.addAll(ninosAisha);
@@ -64,5 +64,6 @@ class Aisha {
     lidia.pasarListaFuera(todos);
 
     System.out.println("\n✅ Aisha: ¡Perfecto! Era solo un simulacro. Podemos volver a jugar.");
+    }
 }
 
