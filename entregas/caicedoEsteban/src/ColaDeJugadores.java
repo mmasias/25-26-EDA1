@@ -14,7 +14,7 @@ public class ColaDeJugadores {
     }
 
     public Jugador[] obtenerJugadores() {
-        return cola.toArray(new Jugador[0]);
+        return cola.toArray(Jugador[]::new);
     }
 
     public int tamaño() {
