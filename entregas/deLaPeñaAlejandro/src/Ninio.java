@@ -7,6 +7,11 @@ public class Ninio {
         this.edad = edad;
     }
 
+    public Ninio() {
+        this.nombre = generarNombreAleatorio();
+        this.edad = generarEdadAleatoria();
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -27,6 +32,23 @@ public class Ninio {
     public String toString() {
         return nombre + " (" + edad + " años)";
     }
+
+    private String generarNombreAleatorio() {
+        String[] nombres = {
+            "Luna", "Leo", "Sofía", "Mateo", "Valeria",
+            "Diego", "Emma", "Lucas", "Olivia", "Hugo",
+            "Aina", "Pablo", "Nora", "Martín", "Daniela",
+            "Marco", "Isabella", "Mario", "Elena", "Sara"
+        };
+        int indice = (int)(Math.random() * nombres.length);
+        return nombres[indice];
+    }
+
+    private int generarEdadAleatoria() {
+       
+        return 3 + (int)(Math.random() * 8);
+    }
 }
+
 
 

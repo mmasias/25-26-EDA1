@@ -45,15 +45,24 @@ public class Ludoteca {
     }
 
     private void simularLlegada() {
+    System.out.println("¿Deseas crear un niño aleatorio? (s/n)");
+    String respuesta = sc.nextLine().toLowerCase();
+
+    Ninio n;
+    if (respuesta.equals("s")) {
+        n = new Ninio();  // usa el constructor aleatorio
+    } else {
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
         System.out.print("Edad: ");
         int edad = Integer.parseInt(sc.nextLine());
-        Ninio n = new Ninio(nombre, edad);
-        System.out.println("Llega " + n);
-        System.out.println(nombre + " pasa a la cola de Lydia");
-        lydia.recibirNinio(n);
+        n = new Ninio(nombre, edad);
     }
+
+    System.out.println("Llega " + n.toString());
+    System.out.println(n.getNombre() + " pasa a la cola de Lydia");
+    lydia.recibirNinio(n);
+}
 
     private void mostrarEstado() {
         System.out.println("========================================");
