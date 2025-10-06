@@ -16,4 +16,8 @@ public int getEdad() {
 public String presentarse() {
     return "Hola, soy " + nombre + " y tengo " + edad + " años";
 }
+@Override
+public String toString() {
+    return nombre + " (" + edad + " años)";
+}
 
