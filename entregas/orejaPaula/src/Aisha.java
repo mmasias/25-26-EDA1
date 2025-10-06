@@ -58,5 +58,17 @@ public void presentarseMayoresDe(int edadMinima) {
         }
     }
 }
+public void presentarsePorInicial(char letra) {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return;
+    }
+    System.out.println("Aisha pide que se presenten los niños cuyo nombre empieza con '" + letra + "':");
+    for (Niño n : cola) {
+        if (Character.toUpperCase(n.getNombre().charAt(0)) == Character.toUpperCase(letra)) {
+            System.out.println("Hola, soy " + n.getNombre());
+        }
+    }
+}
 
 
