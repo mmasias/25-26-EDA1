@@ -94,5 +94,18 @@ public void ultimosCinco() {
         System.out.println("Hola, soy " + n.getNombre());
     }
 }
+public double edadPromedio() {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return 0;
+    }
+    double suma = 0;
+    for (Niño n : cola) {
+        suma += n.getEdad();
+    }
+    double promedio = suma / cola.size();
+    System.out.printf("Edad promedio de los niños en la cola de Aisha: %.1f años%n", promedio);
+    return promedio;
+}
 
 
