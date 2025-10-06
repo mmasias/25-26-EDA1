@@ -9,3 +9,6 @@ public Monitora(String nombre) {
     this.nombre = nombre;
     this.cola = new LinkedList<>();
 }
+public String getNombre() {
+    return nombre;
+}
