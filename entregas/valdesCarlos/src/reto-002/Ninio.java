@@ -17,7 +17,7 @@ public class Ninio {
         pizarrin.limpiar();
     }
 
-    // Copia un mensaje en su pizarrín, con posibilidad de cambiar 0-2 letras
+    
     public void copiarMensaje(String mensaje) {
         if (mensaje == null) mensaje = "";
         String result = distorsionarMensaje(mensaje);
@@ -30,8 +30,8 @@ public class Ninio {
 
     private String distorsionarMensaje(String mensaje) {
         if (mensaje.length() == 0) return mensaje;
-        // Cambia entre 0 y 2 letras (aleatorio)
-        int cambios = (int) (Math.random() * 3); // 0,1,2
+        
+        int cambios = (int) (Math.random() * 3); 
         StringBuilder sb = new StringBuilder(mensaje);
         for (int k = 0; k < cambios; k++) {
             int pos = (int) (Math.random() * mensaje.length());

@@ -86,8 +86,7 @@ public class Ludoteca {
         int edad = leerEnteroNonNegative();
         Ninio n = new Ninio(nombre, edad);
         System.out.println("Llega " + nombre + " (" + edad + " años)");
-        // Siempre pasan primero a Lydia (según enunciado). Si hay un juego en curso,
-        // se quedan con Lydia hasta que finalice (esto ya refleja la lógica).
+        
         lydia.recibirNinio(n);
     }
 
@@ -127,7 +126,7 @@ public class Ludoteca {
         System.out.println("¡ALARMA CONTRA INCENDIOS!");
         System.out.println();
         System.out.println("PROTOCOLO DE EMERGENCIA ACTIVADO");
-        // Dalsy y Aisha transfieren todos sus niños a Lydia inmediatamente
+        
         Ninio[] fromAisha = aisha.transferirNinios();
         Ninio[] fromDalsy = dalsy.transferirNinios();
         lydia.recibirTransferencia(fromAisha);
@@ -148,32 +147,31 @@ public class Ludoteca {
     }
 
     private void jugarTelefonoDescacharrado() {
-        // El juego lo inicia Aisha cuando ella tenga más de 5 niños
+        
         if (aisha.getCantidadNinios() <= 5) {
             System.out.println("No se puede iniciar el juego: la fila de Aisha debe tener más de 5 niños.");
             return;
         }
 
-        // Marcar que el juego está en curso
+        
         juegoTelefonoEnCurso = true;
         System.out.println("Aisha empieza el juego del Teléfono Descacharrado...");
-        // Crear pizarra del salón
+        
         Pizarra salon = new Pizarra();
         salon.limpiar();
 
-        // Limpiar los pizarrines de todos los niños en Aisha
+        
         aisha.limpiarPizarrines();
 
-        // Mensaje inicial de 10 letras
+        
         String mensajeInicial = generarMensajeAleatorio(10);
         System.out.println("Aisha escribe en su pizarrín: " + mensajeInicial);
 
-        // Primer niño recibe y copia
+        
         aisha.copiarMensajeAlPrimerNinio(mensajeInicial);
 
-        // Cada niño tarda 1 minuto en leer y escribir en su pizarrín.
-        // Simulamos el paso de minutos por salidas en pantalla (no hacemos Thread.sleep).
-        int minutos = 1; // el primer niño ya ha tardado 1 minuto al copiar
+        
+        int minutos = 1; 
         for (int i = 1; i < aisha.getCantidadNinios(); i++) {
             System.out.println("Minuto " + minutos + ": el niño " + (i) + " muestra su pizarrín al siguiente");
             String recibido = aisha.leerMensajeDeNinio(i - 1);
@@ -181,7 +179,7 @@ public class Ludoteca {
             minutos++;
         }
 
-        // Último niño corre a la pizarra del salón y escribe lo que tiene en su pizarrín
+        
         String mensajeFinal = aisha.leerMensajeDeNinio(aisha.getCantidadNinios() - 1);
         System.out.println("Minuto " + minutos + ": el último niño corre a la pizarra del salón y escribe el mensaje...");
         salon.escribir(mensajeFinal);
@@ -190,7 +188,7 @@ public class Ludoteca {
         System.out.println("Mensaje inicial: " + mensajeInicial);
         System.out.println("Mensaje final en la pizarra del salón: " + salon.leer());
 
-        // Juego terminado
+        
         juegoTelefonoEnCurso = false;
     }
 

@@ -5,15 +5,15 @@ public class Monitora {
     private String nombre;
     private Ninio[] cola;
     private int cantidad;
-    private Ninio[] respaldoOriginal; // para mantener referencia si se separan y luego volver
+    private Ninio[] respaldoOriginal; 
 
     public Monitora(String nombre) {
         this.nombre = nombre;
-        cola = new Ninio[200]; // capacidad suficiente
+        cola = new Ninio[200]; 
         cantidad = 0;
     }
 
-    // --- Operaciones genéricas ---
+    
     public void recibirNinio(Ninio n) {
         if (cantidad >= cola.length) {
             System.out.println("Cola llena. No se puede agregar a " + n.getNombre());
@@ -65,9 +65,7 @@ public class Monitora {
         System.out.println();
     }
 
-    // ==== Métodos específicos del comportamiento de Aisha (se usan sobre la instancia aisha) ====
-
-    // Presentación general
+    
     public void presentacionGeneral() {
         if (!esAisha()) {
             System.out.println("Este método debe invocarse sobre Aisha.");
@@ -172,7 +170,7 @@ public class Monitora {
     public void separarParaJuego(Monitora dalsy) {
         if (!esAisha()) { System.out.println("Este método debe invocarse sobre Aisha."); return; }
         System.out.println("Separando niños para el juego de la rana...");
-        // respaldo del orden original
+        
         respaldoOriginal = new Ninio[cantidad];
         for (int i = 0; i < cantidad; i++) respaldoOriginal[i] = cola[i];
 
@@ -183,12 +181,12 @@ public class Monitora {
             if (cola[i].getEdad() < 5) menores[cMen++] = cola[i];
             else mayores[cMay++] = cola[i];
         }
-        // pasar menores a dalsy
+        
         Ninio[] realMenores = new Ninio[cMen];
         for (int i = 0; i < cMen; i++) realMenores[i] = menores[i];
         dalsy.recibirTransferencia(realMenores);
 
-        // dejar en Aisha solo los mayores
+        
         cola = new Ninio[200];
         cantidad = 0;
         for (int i = 0; i < cMay; i++) cola[cantidad++] = mayores[i];
@@ -200,7 +198,7 @@ public class Monitora {
         System.out.println("\nNOTA: Al terminar el juego, los niños volverán a su posición original");
     }
 
-    // ==== Métodos útiles para el juego del teléfono descacharrado ====
+    
 
     public void limpiarPizarrines() {
         for (int i = 0; i < cantidad; i++) {
@@ -208,19 +206,19 @@ public class Monitora {
         }
     }
 
-    // Primer niño copia el mensaje que escribe Aisha
+    
     public void copiarMensajeAlPrimerNinio(String mensaje) {
         if (cantidad == 0) return;
         cola[0].copiarMensaje(mensaje);
     }
 
-    // Leer mensaje del niño i (su pizarrín)
+    
     public String leerMensajeDeNinio(int i) {
         if (i < 0 || i >= cantidad) return "";
         return cola[i].leerMensaje();
     }
 
-    // Copiar mensaje del niño src al niño dst (aplica distorsiones en la copia de dst)
+    
     public void copiarMensajeDeNinioA(int srcIndex, int dstIndex) {
         if (srcIndex < 0 || srcIndex >= cantidad) return;
         if (dstIndex < 0 || dstIndex >= cantidad) return;
