@@ -14,3 +14,17 @@ public static void generarNiñosAleatorios(Lidia lidia, int cantidad) {
         System.out.println("Llega " + n + " a la cola de Lidia");
     }
 }
+public static void main(String[] args) {
+    Ludoteca ludoteca = new Ludoteca();
+    generarNiñosAleatorios(ludoteca.getLidia(), 20);
+    ludoteca.mostrarEstado();
+    ludoteca.getLidia().pasarNiñosAAisha(ludoteca.getAisha());
+    ludoteca.getAisha().presentarseConNiños();
+    JuegoRana juego = new JuegoRana(ludoteca.getAisha(), ludoteca.getDalsy());
+    if (juego.puedeJugar()) {
+        juego.iniciarJuego();
+        ludoteca.mostrarEstado();
+        juego.finalizarJuego();
+        ludoteca.mostrarEstado();
+    }
+}
