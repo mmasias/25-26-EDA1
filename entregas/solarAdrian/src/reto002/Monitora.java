@@ -12,46 +12,35 @@ public class Monitora {
     }
 
     public String getNombre() { return nombre; }
-    public List<Ninio> getCola() { return cola; }
 
     public void agregarNinio(Ninio n) {
         cola.addLast(n);
     }
 
-    public void transferirTodosA(Monitora otra) {
-        while (!cola.isEmpty()) {
-            otra.agregarNinio(cola.pollFirst());
-        }
-    }
-
-    public boolean estaVacia() {
-        return cola.isEmpty();
+    public void transferirTodosA(Monitora destino) {
+        destino.cola.addAll(this.cola);
+        this.cola.clear();
     }
 
     public int cantidad() {
         return cola.size();
     }
 
-    public double edadPromedio() {
-        if (cola.isEmpty()) return 0;
-        int suma = 0;
-        for (Ninio n : cola) {
-            suma += n.getEdad();
-        }
-        return (double) suma / cola.size();
+    public List<Ninio> getCola() {
+        return cola;
     }
 
     @Override
     public String toString() {
-        String texto = nombre.toUpperCase() + ":\n";
+        String salida = nombre.toUpperCase() + ":\n";
         if (cola.isEmpty()) {
-            texto = texto + "  Cola vacía\n";
+            salida += "  Cola vacía\n";
         } else {
-            texto = texto + "  Niños en cola: " + cola.size() + "\n";
+            salida += "  Niños en cola: " + cola.size() + "\n";
             for (Ninio n : cola) {
-                texto = texto + "  - " + n.toString() + "\n";
+                salida += "  - " + n.toString() + "\n";
             }
         }
-        return texto;
+        return salida;
     }
 }

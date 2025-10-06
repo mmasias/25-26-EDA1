@@ -13,7 +13,6 @@ public class Ludoteca {
         return lydia.cantidad() + aisha.cantidad() + dalsy.cantidad();
     }
 
-    
     public void mostrarEstado() {
         System.out.println("========================================");
         System.out.println("        ESTADO ACTUAL");

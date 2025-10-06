@@ -12,14 +12,6 @@ public class Ninio {
     public String getNombre() { return nombre; }
     public int getEdad() { return edad; }
 
-    public String presentacionCompleta() {
-        return "Hola, soy " + nombre + " y tengo " + edad + " años";
-    }
-
-    public String presentacionNombre() {
-        return "Hola, soy " + nombre;
-    }
-
     @Override
     public String toString() {
         return nombre + " (" + edad + " años)";
