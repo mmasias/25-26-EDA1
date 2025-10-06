@@ -1,4 +1,4 @@
-package vPRG2.v001;
+
 
 import utils.Console;
 
@@ -6,23 +6,13 @@ import java.util.Random;
 
 class Niño {
     private String nombre;
-    private Pizarra pizarrin;
 
     public Niño(String nombre) {
         this.nombre = nombre;
     }
 
-    public void recibirPizarrin(Pizarra pizarra) {
-        this.pizarrin = pizarra;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void recibirMensaje(String mensaje) {
-        pizarrin.escribirMensaje(modificarMensaje(mensaje));
-        new Console().writeln("[" + nombre + "] recibe [" + mensaje + "] y ha escrito [" + pizarrin.leerMensaje() + "]");        
     }
 
     private String modificarMensaje(String mensaje) {
@@ -42,11 +32,4 @@ class Niño {
         return mensaje;
     }
 
-    public String mostrarMensaje() {
-        return pizarrin.leerMensaje();
-    }
-
-    public void limpiarPizarrin() {
-        pizarrin.limpiar();
-    }
 }

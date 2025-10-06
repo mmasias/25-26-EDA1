@@ -1,4 +1,4 @@
-package vPRG2.v001;
+
 
 import utils.Console;
 
@@ -65,7 +65,6 @@ class Monitor {
         while (tieneNiños()) {
             new Console().writeln(" >  " + this.nombre + " ENTREGA NIÑO");
             Niño unNiño = sacarNiño();
-            otroMonitor.recibeNiño(unNiño, new Pizarra());
         }
     }
 
