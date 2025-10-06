@@ -46,19 +46,19 @@ class Mundo {
         System.out.println("        LUDOTECA - SIMULACIÓN"           );
         System.out.println("========================================");
         System.out.println(
-            "1.  Simular llegada de niño" +
-            "2.  Simular intento de inicio de juego" +
-            "3.  Aisha se presenta y pide a los niños que se presenten" +
-            "4.  Aisha pide que se presenten los niños mayores de 5 años" +
-            "5.  Aisha pide que se presenten los niños cuyo nombre empieza por letra" +
-            "6.  Aisha pide que se presenten los cinco primeros niños" +
-            "7.  Aisha pide que se presenten los cinco últimos niños" +
-            "8.  Aisha y Lydia dicen cuántos niños hay en cola" +
-            "9.  Aisha dice la edad promedio de los niños en cola" +
-            "10. Simular intento de inicio del juego de la rana" +
-            "11. Paso de niños menores de 5 años a monitora Dalsy" +
-            "12. Alarma contra incendios y protocolo de emergencia" +
-            "13. Mostrar monitoras y niños" +
+            "1.  Simular llegada de niño\n" +
+            "2.  Simular intento de inicio de juego\n" +
+            "3.  Aisha se presenta y pide a los niños que se presenten\n" +
+            "4.  Aisha pide que se presenten los niños mayores de 5 años\n" +
+            "5.  Aisha pide que se presenten los niños cuyo nombre empieza por letra\n" +
+            "6.  Aisha pide que se presenten los cinco primeros niños\n" +
+            "7.  Aisha pide que se presenten los cinco últimos niños\n" +
+            "8.  Aisha y Lydia dicen cuántos niños hay en cola\n" +
+            "9.  Aisha dice la edad promedio de los niños en cola\n" +
+            "10. Simular intento de inicio del juego de la rana\n" +
+            "11. Paso de niños menores de 5 años a monitora Dalsy\n" +
+            "12. Alarma contra incendios y protocolo de emergencia\n" +
+            "13. Mostrar monitoras y niños\n" +
             "0.  Salir"
         );
 
