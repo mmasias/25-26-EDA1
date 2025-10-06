@@ -10,5 +10,16 @@ public class Aisha {
         this.cola = new LinkedList<>();
     }
 }
+public void recibirNiño(Niño n) {
+    cola.add(n);
+}
+
+public List<Niño> getCola() {
+    return cola;
+}
+
+public int contarNiños() {
+    return cola.size();
+}
 
 
