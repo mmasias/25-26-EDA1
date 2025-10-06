@@ -1,7 +1,7 @@
 public class Mundo {
 
-        Tiempo tiempo;
-        Ludoteca ludoteca;
+        private Tiempo tiempo;
+        private Ludoteca ludoteca;
 
         public Mundo() {
                 tiempo = new Tiempo();

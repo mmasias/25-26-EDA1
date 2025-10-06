@@ -2,10 +2,10 @@
 public class Monitor {
         
         private static final int NIÑOS_NECESARIOS_PARA_JUGAR = 5;
-        String nombre;
-        Niño primerNiño;
-        int numeroDeNiñosALaCola;
-        Juego juego;
+        private String nombre;
+        private Niño primerNiño;
+        private int numeroDeNiñosALaCola;
+        private Juego juego;
 
         public Monitor(String nombre) {
                 this.nombre = nombre;

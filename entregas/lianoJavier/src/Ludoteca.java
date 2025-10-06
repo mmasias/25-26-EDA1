@@ -1,9 +1,9 @@
 
 public class Ludoteca {
 
-        Monitor lydia;
-        Monitor aisha;
-        Monitor dalsy;
+        private Monitor lydia;
+        private Monitor aisha;
+        private Monitor dalsy;
 
         public boolean estaAbierta(Tiempo tiempo) {
                 final int HORA_APERTURA = 10, HORA_CIERRE = 12;
