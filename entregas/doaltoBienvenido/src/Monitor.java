@@ -1,5 +1,6 @@
 class Monitor {
     private static final int CAPACIDAD_MAXIMA = 50;
+    private static final int CANTIDAD_PRESENTACION_LISTAS = 5;
     private String nombre;
     private Niño[] niños;
     private int cantidad;
@@ -22,9 +23,9 @@ class Monitor {
         return cantidad; 
     }
 
-    public void recibirNiño(Niño n) {
+    public void recibirNiño(Niño nino) {
         if (cantidad < CAPACIDAD_MAXIMA) {
-            niños[cantidad++] = n;
+            niños[cantidad++] = nino;
         }
     }
 
@@ -39,45 +40,73 @@ class Monitor {
         }
         
         System.out.println("  Niños en cola: " + cantidad);
-        for (int i = 0; i < cantidad; i++) {
-            System.out.println("  - " + niños[i].getNombre() + " (" + niños[i].getEdad() + " años)");
+        for (int indice = 0; indice < cantidad; indice++) {
+            System.out.println("  - " + niños[indice].getNombre() + " (" + niños[indice].getEdad() + " años)");
         }
     }
 
     public void transferirNiños(Monitor destino) {
-        for (int i = 0; i < cantidad; i++) {
-            destino.recibirNiño(niños[i]);
-            niños[i] = null;
+        for (int indice = 0; indice < cantidad; indice++) {
+            destino.recibirNiño(niños[indice]);
+            niños[indice] = null;
         }
         cantidad = 0;
     }
 
     public double edadPromedio() {
         if (cantidad == 0) return 0;
-        int suma = 0;
-        for (int i = 0; i < cantidad; i++) suma += niños[i].getEdad();
-        return (double) suma / cantidad;
+        int sumaEdades = 0;
+        int totalContados = 0;
+        for (int indice = 0; indice < cantidad; indice++) {
+            if (niños[indice] != null) { 
+                sumaEdades += niños[indice].getEdad(); 
+                totalContados++; 
+            }
+        }
+        return totalContados == 0 ? 0 : (double) sumaEdades / totalContados;
     }
 
-    public int contarMayoresDe(int edad) {
-        int count = 0;
-        for (int i = 0; i < cantidad; i++) {
-            if (niños[i].getEdad() >= edad) count++;
+    public int contarMayoresDe(int edadMinima) {
+        int contador = 0;
+        for (int indice = 0; indice < cantidad; indice++) {
+            if (niños[indice] != null && niños[indice].getEdad() >= edadMinima) contador++;
         }
-        return count;
+        return contador;
     }
 
     public void mostrarPrimerosCinco() {
-        int limite = Math.min(5, cantidad);
-        for (int i = 0; i < limite; i++) {
-            niños[i].presentarseNombre();
+        int limite = Math.min(CANTIDAD_PRESENTACION_LISTAS, cantidad);
+        for (int indice = 0; indice < limite; indice++) {
+            niños[indice].presentarseNombre();
+        }
+        if (limite == 0) {
+            System.out.println("  (Sin niños para mostrar)");
         }
     }
 
     public void mostrarUltimosCinco() {
-        int inicio = Math.max(0, cantidad - 5);
-        for (int i = inicio; i < cantidad; i++) {
-            niños[i].presentarseNombre();
+        int inicio = Math.max(0, cantidad - CANTIDAD_PRESENTACION_LISTAS);
+        for (int indice = inicio; indice < cantidad; indice++) {
+            niños[indice].presentarseNombre();
         }
+        if (cantidad == 0) {
+            System.out.println("  (Sin niños para mostrar)");
+        }
+    }
+
+    public Niño getNiñoEn(int indice) {
+        if (indice < 0 || indice >= cantidad) return null;
+        return niños[indice];
+    }
+
+    public Niño removerEn(int indice) {
+        if (indice < 0 || indice >= cantidad) return null;
+        Niño eliminado = niños[indice];
+        for (int i = indice; i < cantidad - 1; i++) {
+            niños[i] = niños[i + 1];
+        }
+        niños[cantidad - 1] = null;
+        cantidad--;
+        return eliminado;
     }
 }
