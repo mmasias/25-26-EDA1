@@ -20,3 +20,15 @@ public void conteoAsistencia() {
     System.out.println("Dalsy tiene " + dalsy.contarNiños() + " niños en cola");
     System.out.println("Total: " + total + " niños");
 }
+
+public void emergencia() {
+    System.out.println("¡ALARMA CONTRA INCENDIOS!");
+    System.out.println("\nPROTOCOLO DE EMERGENCIA ACTIVADO");
+    int total = dalsy.contarNiños() + aisha.contarNiños();
+    dalsy.transferirTodosA(lidia);
+    while (!aisha.getCola().isEmpty()) {
+        lidia.recibirNiño(aisha.getCola().poll());
+    }
+    System.out.println(total + " niños transferidos");
+    System.out.println("Lidia ahora tiene " + lidia.contarNiños() + " niños listos para evacuar en orden");
+}
