@@ -8,3 +8,8 @@ public Ludoteca() {
     aisha = new Aisha();
     dalsy = new Dalsy();
 }
+public Ludoteca() {
+    lidia = new Lidia();
+    aisha = new Aisha();
+    dalsy = new Dalsy();
+}
