@@ -46,5 +46,17 @@ public void presentarseConNiños() {
         System.out.println(n.presentarse());
     }
 }
+public void presentarseMayoresDe(int edadMinima) {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return;
+    }
+    System.out.println("Aisha pide que se presenten los mayores de " + edadMinima + " años:");
+    for (Niño n : cola) {
+        if (n.getEdad() > edadMinima) {
+            System.out.println(n.presentarse());
+        }
+    }
+}
 
 
