@@ -1,18 +1,21 @@
 
 public class Niño {
 
-        public Niño(String darNombreNiño, int i) {
-                //TODO Auto-generated constructor stub
+        private String nombre;
+        private int edad;
+        private Niño siguienteNiño;
+
+        public Niño(String nombre, int edad) {
+                this.nombre = nombre;
+                this.edad = edad;
         }
 
         public void recibe(Niño niño) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'recibe'");
+                if (siguienteNiño != null) siguienteNiño.recibe(niño); else siguienteNiño = niño;
         }
 
-        public Niño recibir() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'recibir'");
+        public Niño pedirNiñoSiguiente() {
+                return siguienteNiño;
         }
 
 }
