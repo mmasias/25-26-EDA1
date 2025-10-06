@@ -64,3 +64,43 @@ public class Ludoteca {
         dalsy.mostrarCola();
     }
 }
+
+    private void presentacionGeneral() {
+        aisha.presentarse();
+        for (Ninio n : aisha.getCola()) n.presentarse();
+}
+
+    private void presentacionPorEdad() {
+        System.out.print("Edad mínima: ");
+        int edadMinima = Integer.parseInt(sc.nextLine());
+        System.out.println("Aisha pide que se presenten los mayores de " + edadMinima + " años:");
+        for (Ninio n : aisha.getCola()) {
+            if (n.getEdad() > edadMinima) n.presentarse();
+    }
+}
+
+    private void presentacionPorInicial() {
+        System.out.print("Letra inicial: ");
+        char letra = sc.nextLine().charAt(0);
+        System.out.println("Aisha pide que se presenten los niños cuyo nombre empieza con '" + letra + "':");
+        for (Ninio n : aisha.getCola()) {
+            if (n.nombreEmpiezaPor(letra)) System.out.println("Hola, soy " + n.getNombre());
+    }
+}
+
+    private void primerosCinco() {
+        System.out.println("Aisha pide que se presenten los primeros 5 niños:");
+        int limite = Math.min(5, aisha.getCola().size());
+        for (int i = 0; i < limite; i++) {
+            System.out.println("Hola, soy " + aisha.getCola().get(i).getNombre());
+    }
+}
+
+    private void ultimosCinco() {
+        System.out.println("Aisha pide que se presenten los últimos 5 niños:");
+        int size = aisha.getCola().size();
+        int inicio = Math.max(0, size - 5);
+        for (int i = inicio; i < size; i++) {
+            System.out.println("Hola, soy " + aisha.getCola().get(i).getNombre());
+    }
+}
