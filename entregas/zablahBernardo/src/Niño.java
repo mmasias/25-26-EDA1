@@ -1,35 +1,41 @@
-
-
 import utils.Console;
-
-import java.util.Random;
 
 class Niño {
     private String nombre;
+    private int edad;
+    private Niño siguienteNiño;
+    private Niño anteriorNiño;
 
-    public Niño(String nombre) {
+    public Niño(String nombre, int edad) {
         this.nombre = nombre;
+        this.edad = edad;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    private String modificarMensaje(String mensaje) {
-        Random random = new Random();
-        final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
-
-        int errores = random.nextInt(2) + 1;
-        
-        for (int i = 0; i < errores; i++) {
-            if (mensaje.length() > 0) {
-                int indiceAleatorio = random.nextInt(mensaje.length());
-                char letraAleatoria = ALFABETO.charAt(random.nextInt(ALFABETO.length()));
-                
-                mensaje = mensaje.substring(0, indiceAleatorio) + letraAleatoria + mensaje.substring(indiceAleatorio + 1);
-            }
-        }
-        return mensaje;
+    public int getEdad() {
+        return edad;
     }
 
+    public Niño getSiguienteNiño() {
+        return siguienteNiño;
+    }
+
+    public void setSiguienteNiño(Niño niño) {
+        this.siguienteNiño = niño;
+    }
+
+    public Niño getAnteriorNiño() {
+        return anteriorNiño;
+    }
+
+    public void setAnteriorNiño(Niño niño) {
+        this.anteriorNiño = niño;
+    }
+
+    public void presentarse(Console console) {
+        console.writeln(nombre + ": Hola, soy " + nombre + " y tengo " + edad + " años");
+    }
 }
