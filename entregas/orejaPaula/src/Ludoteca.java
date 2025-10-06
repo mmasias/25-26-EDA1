@@ -32,3 +32,15 @@ public void emergencia() {
     System.out.println(total + " niños transferidos");
     System.out.println("Lidia ahora tiene " + lidia.contarNiños() + " niños listos para evacuar en orden");
 }
+public void mostrarEstado() {
+    System.out.println("========================================");
+    System.out.println("        ESTADO ACTUAL");
+    System.out.println("========================================");
+    System.out.println("LIDIA:");
+    lidia.mostrarCola();
+    System.out.println("\nAISHA:");
+    aisha.mostrarCola();
+    System.out.println("\nDALSY:");
+    dalsy.mostrarCola();
+    System.out.println("========================================");
+}
