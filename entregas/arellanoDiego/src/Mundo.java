@@ -1,54 +1,71 @@
 
 
-import utils.Console;
+import java.util.Random;
+import java.util.Scanner;
 
-class Mundo {
+public class Mundo {
     private Ludoteca ludoteca;
-    private int tiempoTotal;
+    private Scanner scanner;
+    private Random random = new Random();
 
-    public Mundo(Ludoteca unaLudoteca, int minutosSimulacion) {
-        ludoteca = unaLudoteca;
-        tiempoTotal = minutosSimulacion;
+    public Mundo() {
+        ludoteca = new Ludoteca();
+        scanner = new Scanner(System.in);
     }
 
-    public void iniciarSimulacion() {
-        for (int minuto = 0; minuto < tiempoTotal; minuto++) {
-            new Console().clearScreen();
-            new Console().writeln("=".repeat(40));
-            new Console().writeln("Minuto " + minuto);
-
-            if (llegaNiño(minuto)) {
-                Niño niño = generarNiño();
-                ludoteca.recibirNiño(niño);
+    public void ejecutarSimulacion() {
+        int opcion;
+        do {
+            mostrarMenu();
+            opcion = 1 + random.nextInt(13); // genera opción aleatoria entre 1 y 13
+            System.out.println("Opción seleccionada automáticamente: " + opcion);
+            procesarOpcion(opcion);
+            if (opcion != 0) {
+                System.out.print("\n--- FIN DE EJECUCIÓN AUTOMÁTICA ---\n");
             }
+            if (opcion == 13) opcion = 0; // terminar después de mostrar estado
+        } while (opcion != 0);
+    }
 
-            ludoteca.actualizar();
-            ludoteca.verEstado();
+    private void mostrarMenu() {
+        System.out.println("\n========================================");
+        System.out.println("        LUDOTECA - SIMULACIÓN AUTOMÁTICA");
+        System.out.println("========================================");
+        System.out.println("""
+1.  Simular llegada de niño (aleatoria)
+2.  Simular intento de inicio de juego
+3.  Presentaciones generales
+4.  Presentaciones por edad mínima aleatoria
+5.  Presentaciones por letra aleatoria
+6.  Primeros cinco niños
+7.  Últimos cinco niños
+8.  Conteo de asistencia
+9.  Edad promedio
+10. Juego de la rana
+11. Separar menores de 5 años
+12. Alarma contra incendios
+13. Mostrar estado
+0.  Salir
+""");
+    }
 
-            new Console().readString("Presione ENTER para continuar...");
+    private void procesarOpcion(int opcion) {
+        switch (opcion) {
+            case 1 -> ludoteca.llegadaNiñoAleatorio();
+            case 2 -> ludoteca.intentoInicioJuego();
+            case 3 -> ludoteca.presentacionesGenerales();
+            case 4 -> ludoteca.presentacionesMayoresDeAleatorio();
+            case 5 -> ludoteca.presentacionesPorLetraAleatoria();
+            case 6 -> ludoteca.primerosCinco();
+            case 7 -> ludoteca.ultimosCinco();
+            case 8 -> ludoteca.conteoAsistencia();
+            case 9 -> ludoteca.edadPromedioAisha();
+            case 10 -> ludoteca.intentoJuegoRana();
+            case 11 -> ludoteca.separarParaJuego();
+            case 12 -> ludoteca.alarmaIncendio();
+            case 13 -> ludoteca.mostrarEstado();
+            case 0 -> System.out.println("Saliendo del programa...");
+            default -> System.out.println("Opción no válida");
         }
-    }
-
-    private boolean llegaNiño(int minuto) {
-        if (minuto < 10) return Math.random() < 0.6; // 0-2 niños probables
-        if (minuto < 30) return minuto % 3 == 0 && Math.random() < 0.5;
-        return false;
-    }
-
-    private Niño generarNiño() {
-        String[] nombres = {"Andrés", "Pablo", "Diego", "Sara", "Javier", "Paula", "Iker", "Lucía", "Mario", "Sofía"};
-        String nombre = nombres[(int) (Math.random() * nombres.length)];
-        new Console().writeln("Llega " + nombre);
-        return new Niño(nombre);
-    }
-
-    public static void main(String[] args) {
-        new Console().writeln("=".repeat(50));
-        new Console().writeln("TELÉFONO DESCACHARRADO v2.0 (RETO 002)");
-        new Console().writeln("=".repeat(50));
-
-        Ludoteca ludoteca = new Ludoteca();
-        Mundo mundo = new Mundo(ludoteca, 120); // 2 horas
-        mundo.iniciarSimulacion();
     }
 }
