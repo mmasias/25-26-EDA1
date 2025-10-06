@@ -1,47 +1,35 @@
 import java.util.Scanner;
 
 public class Mundo {
-    private final Ludoteca ludoteca; 
-    private final Scanner sc;        
+    private final Ludoteca ludoteca;
+    private final Scanner sc;
 
     public Mundo() {
-        this.ludoteca = new Ludoteca(); 
+        this.ludoteca = new Ludoteca();
         this.sc = new Scanner(System.in);
     }
 
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         new Mundo().ejecutarSimulacion();
     }
 
-    public void ejecutarSimulacion() { 
+    public void ejecutarSimulacion() {
         int opcion;
         do {
             mostrarMenu();
-            opcion = leerEntero("Elige una opción: "); 
+            opcion = leerEntero("Elige una opción: ");
             System.out.println();
             procesarOpcion(opcion);
             if (opcion != 0) {
-                System.out.print("Pulsa ENTER para continuar..."); 
-                sc.nextLine();
-                System.out.println();
-            }
-int opcion;
-        do {
-            mostrarMenu();
-            opcion = leerEntero("Elige una opción: "); 
-            System.out.println();
-            procesarOpcion(opcion);
-            if (opcion != 0) {
-                System.out.print("Pulsa ENTER para continuar..."); 
+                System.out.print("Pulsa ENTER para continuar...");
                 sc.nextLine();
                 System.out.println();
             }
         } while (opcion != 0);
-        
         System.out.println("Hasta pronto 👋");
     }
 
-    private void mostrarMenu() { // (u1)
+    private void mostrarMenu() {
         System.out.println("========================================");
         System.out.println("           LUDOTECA · SIMULACIÓN");
         System.out.println("========================================");
@@ -63,7 +51,7 @@ int opcion;
         System.out.println("----------------------------------------");
     }
 
-    private void procesarOpcion(int opcion) { 
+    private void procesarOpcion(int opcion) {
         switch (opcion) {
             case 1 -> opcionLlegada();
             case 2 -> ludoteca.intentoInicioDeJuego();
@@ -89,14 +77,11 @@ int opcion;
         }
     }
 
-
-private void opcionLlegada() { // (u1)
-        String nombre = leerTextoNoVacio("Nombre del niño/niña: "); 
-        int edad = leerEntero("Edad (años): ");                     
+    private void opcionLlegada() {
+        String nombre = leerTextoNoVacio("Nombre del niño/niña: ");
+        int edad = leerEntero("Edad (años): ");
         ludoteca.llegadaDeNino(nombre, edad);
     }
-
-   
 
     private int leerEntero(String prompt) {
         while (true) {
