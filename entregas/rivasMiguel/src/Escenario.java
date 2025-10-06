@@ -7,48 +7,81 @@ public class Escenario {
         Ludoteca ludoteca = new Ludoteca();
         Monitora aisha = new Monitora("Aisha");
         Monitora lydia = new Monitora("Lydia");
+        Monitora dalsy = new Monitora("Dalsy");
 
         ludoteca.setReceptora(lydia);
         ludoteca.setOrganizadora(aisha);
 
-        System.out.println("Simulación: la ludoteca abre y funcionan " + DURACION_MINUTOS + " minutos.");
+        System.out.println("Simulación: la ludoteca abre durante " + DURACION_MINUTOS + " minutos.");
 
         int minuto = 0;
         int contadorNinos = 0;
 
+        String[] nombresDisponibles = {
+            "Lucas", "María", "Hugo", "Sofía", "Leo", "Paula",
+            "Mateo", "Lucía", "Daniel", "Valeria", "Pablo", "Carla",
+            "Adrián", "Emma", "Álvaro", "Julia", "Diego", "Lara",
+            "David", "Marta", "Noa", "Irene", "Celia", "Samuel"
+        };
+
         while (minuto < DURACION_MINUTOS) {
-            int llegadas = calcularLlegadas(minuto);
-            for (int i = 0; i < llegadas; i++) {
-                contadorNinos++;
-                Nino n = new Nino("Nino" + contadorNinos);
-                lydia.recibirNino(n);
+
+            if (minuto > 60) {
+                System.out.println("\n🚨 ¡ALARMA CONTRA INCENDIOS! Se activa el protocolo de emergencia (minuto 60) 🚨");
+
+                if (dalsy != null && aisha != null) {
+                    dalsy.pasarNinosAOtra(aisha);
+                }
+
+                if (aisha != null && lydia != null) {
+                    aisha.pasarNinosAOtra(lydia);
+                }
+
+                System.out.println("\n--- Estado tras protocolo de emergencia ---");
+                if (lydia != null) lydia.mostrarEstadoCola();
+                if (aisha != null) aisha.mostrarEstadoCola();
+                if (dalsy != null) dalsy.mostrarEstadoCola();
+                break;
             }
 
-            if (!ludoteca.isJuegoEnCurso() && ludoteca.numeroDeNinos() >= Ludoteca.MIN_NINOS_PARA_JUEGO) {
-                Nino[] participantes = ludoteca.getFilaArray();
+
+            int llegadas = calcularLlegadas(minuto);
+            for (int i = 0; i < llegadas && contadorNinos < nombresDisponibles.length; i++) {
+                String nombre = nombresDisponibles[contadorNinos];
+                Nino n = new Nino(nombre, 3 + (int) (Math.random() * 8));
+                lydia.recibirNino(n);
+                contadorNinos++;
+            }
+
+            Monitora rec = ludoteca.getReceptora();
+            int ninosEnCola = (rec != null) ? rec.numeroDeNinosEnCola() : 0;
+
+            if (!ludoteca.isJuegoEnCurso() && ninosEnCola >= Ludoteca.MIN_NINOS_PARA_JUEGO) {
+                Nino[] participantes = (rec != null) ? rec.getFilaArray() : new Nino[0];
                 int duracionJuego = participantes.length + 2;
 
                 System.out.println("\n==> Se inicia un juego con " + participantes.length + " niños. Duración prevista: " + duracionJuego + " minutos (minuto actual: " + minuto + ").\n");
 
                 ludoteca.setJuegoEnCurso(true);
 
+                Juego juego = new Juego(ludoteca);
+                juego.prepararJuegoRana(dalsy);
+
                 for (int t = 0; t < duracionJuego; t++) {
                     minuto++;
-                    if (minuto >= DURACION_MINUTOS) {
-                        continue;
-                    }
+                    if (minuto >= DURACION_MINUTOS) break;
                     if (minuto < MINUTOS_LLEGADAS) {
                         int llegadasDurante = calcularLlegadas(minuto);
-                        for (int j = 0; j < llegadasDurante; j++) {
-                            contadorNinos++;
-                            Nino nn = new Nino("Nino" + contadorNinos);
+                        for (int j = 0; j < llegadasDurante && contadorNinos < nombresDisponibles.length; j++) {
+                            String nombre = nombresDisponibles[contadorNinos];
+                            Nino nn = new Nino(nombre, 3 + (int) (Math.random() * 8));
                             lydia.recibirNino(nn);
+                            contadorNinos++;
                         }
                     }
                 }
 
-                Juego juego = new Juego(ludoteca);
-                juego.iniciar(participantes);
+                juego.terminarJuegoRana(dalsy);
 
                 ludoteca.setJuegoEnCurso(false);
                 ludoteca.transferirNinosDesdeReceptora();
@@ -61,7 +94,20 @@ public class Escenario {
             minuto++;
         }
 
-        System.out.println("Fin de la simulación. Llegaron en total " + contadorNinos + " niños a la ludoteca.");
+
+        System.out.println("\nFin de la simulación. Llegaron en total " + contadorNinos + " niños a la ludoteca.\n");
+
+        lydia.mostrarEstadoCola();
+        aisha.mostrarEstadoCola();
+        dalsy.mostrarEstadoCola();
+
+        lydia.presentarse();
+        lydia.pedirPresentacionesTodos();
+        lydia.pedirPresentacionesMayoresDe(7);
+        dalsy.pedirPresentacionesPorLetra('L');
+        aisha.decirNumeroEnCola();
+        dalsy.decirEdadPromedio();
+
     }
 
     private static int calcularLlegadas(int minuto) {

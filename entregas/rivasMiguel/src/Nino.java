@@ -3,8 +3,28 @@ public class Nino {
     private Pizarra pizarrin;
     private String ultimoRecibido = "";
 
-    public Nino(String nombre) {
+    private int edad = 0;
+
+    public Nino(String nombre, int edad) {
         this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void presentarse() {
+        System.out.println(nombre + " dice: Hola, me llamo " + nombre + " y tengo " + edad + " años.");
+    }
+
+    public boolean nombreEmpiezaPor(char letra) {
+        if (nombre == null || nombre.length() == 0) return false;
+        return Character.toLowerCase(nombre.charAt(0)) == Character.toLowerCase(letra);
     }
 
     public String getNombre() {
