@@ -1,134 +1,83 @@
 class Monitor {
-    private static final int CAPACIDAD_MAXIMA = 15;
-    private static final int MINIMO_NIÑOS_PARA_JUGAR = 5;
-    private static final String MENSAJE_INICIAL = "ABCDEFGHIJKLM";
-
+    private static final int CAPACIDAD_MAXIMA = 50;
     private String nombre;
     private Niño[] niños;
-    private int inicio;
-    private int fin;
     private int cantidad;
-    private boolean estaJugando;
-    private int turnoActual;
 
     public Monitor(String nombre) {
         this.nombre = nombre;
         this.niños = new Niño[CAPACIDAD_MAXIMA];
-        this.inicio = 0;
-        this.fin = 0;
         this.cantidad = 0;
-        this.estaJugando = false;
-        this.turnoActual = 0;
     }
 
-    public void recibeNiño(Niño niño) {
-        agregarNiñoACola(niño, false);
+    public String getNombre() { 
+        return nombre; 
     }
 
-    public void recibeNiñoConPizarra(Niño niño) {
-        agregarNiñoACola(niño, true);
+    public boolean tieneNiños() { 
+        return cantidad > 0; 
     }
 
-    private void agregarNiñoACola(Niño niño, boolean asignarPizarra) {
-        if (cantidad >= CAPACIDAD_MAXIMA) {
-            new Console().writeln("ERROR: ¡" + nombre + " no puede recibir más niños! Cola llena.");
+    public int getCantidad() { 
+        return cantidad; 
+    }
+
+    public void recibirNiño(Niño n) {
+        if (cantidad < CAPACIDAD_MAXIMA) {
+            niños[cantidad++] = n;
+        }
+    }
+
+    public Niño[] getNiños() { 
+        return niños; 
+    }
+
+    public void mostrarNiños() {
+        if (cantidad == 0) {
+            System.out.println("  Cola vacia");
             return;
         }
-
-        if (asignarPizarra) {
-            niño.recibirPizarrin(new Pizarra());
-        }
-
-        niños[fin] = niño;
-        fin = (fin + 1) % CAPACIDAD_MAXIMA;
-        cantidad++;
-    }
-
-    public boolean tieneNiños() {
-        return cantidad > 0;
-    }
-
-    public boolean puedeJugar() {
-        return cantidad >= MINIMO_NIÑOS_PARA_JUGAR;
-    }
-
-    public boolean estaJugando() {
-        return estaJugando;
-    }
-
-    public void mostrarListaNiños() {
-        new Console().write("> " + this.nombre + " --> ");
-        int actual = inicio;
+        
+        System.out.println("  Niños en cola: " + cantidad);
         for (int i = 0; i < cantidad; i++) {
-            new Console().write(niños[actual].getNombre() + " / ");
-            actual = (actual + 1) % CAPACIDAD_MAXIMA;
-        }
-        new Console().writeln();
-    }
-
-    public void entregaNiños(Monitor otroMonitor) {
-        while (tieneNiños()) {
-            new Console().writeln(" >  " + this.nombre + " ENTREGA NIÑO");
-            Niño unNiño = sacarNiño();
-            otroMonitor.recibeNiñoConPizarra(unNiño);
+            System.out.println("  - " + niños[i].getNombre() + " (" + niños[i].getEdad() + " años)");
         }
     }
 
-    private Niño sacarNiño() {
-        if (cantidad == 0) {
-            return null;
-        }
-
-        Niño saliente = niños[inicio];
-        niños[inicio] = null;
-        inicio = (inicio + 1) % CAPACIDAD_MAXIMA;
-        cantidad--;
-        return saliente;
-    }
-
-    private Niño obtenerNiño(int posicion) {
-        if (posicion >= cantidad) {
-            return null;
-        }
-        int indice = (inicio + posicion) % CAPACIDAD_MAXIMA;
-        return niños[indice];
-    }
-
-    public void jugar() {
-        if (!estaJugando) {
-            estaJugando = true;
-            limpiarPizarrines();
-            turnoActual = 0;
-            Niño primerNiño = obtenerNiño(turnoActual);
-            if (primerNiño != null) {
-                primerNiño.recibirMensaje(MENSAJE_INICIAL);
-            }
-        } else {
-            Niño niñoActual = obtenerNiño(turnoActual);
-
-            if (turnoActual + 1 >= cantidad) {
-                estaJugando = false;
-                turnoActual = 0;
-            } else {
-                Niño siguienteNiño = obtenerNiño(turnoActual + 1);
-                if (niñoActual != null && siguienteNiño != null) {
-                    siguienteNiño.recibirMensaje(niñoActual.mostrarMensaje());
-                }
-                turnoActual++;
-            }
-        }
-    }
-
-    private void limpiarPizarrines() {
+    public void transferirNiños(Monitor destino) {
         for (int i = 0; i < cantidad; i++) {
-            Niño niño = obtenerNiño(i);
-            if (niño != null) {
-                niño.limpiarPizarrin();
-            }
+            destino.recibirNiño(niños[i]);
+            niños[i] = null;
+        }
+        cantidad = 0;
+    }
+
+    public double edadPromedio() {
+        if (cantidad == 0) return 0;
+        int suma = 0;
+        for (int i = 0; i < cantidad; i++) suma += niños[i].getEdad();
+        return (double) suma / cantidad;
+    }
+
+    public int contarMayoresDe(int edad) {
+        int count = 0;
+        for (int i = 0; i < cantidad; i++) {
+            if (niños[i].getEdad() >= edad) count++;
+        }
+        return count;
+    }
+
+    public void mostrarPrimerosCinco() {
+        int limite = Math.min(5, cantidad);
+        for (int i = 0; i < limite; i++) {
+            niños[i].presentarseNombre();
         }
     }
 
-    public String getUsoMemoria() {
-        return cantidad + "/" + CAPACIDAD_MAXIMA + " (¡fijo!)";
+    public void mostrarUltimosCinco() {
+        int inicio = Math.max(0, cantidad - 5);
+        for (int i = inicio; i < cantidad; i++) {
+            niños[i].presentarseNombre();
+        }
     }
 }

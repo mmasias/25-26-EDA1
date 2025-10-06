@@ -1,35 +1,42 @@
 class Ludoteca {
     private Monitor lydia;
     private Monitor aisha;
-    private Pizarra pizarraDelSalon;
+    private Monitor dalsy;
 
-    public Ludoteca(){
+    public Ludoteca() {
         lydia = new Monitor("Lydia");
         aisha = new Monitor("Aisha");
-        pizarraDelSalon = new Pizarra();
+        dalsy = new Monitor("Dalsy");
     }
 
-    public void recibirNiño(Niño niño) {
-        lydia.recibeNiño(niño);
+    public Monitor getLydia() { 
+        return lydia; 
+    }
+    public Monitor getAisha() { 
+        return aisha; 
+    }
+    public Monitor getDalsy() { 
+        return dalsy; 
     }
 
-    public void actualizar() {
-        gestionarNiños();
-        if (aisha.puedeJugar()) {
-            aisha.jugar();
-        } 
+    public void mostrarEstado() {
+        System.out.println("========================================");
+        System.out.println("        ESTADO ACTUAL");
+        System.out.println("========================================");
+
+        System.out.println("LYDIA:");
+        lydia.mostrarNiños();
+
+        System.out.println("AISHA:");
+        aisha.mostrarNiños();
+
+        System.out.println("DALSY:");
+        dalsy.mostrarNiños();
+
+        System.out.println("========================================");
     }
 
-    private void gestionarNiños() {
-        if (lydia.tieneNiños() && !aisha.estaJugando()) {
-            lydia.entregaNiños(aisha);
-        }        
-    }
-
-    public void verEstado(){
-        lydia.mostrarListaNiños();
-        aisha.mostrarListaNiños();
-        
-        new Console().writeln ("Uso de arrays: Lydia " + lydia.getUsoMemoria() + ", Aisha " + aisha.getUsoMemoria());
+    public int totalNiños() {
+        return lydia.getCantidad() + aisha.getCantidad() + dalsy.getCantidad();
     }
 }

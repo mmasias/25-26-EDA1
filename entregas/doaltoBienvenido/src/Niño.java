@@ -1,51 +1,34 @@
-import java.util.Random;
-
 class Niño {
-    private static final int MINIMO_ERRORES = 1;
-    private static final int MAXIMO_ERRORES = 2;
-    private static final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
-
     private String nombre;
+    private int edad;
     private Pizarra pizarrin;
 
-    public Niño(String nombre) {
+    public Niño(String nombre, int edad) {
         this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public String getNombre() { 
+        return nombre; 
+    }
+
+    public int getEdad() { 
+        return edad; 
     }
 
     public void recibirPizarrin(Pizarra pizarra) {
         this.pizarrin = pizarra;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void recibirMensaje(String mensaje) {
-        pizarrin.escribirMensaje(modificarMensaje(mensaje));
-        new Console().writeln("[" + nombre + "] recibe [" + mensaje + "] y ha escrito [" + pizarrin.leerMensaje() + "]");        
-    }
-
-    private String modificarMensaje(String mensaje) {
-        Random random = new Random();
-
-        int errores = random.nextInt(MAXIMO_ERRORES - MINIMO_ERRORES + 1) + MINIMO_ERRORES;
-
-        for (int i = 0; i < errores; i++) {
-            if (mensaje.length() > 0) {
-                int indiceAleatorio = random.nextInt(mensaje.length());
-                char letraAleatoria = ALFABETO.charAt(random.nextInt(ALFABETO.length()));
-
-                mensaje = mensaje.substring(0, indiceAleatorio) + letraAleatoria + mensaje.substring(indiceAleatorio + 1);
-            }
-        }
-        return mensaje;
-    }
-
-    public String mostrarMensaje() {
-        return pizarrin.leerMensaje();
-    }
-
     public void limpiarPizarrin() {
-        pizarrin.limpiar();
+        if (pizarrin != null) pizarrin.limpiar();
+    }
+
+    public void presentarse() {
+        System.out.println("[" + nombre + "]: Hola, soy " + nombre + " y tengo " + edad + " años");
+    }
+
+    public void presentarseNombre() {
+        System.out.println("[" + nombre + "]: Hola, soy " + nombre);
     }
 }
