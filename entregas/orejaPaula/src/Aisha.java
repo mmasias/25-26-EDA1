@@ -36,5 +36,15 @@ public void mostrarCola() {
         }
     }
 }
+public void presentarseConNiños() {
+    if (cola.isEmpty()) {
+        System.out.println("No hay niños en la cola de Aisha");
+        return;
+    }
+    System.out.println("Aisha: Hola, soy Aisha, monitora de esta ludoteca");
+    for (Niño n : cola) {
+        System.out.println(n.presentarse());
+    }
+}
 
 
