@@ -12,21 +12,7 @@ class Lidia {
         return ninos;
     }
 
-   class Lidia {
-
-    public List<Nino> recibirNinos() {
-        List<Nino> ninos = Arrays.asList(
-                new Nino("Ana", 3), new Nino("Luis", 6), new Nino("Aitor", 8), new Nino("Bea", 5),
-                new Nino("Carmen", 4), new Nino("Dani", 7), new Nino("Lucía", 9), new Nino("Pablo", 2),
-                new Nino("Andrés", 10), new Nino("Marta", 5), new Nino("Alba", 6), new Nino("Iván", 4),
-                new Nino("Sara", 8), new Nino("Raúl", 3), new Nino("Nora", 7), new Nino("Mario", 9),
-                new Nino("Alex", 5), new Nino("Eva", 6), new Nino("Sergio", 2), new Nino("Paula", 10)
-        );
-
-        System.out.println("Lidia: ¡Hola a todos! Bienvenidos a la ludoteca. Voy a pasaros con Aisha.");
-        return ninos;
-    }
-
+   
     public void pasarListaEficiente(List<Nino> ninos) {
         System.out.println("\nLidia: Vamos a pasar lista rápido, todos juntos de la mano.");
         System.out.print("Lidia: Veo a ");
