@@ -7,3 +7,6 @@ public class JuegoRana {
         this.dalsy = dalsy;
     }
 }
+public boolean puedeJugar() {
+    return aisha.verificarJuegoRana();
+}
