@@ -5,3 +5,7 @@ public abstract class Monitora {
     protected String nombre;
     protected LinkedList<Niño> cola;
 }
+public Monitora(String nombre) {
+    this.nombre = nombre;
+    this.cola = new LinkedList<>();
+}
