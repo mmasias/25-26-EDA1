@@ -13,4 +13,7 @@ public String getNombre() {
 public int getEdad() {
     return edad;
 }
+public String presentarse() {
+    return "Hola, soy " + nombre + " y tengo " + edad + " años";
+}
 
