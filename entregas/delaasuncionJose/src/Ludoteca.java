@@ -19,7 +19,7 @@ public class Ludoteca {
         this.pizarraSalon = "";
         this.tiempo = 0;
         this.juegoEnCurso = false;
-        this.tiempoAbierto = 120
+        this.tiempoAbierto = 120;
     }
 
     public void simular() {
