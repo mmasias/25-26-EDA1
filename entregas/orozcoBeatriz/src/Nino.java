@@ -1,28 +1,22 @@
 public class Nino {
+
     private String nombre;
-    private String mensajeEnPizarra = "";
+    private int edad;
+
+    public Nino(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
 
     public Nino(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void limpiarPizarra() {
-        mensajeEnPizarra = "";
-    }
-
-    public void recibirMensaje(String mensaje, TelefonoDescacharrado dinamica) {
-        mensajeEnPizarra = dinamica.deformarMensaje(mensaje);
-    }
-
-    public String entregarMensaje() {
-        return mensajeEnPizarra;
+        this(nombre, 0);
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void escribirMensaje(String mensaje) {
-        mensajeEnPizarra = mensaje;
+    public int getEdad() {
+        return edad;
     }
 }

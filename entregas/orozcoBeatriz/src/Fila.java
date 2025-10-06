@@ -1,4 +1,5 @@
 public class Fila {
+
     private Nino[] lista = new Nino[0];
 
     public void agregar(Nino n) {
@@ -10,10 +11,6 @@ public class Fila {
         lista = nuevo;
     }
 
-    public Nino get(int i) {
-        return lista[i];
-    }
-
     public int size() {
         return lista.length;
     }
@@ -22,9 +19,13 @@ public class Fila {
         return lista;
     }
 
-     public Nino[] vaciar() {
+    public Nino[] vaciar() {
         Nino[] copia = lista;
         lista = new Nino[0];
         return copia;
+    }
+
+    public void setDesde(Nino[] nuevos) {
+        lista = nuevos;
     }
 }
