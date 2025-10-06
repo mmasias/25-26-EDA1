@@ -1,19 +1,13 @@
-public class Pizarra {
+package vPRG2.v002;
+
+class Pizarra {
     private String mensaje;
 
-    public Pizarra() {
-        this.mensaje = "";
-    }
+    public Pizarra() { mensaje = ""; }
 
-    public void escribirMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
+    public void escribirMensaje(String mensaje) { this.mensaje = mensaje; }
 
-    public String leerMensaje() {
-        return this.mensaje;
-    }
+    public String leerMensaje() { return mensaje; }
 
-    public void limpiar() {
-        this.mensaje = "";
-    }
+    public void limpiar() { mensaje = ""; }
 }
