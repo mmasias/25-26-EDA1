@@ -1,6 +1,7 @@
 
 public class Monitor {
         
+        private static final int NIÑOS_NECESARIOS_PARA_JUGAR = 5;
         String nombre;
         Niño primerNiño;
         int numeroDeNiñosALaCola;
@@ -29,6 +30,16 @@ public class Monitor {
 
         public boolean estaJugando() {
                 return juego != null;
+        }
+
+        public boolean puedeJugar() {
+                return numeroDeNiñosALaCola >= NIÑOS_NECESARIOS_PARA_JUGAR;
+        }
+
+        public void juega() {
+                assert puedeJugar() : "No hay niños suficientes para jugar";
+                assert !estaJugando() : "El monitor ya está jugando";
+                juego = new Juego(primerNiño);
         }
 
 }
