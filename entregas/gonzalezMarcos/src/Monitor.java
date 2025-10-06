@@ -1,11 +1,15 @@
 public class Monitor {
+
+    private static final int MAX_NIÑOS = 50;
+
     private String nombre;
     private Niño[] niños;
     private int contador;  
+    
 
     public Monitor(String nombre) {
         this.nombre = nombre;
-        this.niños = new Niño[50]; 
+        this.niños = new Niño[MAX_NIÑOS]; 
         this.contador = 0;
     }
 
@@ -13,9 +17,9 @@ public class Monitor {
         return nombre;
     }
 
-    public void recibeNiño(Niño n) {
+    public void recibeNiño(Niño niño) {
         if (contador < niños.length) {
-            niños[contador] = n;
+            niños[contador] = niño;
             contador++;
         } else {
             System.out.println("No se pueden añadir más niños a " + nombre);
