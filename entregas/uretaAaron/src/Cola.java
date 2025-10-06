@@ -1,59 +1,58 @@
-import java.util.*;
-import java.util.function.Predicate;
-
 public class Cola {
-    private LinkedList<Nino> q = new LinkedList<>();
+    private final Nino[] datos;
+    private int inicio;
+    private int fin;
+    private int cantidad;
 
-    public void enqueue(Nino n) {
-        q.addLast(n);
+    public Cola(int capacidad) {
+        if (capacidad <= 0) throw new IllegalArgumentException("La capacidad debe ser mayor que 0");
+        this.datos = new Nino[capacidad];
+        this.inicio = 0;
+        this.fin = 0;
+        this.cantidad = 0;
     }
 
-    public Nino dequeue() {
-        return q.isEmpty() ? null : q.removeFirst();
+    public boolean encolar(Nino n) {
+        if (n == null) return false;
+        if (cantidad == datos.length) return false;
+        fin = (fin + 1) % datos.length;
+        cantidad++;
+        return true;
     }
 
-    public int size() {
-        return q.size();
+    public Nino desencolar() {
+        if (cantidad == 0) return null;
+        Nino n = datos[inicio];
+        datos[inicio] = null;
+        inicio = (inicio + 1) % datos.length;
+        cantidad--;
+        return n;
     }
 
-    public boolean isEmpty() {
-        return q.isEmpty();
+    public Nino get(int pos) {
+        if (pos < 0 || pos >= cantidad) return null;
+        int idx = (inicio + pos) % datos.length;
+        return datos[idx];
     }
 
-    public List<Nino> toList() {
-        return new ArrayList<>(q);
+    public int tamano() {
+        return cantidad;
     }
 
-    public void transferAllTo(Cola dest) {
-        while (!q.isEmpty()) {
-            dest.enqueue(q.removeFirst());
+    public boolean vacia() {
+        return cantidad == 0;
+    }
+
+    public int capacidad() {
+        return datos.length;
+    }
+
+    public void vaciar() {
+        while (cantidad > 0) {
+            datos[inicio] = null;
+            inicio = (inicio + 1) % datos.length;
+            cantidad--;
         }
-    }
-
-    public void enqueueAll(Collection<Nino> c) {
-        for (Nino n : c) enqueue(n);
-    }
-
-    public void clear() {
-        q.clear();
-    }
-
-    public List<Nino> getFirstN(int n) {
-        List<Nino> res = new ArrayList<>();
-        Iterator<Nino> it = q.iterator();
-        while (it.hasNext() && res.size() < n) res.add(it.next());
-        return res;
-    }
-
-    public List<Nino> getLastN(int n) {
-        List<Nino> list = toList();
-        int start = Math.max(0, list.size() - n);
-        return list.subList(start, list.size());
-    }
-
-    public List<Nino> filter(Predicate<Nino> p) {
-        List<Nino> res = new ArrayList<>();
-        for (Nino ni : q) if (p.test(ni)) res.add(ni);
-        return res;
+        inicio = fin = 0;
     }
 }
