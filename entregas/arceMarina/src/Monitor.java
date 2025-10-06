@@ -1,90 +1,39 @@
-package entregas.arceMarina;
-
-import utils.Console;
-
 class Monitor {
-    private String nombre;
+    String nombre;
     private Cola colaNiños;
-    private boolean estaJugando;
-    private int turnoActual;
 
     public Monitor(String nombre) {
         this.nombre = nombre;
         this.colaNiños = new Cola();
-        estaJugando = false;
-        turnoActual = 0;
     }
 
-    public void recibeNiño(Niño niño) {
-        colaNiños.addNiño(niño);
-    }
-
-    public boolean tieneNiños() {
-        return colaNiños.hayNiños();
-    }
-
-    public boolean puedeJugar() {
-        return colaNiños.size() >= 5;
-    }
-
-    public boolean estaJugando() {
-        return estaJugando;
-    }
+    public void recibeNiño(Niño n) { colaNiños.addNiño(n); }
+    public boolean tieneNiños() { return colaNiños.hayNiños(); }
+    public boolean puedeJugar() { return colaNiños.size() >= 5; }
+    public int numeroNiños() { return colaNiños.size(); }
+    public Niño[] getTodosNiños() { return colaNiños.getTodos(); }
 
     public void mostrarListaNiños() {
-        System.out.print("> " + this.nombre + " --> ");
-        colaNiños.listaNiños();
+        System.out.print("> " + nombre + " --> ");
+        for (Niño n : getTodosNiños()) System.out.print(n.getNombre() + " / ");
         System.out.println();
     }
 
-    private void recibeNiño(Niño niño, Pizarra pizarrin) {
-        niño.recibirPizarrin(pizarrin);
-        colaNiños.addNiño(niño);
+    public void transferirNiños(Monitor destino) {
+        while (colaNiños.hayNiños()) destino.recibeNiño(colaNiños.removeNiño());
     }
 
-    public void entregaNiños(Monitor otroMonitor) {
-        while (colaNiños.hayNiños()) {
-            System.out.println(" >  " + this.nombre + " ENTREGA NIÑO");
-            Niño unNiño = colaNiños.removeNiño();
-            otroMonitor.recibeNiño(unNiño, new Pizarra());
-        }
-    }
+    public void presentacionesGenerales() { for (Niño n : getTodosNiños()) n.presentarse(); }
+    public void presentacionesEdadMin(int edad) { for (Niño n : getTodosNiños()) if (n.getEdad() >= edad) n.presentarse(); }
+    public void presentacionesInicial(char letra) { for (Niño n : getTodosNiños()) if (Character.toUpperCase(n.getNombre().charAt(0)) == Character.toUpperCase(letra)) n.presentarseNombre(); }
+    public void primerosCinco() { Niño[] todos = getTodosNiños(); for (int i = 0; i < Math.min(5, todos.length); i++) todos[i].presentarseNombre(); }
+    public void ultimosCinco() { Niño[] todos = getTodosNiños(); for (int i = Math.max(0, todos.length - 5); i < todos.length; i++) todos[i].presentarseNombre(); }
 
-    public void jugar() {
-        if (!estaJugando) {
-            estaJugando = true;
-            limpiarPizarrines();
-            turnoActual = 0;
-            Niño primerNiño = colaNiños.getNiño(turnoActual);
-            if (primerNiño != null) {
-                primerNiño.recibirMensaje("ABCDEFGHIJKLM");
-            }
-        } else {
-            Niño niñoActual = colaNiños.getNiño(turnoActual);
-            
-            if (turnoActual + 1 >= colaNiños.size()) {
-                estaJugando = false;
-                turnoActual = 0;
-            } else {
-                Niño siguienteNiño = colaNiños.getNiño(turnoActual + 1);
-                if (niñoActual != null && siguienteNiño != null) {
-                    siguienteNiño.recibirMensaje(niñoActual.mostrarMensaje());
-                }
-                turnoActual++;
-            }
-        }
-    }
-
-    private void limpiarPizarrines() {
-        for (int i = 0; i < colaNiños.size(); i++) {
-            Niño niño = colaNiños.getNiño(i);
-            if (niño != null) {
-                niño.limpiarPizarrin();
-            }
-        }
-    }
-
-    public String getUsoMemoria() {
-        return colaNiños.size() + "/20 (¡fijo!)";
+    public double promedioEdad() {
+        Niño[] todos = getTodosNiños();
+        if (todos.length == 0) return 0;
+        double suma = 0;
+        for (Niño n : todos) suma += n.getEdad();
+        return suma / todos.length;
     }
 }
