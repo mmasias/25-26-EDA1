@@ -21,5 +21,10 @@ public List<Niño> getCola() {
 public int contarNiños() {
     return cola.size();
 }
+public void transferirTodosA(Aisha otra) {
+    while (!cola.isEmpty()) {
+        otra.recibirNiño(cola.poll());
+    }
+}
 
 
