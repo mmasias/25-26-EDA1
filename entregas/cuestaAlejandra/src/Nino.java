@@ -9,3 +9,11 @@ class Nino {
         this.nombre = nombre;
         this.edad = edad;
     }
+    public void presentarse() {
+        System.out.println("Hola, me llamo " + nombre + " y tengo " + edad + " años.");
+    }
+
+    public String toString() {
+        return nombre + " (" + edad + " años)";
+    }
+}
