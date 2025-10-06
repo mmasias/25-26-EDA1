@@ -97,4 +97,14 @@ private void procesarOpcion(int opcion) {
             System.out.println("Opción inválida");
     }
 }
+private int leerInt(String mensaje) {
+    System.out.print(mensaje);
+    while (!sc.hasNextInt()) {
+        System.out.print("Ingrese un número válido: ");
+        sc.next();
+    }
+    int valor = sc.nextInt();
+    sc.nextLine();
+    return valor;
+}
 
