@@ -7,5 +7,5 @@ Los retos se irán proponiendo, habitualmente luego de una disertación teórica
 |Reto|Rama|Entrega|
 |-|-|-|
 |[Reto 001](001/README.md)|reto-001|Hasta el día 22 de setiembre|
-|[Reto 002](002/README.md)|reto-002|Hasta el final de la sesión del día 6 de octubre|
+|[Reto 002](002/README.md)|reto-002|Hasta el final del día 6 de octubre|
 
