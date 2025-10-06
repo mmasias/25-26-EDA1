@@ -42,52 +42,24 @@ class Mundo {
 
     private void procesarOpcion(int opcion) {
         switch (opcion) {
-            case 1:
-                simularLlegada();
-                break;
-            case 2:
-                simularInicioJuego();
-                break;
-            case 3:
-                presentacionGeneral();
-                break;
-            case 4:
-                presentacionPorEdad();
-                break;
-            case 5:
-                presentacionPorInicial();
-                break;
-            case 6:
-                primerosCinco();
-                break;
-            case 7:
-                ultimosCinco();
-                break;
-            case 8:
-                conteoAsistencia();
-                break;
-            case 9:
-                edadPromedioAisha();
-                break;
-            case 10:
-                intentoJuegoRana();
-                break;
-            case 11:
-                separarNiñosMenores();
-                break;
-            case 12:
-                alarmaEmergencia();
-                break;
-            case 13:
-                ludoteca.mostrarEstado(console);
-                break;
-            case 0:
-                console.writeln("Saliendo de la simulación...");
-                break;
-            default:
-                console.writeln("Opción inválida.");
+            case 1 -> simularLlegada();
+            case 2 -> simularInicioJuego();
+            case 3 -> presentacionGeneral();
+            case 4 -> presentacionPorEdad();
+            case 5 -> presentacionPorInicial();
+            case 6 -> primerosCinco();
+            case 7 -> ultimosCinco();
+            case 8 -> conteoAsistencia();
+            case 9 -> edadPromedioAisha();
+            case 10 -> intentoJuegoRana();
+            case 11 -> separarNiñosMenores();
+            case 12 -> alarmaEmergencia();
+            case 13 -> ludoteca.mostrarEstado(console);
+            case 0 -> console.writeln("Saliendo de la simulación...");
+            default -> console.writeln("Opción inválida.");
         }
     }
+    
     
     private void simularLlegada() {
         String nombre = console.readString("Nombre del niño: ");
