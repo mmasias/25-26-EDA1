@@ -3,7 +3,7 @@ package TelefonoDescacharrado2;
 public class Niño {
     private String nombre;
     private int edad;
-    private Niño siguiente; // enlace para la lista (cola)
+    private Niño siguiente;
 
     public Niño(String nombre, int edad) {
         this.nombre = nombre;
