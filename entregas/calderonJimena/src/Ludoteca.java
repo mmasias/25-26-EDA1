@@ -17,21 +17,22 @@ public class Ludoteca {
     public void registrarLlegadaNino(String nombre, int edad) {
         Nino nuevoNino = new Nino(nombre, edad);
         System.out.println("Llega " + nombre + " (" + edad + " anos)");
-        System.out.println(nombre + " pasa a la cola de Lydia");
-        monitoraLydia.agregarNinoACola(nuevoNino);
+        System.out.println("Lydia recibe a " + nombre + "y lo pasa inmediatamente a Aisha");
+        monitoraAisha.agregarNinoACola(nuevoNino);
     }
 
     public void intentarIniciarJuego() {
-        if (monitoraLydia.obtenerCantidadNinos() >= CANTIDAD_MINIMA_JUEGO) {
-            System.out.println("Lydia transfiere sus ninos a Aisha");
-            Nino[] ninosTransferidos = monitoraLydia.transferirTodosLosNinos();
-            for (int i = 0; i < ninosTransferidos.length; i++) {
-                System.out.println("- " + ninosTransferidos[i].getNombre());
-                monitoraAisha.agregarNinoACola(ninosTransferidos[i]);
+        if (monitoraAisha.obtenerCantidadNinos() >= CANTIDAD_MINIMA_JUEGO) {
+            System.out.println("Aisha tiene suficientes ninos para iniciar el juego");
+            System.out.println("Los ninos ya estan organizados en fila y listos para jugar:");
+            Nino[] listaNinos = monitoraAisha.obtenerListaNinos();
+            for (int i = 0; i < listaNinos.length; i++) {
+                System.out.println("- " + listaNinos[i].getNombre());
             }
         } else {
             System.out.println("No hay suficientes ninos para iniciar el juego");
             System.out.println("Se necesitan al menos " + CANTIDAD_MINIMA_JUEGO + " ninos");
+            System.out.println("Aisha tiene actualmente " + monitoraAisha.obtenerCantidadNinos() + " ninos");
         }
     }
 
@@ -43,7 +44,7 @@ public class Ludoteca {
         }
         System.out.println("Aisha: Hola, soy Aisha, monitora de esta ludoteca");
         for (int i = 0; i < listaNinos.length; i++) {
-            System.out.println(listaNinos[i].getNombre() + ": Hola, soy " + listaNinos[i].getNombre() + " y tengo " + listaNinos[i].getEdad() + " anos");
+            System.out.println(listaNinos[i].getNombre() + ": Hola, soy " + listaNinos[i].getNombre() + "y tengo " + listaNinos[i].getEdad() + " anos");
         }
     }
 

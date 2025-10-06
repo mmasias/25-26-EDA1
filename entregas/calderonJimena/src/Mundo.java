@@ -74,8 +74,7 @@ public class Mundo {
                 ludoteca.realizarPresentacionGeneral();
                 break;
             case OPCION_PRESENTACION_EDAD:
-                int edadMinima = leerNumero("Edad minima: ");
-                ludoteca.presentarMayoresDeEdad(edadMinima);
+                ludoteca.presentarMayoresDeEdad(5);
                 break;
             case OPCION_PRESENTACION_INICIAL:
                 String letraInicial = leerTexto("Letra inicial: ");
