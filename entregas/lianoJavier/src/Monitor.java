@@ -22,7 +22,7 @@ public class Monitor {
 
         public void daNiñoA(Monitor otroMonitor) {
                 assert primerNiño != null : "No hay niños para dar";
-                Niño niñoSiguiente = primerNiño.recibir();
+                Niño niñoSiguiente = primerNiño.pedirNiñoSiguiente();
                 Niño niñoElegido = primerNiño;
                 primerNiño = niñoSiguiente;
                 otroMonitor.recibe(niñoElegido);
