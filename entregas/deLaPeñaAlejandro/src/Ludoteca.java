@@ -36,6 +36,9 @@ public class Ludoteca {
         switch (opcion) {
             case 1 -> simularLlegada();
             case 13 -> mostrarEstado();
+            case 8 -> conteoAsistencia();
+            case 9 -> edadPromedio();
+            case 11 -> separarParaJuego();
             case 0 -> System.out.println("Saliendo del programa...");
             default -> System.out.println("Opción no válida.");
         }
@@ -104,3 +107,38 @@ public class Ludoteca {
             System.out.println("Hola, soy " + aisha.getCola().get(i).getNombre());
     }
 }
+
+    private void conteoAsistencia() {
+        int x = lydia.getCola().size();
+        int y = aisha.getCola().size();
+        int z = dalsy.getCola().size();
+        System.out.printf("""
+            CONTEO DE ASISTENCIA:
+            Lydia tiene %d niños en cola
+            Aisha tiene %d niños en cola
+            Dalsy tiene %d niños en cola
+            Total: %d niños
+            """, x, y, z, x + y + z);
+}
+
+    private void edadPromedio() {
+        if (aisha.getCola().isEmpty()) {
+            System.out.println("No hay niños en la cola de Aisha");
+            return;
+    }
+        double suma = 0;
+        for (Ninio n : aisha.getCola()) suma += n.getEdad();
+        double promedio = suma / aisha.getCola().size();
+        System.out.printf("Edad promedio de los niños en la cola de Aisha: %.1f años%n", promedio);
+}
+
+    private void separarParaJuego() {
+        System.out.println("Separando niños para el juego de la rana...");
+        for (Ninio n : new LinkedList<>(aisha.getCola())) {
+            if (n.getEdad() < 5) {
+                dalsy.recibirNinio(n);
+                aisha.getCola().remove(n);
+        }
+    }
+}
+
