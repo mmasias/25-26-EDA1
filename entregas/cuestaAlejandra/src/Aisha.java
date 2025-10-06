@@ -29,3 +29,11 @@ class Aisha {
         System.out.println("\nAisha: Los cinco últimos son:");
         ninos.stream().skip(ninos.size() - 5).forEach(System.out::println);
     }
+
+    public List<Nino> separarMenores() {
+        return ninos.stream().filter(n -> n.edad < 5).collect(Collectors.toList());
+    }
+
+    public List<Nino> mayoresParaJugar() {
+        return ninos.stream().filter(n -> n.edad >= 5).collect(Collectors.toList());
+    }
