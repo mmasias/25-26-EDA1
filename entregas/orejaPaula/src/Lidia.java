@@ -34,4 +34,16 @@ public void transferirTodosA(Aisha aisha) {
         aisha.recibirNiño(cola.poll());
     }
 }
+public void pasarNiñosAAisha(Aisha aisha) {
+    if (cola.size() >= 5) {
+        System.out.println("Lidia transfiere sus niños a Aisha:");
+        for (Niño n : cola) {
+            System.out.println(" - " + n);
+        }
+        transferirTodosA(aisha);
+    } else {
+        System.out.println("No hay suficientes niños para iniciar el juego");
+        System.out.println("Se necesitan al menos 5 niños");
+    }
+}
 
