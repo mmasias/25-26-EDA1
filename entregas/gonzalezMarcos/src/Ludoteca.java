@@ -1,6 +1,4 @@
-package entregas.gonzalezMarcos.src;
 
-import utils.Console;
 
 class Ludoteca {
     private Monitor lydia;

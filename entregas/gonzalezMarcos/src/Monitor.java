@@ -1,6 +1,4 @@
-package entregas.gonzalezMarcos.src;
 
-import utils.Console;
 
 class Monitor {
     private static final int CAPACIDAD_MAXIMA = 15;

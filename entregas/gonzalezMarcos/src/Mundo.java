@@ -1,6 +1,3 @@
-package entregas.gonzalezMarcos.src;
-
-import utils.Console;
 
 class Mundo {
     private Ludoteca ludoteca;

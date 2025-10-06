@@ -1,4 +1,4 @@
-package entregas.gonzalezMarcos.src;
+
 
 class Pizarra {
     private String mensaje;
