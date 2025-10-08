@@ -1,4 +1,3 @@
-
 public class Niño {
     private String nombre;
     private int edad;
@@ -14,6 +13,12 @@ public class Niño {
 
     public int getEdad() {
         return edad;
+    }
+
+    public boolean nombreEmpiezaCon(char letra) {
+        char inicial = Character.toUpperCase(nombre.charAt(0));
+        char objetivo = Character.toUpperCase(letra);
+        return inicial == objetivo;
     }
 
     public void presentarse() {

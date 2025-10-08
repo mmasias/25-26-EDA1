@@ -1,52 +1,61 @@
-
-
 import java.util.Random;
-import java.util.Scanner;
 
 public class Mundo {
+    private static final int OPERACIONES_AUTOMATICAS = 12;
+    private static final int OPCION_MINIMA = 1;
+    private static final int OPCION_MAXIMA = 12;
+    private static final int OPCION_ESTADO = 13;
+
+    private static final String[] DESCRIPCIONES = {
+        "", // posición 0 no usada
+        "Simular llegada de niño",           // 1
+        "Intentar inicio de juego",           // 2
+        "Presentaciones generales",           // 3
+        "Presentaciones por edad mínima",     // 4
+        "Presentaciones por letra",           // 5
+        "Primeros cinco niños",               // 6
+        "Últimos cinco niños",                // 7
+        "Conteo de asistencia",               // 8
+        "Edad promedio con Aisha",            // 9
+        "Verificar juego de la rana",         // 10
+        "Separar menores para el juego",      // 11
+        "Alarma contra incendios"             // 12
+    };
+
     private Ludoteca ludoteca;
-    private Scanner scanner;
-    private Random random = new Random();
+    private Random random;
 
     public Mundo() {
         ludoteca = new Ludoteca();
-        scanner = new Scanner(System.in);
+        random = new Random();
     }
 
     public void ejecutarSimulacion() {
-        int opcion;
-        do {
-            mostrarMenu();
-            opcion = 1 + random.nextInt(13); // genera opción aleatoria entre 1 y 13
-            System.out.println("Opción seleccionada automáticamente: " + opcion);
+        System.out.println("\n========================================");
+        System.out.println("        LUDOTECA - SIMULACIÓN AUTOMÁTICA");
+        System.out.println("========================================\n");
+        mostrarMenu();
+        for (int paso = 1; paso <= OPERACIONES_AUTOMATICAS; paso++) {
+            int opcion = generarOpcionAleatoria();
+            System.out.println("\n--- Paso " + paso + " ---");
+            System.out.println("Opción seleccionada automáticamente: " + opcion + " - " + DESCRIPCIONES[opcion]);
             procesarOpcion(opcion);
-            if (opcion != 0) {
-                System.out.print("\n--- FIN DE EJECUCIÓN AUTOMÁTICA ---\n");
-            }
-            if (opcion == 13) opcion = 0; // terminar después de mostrar estado
-        } while (opcion != 0);
+        }
+        System.out.println("\n--- Resumen final ---");
+        procesarOpcion(OPCION_ESTADO);
+        System.out.println("Simulación finalizada.\n");
     }
 
     private void mostrarMenu() {
-        System.out.println("\n========================================");
-        System.out.println("        LUDOTECA - SIMULACIÓN AUTOMÁTICA");
-        System.out.println("========================================");
-        System.out.println("""
-1.  Simular llegada de niño (aleatoria)
-2.  Simular intento de inicio de juego
-3.  Presentaciones generales
-4.  Presentaciones por edad mínima aleatoria
-5.  Presentaciones por letra aleatoria
-6.  Primeros cinco niños
-7.  Últimos cinco niños
-8.  Conteo de asistencia
-9.  Edad promedio
-10. Juego de la rana
-11. Separar menores de 5 años
-12. Alarma contra incendios
-13. Mostrar estado
-0.  Salir
-""");
+        System.out.println("Opciones disponibles durante la simulación automática:");
+        for (int i = OPCION_MINIMA; i <= OPCION_MAXIMA; i++) {
+            System.out.println(i + ". " + DESCRIPCIONES[i]);
+        }
+        System.out.println(OPCION_ESTADO + ". Mostrar estado actual");
+    }
+
+    private int generarOpcionAleatoria() {
+        return OPCION_MINIMA + random.nextInt(OPCION_MAXIMA - OPCION_MINIMA + 1);
     }
 
     private void procesarOpcion(int opcion) {
@@ -63,8 +72,7 @@ public class Mundo {
             case 10 -> ludoteca.intentoJuegoRana();
             case 11 -> ludoteca.separarParaJuego();
             case 12 -> ludoteca.alarmaIncendio();
-            case 13 -> ludoteca.mostrarEstado();
-            case 0 -> System.out.println("Saliendo del programa...");
+            case OPCION_ESTADO -> ludoteca.mostrarEstado();
             default -> System.out.println("Opción no válida");
         }
     }
