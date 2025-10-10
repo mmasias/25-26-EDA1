@@ -39,16 +39,16 @@ class Mundo {
             scanner.nextLine(); 
             procesarOpcion(opcionSimulacion);
             System.out.println();
-            System.out.println(SEPARADOR_VISUAL);
+            mensaje.mensajeLn(SEPARADOR_VISUAL);
             System.out.println();
         } while (opcionSimulacion != OPCION_SALIR);
     }
 
     private void mostrarMenu() {
-        System.out.println("========================================");
-        System.out.println("        LUDOTECA - SIMULACIÓN"           );
-        System.out.println("========================================");
-        System.out.println(
+        mensaje.mensajeLn("========================================");
+        mensaje.mensajeLn("        LUDOTECA - SIMULACIÓN"           );
+        mensaje.mensajeLn("========================================");
+        mensaje.mensajeLn(
             "1.  Simular llegada de niño\n" +
             "2.  Simular intento de inicio de juego\n" +
             "3.  Aisha se presenta y pide a los niños que se presenten\n" +
@@ -134,7 +134,9 @@ class Mundo {
         }
         mensaje.mensajeLn("Aisha: Hola, soy Aisha, monitora de esta ludoteca");
         for (Niño nino : monitorAisha.getNiños()) {
-            if (nino != null) nino.presentarse();
+            if (nino != null) {
+                nino.presentarse();
+            }
         }
     }
 
