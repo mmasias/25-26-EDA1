@@ -32,6 +32,8 @@ class Mundo {
     }
 
     public void ejecutarSimulacion() {
+        limpiarPantalla();
+
         int opcionSimulacion;
         do {
             mostrarMenu();
@@ -41,6 +43,8 @@ class Mundo {
             System.out.println();
             mensaje.mensajeLn(SEPARADOR_VISUAL);
             System.out.println();
+            mensaje.mensaje("Presione ENTER para continuar...");
+            scanner.nextLine();
         } while (opcionSimulacion != OPCION_SALIR);
     }
 
@@ -105,9 +109,13 @@ class Mundo {
     private void simularLlegada() {
         mensaje.mensaje("Ingrese nombre del niño: ");
         String nombreNino = scanner.nextLine();
+        assert nombreNino != null : "El nombre no puede estar vacío";
+        
         mensaje.mensaje("Ingrese edad: ");
         int edadNino = scanner.nextInt();
+        assert edadNino >= 1 && edadNino <= 10 : "La edad debe ser un número positivo mayor de 0 y menor a 10 años";
         scanner.nextLine(); 
+
         Niño nino = new Niño(nombreNino, edadNino);
         mensaje.mensajeLn("Llega " + nombreNino + " (" + edadNino + " años)");
         mensaje.mensajeLn(nombreNino + " pasa a la cola de Lydia");
@@ -117,6 +125,9 @@ class Mundo {
     private void intentarInicioJuego() {
         Monitor monitorLydia = ludoteca.getLydia();
         Monitor monitorAisha = ludoteca.getAisha();
+
+        mensaje.mensajeLn("Lydia intenta iniciar el juego...");
+
         if (monitorLydia.getCantidad() >= MINIMO_NINIOS_PARA_INICIAR_JUEGO) {
             mensaje.mensajeLn("Lydia transfiere sus niños a Aisha");
             monitorLydia.transferirNiños(monitorAisha);
@@ -128,6 +139,7 @@ class Mundo {
 
     private void presentacionGeneral() {
         Monitor monitorAisha = ludoteca.getAisha();
+
         if (!monitorAisha.tieneNiños()) {
             mensaje.mensajeLn("No hay niños en la cola de Aisha");
             return;
@@ -144,6 +156,7 @@ class Mundo {
         mensaje.mensaje("Ingrese edad mínima: ");
         int edadMinima = scanner.nextInt();
         scanner.nextLine(); 
+        
         mensaje.mensajeLn("Aisha pide que se presenten los mayores de " + edadMinima + " años:");
         for (Niño nino : ludoteca.getAisha().getNiños()) {
             if (nino != null && nino.getEdad() > edadMinima) nino.presentarse();
@@ -246,5 +259,11 @@ class Mundo {
         int totalTransferidos = monitorLydia.getCantidad();
         mensaje.mensajeLn(totalTransferidos + " niños transferidos");
         mensaje.mensajeLn("Lydia ahora tiene " + totalTransferidos + " niños listos para evacuar en orden");
+    }
+
+    private void limpiarPantalla() {
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
     }
 }
