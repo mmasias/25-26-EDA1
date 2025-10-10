@@ -1,32 +1,41 @@
-public class Niño {
-	private String nombre;
-	private Pizarra pizarra;
+import utils.Console;
 
-	public Niño(String nombre) {
-		this.nombre = nombre;
-		this.pizarra = new Pizarra();
-	}
+class Niño {
+    private String nombre;
+    private int edad;
+    private Niño siguienteNiño;
+    private Niño anteriorNiño;
 
-	public void copiarYModificar(Pizarra pizarraOrigen) {
-		String letras = pizarraOrigen.getLetras();
-		char[] arr = letras.toCharArray();
-		int cambios = (int) (Math.random() * 2) + 1;
-		for (int i = 0; i < cambios; i++) {
-			int idx = (int) (Math.random() * arr.length);
-			arr[idx] = (char) ('A' + (int) (Math.random() * 26));
-		}
-		pizarra.setLetras(new String(arr));
-	}
+    public Niño(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
 
-	public void copiarYModificar(Niño anterior) {
-		copiarYModificar(anterior.pizarra);
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getLetras() {
-		return pizarra.getLetras();
-	}
+    public int getEdad() {
+        return edad;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public Niño getSiguienteNiño() {
+        return siguienteNiño;
+    }
+
+    public void setSiguienteNiño(Niño niño) {
+        this.siguienteNiño = niño;
+    }
+
+    public Niño getAnteriorNiño() {
+        return anteriorNiño;
+    }
+
+    public void setAnteriorNiño(Niño niño) {
+        this.anteriorNiño = niño;
+    }
+
+    public void presentarse(Console console) {
+        console.writeln(nombre + ": Hola, soy " + nombre + " y tengo " + edad + " años");
+    }
 }
