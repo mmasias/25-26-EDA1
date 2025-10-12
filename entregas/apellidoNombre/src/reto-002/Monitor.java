@@ -9,5 +9,9 @@ public class Monitor {
         System.out.println("Hola me llamo" + nombre);
         
     } 
+
+    public String getNombre(){
+        return nombre;
+    }
 }
 
