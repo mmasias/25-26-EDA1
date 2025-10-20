@@ -1,13 +1,15 @@
 public class Monitora {
-    private String nombre;
-    private Niño[] colaNiños;
+    private final String nombre;
+    private final Niño[] colaNiños;
     private int cantidadNiños;
     private static final int CAPACIDAD_MAXIMA = 100;
+    private final Console console;
     
     public Monitora(String nombre) {
         this.nombre = nombre;
         this.colaNiños = new Niño[CAPACIDAD_MAXIMA];
         this.cantidadNiños = 0;
+        this.console = new Console();
     }
     
     public String getNombre() {
@@ -84,19 +86,19 @@ public class Monitora {
     }
     
     public void mostrarEstado() {
-        System.out.println("\n" + nombre.toUpperCase() + ":");
+        console.writeln("\n" + nombre.toUpperCase() + ":");
         if (cantidadNiños == 0) {
-            System.out.println("  Cola vacía");
+            console.writeln("  Cola vacía");
         } else {
-            System.out.println("  Niños en cola: " + cantidadNiños);
+            console.writeln("  Niños en cola: " + cantidadNiños);
             for (int i = 0; i < cantidadNiños; i++) {
-                System.out.println("  - " + colaNiños[i].obtenerInformacion());
+                console.writeln("  - " + colaNiños[i].obtenerInformacion());
             }
         }
     }
     
     public void presentarse() {
-        System.out.println(nombre + ": Hola, soy " + nombre + ", monitora de esta ludoteca\n");
+        console.writeln(nombre + ": Hola, soy " + nombre + ", monitora de esta ludoteca\n");
     }
     
     public void pedirPresentacionGeneral() {
@@ -106,7 +108,7 @@ public class Monitora {
     }
     
     public void pedirPresentacionMayoresDe(int edad) {
-        System.out.println(nombre + " pide que se presenten los mayores de " + edad + " años:\n");
+        console.writeln(nombre + " pide que se presenten los mayores de " + edad + " años:\n");
         for (int i = 0; i < cantidadNiños; i++) {
             if (colaNiños[i].getEdad() > edad) {
                 colaNiños[i].presentarse();
@@ -115,7 +117,7 @@ public class Monitora {
     }
     
     public void pedirPresentacionPorInicial(char letra) {
-        System.out.println(nombre + " pide que se presenten los niños cuyo nombre empieza con '" + letra + "':\n");
+        console.writeln(nombre + " pide que se presenten los niños cuyo nombre empieza con '" + letra + "':\n");
         for (int i = 0; i < cantidadNiños; i++) {
             if (colaNiños[i].getNombre().toUpperCase().charAt(0) == Character.toUpperCase(letra)) {
                 colaNiños[i].presentarseSolo();
@@ -124,15 +126,16 @@ public class Monitora {
     }
     
     public void pedirPresentacionPrimerosCinco() {
-        System.out.println(nombre + " pide que se presenten los primeros 5 niños:\n");
-        int limite = Math.min(5, cantidadNiños);
-        for (int i = 0; i < limite; i++) {
+        final int NIÑOS_POR_PRESENTAR = 5;
+        console.writeln(nombre + " pide que se presenten los primeros 5 niños:\n");
+        int limiteNiñosPorPresentar = Math.min(NIÑOS_POR_PRESENTAR, cantidadNiños);
+        for (int i = 0; i < limiteNiñosPorPresentar; i++) {
             colaNiños[i].presentarseSolo();
         }
     }
     
     public void pedirPresentacionUltimosCinco() {
-        System.out.println(nombre + " pide que se presenten los últimos 5 niños:\n");
+        console.writeln(nombre + " pide que se presenten los últimos 5 niños:\n");
         int inicio = Math.max(0, cantidadNiños - 5);
         for (int i = inicio; i < cantidadNiños; i++) {
             colaNiños[i].presentarseSolo();

@@ -1,10 +1,12 @@
 public class Niño {
     private final String nombre;
     private final int edad;
+    private final Console console;
     
     public Niño(String nombre, int edad) {
         this.nombre = nombre;
         this.edad = edad;
+        this.console = new Console();
     }
     
     public String getNombre() {
@@ -16,11 +18,11 @@ public class Niño {
     }
     
     public void presentarse() {
-        System.out.println(nombre + ": Hola, soy " + nombre + " y tengo " + edad + " años");
+        console.writeln("Hola, soy " + nombre + " y tengo " + edad + " años");
     }
     
     public void presentarseSolo() {
-        System.out.println(nombre + ": Hola, soy " + nombre);
+        console.writeln("Hola, soy " + nombre);
     }
     
     public String obtenerInformacion() {
