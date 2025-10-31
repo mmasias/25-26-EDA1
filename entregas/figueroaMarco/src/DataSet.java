@@ -1,108 +1,82 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataSet {
-    private int[] array;
-    private int size;
-    private int capacity;
+    private List<Integer> list;
     
     public DataSet(int capacity) {
-        this.capacity = capacity;
-        this.array = new int[capacity];
-        this.size = 0;
+        this.list = new ArrayList<>(capacity);
     }
     
     public DataSet() {
-        this(20);
+        this.list = new ArrayList<>();
     }
     
-    public int get(int index) {
-        if (index < 0 || index >= size) {
+    public void get(int index) {
+        if (index < 0 || index >= list.size()) {
             System.out.println("Índice fuera de rango: " + index);
+            return;
         }
-        return array[index];
+        System.out.println(list.get(index));
     }
     
     public void set(int index, int value) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= list.size()) {
             System.out.println("Índice fuera de rango: " + index);
             return;
         }
-        array[index] = value;
+        list.set(index, value);
     }
     
     public void add(int value) {
-        if (size >= capacity) {
-            resize();
-        }
-        array[size] = value;
-        size++;
+        list.add(value);
     }
     
     public void add(int index, int value) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index > list.size()) {
             System.out.println("Índice fuera de rango: " + index);
             return;
         }
-        if (size >= capacity) {
-            resize();
-        }
-        for (int i = size; i > index; i--) {
-            array[i] = array[i - 1];
-        }
-        array[index] = value;
-        size++;
+        list.add(index, value);
     }
     
-    public int remove(int index) {
-        if (index < 0 || index >= size) {
+    public void remove(int index) {
+        if (index < 0 || index >= list.size()) {
             System.out.println("Índice fuera de rango: " + index);
+            return;
         }
-        int removedValue = array[index];
-        for (int i = index; i < size - 1; i++) {
-            array[i] = array[i + 1];
-        }
-        size--;
-        return removedValue;
+        list.remove(index);
     }
     
-    public int size() {
-        return size;
+    public void size() {
+        System.out.println(list.size());
     }
     
-    public int capacity() {
-        return capacity;
+    public void isEmpty() {
+        System.out.println(list.isEmpty());
     }
     
-    public boolean isEmpty() {
-        return size == 0;
-    }
-    
-    private void resize() {
-        capacity = capacity * 2;
-        int[] newArray = new int[capacity];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = array[i];
-        }
-        array = newArray;
-    }
-    
-    public int getBefore(int index) {
-        if (index <= 0 || index >= size) {
+    public void getBefore(int index) {
+        if (index <= 0 || index >= list.size()) {
             System.out.println("No hay elemento anterior para el índice: " + index);
+            return;
         }
-        return index - 1;
+        System.out.println(index - 1);
     }
     
-    public int getAfter(int index) {
-        if (index < 0 || index >= size - 1) {
+    public void getAfter(int index) {
+        if (index < 0 || index >= list.size() - 1) {
             System.out.println("No hay elemento posterior para el índice: " + index);
+            return;
         }
-        return index + 1;
+        System.out.println(index + 1);
     }
     
     public void display() {
         System.out.print("[");
-        for (int i = 0; i < size; i++) {
-            System.out.print(array[i]);
-            if (i < size - 1) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i));
+            if (i < list.size() - 1) {
                 System.out.print(", ");
             }
         }
