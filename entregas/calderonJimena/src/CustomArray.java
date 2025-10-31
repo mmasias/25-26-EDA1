@@ -94,6 +94,11 @@ public class CustomArray {
         return tipoDato;
     }
 
+    public int getTamaño() {
+    return this.tamaño;
+}
+
+
     public void eliminarElemento(int posicion) {
         if (posicion < 0 || posicion >= tamaño) {
             console.printf("Error: la posición %d no existe en el array.\n", posicion);
