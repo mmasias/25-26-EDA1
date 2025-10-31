@@ -1,70 +1,94 @@
-public class ArrayComoLista {
+class ArrayComoLista {
     private int[] datos;
-    private int size;
+    private int tamaño;
 
-    public ArrayComoLista(int capacidad) {
-        datos = new int[capacidad];
-        size = 0;
+    public ArrayComoLista(int capacidadInicial) {
+        if (capacidadInicial <= 0) capacidadInicial = 4;
+        this.datos = new int[capacidadInicial];
+        this.tamaño = 0;
+    }
+
+    public int obtenerTamaño() {
+        return tamaño;
+    }
+
+    public boolean estaVacia() {
+        return tamaño == 0;
     }
 
     public void agregar(int valor) {
-        if (size < datos.length) {
-            datos[size] = valor;
-            size++;
-        } else {
-            System.out.println("La lista está llena");
-        }
+        asegurarCapacidad(tamaño + 1);
+        datos[tamaño++] = valor;
     }
 
     public void insertar(int posicion, int valor) {
-        if (posicion < 0 || posicion > size || size == datos.length) {
-            System.out.println("Posición inválida o lista llena");
-            return;
+        if (posicion < 0 || posicion > tamaño) {
+            throw new IndexOutOfBoundsException("Posición inválida: " + posicion);
         }
-        for (int i = size; i > posicion; i--) {
+        asegurarCapacidad(tamaño + 1);
+        for (int i = tamaño; i > posicion; i--) {
             datos[i] = datos[i - 1];
         }
         datos[posicion] = valor;
-        size++;
-    }
-
-    public void eliminar(int posicion) {
-        if (posicion < 0 || posicion >= size) {
-            System.out.println("Posición inválida");
-            return;
-        }
-        for (int i = posicion; i < size - 1; i++) {
-            datos[i] = datos[i + 1];
-        }
-        size--;
+        tamaño++;
     }
 
     public int obtener(int posicion) {
-        if (posicion < 0 || posicion >= size) {
-            System.out.println("Posición inválida");
-            return -1;
-        }
+        comprobarIndice(posicion);
         return datos[posicion];
+    }
+
+    public void establecer(int posicion, int valor) {
+        comprobarIndice(posicion);
+        datos[posicion] = valor;
+    }
+
+    public int eliminarEn(int posicion) {
+        comprobarIndice(posicion);
+        int eliminado = datos[posicion];
+        for (int i = posicion; i < tamaño - 1; i++) {
+            datos[i] = datos[i + 1];
+        }
+        tamaño--;
+        return eliminado;
     }
 
     public void imprimir() {
         System.out.print("[");
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < tamaño; i++) {
             System.out.print(datos[i]);
-            if (i < size - 1) System.out.print(", ");
+            if (i < tamaño - 1) System.out.print(", ");
         }
         System.out.println("]");
     }
 
+    private void asegurarCapacidad(int minimo) {
+        if (minimo <= datos.length) return;
+        int nuevaCapacidad = Math.max(datos.length * 2, minimo);
+        int[] nuevo = new int[nuevaCapacidad];
+        System.arraycopy(datos, 0, nuevo, 0, tamaño);
+        datos = nuevo;
+    }
+
+    private void comprobarIndice(int posicion) {
+        if (posicion < 0 || posicion >= tamaño) {
+            throw new IndexOutOfBoundsException("Posición inválida: " + posicion);
+        }
+    }
+}
+
+public class EjemploArrayComoLista {
     public static void main(String[] args) {
-        ArrayComoLista lista = new ArrayComoLista(5);
+        ArrayComoLista lista = new ArrayComoLista(4);
         lista.agregar(10);
         lista.agregar(20);
-        lista.agregar(30);
-        lista.insertar(1, 15);
+        lista.agregar(40);
+        lista.insertar(2, 30);
         lista.imprimir();
-        lista.eliminar(2);
+        lista.establecer(0, 99);
         lista.imprimir();
-        System.out.println("Elemento en posición 1: " + lista.obtener(1));
+        int eliminado = lista.eliminarEn(1);
+        System.out.println("Elemento eliminado: " + eliminado);
+        lista.imprimir();
     }
 }
