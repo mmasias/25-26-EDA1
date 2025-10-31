@@ -1,5 +1,12 @@
 # RETO 004 
 
+### NOMBRES PARTICIPANTES GRUPO
+- Bienvenido Doalto
+- Javier Liaño
+- Juan Carlos Quitana
+- Raul Tascón
+- Nicolae Hambasan
+
 ## PARTE 1
 
 - Tamaño – Representar un número de elementos usados dentro del array y permitir su expansión cuando sea necesario.
