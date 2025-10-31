@@ -20,7 +20,8 @@ public class Insertar {
 
     public void insertarEnPosicion(int valor, int posicion) {
         if (posicion < 0 || posicion > size) {
-            throw new IndexOutOfBoundsException("Posición inválida");
+            System.out.println("Posición inválida: " + posicion);
+            return;
         }
 
         if (size == array.length) {
@@ -34,16 +35,5 @@ public class Insertar {
         }
         array[posicion] = valor;
         size++;
-    }
-
-    public int obtener(int posicion) {
-        if (posicion < 0 || posicion >= size) {
-            throw new IndexOutOfBoundsException("Posición inválida");
-        }
-        return array[posicion];
-    }
-
-    public int tamaño() {
-        return size;
     }
 }
