@@ -1,39 +1,37 @@
 public class Insertar {
-    private int[] array;
-    private int size;
-    private static final int CAPACIDAD_INICIAL = 10;
-
+    
     public Insertar() {
-        array = new int[CAPACIDAD_INICIAL];
-        size = 0;
     }
 
-    public void insertar(int valor) {
-        if (size == array.length) {
-            int[] nuevoArray = new int[array.length * 2];
-            System.arraycopy(array, 0, nuevoArray, 0, array.length);
-            array = nuevoArray;
-        }
-        array[size] = valor;
-        size++;
+    public void insertar(DataSet dataSet, int valor) {
+        dataSet.add(valor);
+        System.out.println("Insertado valor " + valor + " al final");
     }
 
-    public void insertarEnPosicion(int valor, int posicion) {
-        if (posicion < 0 || posicion > size) {
-            System.out.println("Posición inválida: " + posicion);
-            return;
+    public void insertarEnPosicion(DataSet dataSet, int valor, int posicion) {
+        dataSet.add(posicion, valor);
+        System.out.println("Insertado valor " + valor + " en posición " + posicion);
+    }
+    
+    public void insertarElementos(DataSet dataSet, int primerValor, int... valores) {
+        System.out.println("\nInsertando elementos...");
+        dataSet.add(primerValor);
+        for (int valor : valores) {
+            dataSet.add(valor);
         }
-
-        if (size == array.length) {
-            int[] nuevoArray = new int[array.length * 2];
-            System.arraycopy(array, 0, nuevoArray, 0, array.length);
-            array = nuevoArray;
-        }
-
-        for (int i = size; i > posicion; i--) {
-            array[i] = array[i-1];
-        }
-        array[posicion] = valor;
-        size++;
+        System.out.println("Elementos insertados:");
+        dataSet.display();
+    }
+    
+    public void insertarEnPrincipio(DataSet dataSet, int valor) {
+        System.out.println("\nInsertando " + valor + " al principio:");
+        dataSet.add(0, valor);
+        dataSet.display();
+    }
+    
+      public void insertarAlFinal(DataSet dataSet, int valor) {
+        System.out.println("\nInsertando " + valor + " al final:");
+        dataSet.add(valor);
+        dataSet.display();
     }
 }
