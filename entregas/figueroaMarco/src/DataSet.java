@@ -82,5 +82,42 @@ public class DataSet {
         }
         System.out.println("]");
     }
+    
+    public int getValue(int index) {
+        if (index < 0 || index >= list.size()) {
+            return 0;
+        }
+        return list.get(index);
+    }
+    
+    public int getSize() {
+        return list.size();
+    }
+    
+    public boolean checkIsEmpty() {
+        return list.isEmpty();
+    }
+    
+    public int getBeforeIndex(int index) {
+        if (index <= 0 || index >= list.size()) {
+            return -1;
+        }
+        return index - 1;
+    }
+    
+    public int getAfterIndex(int index) {
+        if (index < 0 || index >= list.size() - 1) {
+            return -1;
+        }
+        return index + 1;
+    }
+    
+    public int removeAndReturn(int index) {
+        if (index < 0 || index >= list.size()) {
+            System.out.println("Índice fuera de rango: " + index);
+            return 0;
+        }
+        return list.remove(index);
+    }
 }
 
