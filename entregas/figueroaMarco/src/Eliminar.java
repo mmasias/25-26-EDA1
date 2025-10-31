@@ -1,4 +1,63 @@
-class Eliminar {
+public class Eliminar {
+    
+    public int eliminarPorIndice(DataSet dataSet, int indice) {
+        if (dataSet.checkIsEmpty()) {
+            System.out.println("Error: DataSet vacío");
+            return 0;
+        }
+        
+        if (indice < 0 || indice >= dataSet.getSize()) {
+            System.out.println("Error: Índice fuera de rango: " + indice);
+            return 0;
+        }
+        
+        int valorEliminado = dataSet.getValue(indice);
+        
+        dataSet.removeAndReturn(indice);
+        
+        return valorEliminado;
+    }
+    
+    public int eliminarInicio(DataSet dataSet) {
+        if (dataSet.checkIsEmpty()) {
+            System.out.println("Error: DataSet vacío");
+            return 0;
+        }
+        
+        return eliminarPorIndice(dataSet, 0);
+    }
+    
+    public int eliminarFinal(DataSet dataSet) {
+        if (dataSet.checkIsEmpty()) {
+            System.out.println("Error: DataSet vacío");
+            return 0;
+        }
+        
+        int ultimoIndice = dataSet.getSize() - 1;
+        return eliminarPorIndice(dataSet, ultimoIndice);
+    }
+
+    public int eliminarPorValor(DataSet dataSet, int valor) {
+        int eliminados = 0;
+        int i = 0;
+        
+        while (i < dataSet.getSize()) {
+            if (dataSet.getValue(i) == valor) {
+                eliminarPorIndice(dataSet, i);
+                eliminados++;
+            } else {
+                i++;
+            }
+        }
+        
+        if (eliminados > 0) {
+            System.out.println("Se eliminaron " + eliminados + " ocurrencia(s) del valor " + valor);
+        } else {
+            System.out.println("No se encontró el valor " + valor + " en el DataSet");
+        }
+        
+        return eliminados;
+    }
     
     public static void eliminarInicio(ArrayConstructor constructor) {
         if (constructor.getCabeza() == -1) {
