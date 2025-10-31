@@ -1,4 +1,4 @@
 - Jaime Lomo
 - Marina Arce
-- Pablo fernandez
+- Pablo Fernandez
 - Vanessa Pak 
