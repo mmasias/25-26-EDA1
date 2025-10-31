@@ -1,1 +1,2 @@
-**Integrantes grupo:**  Andrea Anaya, Carla Madero, Sara Moreno y Beatriz Orozco
+**Integrantes grupo:**  Andrea Anaya, Sara Moreno, Beatriz Orozco y Carla San Juan
+
