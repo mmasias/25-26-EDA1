@@ -11,22 +11,27 @@ public class ArraySimulado {
     }
 
     public void añadir(int valor) {
-
-        boolean añadido = false;
-        for (int i = 0; i < LIMITE; i++) {
-            if (i == ELEMENTOS.size() && !añadido) {
-                ELEMENTOS.add(new Elemento(i, valor));
-                añadido = true;
-            }
+        if (ELEMENTOS.size() < LIMITE) {
+            ELEMENTOS.add(new Elemento(ELEMENTOS.size(), valor));
+        } else {
+            System.out.println("Se ha alcanzado el límite del array.");
         }
     }
 
     public void modificar(int indice, int nuevoValor) {
-        ELEMENTOS.get(indice).darValor(nuevoValor);
+        if (indice >= 0 && indice < ELEMENTOS.size()) {
+            ELEMENTOS.get(indice).darValor(nuevoValor);
+        } else {
+            System.out.println("Índice fuera de rango.");
+        }
     }
 
     public int obtenerElementos(int indice) {
-        return ELEMENTOS.get(indice).valor();
+        if (indice >= 0 && indice < ELEMENTOS.size()) {
+            return ELEMENTOS.get(indice).valor();
+        } else {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + indice);
+        }
     }
 
     public void imprimir() {
