@@ -17,7 +17,7 @@
 Para simular una lista utilizando un array, primero se debe distinguir entre tamaño físico (capacidad total del array) y tamaño lógico, que será el número real de elementos almacenados y que se mantendrá en una variable independiente, ya que el array en sí no puede crecer. Si el array se llena tenemos 2 opciones:
 
 - Ampliarlo internamente copiando todo a uno más grande.
-- Decir que no cabe más.
+- ~~Decir que no cabe más~~
 
 Para insertar algo en medio, habría que mover todos los elementos a la derecha para abrir un hueco, y para eliminar algo, los movemos a la izquierda para que no queden huecos vacíos. Todo esto pasaría por dentro y de forma automática, de modo que el usuario vea que solo puede agregar, quitar o insertar elementos.
 
