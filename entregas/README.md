@@ -1,3 +1,6 @@
-# Carpeta de entregas
+# Integrantes:
 
-Dentro de esta carpeta, /apellidoNombre/ y en ella las carpetas documentos, documentosUML y src
+- Juan Fernando Caicedo
+- Chao Zhen Xie
+- Jose Luis
+- Juan Esteban Caicedo
