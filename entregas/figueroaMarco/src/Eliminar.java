@@ -8,7 +8,10 @@ public class Eliminar {
         
         int indiceEliminar = constructor.getCabeza();
         constructor.setCabeza(constructor.getReferencias()[indiceEliminar]);
-        
+        constructor.getArray()[indiceEliminar] = null;
+        constructor.getReferencias()[indiceEliminar] = constructor.getPrimerLibre();
+        constructor.setPrimerLibre(indiceEliminar);
+        constructor.decrementarTamaño();
 
     }
 
