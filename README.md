@@ -1,3 +1,8 @@
-# EDA I - Retos
+# EDA I - Reto 004
 
-Rama de origen para la entrega de retos
+## NOMBRES PARTICIPANTES GRUPO
+- Bienvenido Doalto
+- Javier Liaño
+- Juan Carlos Quitana
+- Raul Tascón
+- Nicolae Hambasan
