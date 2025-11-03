@@ -1,38 +1,24 @@
-# 📘 ArrayComoLista
+# Explicación del proyecto: ArrayComoLista
 
-Este proyecto implementa una **estructura de datos tipo lista** usando un **array dinámico**.  
-La idea es simular el comportamiento de una lista enlazada, pero implementada desde cero, sin usar colecciones predefinidas.
+El proyecto se compone de dos clases: **Ejemplo de ArrayComoLista** y **ArrayComoLista**.  
 
----
+## Clase ArrayComoLista
 
-## 🔹 Objetivo del programa
+Toda la lógica se encuentra en la clase **ArrayComoLista**.  
+Contiene dos atributos:  
+una variable denominada `tamaño`, que señala el número de elementos que están ocupando posiciones en el array, y un array denominado `datos`, donde se almacenan los valores.  
+El constructor recibe una capacidad inicial y crea el array basándose en ella.  
+Si el valor proporcionado es menor o igual a cero, se establece por defecto una capacidad de 4.  
 
-Crear una clase (`ArrayComoLista`) que permita:
-- Agregar elementos al final.
-- Insertar elementos en cualquier posición.
-- Eliminar elementos.
-- Modificar valores existentes.
-- Imprimir la lista completa.
-- Hacer que el array crezca automáticamente cuando se llena.
+La clase cuenta con varios métodos.  
+La manera de `agregar` añade un elemento nuevo al final, en tanto que el método `insertar` permite situar un valor en una ubicación específica, moviendo los elementos que vienen después una posición a la derecha.  
+El método `establecer` reemplaza el valor que ya existe con uno nuevo, mientras que el método `obtener` devuelve el valor de una posición específica.  
+El método `eliminarEn` suprime un elemento de una posición y desplaza los restantes hacia la izquierda para no dejar espacios vacíos.  
 
-Todo esto se gestiona **internamente con un array** que se redimensiona cuando es necesario.
+Además, existe un método privado que se llama `asegurarCapacidad` y su función es aumentar el tamaño del array cuando este se llena.  
+Si el espacio no es suficiente, genera un nuevo array con el doble de tamaño y transfiere los datos viejos a este.
 
----
+## Clase EjemploArrayComoLista
 
-## 🔹 Clases del programa
-
-### 🧩 Clase `ArrayComoLista`
-
-Es la clase principal. Contiene los atributos y métodos para gestionar la lista.
-
-#### **Atributos**
-| Atributo | Tipo | Descripción |
-|-----------|------|--------------|
-| `datos` | `int[]` | Array que almacena los valores de la lista. |
-| `tamaño` | `int` | Número actual de elementos almacenados. |
-
----
-
-#### **Constructor**
-```java
-public ArrayComoLista(int capacidadInicial)
+En esta clase se crean varios objetos de la clase `ArrayComoLista` y se invocan los métodos previos para verificar su operatividad, incluyendo agregar, modificar, insertar, eliminar y obtener valores.  
+Para que el programa muestre los mensajes correctos, también hemos incluido casos que están fuera de rango.
