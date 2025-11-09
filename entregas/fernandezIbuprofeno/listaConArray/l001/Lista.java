@@ -3,6 +3,7 @@ package l001;
 public class Lista {
     private int[][] nodos;
     private int cabeza;
+    private int cola;
     private int libres;
     private int tamaño;
     private int siguienteNuevo;
@@ -10,6 +11,7 @@ public class Lista {
     public Lista() {
         nodos = new int[5][2];
         cabeza = -1;
+        cola = -1;
         libres = -1;
         tamaño = 0;
         siguienteNuevo = 0;
@@ -17,10 +19,16 @@ public class Lista {
 
     public void agregar(int valor) {
         int nuevoIndice = obtenerEspacioLibre();
-
         nodos[nuevoIndice][0] = valor;
-        nodos[nuevoIndice][1] = cabeza;
-        cabeza = nuevoIndice;
+        nodos[nuevoIndice][1] = -1;
+
+        if (cabeza == -1) {
+            cabeza = nuevoIndice;
+            cola = nuevoIndice;
+        } else {
+            nodos[cola][1] = nuevoIndice;
+            cola = nuevoIndice;
+        }
         tamaño++;
     }
 
@@ -40,6 +48,9 @@ public class Lista {
         if (posicion == 0) {
             int indiceEliminado = cabeza;
             cabeza = nodos[cabeza][1];
+            if (cabeza == -1) {
+                cola = -1;
+            }
             liberarEspacio(indiceEliminado);
         } else {
             int actual = cabeza;
@@ -48,6 +59,11 @@ public class Lista {
             }
             int indiceEliminado = nodos[actual][1];
             nodos[actual][1] = nodos[indiceEliminado][1];
+
+            if (indiceEliminado == cola) {
+                cola = actual;
+            }
+
             liberarEspacio(indiceEliminado);
         }
         tamaño--;
@@ -86,7 +102,7 @@ public class Lista {
     }
 
     public void mostrarEstructura() {
-        System.out.println("Cabeza: " + cabeza + " / Libres: " + libres + " / Siguiente nuevo: " + siguienteNuevo);
+        System.out.println("Cabeza: " + cabeza + " / Cola: " + cola + " / Libres: " + libres + " / Siguiente nuevo: " + siguienteNuevo);
         System.out.println("Índice | Dato | Siguiente");
         for (int i = 0; i < nodos.length; i++) {
             System.out.println("  " + i + "    |  " + nodos[i][0] + "   |    " + nodos[i][1]);
