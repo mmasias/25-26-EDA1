@@ -42,6 +42,16 @@ public class Lista {
         return nodos[actual][0];
     }
 
+    public void modificar(int posicion, int nuevoValor) {
+        assert posicion >= 0 && posicion < tamaño : "Precondición violada: posición fuera de rango";
+
+        int actual = cabeza;
+        for (int i = 0; i < posicion; i++) {
+            actual = nodos[actual][1];
+        }
+        nodos[actual][0] = nuevoValor;
+    }
+
     public void eliminar(int posicion) {
         assert posicion >= 0 && posicion < tamaño : "Precondición violada: posición fuera de rango";
 

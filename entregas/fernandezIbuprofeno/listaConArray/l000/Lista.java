@@ -26,6 +26,11 @@ public class Lista {
         return tamaño;
     }
 
+    public void modificar(int indice, int nuevoValor) {
+        assert indice >= 0 && indice < tamaño : "Precondición violada: índice fuera de rango";
+        elementos[indice] = nuevoValor;
+    }
+
     public void eliminar(int indice) {
         assert indice >= 0 && indice < tamaño : "Precondición violada: índice fuera de rango";
         for (int i = indice; i < tamaño - 1; i++) {
