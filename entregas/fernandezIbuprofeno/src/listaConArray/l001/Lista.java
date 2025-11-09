@@ -1,4 +1,4 @@
-package l001;
+package listaConArray.l001;
 
 public class Lista {
     private int[][] nodos;

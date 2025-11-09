@@ -1,4 +1,6 @@
-import a000.Array;
+package arrayConLista;
+
+import arrayConLista.a000.Array;
 
 public class ClienteArray {
     public static void main(String[] args) {

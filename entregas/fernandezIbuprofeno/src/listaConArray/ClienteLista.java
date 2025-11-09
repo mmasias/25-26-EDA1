@@ -1,7 +1,9 @@
-//import l000.Lista;
-import l001.Lista;
+package listaConArray;
 
-class ClienteLista {
+//import listaConArray.l000.Lista;
+import listaConArray.l001.Lista;
+
+public class ClienteLista {
     
     public static void main(String[] args) {
         Lista miLista = new Lista();

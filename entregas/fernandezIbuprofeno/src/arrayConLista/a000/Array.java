@@ -1,4 +1,4 @@
-package a000;
+package arrayConLista.a000;
 
 public class Array {
     private Lista miLista;

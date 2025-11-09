@@ -1,4 +1,4 @@
-package l000;
+package listaConArray.l000;
 
 public class Lista {
     private int[] elementos;
