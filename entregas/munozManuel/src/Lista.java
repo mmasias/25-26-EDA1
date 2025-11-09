@@ -7,13 +7,13 @@ public class Lista {
         actual = -1;
     }
 
-    public String leerDato(int posicion){
+    public Nodo leerNodo(int posicion){
         if(posicion == 1){
-            return primerNodo().dato();
+            return primerNodo();
         }else if (posicion == nodos.length - 1) {
-            return ultimoNodo().dato();
+            return ultimoNodo();
         }else{
-            return buscarNodo(posicion - 1).dato();
+            return buscarNodo(posicion - 1);
         }
     }
 

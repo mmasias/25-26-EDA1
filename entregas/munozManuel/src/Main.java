@@ -20,12 +20,15 @@ public class Main {
         lista.imprimirLista();
         System.out.println("\nLista detallada\n");
         lista.imprimirListaDetallada();
-        System.out.println(lista.leerDato(5));
+        System.out.println(lista.leerNodo(5).dato());
 
         System.out.println("\nSegunda iteracion despues de insercion\n");
         lista.insertar(new Nodo("nevo dato en tercera posicion"), 3);
         lista.imprimirLista();
         System.out.println("Lista detallada\n");
         lista.imprimirListaDetallada();
+        int valorDeNodo = lista.leerNodo(2).datoInt();
+        System.out.println(valorDeNodo > 20);
+        System.out.println(valorDeNodo > 5);
     }
 }

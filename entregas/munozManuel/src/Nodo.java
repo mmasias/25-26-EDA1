@@ -58,17 +58,6 @@ public class Nodo {
         anterior = -1;
         siguiente = -1;
     }
-    
-    public Object valor() {
-        return switch (dato[1]) {
-            case "char" -> datoChar();
-            case "int" -> datoInt();
-            case "boolean" -> datoBool();
-            case "double" -> datoDouble();
-            case "String" -> dato[0];
-            default -> null;
-        };
-    }
 
     public int anterior(){
         return anterior;
@@ -90,19 +79,19 @@ public class Nodo {
         return dato[0];
     }
 
-    private char datoChar() {
+    public char datoChar() {
         return dato[0].charAt(0);
     }
 
-    private int datoInt() {
+    public int datoInt() {
         return Integer.parseInt(dato[0]);
     }
 
-    private boolean datoBool() {
+    public boolean datoBool() {
         return Boolean.parseBoolean(dato[0]);
     }
 
-    private double datoDouble() {
+    public double datoDouble() {
         return Double.parseDouble(dato[0]);
     }
 
