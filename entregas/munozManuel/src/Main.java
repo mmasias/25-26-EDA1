@@ -20,7 +20,7 @@ public class Main {
         lista.imprimirLista();
         System.out.println("\nLista detallada\n");
         lista.imprimirListaDetallada();
-        System.out.println(lista.leerDato(3));
+        System.out.println(lista.leerDato(5));
 
         System.out.println("\nSegunda iteracion despues de insercion\n");
         lista.insertar(new Nodo("nevo dato en tercera posicion"), 3);

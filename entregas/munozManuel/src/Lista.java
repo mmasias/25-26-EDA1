@@ -8,18 +8,13 @@ public class Lista {
     }
 
     public String leerDato(int posicion){
-        if(posicion == 0){
+        if(posicion == 1){
             return primerNodo().dato();
         }else if (posicion == nodos.length - 1) {
             return ultimoNodo().dato();
         }else{
-            for(int i = 0; i < posicion; i++){
-                if(nodos[i].siguiente() == posicion){
-                    return nodos[nodos[i].siguiente()].dato();
-                }
-            }
+            return buscarNodo(posicion - 1).dato();
         }
-        return "";
     }
 
     public void agregarInicio(Nodo nodo) {
