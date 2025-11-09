@@ -7,6 +7,21 @@ public class Lista {
         actual = -1;
     }
 
+    public String leerDato(int posicion){
+        if(posicion == 0){
+            return primerNodo().dato();
+        }else if (posicion == nodos.length - 1) {
+            return ultimoNodo().dato();
+        }else{
+            for(int i = 0; i < posicion; i++){
+                if(nodos[i].siguiente() == posicion){
+                    return nodos[nodos[i].siguiente()].dato();
+                }
+            }
+        }
+        return "";
+    }
+
     public void agregarInicio(Nodo nodo) {
         if(actual == nodos.length - 1) {
             redimensionar();
@@ -99,7 +114,10 @@ public class Lista {
                 nodos[actual] = nodo;
                 actualizarReferencias(posicion);
             }
-            default -> nodos[actual] = nodo;
+            default ->{
+                nodos[actual] = nodo;
+                actualizarReferencias(posicion);
+            }
         }
     }
 
@@ -123,8 +141,8 @@ public class Lista {
                 }
             }
             default -> {
-                Nodo nodoAnterior = nodoAnterior(posicion);
                 Nodo nodoSiguiente = nodoSiguiente(posicion);
+                Nodo nodoAnterior = nodoAnterior(nodoSiguiente);
 
                 nodoAnterior.siguiente(actual);
 
@@ -143,6 +161,15 @@ public class Lista {
             }
         }
         return -1;
+    }
+
+    private Nodo buscarNodo(int posicion){
+        for (int i = 0; i < nodos.length; i++) {
+            if(i == posicion - 1){
+                return nodos[i];
+            }
+        }
+        return null;
     }
 
     private Nodo primerNodo(){
@@ -164,21 +191,14 @@ public class Lista {
     }
 
     private Nodo nodoSiguiente(int posicion){
-        for(Nodo nodo : nodos){
-            if (nodo.anterior() == posicion){
-                return nodo;
-            }
-        }
-        return null;
+        Nodo nodoSiguente = buscarNodo(posicion - 1);
+        return nodoSiguente;
+
     }
 
-    private Nodo nodoAnterior(int posicion){
-        for(Nodo nodo : nodos){
-            if (nodo.siguiente() == posicion){
-                return nodo;
-            }
-        }
-        return null;
+    private Nodo nodoAnterior(Nodo nodoSiguiente){
+        Nodo nodoAnterior = buscarNodo(nodoSiguiente.anterior() + 1);
+        return nodoAnterior;
     }
     
 }
