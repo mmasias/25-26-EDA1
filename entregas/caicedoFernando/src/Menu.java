@@ -25,8 +25,10 @@ public class Menu {
             System.out.println("10. Ver tamaño y capacidad");
             System.out.println("11. Salir");
             System.out.print("Elige una opción: ");
+
+            boolean preguntaUsuario = scanner.hasNextInt();
             
-            if (scanner.hasNextInt()) {
+            if (preguntaUsuario) {
                 opcion = scanner.nextInt();
                 scanner.nextLine(); 
             } else {
@@ -45,7 +47,7 @@ public class Menu {
 
             else if (opcion == 2) {
                 System.out.print("Ingresa el índice donde insertar (0 a " + lista.tamaño() + "): ");
-                if (scanner.hasNextInt()) {
+                if (preguntaUsuario) {
                     int indice = scanner.nextInt();
                     scanner.nextLine();
                     System.out.print("Ingresa el elemento: ");
@@ -91,7 +93,7 @@ public class Menu {
 
             else if (opcion == 8) {
                 System.out.print("Ingresa el índice: ");
-                if (scanner.hasNextInt()) {
+                if (preguntaUsuario) {
                     int indice = scanner.nextInt();
                     scanner.nextLine();
                     Object elemento = lista.obtener(indice);
@@ -108,7 +110,7 @@ public class Menu {
 
             else if (opcion == 9) {
                 System.out.print("Ingresa el índice del elemento a eliminar: ");
-                if (scanner.hasNextInt()) {
+                if (preguntaUsuario) {
                     int indice = scanner.nextInt();
                     scanner.nextLine();
                     Object eliminado = lista.remover(indice);
