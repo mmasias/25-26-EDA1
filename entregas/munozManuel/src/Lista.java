@@ -44,30 +44,30 @@ public class Lista {
         }
     }
 
-    public void eliminar(int indice) {
-        if(indice >= 0 && indice <= actual){
-            nodos[indice].eliminarDato();
+    public void eliminar(int posicion) {
+        if(posicion >= 1 && posicion <= actual + 1){
+            nodos[posicion - 1].eliminarDato();
         }
     }
     
-    public void actualizar(char dato, int indice){
-        nodos[indice].actualizarDato(dato);
+    public void actualizar(char dato, int posicion){
+        nodos[posicion - 1].actualizarDato(dato);
     }
 
-    public void actualizar(int dato, int indice){
-        nodos[indice].actualizarDato(dato);
+    public void actualizar(int dato, int posicion){
+        nodos[posicion - 1].actualizarDato(dato);
     }
 
-    public void actualizar(boolean dato, int indice){
-        nodos[indice].actualizarDato(dato);
+    public void actualizar(boolean dato, int posicion){
+        nodos[posicion - 1].actualizarDato(dato);
     }
 
-    public void actualizar(double dato, int indice){
-        nodos[indice].actualizarDato(dato);
+    public void actualizar(double dato, int posicion){
+        nodos[posicion - 1].actualizarDato(dato);
     }
 
-    public void actualizar(String dato, int indice){
-        nodos[indice].actualizarDato(dato);
+    public void actualizar(String dato, int posicion){
+        nodos[posicion - 1].actualizarDato(dato);
     }
     
     public void imprimirLista(){
