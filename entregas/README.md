@@ -1,3 +1,6 @@
-# Carpeta de entregas
+### NOMBRES PARTICIPANTES GRUPO
+- Jaime Lomo
+- Marina Arce
+- Vanessa Pak
+- Pablo Fernandez 
 
-Dentro de esta carpeta, /apellidoNombre/ y en ella las carpetas documentos, documentosUML y src
