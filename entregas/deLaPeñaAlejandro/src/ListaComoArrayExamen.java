@@ -158,4 +158,81 @@ public class ListaComoArrayExamen {
             return vacia;
         }
     }
+    public class ListaComoArray {
+        private ArraySimuladoPorLista datos;
+        private int tamanio;
+
+        public ListaComoArray(int capacidadInicial) {
+            ArraySimuladoPorLista estructuraInicial;
+            int capacidadConstruida;
+            if (capacidadInicial <= 0) {
+                capacidadConstruida = 4;
+            } else {
+                capacidadConstruida = capacidadInicial;
+            }
+            estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
+            datos = estructuraInicial;
+            tamanio = 0;
+        }
+
+        public int obtenerTamanio() {
+            int resultado;
+            resultado = tamanio;
+            return resultado;
+        }
+
+        public boolean estaVacia() {
+            boolean vacia;
+            vacia = tamanio == 0;
+            return vacia;
+        }
+
+        public void agregar(int valorNuevo) {
+            int minimoNecesario;
+            minimoNecesario = tamanio + 1;
+            asegurarCapacidad(minimoNecesario);
+            datos.establecer(tamanio, valorNuevo);
+            tamanio = tamanio + 1;
+        }
+
+        public int obtener(int posicionObjetivo) {
+            boolean posicionValida;
+            int valorLeido;
+            posicionValida = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
+            if (posicionValida) {
+                valorLeido = datos.obtener(posicionObjetivo);
+            } else {
+                System.out.println("Posición fuera de rango.");
+                valorLeido = -1;
+            }
+            return valorLeido;
+        }
+
+        private void asegurarCapacidad(int minimoNecesario) {
+            int capacidadActual;
+            int nuevaCapacidad;
+            ArraySimuladoPorLista nuevoArray;
+            capacidadActual = datos.longitud();
+            if (minimoNecesario > capacidadActual) {
+                nuevaCapacidad = capacidadActual * 2;
+                if (nuevaCapacidad < minimoNecesario) {
+                    nuevaCapacidad = minimoNecesario;
+                }
+                nuevoArray = new ArraySimuladoPorLista(nuevaCapacidad);
+                copiarDatos(nuevoArray);
+                datos = nuevoArray;
+            }
+        }
+
+        private void copiarDatos(ArraySimuladoPorLista destino) {
+            int indice;
+            int valorTemporal;
+            indice = 0;
+            while (indice < tamanio) {
+                valorTemporal = datos.obtener(indice);
+                destino.establecer(indice, valorTemporal);
+                indice = indice + 1;
+            }
+        }
+    }
 }
