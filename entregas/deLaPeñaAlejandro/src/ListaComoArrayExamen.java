@@ -235,4 +235,41 @@ public class ListaComoArrayExamen {
             }
         }
     }
+    public class ListaComoArray {
+        private ArraySimuladoPorLista datos;
+        private int tamanio;
+
+        public ListaComoArray(int capacidadInicial) {
+            ArraySimuladoPorLista estructuraInicial;
+            int capacidadConstruida;
+            if (capacidadInicial <= 0) {
+                capacidadConstruida = 4;
+            } else {
+                capacidadConstruida = capacidadInicial;
+            }
+            estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
+            datos = estructuraInicial;
+            tamanio = 0;
+        }
+
+        public int get(int posicionObjetivo) {
+            int valorLeido;
+            valorLeido = obtener(posicionObjetivo);
+            return valorLeido;
+        }
+
+        public void set(int posicionObjetivo, int valorNuevo) {
+            establecer(posicionObjetivo, valorNuevo);
+        }
+
+        private void establecer(int posicionObjetivo, int valorNuevo) {
+            boolean posicionValida;
+            posicionValida = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
+            if (posicionValida) {
+                datos.establecer(posicionObjetivo, valorNuevo);
+            } else {
+                System.out.println("Posición fuera de rango.");
+            }
+        }
+    }
 }
