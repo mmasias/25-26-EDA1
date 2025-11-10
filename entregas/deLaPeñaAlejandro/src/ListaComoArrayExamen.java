@@ -111,7 +111,7 @@ public class ListaComoArrayExamen {
         }
     }
 
-    public ListaComoArray(int capacidadInicial) {
+    public ListaComoArrayExamen(int capacidadInicial) {
         ArraySimuladoPorLista estructuraInicial;
         int capacidadConstruida;
         if (capacidadInicial <= 0) {
