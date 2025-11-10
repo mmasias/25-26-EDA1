@@ -1,15 +1,11 @@
 public class Elemento{
 
-    private final int INDICE;
+    private Elemento siguiente;
     private int valor;
 
-    public Elemento(int indice, int valor) {
-        this.INDICE = indice;
+    public Elemento(int valor) {
+        this.siguiente = null;
         this.valor = valor;
-    }
-
-    public int obtenerIndice() {
-        return INDICE;
     }
 
     public int valor() {
@@ -20,8 +16,11 @@ public class Elemento{
         this.valor = valor;
     }
 
-    public String toString() {
-        return "INDICE " + INDICE + ": " + valor;
+    public Elemento siguiente() {
+        return siguiente;
     }
-    
+
+    public void setSiguiente(Elemento siguiente) {
+        this.siguiente = siguiente;
+    }
 }
