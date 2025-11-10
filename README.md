@@ -1,3 +1,3 @@
-# EDA I - Retos
+Basado en código de Jaime Lomo, el código del otro grupo ocupaba cosas no vistas en la asignatura
 
-Rama de origen para la entrega de retos
+Integrantes: Juan Esteban Caicedo, Chao Zhen, Jose Luis de la Asunción y Juan Fernando Caicedo.
