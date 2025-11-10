@@ -1,59 +1,56 @@
 public class Fila {
     Nodo cabeza;
-    int columnas;
+    int numeroColumnas;
 
     public Fila(int columnasTotales) {
-        columnas = columnasTotales;
-        cabeza = construirFilaVacia(columnas);
+        numeroColumnas = Math.max(0, columnasTotales);
+        cabeza = construirFilaVacia(numeroColumnas);
     }
 
-    public void set(int columna, int valor) {
-        if (columna >= 0 && columna < columnas) {
-            Nodo nodoActual = buscarNodo(columna);
-            nodoActual.dato = valor;
-        } else {
+    public void setValor(int indiceColumna, int valor) {
+        if (indiceColumna < 0 || indiceColumna >= numeroColumnas) {
             System.out.println("Error: columna fuera de rango.");
+            return;
         }
+        Nodo nodoBuscado = buscarNodo(indiceColumna);
+        if (nodoBuscado != null) nodoBuscado.dato = valor;
     }
 
-    public int get(int columna) {
-        if (columna >= 0 && columna < columnas) {
-            Nodo nodoActual = buscarNodo(columna);
-            return nodoActual.dato;
-        } else {
+    public int getValor(int indiceColumna) {
+        if (indiceColumna < 0 || indiceColumna >= numeroColumnas) {
             System.out.println("Error: columna fuera de rango.");
-            return -1;
+            return 0;
         }
+        Nodo nodoBuscado = buscarNodo(indiceColumna);
+        return (nodoBuscado == null) ? 0 : nodoBuscado.dato;
     }
 
-    public void imprimirFila() {
-        Nodo nodoActual = cabeza;
+    public void imprimir() {
         System.out.print("[");
-        for (int columna = 0; columna < columnas; columna++) {
-            System.out.print(nodoActual.dato);
-            if (columna < columnas - 1) {
-                System.out.print(", ");
-            }
-            nodoActual = nodoActual.siguiente;
+        Nodo nodoActual = cabeza;
+        for (int indiceColumna = 0; indiceColumna < numeroColumnas; indiceColumna++) {
+            System.out.print(nodoActual != null ? nodoActual.dato : 0);
+            if (indiceColumna < numeroColumnas - 1) System.out.print(", ");
+            if (nodoActual != null) nodoActual = nodoActual.siguiente;
         }
-        System.out.print("]");
+        System.out.println("]");
     }
 
-    private Nodo buscarNodo(int columna) {
+    private Nodo buscarNodo(int indiceColumnaObjetivo) {
         Nodo nodoActual = cabeza;
-        for (int columnaActual = 0; columnaActual < columna; columnaActual++) {
+        int posicionActual = 0;
+        while (nodoActual != null && posicionActual < indiceColumnaObjetivo) {
             nodoActual = nodoActual.siguiente;
+            posicionActual++;
         }
         return nodoActual;
     }
 
-    private Nodo construirFilaVacia(int columnas) {
-        if (columnas == 0) {
-            return null;
-        }
+    private Nodo construirFilaVacia(int totalColumnas) {
+        if (totalColumnas == 0) return null;
         Nodo primerNodo = new Nodo(0);
         Nodo nodoActual = primerNodo;
-        for (int columna = 1; columna < columnas; columna++) {
+        for (int indice = 1; indice < totalColumnas; indice++) {
             nodoActual.siguiente = new Nodo(0);
             nodoActual = nodoActual.siguiente;
         }
