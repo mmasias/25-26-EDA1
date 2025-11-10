@@ -1,18 +1,18 @@
 public class SimuladorLista {
-    private Object[] datos;
+    private int[] datos;
     private int tamaño;
     private static final int CAPACIDAD_INICIAL = 4;
     public final int TAMAÑO_INICIAL = 0;
     public final int MULTIPLICADOR_ARRAY = 2;
 
     public SimuladorLista() {
-        datos = new Object[CAPACIDAD_INICIAL];
+        datos = new int[CAPACIDAD_INICIAL];
         tamaño = TAMAÑO_INICIAL;
     }
 
     private void expandir() {
         int nuevaCapacidad = datos.length * MULTIPLICADOR_ARRAY;
-        Object[] nuevoArray = new Object[nuevaCapacidad];
+        int[] nuevoArray = new int[nuevaCapacidad];
 
         for (int i = 0; i < tamaño; i++) {
             nuevoArray[i] = datos[i];
@@ -21,7 +21,7 @@ public class SimuladorLista {
         datos = nuevoArray;
     }
 
-    public void agregar(Object elemento) {
+    public void agregar(int elemento) {
         if (tamaño == datos.length) {
             expandir();
         }
@@ -29,7 +29,7 @@ public class SimuladorLista {
         tamaño++;
     }
 
-    public void agregar(int indice, Object elemento) {
+    public void agregar(int indice, int elemento) {
         if (indice < 0 || indice > tamaño) {
             System.out.println("Índice fuera de rango");
             return;
@@ -47,31 +47,35 @@ public class SimuladorLista {
         tamaño++;
     }
 
-    public Object obtener(int indice) {
-        boolean rango = indice < 0 || indice >= tamaño;
-        if (rango) {
+    public int obtener(int indice) {
+        if (indice < 0 || indice >= tamaño) {
             System.out.println("Índice fuera de rango");
-            return null;
+            return -1;
         }
         return datos[indice];
     }
 
-    public Object remover(int indice) {
-        boolean rango = indice < 0 || indice >= tamaño;
-        if (rango) {
+    public void modificar(int indice, int elemento) {
+        if (indice < 0 || indice >= tamaño) {
             System.out.println("Índice fuera de rango");
-            return null;
+            return;
+        }
+        datos[indice] = elemento;
+    }
+
+    public int remover(int indice) {
+        if (indice < 0 || indice >= tamaño) {
+            System.out.println("Índice fuera de rango");
+            return -1;
         }
 
-        Object eliminado = datos[indice];
+        int eliminado = datos[indice];
 
         for (int i = indice; i < tamaño - 1; i++) {
             datos[i] = datos[i + 1];
         }
 
-        datos[tamaño - 1] = null;
         tamaño--;
-
         return eliminado;
     }
 
@@ -82,16 +86,16 @@ public class SimuladorLista {
     public int getCapacidad() {
         return datos.length;
     }
-
+    
     public String toString() {
-        String texto = "[";
+        StringBuilder texto = new StringBuilder("[");
         for (int i = 0; i < tamaño; i++) {
-            texto += datos[i];
+            texto.append(datos[i]);
             if (i < tamaño - 1) {
-                texto += ", ";
+                texto.append(", ");
             }
         }
-        texto += "]";
-        return texto;
+        texto.append("]");
+        return texto.toString();
     }
 }
