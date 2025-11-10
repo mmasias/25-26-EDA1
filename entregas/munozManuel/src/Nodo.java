@@ -55,8 +55,6 @@ public class Nodo {
 
     public void eliminarDato(){
         dato[0] = "";
-        anterior = -1;
-        siguiente = -1;
     }
 
     public int anterior(){
