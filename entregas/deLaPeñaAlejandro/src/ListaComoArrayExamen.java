@@ -291,7 +291,7 @@ public class ListaComoArrayExamen {
             System.out.println("]");
         }
     }
-        private void asegurarCapacidad(int minimoNecesario) {
+    private void asegurarCapacidad(int minimoNecesario) {
         int capacidadActual;
         int nuevaCapacidad;
         ArraySimuladoPorLista nuevoArray;
@@ -305,5 +305,9 @@ public class ListaComoArrayExamen {
             datos.copiarHacia(nuevoArray, tamanio);
             datos = nuevoArray;
         }
+    }
+    public class ListaComoArray {
+        private ArraySimuladoPorLista datos;
+        private int tamanio;
     }
 }
