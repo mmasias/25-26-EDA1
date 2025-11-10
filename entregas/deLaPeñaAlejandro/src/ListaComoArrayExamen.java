@@ -272,4 +272,23 @@ public class ListaComoArrayExamen {
             }
         }
     }
+    
+    public class ListaComoArray {
+        private ArraySimuladoPorLista datos;
+        private int tamanio;
+
+        public void imprimir() {
+            int indice;
+            System.out.print("[");
+            indice = 0;
+            while (indice < tamanio) {
+                System.out.print(obtener(indice));
+                if (indice < tamanio - 1) {
+                    System.out.print(", ");
+                }
+                indice = indice + 1;
+            }
+            System.out.println("]");
+        }
+    }
 }
