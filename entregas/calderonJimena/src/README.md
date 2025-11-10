@@ -1,0 +1,3 @@
+Integrantes : Jimena Calderon, Miguel Rivas y Manuel Muñoz
+
+El grupo de Sara Vaquero, Jose Cabera, Jose Pablo Morales, Marco Figueroa en su codigo propuesto se usa ArrayList la cual se menciono que no deberia usarse, por lo cual hemos tomado la decision de hacerlo con la propuesta de otro grupo ademas que su codigo realmente tienen un numero innecesario de clases. ademas luego de ver los codigo de otros grupos tomamos la decision de usar el del grupo de Bienvenido Doalto, Javier Liaño, Juan Carlos Quintana, Raul Tascón y Nicolae Hambasan, que se ve mas organizado y no usa import que no se deben utilizar.
