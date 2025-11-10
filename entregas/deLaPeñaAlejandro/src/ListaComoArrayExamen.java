@@ -1,5 +1,11 @@
 public class ListaComoArrayExamen {
 
+    private static final int INCREMENTO_UNIDAD = 1;
+    private static final int FACTOR_DOBLE_CAPACIDAD = 2;
+    private static final int VALOR_INICIAL_NODO = 0;
+    private static final int CAPACIDAD_MINIMA_INICIAL = 1;
+    private static final int CAPACIDAD_POR_DEFECTO = 4;
+
     private ArraySimuladoPorLista datos;
     private int tamanio;
 
@@ -8,21 +14,21 @@ public class ListaComoArrayExamen {
         Nodo siguiente;
 
         Nodo(int valorInicial) {
-            int valor;
-            valor = valorInicial;
-            dato = valor;
+            int valorAsignado;
+            valorAsignado = valorInicial;
+            dato = valorAsignado;
             siguiente = null;
         }
     }
 
-    public class ArraySimuladoPorLista {
+    private static class ArraySimuladoPorLista {
         private Nodo cabeza;
         private int capacidad;
 
-        public ArraySimuladoPorLista(int capacidadInicial) {
+        ArraySimuladoPorLista(int capacidadInicial) {
             int capacidadConstruida;
             if (capacidadInicial <= 0) {
-                capacidadConstruida = 1;
+                capacidadConstruida = CAPACIDAD_MINIMA_INICIAL;
             } else {
                 capacidadConstruida = capacidadInicial;
             }
@@ -30,54 +36,145 @@ public class ListaComoArrayExamen {
             cabeza = construirListaVacia(capacidad);
         }
 
-        private Nodo construirListaVacia(int cantidad) {
+        int longitud() {
+            int resultado;
+            resultado = capacidad;
+            return resultado;
+        }
+
+        int obtener(int posicionObjetivo) {
+            boolean posicionValida;
+            Nodo nodoObjetivo;
+            int valorLeido;
+            posicionValida = posicionObjetivo >= 0 && posicionObjetivo < capacidad;
+            if (posicionValida) {
+                nodoObjetivo = buscarNodo(posicionObjetivo);
+                valorLeido = nodoObjetivo.dato;
+            } else {
+                System.out.println("Posición fuera de rango.");
+                valorLeido = -1;
+            }
+            return valorLeido;
+        }
+
+        void establecer(int posicionObjetivo, int valorNuevo) {
+            boolean posicionValida;
+            Nodo nodoObjetivo;
+            posicionValida = posicionObjetivo >= 0 && posicionObjetivo < capacidad;
+            if (posicionValida) {
+                nodoObjetivo = buscarNodo(posicionObjetivo);
+                nodoObjetivo.dato = valorNuevo;
+            } else {
+                System.out.println("Posición fuera de rango.");
+            }
+        }
+
+        void copiarHacia(ArraySimuladoPorLista destino, int cantidadCopiada) {
+            int posicionActual;
+            int valorTemporal;
+            posicionActual = 0;
+            while (posicionActual < cantidadCopiada) {
+                valorTemporal = obtener(posicionActual);
+                destino.establecer(posicionActual, valorTemporal);
+                posicionActual = posicionActual + INCREMENTO_UNIDAD;
+            }
+        }
+
+        private Nodo buscarNodo(int posicionObjetivo) {
+            Nodo nodoActual;
+            int posicionRecorrida;
+            nodoActual = cabeza;
+            posicionRecorrida = 0;
+            while (posicionRecorrida < posicionObjetivo) {
+                nodoActual = nodoActual.siguiente;
+                posicionRecorrida = posicionRecorrida + INCREMENTO_UNIDAD;
+            }
+            return nodoActual;
+        }
+
+        private Nodo construirListaVacia(int cantidadNodos) {
             Nodo primerNodo;
             Nodo nodoActual;
-            int creados;
-            if (cantidad == 0) {
+            int nodosCreados;
+            if (cantidadNodos == 0) {
                 return null;
             }
-            primerNodo = new Nodo(0);
+            primerNodo = new Nodo(VALOR_INICIAL_NODO);
             nodoActual = primerNodo;
-            creados = 1;
-            while (creados < cantidad) {
-                nodoActual.siguiente = new Nodo(0);
+            nodosCreados = INCREMENTO_UNIDAD;
+            while (nodosCreados < cantidadNodos) {
+                nodoActual.siguiente = new Nodo(VALOR_INICIAL_NODO);
                 nodoActual = nodoActual.siguiente;
-                creados = creados + 1;
+                nodosCreados = nodosCreados + INCREMENTO_UNIDAD;
             }
             return primerNodo;
         }
     }
-    
-    public class ArraySimuladoPorLista {
-    private Nodo cabeza;
-    private int capacidad;
 
-    public ArraySimuladoPorLista(int capacidadInicial) {
+    public ListaComoArray(int capacidadInicial) {
+        ArraySimuladoPorLista estructuraInicial;
         int capacidadConstruida;
         if (capacidadInicial <= 0) {
-            capacidadConstruida = 1;
+            capacidadConstruida = CAPACIDAD_POR_DEFECTO;
         } else {
             capacidadConstruida = capacidadInicial;
         }
-        capacidad = capacidadConstruida;
-        cabeza = construirListaVacia(capacidad);
+        estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
+        datos = estructuraInicial;
+        tamanio = 0;
     }
 
-    public int longitud() {
+    public int obtenerTamanio() {
         int resultado;
-        resultado = capacidad;
+        resultado = tamanio;
         return resultado;
+    }
+
+    public boolean estaVacia() {
+        boolean vacia;
+        vacia = tamanio == 0;
+        return vacia;
+    }
+
+    public void agregar(int valorNuevo) {
+        int minimoNecesario;
+        minimoNecesario = tamanio + INCREMENTO_UNIDAD;
+        asegurarCapacidad(minimoNecesario);
+        datos.establecer(tamanio, valorNuevo);
+        tamanio = tamanio + INCREMENTO_UNIDAD;
+    }
+
+    public void insertar(int posicionObjetivo, int valorNuevo) {
+        boolean posicionValida;
+        int minimoNecesario;
+        int posicionActual;
+        int valorTemporal;
+        posicionValida = posicionObjetivo >= 0 && posicionObjetivo <= tamanio;
+        if (posicionValida) {
+            minimoNecesario = tamanio + INCREMENTO_UNIDAD;
+            asegurarCapacidad(minimoNecesario);
+            posicionActual = tamanio;
+            int posicionAnterior;
+            posicionAnterior = posicionActual - INCREMENTO_UNIDAD;
+            while (posicionActual > posicionObjetivo) {
+                valorTemporal = datos.obtener(posicionAnterior);
+                datos.establecer(posicionActual, valorTemporal);
+                posicionActual = posicionActual - INCREMENTO_UNIDAD;
+                posicionAnterior = posicionActual - INCREMENTO_UNIDAD;
+            }
+            datos.establecer(posicionObjetivo, valorNuevo);
+            tamanio = tamanio + INCREMENTO_UNIDAD;
+        } else {
+            System.out.println("Posición fuera de rango.");
+        }
     }
 
     public int obtener(int posicionObjetivo) {
         boolean posicionValida;
-        Nodo nodoObjetivo;
         int valorLeido;
-        posicionValida = posicionObjetivo >= 0 && posicionObjetivo < capacidad;
+        posicionValida = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
         if (posicionValida) {
-            nodoObjetivo = buscarNodo(posicionObjetivo);
-            valorLeido = nodoObjetivo.dato;
+            valorLeido = datos.obtener(posicionObjetivo);
         } else {
             System.out.println("Posición fuera de rango.");
             valorLeido = -1;
@@ -86,218 +183,83 @@ public class ListaComoArrayExamen {
     }
 
     public void establecer(int posicionObjetivo, int valorNuevo) {
+        boolean posicionDentroDeTamanio;
+        boolean posicionFinalValida;
+        posicionDentroDeTamanio = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
+        posicionFinalValida = posicionObjetivo == tamanio && posicionObjetivo >= 0 && posicionObjetivo < datos.longitud();
+        if (posicionDentroDeTamanio) {
+            datos.establecer(posicionObjetivo, valorNuevo);
+        } else {
+            if (posicionFinalValida) {
+                agregar(valorNuevo);
+            } else {
+                System.out.println("Posición fuera de rango.");
+            }
+        }
+    }
+
+    public int eliminarEn(int posicionObjetivo) {
         boolean posicionValida;
-        Nodo nodoObjetivo;
-        posicionValida = posicionObjetivo >= 0 && posicionObjetivo < capacidad;
+        int valorEliminado;
+        int posicionActual;
+        int posicionSiguiente;
+        int valorSiguiente;
+        posicionValida = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
         if (posicionValida) {
-            nodoObjetivo = buscarNodo(posicionObjetivo);
-            nodoObjetivo.dato = valorNuevo;
+            valorEliminado = datos.obtener(posicionObjetivo);
+            posicionActual = posicionObjetivo;
+            while (posicionActual < tamanio - INCREMENTO_UNIDAD) {
+                posicionSiguiente = posicionActual + INCREMENTO_UNIDAD;
+                valorSiguiente = datos.obtener(posicionSiguiente);
+                datos.establecer(posicionActual, valorSiguiente);
+                posicionActual = posicionActual + INCREMENTO_UNIDAD;
+            }
+            int ultimaPosicionValida;
+            ultimaPosicionValida = tamanio - INCREMENTO_UNIDAD;
+            datos.establecer(ultimaPosicionValida, VALOR_INICIAL_NODO);
+            tamanio = tamanio - INCREMENTO_UNIDAD;
         } else {
             System.out.println("Posición fuera de rango.");
+            valorEliminado = -1;
         }
+        return valorEliminado;
     }
 
-    private Nodo buscarNodo(int posicionObjetivo) {
-        Nodo nodoActual;
-        int indice;
-        nodoActual = cabeza;
-        indice = 0;
-        while (indice < posicionObjetivo) {
-            nodoActual = nodoActual.siguiente;
-            indice = indice + 1;
+    public void imprimir() {
+        int posicionActual;
+        System.out.print("[");
+        posicionActual = 0;
+        while (posicionActual < tamanio) {
+            System.out.print(obtener(posicionActual));
+            int ultimaPosicion;
+            ultimaPosicion = tamanio - INCREMENTO_UNIDAD;
+            if (posicionActual < ultimaPosicion) {
+                System.out.print(", ");
+            }
+            posicionActual = posicionActual + INCREMENTO_UNIDAD;
         }
-        return nodoActual;
+        System.out.println("]");
     }
 
-    private Nodo construirListaVacia(int cantidad) {
-        Nodo primerNodo;
-        Nodo nodoActual;
-        int creados;
-        if (cantidad == 0) {
-            return null;
-        }
-        primerNodo = new Nodo(0);
-        nodoActual = primerNodo;
-        creados = 1;
-        while (creados < cantidad) {
-            nodoActual.siguiente = new Nodo(0);
-            nodoActual = nodoActual.siguiente;
-            creados = creados + 1;
-        }
-        return primerNodo;
-        }
+    public void set(int posicionObjetivo, int valorNuevo) {
+        establecer(posicionObjetivo, valorNuevo);
     }
-    
-    public class ListaComoArray {
-    
-        private ArraySimuladoPorLista datos;
-        private int tamanio;
 
-        public ListaComoArray(int capacidadInicial) {
-            ArraySimuladoPorLista estructuraInicial;
-            int capacidadConstruida;
-            if (capacidadInicial <= 0) {
-                capacidadConstruida = 4;
-            } else {
-                capacidadConstruida = capacidadInicial;
-            }
-            estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
-            datos = estructuraInicial;
-            tamanio = 0;
-        }
-
-        public int obtenerTamanio() {
-            int resultado;
-            resultado = tamanio;
-            return resultado;
-        }
-
-        public boolean estaVacia() {
-            boolean vacia;
-            vacia = tamanio == 0;
-            return vacia;
-        }
+    public int get(int posicionObjetivo) {
+        int valorLeido;
+        valorLeido = obtener(posicionObjetivo);
+        return valorLeido;
     }
-    public class ListaComoArray {
-        private ArraySimuladoPorLista datos;
-        private int tamanio;
 
-        public ListaComoArray(int capacidadInicial) {
-            ArraySimuladoPorLista estructuraInicial;
-            int capacidadConstruida;
-            if (capacidadInicial <= 0) {
-                capacidadConstruida = 4;
-            } else {
-                capacidadConstruida = capacidadInicial;
-            }
-            estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
-            datos = estructuraInicial;
-            tamanio = 0;
-        }
-
-        public int obtenerTamanio() {
-            int resultado;
-            resultado = tamanio;
-            return resultado;
-        }
-
-        public boolean estaVacia() {
-            boolean vacia;
-            vacia = tamanio == 0;
-            return vacia;
-        }
-
-        public void agregar(int valorNuevo) {
-            int minimoNecesario;
-            minimoNecesario = tamanio + 1;
-            asegurarCapacidad(minimoNecesario);
-            datos.establecer(tamanio, valorNuevo);
-            tamanio = tamanio + 1;
-        }
-
-        public int obtener(int posicionObjetivo) {
-            boolean posicionValida;
-            int valorLeido;
-            posicionValida = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
-            if (posicionValida) {
-                valorLeido = datos.obtener(posicionObjetivo);
-            } else {
-                System.out.println("Posición fuera de rango.");
-                valorLeido = -1;
-            }
-            return valorLeido;
-        }
-
-        private void asegurarCapacidad(int minimoNecesario) {
-            int capacidadActual;
-            int nuevaCapacidad;
-            ArraySimuladoPorLista nuevoArray;
-            capacidadActual = datos.longitud();
-            if (minimoNecesario > capacidadActual) {
-                nuevaCapacidad = capacidadActual * 2;
-                if (nuevaCapacidad < minimoNecesario) {
-                    nuevaCapacidad = minimoNecesario;
-                }
-                nuevoArray = new ArraySimuladoPorLista(nuevaCapacidad);
-                copiarDatos(nuevoArray);
-                datos = nuevoArray;
-            }
-        }
-
-        private void copiarDatos(ArraySimuladoPorLista destino) {
-            int indice;
-            int valorTemporal;
-            indice = 0;
-            while (indice < tamanio) {
-                valorTemporal = datos.obtener(indice);
-                destino.establecer(indice, valorTemporal);
-                indice = indice + 1;
-            }
-        }
-    }
-    public class ListaComoArray {
-        private ArraySimuladoPorLista datos;
-        private int tamanio;
-
-        public ListaComoArray(int capacidadInicial) {
-            ArraySimuladoPorLista estructuraInicial;
-            int capacidadConstruida;
-            if (capacidadInicial <= 0) {
-                capacidadConstruida = 4;
-            } else {
-                capacidadConstruida = capacidadInicial;
-            }
-            estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
-            datos = estructuraInicial;
-            tamanio = 0;
-        }
-
-        public int get(int posicionObjetivo) {
-            int valorLeido;
-            valorLeido = obtener(posicionObjetivo);
-            return valorLeido;
-        }
-
-        public void set(int posicionObjetivo, int valorNuevo) {
-            establecer(posicionObjetivo, valorNuevo);
-        }
-
-        private void establecer(int posicionObjetivo, int valorNuevo) {
-            boolean posicionValida;
-            posicionValida = posicionObjetivo >= 0 && posicionObjetivo < tamanio;
-            if (posicionValida) {
-                datos.establecer(posicionObjetivo, valorNuevo);
-            } else {
-                System.out.println("Posición fuera de rango.");
-            }
-        }
-    }
-    
-    public class ListaComoArray {
-        private ArraySimuladoPorLista datos;
-        private int tamanio;
-
-        public void imprimir() {
-            int indice;
-            System.out.print("[");
-            indice = 0;
-            while (indice < tamanio) {
-                System.out.print(obtener(indice));
-                if (indice < tamanio - 1) {
-                    System.out.print(", ");
-                }
-                indice = indice + 1;
-            }
-            System.out.println("]");
-        }
-    }
     private void asegurarCapacidad(int minimoNecesario) {
         int capacidadActual;
         int nuevaCapacidad;
         ArraySimuladoPorLista nuevoArray;
         capacidadActual = datos.longitud();
-        if (minimoNecesario > capacidadActual) {
-            nuevaCapacidad = capacidadActual * 2;
+        if (minimoNecesario <= capacidadActual) {
+            nuevaCapacidad = capacidadActual;
+        } else {
+            nuevaCapacidad = capacidadActual * FACTOR_DOBLE_CAPACIDAD;
             if (nuevaCapacidad < minimoNecesario) {
                 nuevaCapacidad = minimoNecesario;
             }
@@ -305,9 +267,5 @@ public class ListaComoArrayExamen {
             datos.copiarHacia(nuevoArray, tamanio);
             datos = nuevoArray;
         }
-    }
-    public class ListaComoArray {
-        private ArraySimuladoPorLista datos;
-        private int tamanio;
     }
 }
