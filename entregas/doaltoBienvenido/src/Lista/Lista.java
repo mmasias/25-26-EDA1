@@ -1,10 +1,14 @@
-class ListaEnteros {
-    private int[] elementos;
+package Lista;
+
+import Array.Array;
+
+public class Lista {
+    private Array elementos;
     private int cantidadElementos;
     private static final int TAMANIO_INICIAL = 1;
 
-    public ListaEnteros() {
-        elementos = new int[TAMANIO_INICIAL];
+    public Lista() {
+        elementos = new Array(TAMANIO_INICIAL);
         cantidadElementos = 0;
     }
 
@@ -22,7 +26,7 @@ class ListaEnteros {
     }
 
     public void insertar(int valor, int posicion) {
-        if (cantidadElementos == elementos.length) {
+        if (cantidadElementos == elementos.longitud()) {
             expandir();
         }
 
@@ -32,10 +36,10 @@ class ListaEnteros {
         }
 
         for (int i = cantidadElementos - 1; i >= posicion; i--) {
-            elementos[i + 1] = elementos[i];
+            elementos.set((i + 1), elementos.get(i));
         }
 
-        elementos[posicion] = valor;
+        elementos.set(posicion, valor);
         cantidadElementos++;
     }
 
@@ -46,10 +50,10 @@ class ListaEnteros {
         }
 
         for (int i = posicion; i < cantidadElementos - 1; i++) {
-            elementos[i] = elementos[i + 1];
+            elementos.set(i, elementos.get(i + 1));
         }
 
-        elementos[cantidadElementos - 1] = 0;
+        elementos.set(cantidadElementos - 1, 0);
         cantidadElementos--;
     }
 
@@ -58,13 +62,13 @@ class ListaEnteros {
             System.out.println("Posición inválida.");
             return -1;
         }
-        return elementos[posicion];
+        return elementos.get(posicion);
     }
 
     private void expandir() {
-        int[] nuevoArray = new int[elementos.length + 1];
-        for (int i = 0; i < elementos.length; i++) {
-            nuevoArray[i] = elementos[i];
+        Array nuevoArray = new Array(elementos.longitud() + 1);
+        for (int i = 0; i < elementos.longitud(); i++) {
+            nuevoArray.set(i, elementos.get(i));
         }
         elementos = nuevoArray;
     }
@@ -72,7 +76,7 @@ class ListaEnteros {
     public void mostrar() {
         System.out.print("[");
         for (int i = 0; i < cantidadElementos; i++) {
-            System.out.print(elementos[i]);
+            System.out.print(elementos.get(i));
             if (i < cantidadElementos - 1) System.out.print(", ");
         }
         System.out.println("]");

@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
+import Lista.Lista;
+
 public class Principal {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ListaEnteros listaEnteros = new ListaEnteros();
+        Lista listaEnteros = new Lista();
         int opcion;
 
         do {
