@@ -1,0 +1,54 @@
+import java.io.Console;
+
+public class Cliente {
+    private static final Console console = System.console();
+
+    public static void main(String[] args) {
+        console.printf("=== Creación de CustomArray ===\n");
+        console.printf("Ingrese el tamaño del custom array: ");
+        int tamaño = Integer.parseInt(console.readLine().trim());
+
+        CustomArray miArray = new CustomArray(tamaño);
+
+        int opcion;
+        do {
+            console.printf("\n=== MENÚ ===\n");
+            console.printf("1. Mostrar todo el custom array\n");
+            console.printf("2. Mostrar un elemento\n");
+            console.printf("3. Modificar un elemento\n");
+            console.printf("4. Eliminar un elemento\n");
+            console.printf("0. Salir\n");
+            console.printf("Seleccione una opción: ");
+            opcion = Integer.parseInt(console.readLine().trim());
+
+            switch (opcion) {
+                case 1:
+                    miArray.mostrarArray();
+                    break;
+                case 2:
+                    console.printf("Ingrese la posición a mostrar: ");
+                    int posMostrar = Integer.parseInt(console.readLine().trim());
+                    miArray.mostrarElemento(posMostrar);
+                    break;
+                case 3:
+                    console.printf("Ingrese la posición a modificar: ");
+                    int posModificar = Integer.parseInt(console.readLine().trim());
+                    console.printf("Ingrese el nuevo valor (entero): ");
+                    int nuevoValor = Integer.parseInt(console.readLine().trim());
+                    miArray.modificarElemento(posModificar, nuevoValor);
+                    break;
+                case 4:
+                    console.printf("Ingrese la posición a eliminar: ");
+                    int posEliminar = Integer.parseInt(console.readLine().trim());
+                    miArray.eliminarElemento(posEliminar);
+                    break;
+                case 0:
+                    console.printf("Saliendo...\n");
+                    break;
+                default:
+                    console.printf("Opción no válida.\n");
+            }
+
+        } while (opcion != 0);
+    }
+}
