@@ -1,0 +1,75 @@
+@startuml ListaEnlazadaAbreviadaUML
+
+title Diagrama de Clases - Lista Enlazada (LIFO/FIFO)
+
+hide empty members
+
+
+abstract class ListaAbstracta {
+  # NodoAbstracto primerNodo
+  # int NUMERO_MAXIMO
+  --
+  + NodoAbstracto get(int indice)
+  + int size()
+}
+
+abstract class NodoAbstracto {
+  # int posicion
+  # NodoAbstracto siguiente
+  --
+  + int getPosicion()
+  + NodoAbstracto getSiguiente()
+  + void setSiguiente(NodoAbstracto siguiente)
+  + Object getDato()
+}
+
+
+class Nodo {
+  - Object dato
+  --
+  + Nodo(Object dato, int posicion)
+  + Object getDato()
+  + void setDato(Object dato)
+}
+
+class Lista {
+  --
+  + Lista()
+  + Lista(int capacidadInicial)
+  + void agregar(Object elemento)
+  + void agregar(int indice, Object elemento)
+  + Object obtener(int indice)
+  + Object remover(int indice)
+  + int tamaño()
+  + int obtenerCapacidad()
+  ' LIFO / FIFO
+  + void apilar(Object elemento)
+  + Object desapilar()
+  + void encolar(Object elemento)
+  + Object desencolar()
+}
+
+
+class Menu {
+  - Lista lista
+  - Scanner scanner
+  --
+  + Menu()
+  + void iniciar()
+}
+
+class Cliente {
+  + {static} void main(String[] args)
+}
+
+
+Lista --|> ListaAbstracta
+Nodo --|> NodoAbstracto
+
+Lista *-- "1" NodoAbstracto : primerNodo
+NodoAbstracto o-- "0..1" NodoAbstracto : siguiente
+Menu *-- "1" Lista : lista
+
+Cliente --> Menu : usa
+
+@enduml
