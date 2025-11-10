@@ -4,6 +4,7 @@ public class Principal {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ListaEnteros listaEnteros = new ListaEnteros();
+      
         int opcion;
 
         do {
