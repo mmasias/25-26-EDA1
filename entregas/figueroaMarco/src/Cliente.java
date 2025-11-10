@@ -1,24 +1,28 @@
 public class Cliente {
     public static void main(String[] args) {
-        ArrayConstructor constructor = new ArrayConstructor();
-        Insertar insertar = new Insertar();
-        Indexar indexar = new Indexar();
-        Eliminar eliminar = new Eliminar();
-        
-        DataSet dataSet = constructor.crearArray(20);
-        
-        insertar.insertarElementos(dataSet, 5, 0, 10, 15, 20, 30, 40);
-        
-        insertar.insertarEnPrincipio(dataSet, 3);
-        
-        insertar.insertarAlFinal(dataSet, 10);
-        
-        int valorEnIndice4 = indexar.buscarPorIndice(dataSet, 4);
-        System.out.println("\nValor en índice 4: " + valorEnIndice4);
-        
-        int valorEliminado = eliminar.eliminarPorIndice(dataSet, 3);
-        System.out.println("\nDespués de eliminar índice 3 (valor " + valorEliminado + "):");
-        dataSet.display();
-        
+        Lista lista = new Lista();
+
+        System.out.println("Agregando elementos a la lista:");
+        lista.agregar(10);
+        lista.agregar(20);
+        lista.agregar(30);
+        lista.agregar(40);
+        lista.agregar(50);
+        lista.agregar(60);
+        lista.agregar(70);
+        lista.agregar(80);
+        lista.agregar(90);
+
+        System.out.println("Mostrando Lista que es array");
+        lista.mostrar();
+
+        lista.agregarEnPosicion(0, 3);
+        lista.mostrar();
+
+        System.out.println("Obteniendo elemento en posición");
+        lista.obtener(2);
+        lista.eliminar(3);
+
+        lista.mostrar();
     }
 }
