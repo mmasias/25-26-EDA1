@@ -127,4 +127,35 @@ public class ListaComoArrayExamen {
         return primerNodo;
         }
     }
+    
+    public class ListaComoArray {
+    
+        private ArraySimuladoPorLista datos;
+        private int tamanio;
+
+        public ListaComoArray(int capacidadInicial) {
+            ArraySimuladoPorLista estructuraInicial;
+            int capacidadConstruida;
+            if (capacidadInicial <= 0) {
+                capacidadConstruida = 4;
+            } else {
+                capacidadConstruida = capacidadInicial;
+            }
+            estructuraInicial = new ArraySimuladoPorLista(capacidadConstruida);
+            datos = estructuraInicial;
+            tamanio = 0;
+        }
+
+        public int obtenerTamanio() {
+            int resultado;
+            resultado = tamanio;
+            return resultado;
+        }
+
+        public boolean estaVacia() {
+            boolean vacia;
+            vacia = tamanio == 0;
+            return vacia;
+        }
+    }
 }
