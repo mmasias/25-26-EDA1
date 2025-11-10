@@ -7,7 +7,7 @@ public class Lista {
         actual = -1;
     }
 
-    public Nodo leerNodo(int posicion){
+    public Nodo obtener(int posicion){
         if(posicion == 1){
             return primerNodo();
         }else if (posicion == nodos.length - 1) {
@@ -74,18 +74,18 @@ public class Lista {
         Nodo nodoAImprimir = primerNodo();
         int referenciaSiguienteNodo = primerNodo().siguiente();
         int elementoLista = 1;
-        do {
+
+        while (referenciaSiguienteNodo != -1){
             if(!("".equals(nodoAImprimir.dato()))){
                 System.out.println(elementoLista + ": " + nodoAImprimir.dato());
                 nodoAImprimir = nodos[referenciaSiguienteNodo];
-                referenciaSiguienteNodo = nodoAImprimir.siguiente();
                 elementoLista++;
             }else{
                 nodoAImprimir = nodos[referenciaSiguienteNodo];
-                referenciaSiguienteNodo = nodoAImprimir.siguiente();
             }
-        } while (referenciaSiguienteNodo != -1);
-
+            referenciaSiguienteNodo = nodoAImprimir.siguiente();
+        }
+        System.out.println(elementoLista + ": " + nodoAImprimir.dato());
     }
     
     public void imprimirListaDetallada(){
