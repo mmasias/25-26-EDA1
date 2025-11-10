@@ -33,7 +33,8 @@ public class Cliente {
                 case 3:
                     console.printf("Ingrese la posición a modificar: ");
                     int posModificar = Integer.parseInt(console.readLine().trim());
-                    Object nuevoValor = leerValorPorTipo(miArray.getTipoDato());
+                    console.printf("Ingrese el nuevo valor (entero): ");
+                    int nuevoValor = Integer.parseInt(console.readLine().trim());
                     miArray.modificarElemento(posModificar, nuevoValor);
                     break;
                 case 4:
@@ -49,34 +50,5 @@ public class Cliente {
             }
 
         } while (opcion != 0);
-    }
-
-    private static Object leerValorPorTipo(String tipo) {
-        console.printf("Ingrese el valor: ");
-        String entrada = console.readLine().trim();
-
-        switch (tipo) {
-            case "entero":
-                try {
-                    return Integer.parseInt(entrada);
-                } catch (NumberFormatException e) {
-                    console.printf("Valor inválido. Usando 0 por defecto.\n");
-                    return 0;
-                }
-            case "double":
-                try {
-                    return Double.parseDouble(entrada);
-                } catch (NumberFormatException e) {
-                    console.printf("Valor inválido. Usando 0.0 por defecto.\n");
-                    return 0.0;
-                }
-            case "char":
-                if (entrada.length() > 0) return entrada.charAt(0);
-                console.printf("Valor inválido. Usando ' ' por defecto.\n");
-                return ' ';
-            case "string":
-            default:
-                return entrada;
-        }
     }
 }
