@@ -1,10 +1,10 @@
 public class ArraySimulado {
-    private Lista miLista;
+    private SimuladorLista miLista;
     private int capacidad;
 
     public ArraySimulado(int capacidad){
         this.capacidad = capacidad;
-        this.miLista = new Lista();
+        this.miLista = new SimuladorLista();
 
         for (int i = 0; i < capacidad; i++){
             miLista.agregar(0);
@@ -21,5 +21,9 @@ public class ArraySimulado {
 
     public int longitud(){
         return capacidad;
+    }
+
+    public String toString() {
+        return miLista.toString();
     }
 }
