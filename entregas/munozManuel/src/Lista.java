@@ -71,14 +71,21 @@ public class Lista {
     }
     
     public void imprimirLista(){
-        Nodo primerNodo = primerNodo();
-        int posicion = posicion(primerNodo.dato());
-        int elemetoLista = 1;
-        do { 
-            System.out.println(elemetoLista +": " + nodos[posicion].dato());
-            posicion = nodos[posicion].siguiente();
-            elemetoLista++;
-        } while (posicion != -1);
+        Nodo nodoAImprimir = primerNodo();
+        int referenciaSiguienteNodo = primerNodo().siguiente();
+        int elementoLista = 1;
+        do {
+            if(!("".equals(nodoAImprimir.dato()))){
+                System.out.println(elementoLista + ": " + nodoAImprimir.dato());
+                nodoAImprimir = nodos[referenciaSiguienteNodo];
+                referenciaSiguienteNodo = nodoAImprimir.siguiente();
+                elementoLista++;
+            }else{
+                nodoAImprimir = nodos[referenciaSiguienteNodo];
+                referenciaSiguienteNodo = nodoAImprimir.siguiente();
+            }
+        } while (referenciaSiguienteNodo != -1);
+
     }
     
     public void imprimirListaDetallada(){

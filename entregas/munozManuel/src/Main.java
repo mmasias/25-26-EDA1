@@ -15,8 +15,10 @@ public class Main {
 
         System.out.println("\nSegunda iteracion antes de insercion\n");
         lista.agregarInicio(new Nodo('c'));
+        System.out.println("nuevo dato c al inicio");
         lista.imprimirLista();
         lista.insertar(new Nodo(51), 5);
+        System.out.println("nuevo dato 51 en pos 5");
         lista.imprimirLista();
         System.out.println("\nLista detallada\n");
         lista.imprimirListaDetallada();
@@ -24,11 +26,11 @@ public class Main {
 
         System.out.println("\nSegunda iteracion despues de insercion\n");
         lista.insertar(new Nodo("nevo dato en tercera posicion"), 3);
-        lista.imprimirLista();
+        lista.eliminar(1);
         System.out.println("Lista detallada\n");
         lista.imprimirListaDetallada();
-        int valorDeNodo = lista.leerNodo(2).datoInt();
-        System.out.println(valorDeNodo > 20);
-        System.out.println(valorDeNodo > 5);
+        lista.imprimirLista();
+        String valorDeNodo = lista.leerNodo(2).dato();
+        System.out.println(valorDeNodo);
     }
 }
