@@ -1,3 +1,8 @@
-# EDA I - Retos
+# EDA I - Examen Parcial
 
-Rama de origen para la entrega de retos
+## Integrantes
+
+- Samuel Herrera
+- Nicolas Navas
+- Carlos Alvarado
+- Gabriel Béjar
