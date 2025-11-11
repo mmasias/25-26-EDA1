@@ -7,30 +7,41 @@ public class Main {
         lista.agregarFinal(new Nodo("nodo aleatorio"));
         lista.agregarFinal(new Nodo(true));
         lista.agregarFinal(new Nodo(10.22));
+        lista.agregarInicio(new Nodo('b'));
+        
+        lista.imprimirLista();
+        System.out.println("Lista detallada despues de insertar al inicio o al final\n");
+        lista.imprimirListaDetallada();
+        
+        lista.eliminar(3);
 
         lista.imprimirLista();
-        System.out.println("Lista detallada\n");
+        System.out.println("Lista detallada despues de eliminar\n");
         lista.imprimirListaDetallada();
-        lista.actualizar(50, 1);
 
-        System.out.println("\nSegunda iteracion antes de insercion\n");
-        lista.agregarInicio(new Nodo('c'));
-        System.out.println("nuevo dato c al inicio");
-        lista.imprimirLista();
-        lista.insertar(new Nodo(51), 5);
-        System.out.println("nuevo dato 51 en pos 5");
-        lista.imprimirLista();
-        System.out.println("\nLista detallada\n");
-        lista.imprimirListaDetallada();
-        System.out.println(lista.leerNodo(5).dato());
+        lista.actualizar("dato 3", 3);
 
-        System.out.println("\nSegunda iteracion despues de insercion\n");
-        lista.insertar(new Nodo("nevo dato en tercera posicion"), 3);
-        lista.eliminar(1);
-        System.out.println("Lista detallada\n");
-        lista.imprimirListaDetallada();
         lista.imprimirLista();
-        String valorDeNodo = lista.leerNodo(2).dato();
-        System.out.println(valorDeNodo);
+        System.out.println("Lista detallada despues de actualizar en posicion 3\n");
+        lista.imprimirListaDetallada();
+
+        lista.imprimirLista();
+        Nodo nodoPrubas = lista.obtener(4);
+        System.out.println("dato: " + nodoPrubas.dato());
+        System.out.println("refSiguiente: " + nodoPrubas.siguiente());
+        System.out.println("Lista detallada despues de buscar nodo en posicion 4\n");
+        lista.imprimirListaDetallada();
+
+        lista.insertar(new Nodo(45), 3);
+
+        lista.imprimirLista();
+        System.out.println("Lista detallada despues de insertar en posicion 3\n");
+        lista.imprimirListaDetallada();
+
+        lista.actualizar(50, 4);
+
+        lista.imprimirLista();
+        System.out.println("Lista detallada despues de actualizar dato en posicion 4\n");
+        lista.imprimirListaDetallada();
     }
 }
