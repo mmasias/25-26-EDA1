@@ -70,23 +70,23 @@ public class Lista {
         nodos[posicion - 1].actualizarDato(dato);
     }
     
-    public void imprimirLista(){
-        Nodo nodoAImprimir = primerNodo();
-        int referenciaSiguienteNodo = primerNodo().siguiente();
-        int elementoLista = 1;
+    public void imprimirLista() {
+        Nodo nodoActual = primerNodo();
+        int indice = 1;
 
-        while (referenciaSiguienteNodo != -1){
-            if(!("".equals(nodoAImprimir.dato()))){
-                System.out.println(elementoLista + ": " + nodoAImprimir.dato());
-                nodoAImprimir = nodos[referenciaSiguienteNodo];
-                elementoLista++;
-            }else{
-                nodoAImprimir = nodos[referenciaSiguienteNodo];
+        while (nodoActual.siguiente() != -1) {
+            if (!nodoActual.dato().equals("")) {
+                System.out.println(indice + ": " + nodoActual.dato());
+                indice++;
             }
-            referenciaSiguienteNodo = nodoAImprimir.siguiente();
+            nodoActual = nodos[nodoActual.siguiente()];
         }
-        System.out.println(elementoLista + ": " + nodoAImprimir.dato());
+        
+        if (!nodoActual.dato().equals("")) {
+            System.out.println(indice + ": " + nodoActual.dato());
+        }
     }
+
     
     public void imprimirListaDetallada(){
         for(int i = 0; i < nodos.length; i++){
