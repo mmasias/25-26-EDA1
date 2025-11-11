@@ -50,6 +50,12 @@ public class Lista {
         }
     }
     
+    public void limpiarLista(){
+        for(Nodo nodo : nodos){
+            nodo.eliminarDato();
+        }
+    }
+
     public void actualizar(char dato, int posicion){
         nodos[posicion - 1].actualizarDato(dato);
     }
