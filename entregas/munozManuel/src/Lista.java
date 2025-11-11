@@ -10,10 +10,10 @@ public class Lista {
     public Nodo obtener(int posicion){
         if(posicion == 1){
             return primerNodo();
-        }else if (posicion == nodos.length - 1) {
+        }else if (posicion == nodos.length) {
             return ultimoNodo();
         }else{
-            return buscarNodo(posicion - 1);
+            return buscarNodo(posicion);
         }
     }
 
