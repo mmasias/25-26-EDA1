@@ -93,7 +93,6 @@ public class Lista {
         }
     }
 
-    
     public void imprimirListaDetallada(){
         for(int i = 0; i < nodos.length; i++){
             if (nodos[i] != null){
@@ -172,12 +171,14 @@ public class Lista {
     }
 
     private Nodo buscarNodo(int posicion){
-        for (int i = 0; i < nodos.length; i++) {
-            if(i == posicion - 1){
-                return nodos[i];
-            }
+        Nodo nodoABuscar = primerNodo();
+        if(posicion > 0 && posicion <= nodos.length){
+            do {
+                nodoABuscar = nodos[nodoABuscar.siguiente()];
+                posicion--;
+            } while (posicion != 0);
         }
-        return null;
+        return nodoABuscar;
     }
 
     private Nodo primerNodo(){
