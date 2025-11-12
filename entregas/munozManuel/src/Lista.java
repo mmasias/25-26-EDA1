@@ -112,53 +112,49 @@ public class Lista {
     }
 
     private void ingresarDato(Nodo nodo, int posicion){
+        Nodo nodoVacio = buscarNodoVacio();
+        if(nodoVacio != null){
+            nodos[posicionEnArray(nodoVacio)].actualizarDato(nodo.dato());
+            return;
+        }
         actual++;
-        switch (posicion) {
-            case 0 -> {
-                nodos[actual] = nodo;
-                actualizarReferencias(posicion);
-            }
-            case 1 -> {
-                nodos[actual] = nodo;
-                actualizarReferencias(posicion);
-            }
-            default ->{
-                nodos[actual] = nodo;
-                actualizarReferencias(posicion);
-            }
+        if (posicion == 0) {
+            nodos[actual] = nodo;
+            actualizarReferencias(posicion);
+        } else if (posicion == 1) {
+            nodos[actual] = nodo;
+            actualizarReferencias(posicion);
+        } else {
+            nodos[actual] = nodo;
+            actualizarReferencias(posicion);
         }
     }
 
     private void actualizarReferencias(int posicion){
-        
-        switch (posicion) {
-            case 0 -> {
-                Nodo primerNodo = primerNodo();
+        if(posicion == 0) {
+            Nodo primerNodo = primerNodo();
 
-                nodos[actual].anterior(-1);
-                nodos[actual].siguiente(posicionEnArray(primerNodo));
-                primerNodo.anterior(actual);
+            nodos[actual].anterior(-1);
+            nodos[actual].siguiente(posicionEnArray(primerNodo));
+            primerNodo.anterior(actual);
+        }else if (posicion == 1) {
+            if (actual > 0){
+                Nodo ultimNodo = ultimoNodo();
+
+                nodos[actual].siguiente(-1);
+                nodos[actual].anterior(posicionEnArray(ultimNodo));
+                ultimNodo.siguiente(actual);
             }
-            case 1 -> {
-                if (actual > 0){
-                    Nodo ultimNodo = ultimoNodo();
+        } else {
+            Nodo nodoSiguiente = nodoSiguiente(posicion);
+            Nodo nodoAnterior = nodoAnterior(posicion);
 
-                    nodos[actual].siguiente(-1);
-                    nodos[actual].anterior(posicionEnArray(ultimNodo));
-                    ultimNodo.siguiente(actual);
-                }
-            }
-            default -> {
-                Nodo nodoSiguiente = nodoSiguiente(posicion);
-                Nodo nodoAnterior = nodoAnterior(posicion);
+            nodoAnterior.siguiente(actual);
 
-                nodoAnterior.siguiente(actual);
-
-                nodos[actual].anterior(posicionEnArray(nodoAnterior));
-                nodos[actual].siguiente(posicionEnArray(nodoSiguiente));
-                
-                nodoSiguiente.anterior(actual);
-            }
+            nodos[actual].anterior(posicionEnArray(nodoAnterior));
+            nodos[actual].siguiente(posicionEnArray(nodoSiguiente));
+            
+            nodoSiguiente.anterior(actual);
         }
     }
 
@@ -209,4 +205,15 @@ public class Lista {
     private Nodo nodoAnterior(int posicion){
         return buscarNodo(posicion - 1);
     }
+
+    private Nodo buscarNodoVacio(){
+        for(int i = 0; i < nodos.length; i++){
+            if (nodos[i] == null) return null;
+            if(nodos[i].dato().equals("")){
+                return nodos[i];
+            }
+        }
+        return null;
+    }
+
 }
