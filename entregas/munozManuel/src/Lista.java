@@ -18,21 +18,13 @@ public class Lista {
     }
 
     public void agregarInicio(Nodo nodo) {
-        if(actual == nodos.length - 1) {
-            redimensionar();
-            ingresarDato(nodo, 0);
-        } else {
-            ingresarDato(nodo, 0);
-        }
+        redimensionar();
+        ingresarDato(nodo, 0);
     }
 
     public void agregarFinal(Nodo nodo) {
-        if(actual == nodos.length - 1) {
-            redimensionar();
-            ingresarDato(nodo, 1);
-        } else {
-            ingresarDato(nodo, 1);
-        }
+        redimensionar();
+        ingresarDato(nodo, 1);
     }
 
     public void insertar(Nodo nodo, int posicion){ 
@@ -53,7 +45,9 @@ public class Lista {
     
     public void limpiarLista(){
         for(Nodo nodo : nodos){
-            nodo.eliminarDato();
+            if (nodo != null){
+                nodo.eliminarDato();
+            }
         }
     }
 
@@ -106,17 +100,21 @@ public class Lista {
     }
 
     private void redimensionar() {
-        Nodo[] nuevosNodos = new Nodo[nodos.length + 5];
-        System.arraycopy(nodos, 0, nuevosNodos, 0, nodos.length);
-        nodos = nuevosNodos;
+        if(actual == nodos.length - 1){
+            Nodo[] nuevosNodos = new Nodo[nodos.length + 5];
+            System.arraycopy(nodos, 0, nuevosNodos, 0, nodos.length);
+            nodos = nuevosNodos;
+        }
     }
 
     private void ingresarDato(Nodo nodo, int posicion){
         Nodo nodoVacio = buscarNodoVacio();
+        int indiceNodoVAcio = posicionEnArray(nodoVacio);
         if(nodoVacio != null){
-            nodos[posicionEnArray(nodoVacio)].actualizarDato(nodo.dato());
+            nodos[indiceNodoVAcio].actualizarDato(nodo.dato());
             return;
         }
+
         actual++;
         if (posicion == 0) {
             nodos[actual] = nodo;
@@ -146,8 +144,8 @@ public class Lista {
                 ultimNodo.siguiente(actual);
             }
         } else {
-            Nodo nodoSiguiente = nodoSiguiente(posicion);
-            Nodo nodoAnterior = nodoAnterior(posicion);
+            Nodo nodoAnterior = buscarNodo(posicion - 1);
+            Nodo nodoSiguiente = buscarNodo(posicion);
 
             nodoAnterior.siguiente(actual);
 
@@ -196,14 +194,6 @@ public class Lista {
             }
         }
         return null;
-    }
-
-    private Nodo nodoSiguiente(int posicion){
-        return buscarNodo(posicion);
-    }
-
-    private Nodo nodoAnterior(int posicion){
-        return buscarNodo(posicion - 1);
     }
 
     private Nodo buscarNodoVacio(){
