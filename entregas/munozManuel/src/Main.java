@@ -39,5 +39,20 @@ public class Main {
         lista.imprimirLista();
         System.out.println("Lista detallada despues de actualizar dato en posicion 4\n");
         lista.imprimirListaDetallada();
+
+        lista.limpiarLista();
+        lista.imprimirLista();
+        System.out.println("Lista detallada despues de limpiar lista\n");
+        lista.imprimirListaDetallada();
+
+        lista.agregarInicio(new Nodo("nuevo inicio"));
+        lista.imprimirLista();
+        System.out.println("Lista detallada despues de agregar nuevo inicio\n");
+        lista.imprimirListaDetallada();
+
+        lista.agregarFinal(new Nodo("nodo en posicion 2"));
+        lista.imprimirLista();
+        System.out.println("Lista detallada despues de agregar nodo en posicion final\n");
+        lista.imprimirListaDetallada();
     }
 }

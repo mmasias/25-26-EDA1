@@ -197,11 +197,14 @@ public class Lista {
     }
 
     private Nodo buscarNodoVacio(){
-        for(int i = 0; i < nodos.length; i++){
-            if (nodos[i] == null) return null;
-            if(nodos[i].dato().equals("")){
-                return nodos[i];
-            }
+        if(actual > 0){
+            Nodo nodoVacio = primerNodo();
+            do{
+                if (nodoVacio.dato().equals("")){
+                    return nodoVacio;
+                }
+                nodoVacio = nodos[nodoVacio.siguiente()];
+            }while (nodoVacio.siguiente() != -1);
         }
         return null;
     }
