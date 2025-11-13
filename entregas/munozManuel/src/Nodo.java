@@ -77,20 +77,4 @@ public class Nodo {
         return dato[0];
     }
 
-    public char datoChar() {
-        return dato[0].charAt(0);
-    }
-
-    public int datoInt() {
-        return Integer.parseInt(dato[0]);
-    }
-
-    public boolean datoBool() {
-        return Boolean.parseBoolean(dato[0]);
-    }
-
-    public double datoDouble() {
-        return Double.parseDouble(dato[0]);
-    }
-
 }
