@@ -109,8 +109,8 @@ public class Lista {
 
     private void ingresarDato(Nodo nodo, int posicion){
         Nodo nodoVacio = buscarNodoVacio();
-        int indiceNodoVAcio = posicionEnArray(nodoVacio);
         if(nodoVacio != null){
+            int indiceNodoVAcio = posicionEnArray(nodoVacio);
             nodos[indiceNodoVAcio].actualizarDato(nodo.dato());
             return;
         }
