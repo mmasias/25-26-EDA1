@@ -1,10 +1,10 @@
 public class Lista {
     private Nodo[] nodos;
-    private int actual;
+    private int cabeza;
 
     public Lista() {
         nodos = new Nodo[1];
-        actual = -1;
+        cabeza = -1;
     }
 
     public Nodo obtener(int posicion){
@@ -28,7 +28,7 @@ public class Lista {
     }
 
     public void insertar(Nodo nodo, int posicion){ 
-        if(actual == nodos.length - 1){
+        if(cabeza == nodos.length - 1){
             redimensionar();
             ingresarDato(nodo, posicion);
         }else{
@@ -100,7 +100,7 @@ public class Lista {
     }
 
     private void redimensionar() {
-        if(actual == nodos.length - 1){
+        if(cabeza == nodos.length - 1){
             Nodo[] nuevosNodos = new Nodo[nodos.length + 5];
             System.arraycopy(nodos, 0, nuevosNodos, 0, nodos.length);
             nodos = nuevosNodos;
@@ -115,15 +115,15 @@ public class Lista {
             return;
         }
 
-        actual++;
+        cabeza++;
         if (posicion == 0) {
-            nodos[actual] = nodo;
+            nodos[cabeza] = nodo;
             actualizarReferencias(posicion);
         } else if (posicion == 1) {
-            nodos[actual] = nodo;
+            nodos[cabeza] = nodo;
             actualizarReferencias(posicion);
         } else {
-            nodos[actual] = nodo;
+            nodos[cabeza] = nodo;
             actualizarReferencias(posicion);
         }
     }
@@ -132,27 +132,27 @@ public class Lista {
         if(posicion == 0) {
             Nodo primerNodo = primerNodo();
 
-            nodos[actual].anterior(-1);
-            nodos[actual].siguiente(posicionEnArray(primerNodo));
-            primerNodo.anterior(actual);
+            nodos[cabeza].anterior(-1);
+            nodos[cabeza].siguiente(posicionEnArray(primerNodo));
+            primerNodo.anterior(cabeza);
         }else if (posicion == 1) {
-            if (actual > 0){
+            if (cabeza > 0){
                 Nodo ultimNodo = ultimoNodo();
 
-                nodos[actual].siguiente(-1);
-                nodos[actual].anterior(posicionEnArray(ultimNodo));
-                ultimNodo.siguiente(actual);
+                nodos[cabeza].siguiente(-1);
+                nodos[cabeza].anterior(posicionEnArray(ultimNodo));
+                ultimNodo.siguiente(cabeza);
             }
         } else {
             Nodo nodoAnterior = buscarNodo(posicion - 1);
             Nodo nodoSiguiente = buscarNodo(posicion);
 
-            nodoAnterior.siguiente(actual);
+            nodoAnterior.siguiente(cabeza);
 
-            nodos[actual].anterior(posicionEnArray(nodoAnterior));
-            nodos[actual].siguiente(posicionEnArray(nodoSiguiente));
+            nodos[cabeza].anterior(posicionEnArray(nodoAnterior));
+            nodos[cabeza].siguiente(posicionEnArray(nodoSiguiente));
             
-            nodoSiguiente.anterior(actual);
+            nodoSiguiente.anterior(cabeza);
         }
     }
 
@@ -197,7 +197,7 @@ public class Lista {
     }
 
     private Nodo buscarNodoVacio(){
-        if(actual > 0){
+        if(cabeza > 0){
             Nodo nodoVacio = primerNodo();
             do{
                 if (nodoVacio.dato().equals("")){
