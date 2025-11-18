@@ -35,7 +35,7 @@ public class Main {
         System.out.println("Lista detallada despues de buscar nodo en posicion 4\n");
         lista.imprimirListaDetallada();
 
-        lista.actualizar(50, 4);
+        lista.actualizar(50, 4000);
         lista.imprimirLista();
         System.out.println("Lista detallada despues de actualizar dato en posicion 4\n");
         lista.imprimirListaDetallada();
