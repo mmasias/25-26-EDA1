@@ -2,12 +2,12 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
         Lista lista = new Lista();
-        lista.agregarFinal(new Nodo(10));
-        lista.agregarFinal(new Nodo('c'));
-        lista.agregarFinal(new Nodo("nodo aleatorio"));
-        lista.agregarFinal(new Nodo(true));
-        lista.agregarFinal(new Nodo(10.22));
-        lista.agregarInicio(new Nodo('b'));
+        lista.agregarFinal(10);
+        lista.agregarFinal('c');
+        lista.agregarFinal("nodo aleatorio");
+        lista.agregarFinal(true);
+        lista.agregarFinal(10.22);
+        lista.agregarInicio('b');
 
         lista.imprimirLista();
         System.out.println("Lista detallada despues de agregar datos\n");
@@ -18,7 +18,7 @@ public class Main {
         System.out.println("Posicion 3 eliminado\n");
         lista.imprimirListaDetallada();
         
-        lista.insertar(new Nodo(45), 3);
+        lista.insertar(45, 3);
         lista.imprimirLista();
         System.out.println("Lista detallada despues de insertar en posicion 3\n");
         lista.imprimirListaDetallada();
@@ -45,12 +45,12 @@ public class Main {
         System.out.println("Lista detallada despues de limpiar lista\n");
         lista.imprimirListaDetallada();
 
-        lista.agregarInicio(new Nodo("nuevo inicio"));
+        lista.agregarInicio("nuevo inicio");
         lista.imprimirLista();
         System.out.println("Lista detallada despues de agregar nuevo inicio\n");
         lista.imprimirListaDetallada();
 
-        lista.agregarFinal(new Nodo("nodo en posicion 2"));
+        lista.agregarFinal("nodo en posicion 2");
         lista.imprimirLista();
         System.out.println("Lista detallada despues de agregar nodo en posicion final\n");
         lista.imprimirListaDetallada();

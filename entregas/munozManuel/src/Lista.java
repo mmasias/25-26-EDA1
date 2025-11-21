@@ -8,7 +8,6 @@ public class Lista {
     }
 
     public Nodo obtener(int posicion){
-        verificarPosicion(posicion);
         if(posicion == 1){
             return primerNodo();
         }else if (posicion == cabeza + 1){
@@ -18,24 +17,102 @@ public class Lista {
         }
     }
 
-    public void agregarInicio(Nodo nodo) {
+    public void agregarInicio(char dato) {
         redimensionar();
-        ingresarDato(nodo, 0);
+        ingresarDato(new Nodo(dato), 0);
     }
 
-    public void agregarFinal(Nodo nodo) {
+    public void agregarInicio(int dato) {
         redimensionar();
-        ingresarDato(nodo, 1);
+        ingresarDato(new Nodo(dato), 0);
     }
 
-    public void insertar(Nodo nodo, int posicion){
-        verificarPosicion(posicion);
+    public void agregarInicio(boolean dato) {
         redimensionar();
-        ingresarDato(nodo, posicion);
+        ingresarDato(new Nodo(dato), 0);
     }
 
+    public void agregarInicio(double dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 0);
+    }
+
+    public void agregarInicio(String dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 0);
+    }
+
+    public void agregarFinal(char dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 1);
+    }
+    
+    public void agregarFinal(int dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 1);
+    }
+
+    public void agregarFinal(boolean dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 1);
+    }
+
+    public void agregarFinal(double dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 1);
+    }
+
+    public void agregarFinal(String dato) {
+        redimensionar();
+        ingresarDato(new Nodo(dato), 1);
+    }
+
+    public void insertar(char dato, int posicion){
+        redimensionar();
+        ingresarDato(new Nodo(dato), posicion);
+    }
+
+    public void insertar(int dato, int posicion){
+        redimensionar();
+        ingresarDato(new Nodo(dato), posicion);
+    }
+
+    public void insertar(boolean dato, int posicion){
+        redimensionar();
+        ingresarDato(new Nodo(dato), posicion);
+    }
+
+    public void insertar(double dato, int posicion){
+        redimensionar();
+        ingresarDato(new Nodo(dato), posicion);
+    }
+
+    public void insertar(String dato, int posicion){
+        redimensionar();
+        ingresarDato(new Nodo(dato), posicion);
+    }
+ 
+    public void actualizar(char dato, int posicion){
+        buscarNodo(posicion).actualizarDato(dato);
+    }
+    
+    public void actualizar(int dato, int posicion){
+        buscarNodo(posicion).actualizarDato(dato);
+    }
+
+    public void actualizar(boolean dato, int posicion){
+        buscarNodo(posicion).actualizarDato(dato);
+    }
+
+    public void actualizar(double dato, int posicion){
+        buscarNodo(posicion).actualizarDato(dato);
+    }
+
+    public void actualizar(String dato, int posicion){
+        buscarNodo(posicion).actualizarDato(dato);
+    }
+    
     public void eliminar(int posicion) {
-        verificarPosicion(posicion);
         Nodo nodoAeliminar = buscarNodo(posicion);
         nodoAeliminar.eliminarDato();
     }
@@ -46,31 +123,6 @@ public class Lista {
         }
     }
 
-    public void actualizar(char dato, int posicion){
-        verificarPosicion(posicion);
-        buscarNodo(posicion).actualizarDato(dato);
-    }
-
-    public void actualizar(int dato, int posicion){
-        verificarPosicion(posicion);
-        buscarNodo(posicion).actualizarDato(dato);
-    }
-
-    public void actualizar(boolean dato, int posicion){
-        verificarPosicion(posicion);
-        buscarNodo(posicion).actualizarDato(dato);
-    }
-
-    public void actualizar(double dato, int posicion){
-        verificarPosicion(posicion);
-        buscarNodo(posicion).actualizarDato(dato);
-    }
-
-    public void actualizar(String dato, int posicion){
-        verificarPosicion(posicion);
-        buscarNodo(posicion).actualizarDato(dato);
-    }
-    
     public void imprimirLista() {
         Nodo nodoActual = primerNodo();
         int indice = 1;
@@ -106,7 +158,6 @@ public class Lista {
     }
 
     private void ingresarDato(Nodo nodo, int posicion){
-        verificarPosicion(posicion);
         
         Nodo nodoVacio = buscarNodoVacio();
         if(nodoVacio != null){
@@ -129,7 +180,6 @@ public class Lista {
     }
 
     private void actualizarReferencias(int posicion){
-        verificarPosicion(posicion);
         if(posicion == 0) {
             Nodo primerNodo = primerNodo();
 
@@ -167,7 +217,6 @@ public class Lista {
     }
 
     private Nodo buscarNodo(int posicion){
-        verificarPosicion(posicion);
         Nodo nodoABuscar = primerNodo();
         do{
             nodoABuscar = nodos[nodoABuscar.siguiente()];
@@ -203,9 +252,5 @@ public class Lista {
             }while (nodoVacio.siguiente() != -1);
         }
         return null;
-    }
-
-    private void verificarPosicion(int posicion){
-        assert posicion >= 0 && posicion <= cabeza + 1 : "Posicion fuera de rango";
     }
 }
