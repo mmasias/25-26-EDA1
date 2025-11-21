@@ -141,7 +141,7 @@ public class Lista {
     }
 
     public void imprimirArrayDetallado(){
-        for(int i = cabeza; i > -1; i--){
+        for(int i = 0; i <= cabeza; i++){
             System.out.println(i + ":");
             System.out.println("dato: " + nodos[i].dato());
             System.out.println("anterior: " + nodos[i].anterior());
