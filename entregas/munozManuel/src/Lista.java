@@ -118,7 +118,7 @@ public class Lista {
     }
     
     public void limpiarLista(){
-        for(int i = cabeza; i > 0; i--){
+        for(int i = cabeza; i > -1; i--){
             nodos[i].eliminarDato();
         }
     }
@@ -140,8 +140,8 @@ public class Lista {
         }
     }
 
-    public void imprimirListaDetallada(){
-        for(int i = cabeza; i > 0; i--){
+    public void imprimirArrayDetallado(){
+        for(int i = cabeza; i > -1; i--){
             System.out.println(i + ":");
             System.out.println("dato: " + nodos[i].dato());
             System.out.println("anterior: " + nodos[i].anterior());
