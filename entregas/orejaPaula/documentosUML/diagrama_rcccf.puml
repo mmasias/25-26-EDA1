@@ -1,0 +1,96 @@
+@startuml
+title Diagrama de clases RCCCF
+
+enum Plato {
+  - nombre : String
+  - minTiempo : int
+  - maxTiempo : int
+  --
+  + getNombre() : String
+  + getMinTiempo() : int
+  + getMaxTiempo() : int
+  + tiempoAleatorio() : int
+  + aleatorio() : Plato
+}
+
+class Pedido {
+  - id : int
+  - plato : Plato
+  - tiempoPreparacion : int
+  - tiempoRestante : int
+  - instanteLlegada : int
+  - instanteInicio : int
+  --
+  + Pedido(id : int, plato : Plato, tiempoPreparacion : int, instanteLlegada : int)
+  + decrementarTiempo() : void
+  + estaTerminado() : boolean
+  + getPlato() : Plato
+  + getTiempoRestante() : int
+  + getInstanteLlegada() : int
+  + getInstanteInicio() : int
+  + setInstanteInicio(t : int) : void
+}
+
+class Estadisticas {
+  - pedidosAtendidos : int
+  - pedidosPendientes : int
+  - tiempoTotalEspera : long
+  - comparacionesTotales : long
+  --
+  + registrarAtencion(p : Pedido) : void
+  + sumarComparaciones(n : long) : void
+  + setPedidosPendientes(n : int) : void
+  + getTiempoMedioEspera() : double
+}
+
+interface IEstructuraPedidos {
+  + insertar(p : Pedido) : void
+  + extraerMinimo() : Pedido
+  + estaVacia() : boolean
+  + tamano() : int
+  + getComparaciones() : long
+  + resetComparaciones() : void
+}
+
+class ColaPrioridadPedidos implements IEstructuraPedidos {
+  - cola : PriorityQueue<Pedido>
+  - comparaciones : long
+}
+
+class ListaLinealPedidos implements IEstructuraPedidos {
+  - lista : List<Pedido>
+  - comparaciones : long
+}
+
+class Cocina {
+  - estructuraPedidos : IEstructuraPedidos
+  - pedidoActual : Pedido
+  --
+  + recibirPedido(p : Pedido) : void
+  + seleccionarSiguientePedido(tiempoActual : int, estadisticas : Estadisticas) : void
+  + procesarMinuto(tiempoActual : int, estadisticas : Estadisticas) : void
+}
+
+class Simulation {
+  - duracionJornada : int
+  - probLlegada : double
+  - tiempoActual : int
+  - cocina : Cocina
+  - estadisticas : Estadisticas
+  - random : Random
+  - siguienteId : int
+  --
+  + iniciar() : void
+}
+
+Simulation *-- Cocina
+Simulation *-- Estadisticas
+Cocina o-- IEstructuraPedidos
+Cocina o-- Pedido
+Pedido --> Plato
+
+IEstructuraPedidos <|.. ColaPrioridadPedidos
+IEstructuraPedidos <|.. ListaLinealPedidos
+
+@enduml
+
