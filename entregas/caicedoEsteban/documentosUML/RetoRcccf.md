@@ -23,8 +23,6 @@
 - **+ isTerminado(): boolean**  
   Indica si el pedido ya está terminado.
 
-_(No se muestran atributos privados porque este es un diagrama de vista pública.)_
-
 ---
 
 ## Clase `GeneradorPedidos`
