@@ -1,0 +1,54 @@
+@startuml
+
+class Pedido {
+    - tipo : String
+    - tiempoPreparacion : int
+    - tiempoRestante : int
+    - tiempoLlegada : int
+    + Pedido(tipo : String, tiempoPreparacion : int, tiempoLlegada : int)
+    + compareTo(otro : Pedido) : int
+    + getTipo() : String
+    + getTiempoPreparacion() : int
+    + getTiempoRestante() : int
+    + decrementarTiempo() : void
+    + getTiempoLlegada() : int
+    + terminado() : boolean
+}
+
+class Cocinero {
+    - pedidoActual : Pedido
+    + asignarPedido(p : Pedido) : void
+    + trabajar() : void
+    + estaOcioso() : boolean
+}
+
+class ColaPedidos {
+    + agregarPedido(p : Pedido) : void
+    + obtenerSiguiente() : Pedido
+    + size() : int
+}
+
+class Estadisticas {
+    - pedidosAtendidos : int
+    - tiempoTotalEspera : int
+    - comparacionesTotales : int
+    + registrarPedidoAtendido(p : Pedido, minutoActual : int) : void
+    + agregarComparaciones(n : int) : void
+    + calcularTiempoMedio() : double
+}
+
+class Simulation {
+    - DURACION_JORNADA : int
+    - PROBABILIDAD_LLEGADA : double
+    - TIPOS : String[]
+    - RANGOS : int[][]
+    + main(args : String[]) : void
+}
+
+Simulation --> Cocinero : gestiona
+Simulation --> ColaPedidos : gestiona
+Simulation --> Estadisticas : registra
+Cocinero --> Pedido : procesa
+ColaPedidos --> Pedido : contiene
+
+@enduml
