@@ -1,6 +1,6 @@
 ```plantuml
 @startuml
-title Arquitectura App Restaurante RCCCF (Nombres en Español)
+title Arquitectura App Restaurante RCCCF 
 
 class Cliente {
   + {static} void main(String[] args)
