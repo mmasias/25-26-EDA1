@@ -23,3 +23,11 @@ class Restaurante {
   + getPedidosPendientes(): int
   + cerrar()
 }
+class Simulation {
+  ..
+  + main(args: String[]): void
+}
+
+Simulation --> Restaurante : usa
+Restaurante "1" *-- "0..*" Pedido : contiene >
+@enduml
