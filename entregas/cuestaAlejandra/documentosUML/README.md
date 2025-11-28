@@ -2,7 +2,7 @@
 
 Este sistema tiene **3 clases principales** que trabajan juntas para simular un restaurante donde el cocinero siempre prepara primero el pedido más rápido.
 
----
+
 
 ## 1. `Pedido`
 Representa **un plato que pide un cliente**.
@@ -17,7 +17,7 @@ Representa **un plato que pide un cliente**.
 
 > Cada vez que llega un cliente, se crea un nuevo `Pedido`.
 
----
+
 
 ## 2. `Restaurante`
 Es el **encargado de gestionar todo** durante la simulación.
@@ -32,7 +32,7 @@ Es el **encargado de gestionar todo** durante la simulación.
 
 > El restaurante **busca manualmente** el pedido más rápido entre los que están en la cola.
 
----
+
 
 ## 3. `Simulation`
 Es la **clase principal** que **inicia todo**.
@@ -43,7 +43,7 @@ Es la **clase principal** que **inicia todo**.
 
 > Es como el "botón de inicio" del programa.
 
----
+
 
 ## ¿Cómo se relacionan?
 
@@ -51,7 +51,7 @@ Es la **clase principal** que **inicia todo**.
 - `Restaurante` **guarda y maneja** muchos objetos de tipo `Pedido`.
 - No hay relaciones complicadas: todo es **simple y directo**.
 
----
+
 
 Este diseño es ideal para aprender, porque:
 - Usa solo lo básico (clases, atributos, métodos).
