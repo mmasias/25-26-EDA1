@@ -84,5 +84,5 @@ Pedido --> TipoPlato : usa
 
 @enduml
 
-
+![Diagrama UML del sistema](entregas/orozcoBeatriz/diagramasUML/diagramaReto005.svg)
 
