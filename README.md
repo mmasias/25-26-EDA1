@@ -4,6 +4,6 @@
 
 - [Imagen UML](https://github.com/Alejandracuesta/25-26-EDA1/blob/reto-005/entregas/cuestaAlejandra/documentosUML/image.png)
 
-- [Imagen UML](https://github.com/Alejandracuesta/25-26-EDA1/blob/reto-005/entregas/cuestaAlejandra/documentosUML/README.md)
+- [Explicacion UML](https://github.com/Alejandracuesta/25-26-EDA1/blob/reto-005/entregas/cuestaAlejandra/documentosUML/README.md)
 
 
