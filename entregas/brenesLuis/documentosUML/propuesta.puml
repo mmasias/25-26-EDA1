@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam linetype ortho
+
+class Pedido {
+  - tipo: String
+  - tiempoTotal: int
+  - tiempoRestante: int
+  - minutoLlegada: int
+  
+  + Pedido(tipo: String, tiempoTotal: int, minutoLlegada: int)
+  + cocinar(): void
+  + estaTerminado(): boolean
+  + getTiempoTotal(): int
+  + getTipo(): String
+  + getMinutoLlegada(): int
+  + toString(): String
+}
+
+class Nodo {
+  + dato: Pedido
+  + siguiente: Nodo
+  
+  + Nodo(dato: Pedido)
+}
+
+class ListaPedidos {
+  - cabeza: Nodo
+  - talla: int
+  - comparaciones: long
+  
+  + ListaPedidos()
+  + insert(p: Pedido): void
+  + extraerMasRapido(): Pedido
+  + estaVacia(): boolean
+  + size(): int
+  + getComparaciones(): long
+}
+
+class Cocinero {
+  - pedidoActual: Pedido
+  - atendidos: int
+  
+  + Cocinero()
+  + estaLibre(): boolean
+  + recibirPedido(p: Pedido): void
+  + trabajar(): void
+  + getAtendidos(): int
+}
+
+class Simulacion {
+  + {static} main(args: String[]): void
+}
+
+@enduml
