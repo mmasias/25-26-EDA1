@@ -1,4 +1,4 @@
-# Diagrama de Vista Pública (con visibilidad + descripciones)
+# Diagrama de Vista Pública
 
 ## Clase `Pedido`
 
@@ -90,5 +90,3 @@ _(No se muestran atributos privados porque este es un diagrama de vista pública
 
 - **+ main(args: String[]): void**  
   Ejecuta la simulación completa.
-
-_(No tiene otros métodos ni atributos públicos.)_

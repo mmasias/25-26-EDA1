@@ -49,7 +49,7 @@ class Simulation {
 }
 
 GeneradorPedidos --> Pedido : «crea»
-Cocina --> Pedido : «procesa»
+Cocina --> Pedido : «procesa»   
 Simulation --> Cocina : «usa»
 Simulation --> GeneradorPedidos : «usa»
 
