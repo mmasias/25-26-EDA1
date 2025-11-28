@@ -1,0 +1,53 @@
+@startuml
+title Diagrama de Clases - Simulación de Cocina
+
+enum Tipo {
+  CAFE
+  BOCADILLO
+  ENSALADA
+  COLACAO
+  CAFE
+}
+
+class Pedido {
+  - id : int
+  - tipo : Tipo
+  - tiempoPreparacion : int
+  - llegada : int
+  - restante : int
+  - inicio : int
+
+  + Pedido(tipo : Tipo, tiempo : int, llegada : int)
+  + getTiempoPreparacion() : int
+  + getLlegada() : int
+  + getRestante() : int
+  + reducirTiempo() : void
+  + setInicio(minuto : int) : void
+  + getEspera() : int
+  + toString() : String
+}
+
+class ColaPedidos {
+  - cola : Pedido[]
+  - size : int
+  + comparaciones : long
+
+  + ColaPedidos(capacidadMaxima : int)
+  + insertar(p : Pedido) : void
+  + estaVacia() : boolean
+  + size() : int
+  + extraerMin() : Pedido
+}
+
+class Simulacion {
+  + main(args : String[]) : void
+  - generarPedido(minuto : int, rnd : Random) : Pedido
+}
+
+
+Pedido ..> Tipo
+ColaPedidos "1" *-- "*" Pedido
+Simulacion ..> Pedido
+Simulacion ..> ColaPedidos
+
+@enduml
