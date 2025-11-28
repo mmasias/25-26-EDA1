@@ -1,0 +1,37 @@
+@startuml
+title UML Compacto - Simulación de Restaurante (ArrayList + SJF)
+
+class Main {
+}
+
+class Restaurante {
+    - listaPedidos : List<Pedido>
+    - comparaciones : long
+    - cocinero : Cocinero
+}
+
+class Cocinero {
+    - pedidoEnProceso : Pedido
+}
+
+class Pedido {
+    + id : int
+    + tiempoRestante : int
+    + minutoLlegada : int
+    + tipo : TipoPlato
+}
+
+enum TipoPlato {
+    BEBIDA
+    CAFE
+    COLACAO
+    BOCADILLO
+    ENSALADA
+}
+
+Main --> Restaurante : inicia
+Restaurante --> Cocinero
+Restaurante --> Pedido : gestiona
+Pedido --> TipoPlato
+
+@enduml
