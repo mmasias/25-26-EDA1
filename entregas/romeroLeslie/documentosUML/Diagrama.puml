@@ -1,0 +1,48 @@
+@startuml
+
+
+skinparam classAttributeIconSize 0
+skinparam defaultTextAlignment center
+
+class Pedido {
+  - tipo: String
+  - tiempoPrep: int
+  - tiempoRestante: int
+  - llegada: int
+  - inicio: int
+  + procesarMinuto()
+  + toString()
+}
+
+class HeapPedidos {
+  - heap: ArrayList<Pedido>
+  - comparaciones: int
+  + insertar(Pedido)
+  + extraerMin(): Pedido
+  + size(): int
+  + getComparaciones(): int
+}
+
+class Cocina {
+  - heap: HeapPedidos
+  - actual: Pedido
+  + recibirPedido(Pedido)
+  + asignarSiLibre(int)
+  + procesarMinuto(): boolean
+  + liberarPedido()
+  + pedidosEnCola(): int
+  + getActual(): Pedido
+  + getComparaciones(): int
+}
+
+class Simulacion {
+  + main(String[])
+}
+
+
+Cocina --> HeapPedidos : usa
+Cocina --> Pedido : procesa
+HeapPedidos --> Pedido : almacena
+Simulacion --> Cocina : inicia
+
+@enduml
