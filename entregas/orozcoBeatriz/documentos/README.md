@@ -84,5 +84,5 @@ Pedido --> TipoPlato : usa
 
 @enduml
 
-![Diagrama UML RCCCF](documentosUML/diagramaReto005.svg)
+![Diagrama UML RCCCF](../documentosUML/diagramaReto005.svg)
 
