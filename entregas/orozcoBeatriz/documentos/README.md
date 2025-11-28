@@ -83,6 +83,7 @@ Cocinero --> Pedido : cocina
 Pedido --> TipoPlato : usa
 
 @enduml
+```
 
 ![Diagrama UML RCCCF](../documentosUML/diagramaReto005.svg)
 
