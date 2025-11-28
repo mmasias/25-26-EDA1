@@ -38,4 +38,4 @@ Los clientes eligen los platos con una distribución aleatoria uniforme. El tiem
 
 
 ### Diagrama de Clases RCCCF
-![Diagrama de Clases RCCCF](./src/DiagramaClases.png)
+![Diagrama de Clases RCCCF](DiagramaClases.png)
