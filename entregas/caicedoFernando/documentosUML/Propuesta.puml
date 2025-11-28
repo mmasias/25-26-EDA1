@@ -1,0 +1,74 @@
+@startuml
+title Arquitectura App Restaurante RCCCF (Nombres en Español)
+
+class Cliente {
+  + {static} void main(String[] args)
+}
+
+class JornadaRestaurante {
+  - final double HORA_APERTURA = 9.0
+  - final double HORA_CIERRE = 21.0
+  - final double PASO_MINUTO = 1.0 / 60.0
+  - final ColaPedidos colaPedidos
+  - final Cocinero cocinero
+  - final Random generadorAleatorio
+  - int comparacionesTotales
+  - int pedidosAtendidos
+  
+  + void ejecutar()
+  - void gestionarLlegadas(int minuto)
+  - void procesarCocina()
+  - Pedido generarPedido(int minuto)
+  - void imprimirResumenFinal()
+  - void imprimirEstadoMinuto(int minuto)
+}
+
+class Cocinero {
+  - Pedido pedidoActual
+  + boolean estaLibre()
+  + void tomarPedido(Pedido pedido)
+  + Pedido trabajar()
+  + Pedido obtenerPedidoActual()
+}
+
+class Pedido {
+  + String tipo
+  + int tiempoPreparacion
+  + int tiempoRestante
+  + int minutoLlegada
+}
+
+class ColaPedidos {
+  - NodoPedido cabeza
+  - int tamano
+  + void agregar(Pedido pedido)
+  + boolean estaVacia()
+  + int obtenerTamano()
+  + ResultadoExtraccion extraerMinimo()
+}
+
+class NodoPedido {
+  + Pedido pedido
+  + NodoPedido siguiente
+}
+
+class ResultadoExtraccion {
+  + Pedido pedidoMinimo
+  + int comparaciones
+}
+
+Cliente ..> JornadaRestaurante : "inicia"
+
+JornadaRestaurante o-- "1" Cocinero : "gestiona"
+JornadaRestaurante o-- "1" ColaPedidos : "gestiona"
+JornadaRestaurante ..> Pedido : "crea"
+JornadaRestaurante ..> ResultadoExtraccion : "usa"
+
+Cocinero o-- "1" Pedido : "procesa"
+
+ColaPedidos o-- "0..*" NodoPedido : "contiene"
+NodoPedido o-- "1" Pedido : "guarda"
+
+ColaPedidos ..> ResultadoExtraccion : "crea y retorna"
+ResultadoExtraccion o-- "1" Pedido : "contiene"
+@enduml
