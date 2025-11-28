@@ -1,0 +1,49 @@
+@startuml
+
+class Pedido {
+  - tipo_plato: string
+  - minutos_totales: int
+  - minutos_restantes: int
+  - minuto_de_llegada: int
+  + __repr__(): string
+}
+
+class FilaPedidos {
+  - pedidos_ordenados_por_tiempo: List<Pedido>
+  - total_comparaciones: int
+  + insertar_pedido(pedido: Pedido)
+  + cantidad_pendientes(): int
+  + esta_vacia(): boolean
+}
+
+class Recepcionista {
+  + recibir_pedido(pedido: Pedido, cocinero: Cocinero)
+  + entregar_siguiente_pedido(): Pedido
+}
+
+class Cocinero {
+  - fila_pedidos: FilaPedidos
+  - pedido_preparacion: Pedido
+  + esta_libre(): boolean
+  + avanzar_min(): Pedido
+  + estado_actual(): string
+  + colocar_pediodos_en_lista(): Pedido
+  + recibir_siguiente_pedido(): Pedido
+}
+
+class RCCCF {
+  - recepcionista: Recepcionista
+  - cocinero: Cocinero
+  - total_pedidos_atendidos: int
+  - total_tiempos_de_espera: int
+  - total_comparaciones: int
+  + simular_jornada()
+  + resumen_final()
+}
+
+RCCCF "1" --> "1" Recepcionista
+Recepcionista "1" --> "1" Cocinero : entrega pedidos 
+Cocinero "1" --> "1" FilaPedidos : coloca pedidos
+FilaPedidos "1" o-- "0..*" Pedido : contiene >
+
+@enduml
