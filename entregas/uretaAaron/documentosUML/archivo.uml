@@ -1,0 +1,70 @@
+@startuml
+title Diagrama del reto
+
+package "Sistema RCCCF" {
+
+    ' --- 1. CLASE CONTROLADOR (Módulo de Simulación) ---
+    class Controlador {
+        -tiempoActual : int
+        -probLlegada : double = 0.40
+        ' MÉTTRICAS FINALES
+        -pedidosAtendidos : int
+        -tiempoTotalEspera : int
+        -comparacionesTotales : int
+        
+        +iniciar()
+        +simularMinuto()
+        +gestionarAsignacion()
+        +mostrarResumen()
+    }
+    
+    ' --- 2. CLASE PEDIDO (Unidad de Trabajo) ---
+    class Pedido {
+        -tipo : String
+        -tiempoInicial : int
+        -tiempoRestante : int
+        -tiempoLlegada : int
+        ' ATRIBUTOS PARA CÁLCULO DE ESPERA
+        -tiempoInicioProceso : int
+        
+        +reducirTiempo()
+        +calcularTiempoEspera(minutoActual : int) : int
+        ' Método crucial para SJF (el heap lo usa para comparar)
+        +compareTo(otro : Pedido) : int
+    }
+
+    ' --- 3. CLASE COCINERO (Procesador) ---
+    class Cocinero {
+        -pedidoActual : Pedido
+        
+        +estaLibre() : boolean
+        +asignarPedido(p : Pedido, minutoActual : int)
+        +procesarMinuto() : boolean ' Devuelve TRUE si el pedido termina
+    }
+
+    ' --- 4. CLASE COLA DE PRIORIDAD (Estructura de Datos) ---
+    class ColaPrioridad {
+        -heap : List<Pedido>
+        ' MÉTRICA DE EFICIENCIA
+        -comparacionesLocales : int
+        
+        +estaVacia() : boolean
+        +insertar(p : Pedido)
+        +extraerMin() : Pedido
+        +getComparacionesLocales() : int
+    }
+    
+    ' --- 5. RELACIONES ---
+    
+    ' El Controlador usa o contiene la Cola y el Cocinero.
+    Controlador "1" -- "1" Cocinero : utiliza >
+    Controlador "1" -- "1" ColaPrioridad : gestiona >
+    
+    ' El Cocinero está asociado con el pedido que está procesando (o NULL si está libre).
+    Cocinero "1" -- "0..1" Pedido : procesa
+    
+    ' La Cola de Prioridad contiene o está compuesta de muchos pedidos.
+    ColaPrioridad "1" *-- "*" Pedido : contiene
+}
+
+@enduml
