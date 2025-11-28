@@ -1,1 +1,0 @@
-! [Diagrama de Clases](Diagrama.puml)

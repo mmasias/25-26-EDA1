@@ -5,8 +5,8 @@ enum Tipo {
   CAFE
   BOCADILLO
   ENSALADA
-  PASTA
-  COCIDO
+  COLACAO
+  CAFE
 }
 
 class Pedido {
