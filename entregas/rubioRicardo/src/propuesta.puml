@@ -1,0 +1,73 @@
+@startuml
+' --- Configuración Visual ---
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam linetype ortho
+
+' --- Definición de Clases ---
+
+class SimulacionRCCCF {
+    -ColaDePedidos cola
+    -Cocinero cocinero
+    -Estadisticas stats
+    -GeneradorPedidos generador
+    -Random random
+    +main(String[] args)
+    +runSimulacion()
+    -imprimirEstado()
+    -imprimirResumen()
+}
+
+class ColaDePedidos {
+    -NodoPedido cabeza
+    -int tamaño
+    +void agregar(Pedido p)
+    +Pedido extraerProximoPedido(Estadisticas stats)
+    +int getTamaño()
+    +boolean estaVacia()
+}
+
+' Clase interna NodoPedido
+class NodoPedido {
+    -Pedido dato
+    -NodoPedido siguiente
+}
+
+class Pedido {
+    -String tipo
+    -int tiempoPreparacion
+    -int minutoLlegada
+    +String getTipo()
+    +int getTiempoPreparacion()
+    +int getMinutoLlegada()
+}
+
+class Cocinero {
+    -Pedido pedidoActual
+    -int tiempoRestante
+    +boolean estaLibre()
+    +void asignarPedido(Pedido pedidoNuevo)
+    +Pedido procesarMinuto()
+    +Pedido getPedidoActual()
+}
+
+class GeneradorPedidos {
+    -String[] NOMBRES_PLATOS
+    -int[] TIEMPOS_MIN
+    -int[] TIEMPOS_MAX
+    -Random random
+    +Pedido generar(int minutoActual)
+}
+
+class Estadisticas {
+    +int pedidosAtendidos
+    +long tiempoTotalEspera
+    +long comparacionesTotales
+    +void registrarPedidoTerminado(int, Pedido)
+    +void registrarComparacion()
+    +double getTiempoMedioEspera()
+}
+
+
+
+@enduml
