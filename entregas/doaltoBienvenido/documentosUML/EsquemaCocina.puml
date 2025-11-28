@@ -1,4 +1,5 @@
-@startuml
+@startuml Esquema
+
 ' ========================================
 ' Diagrama de clases Sistema de Cocina
 ' Implementación con Árbol Binario para ColaPedidos (SPT)
