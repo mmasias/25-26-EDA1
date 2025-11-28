@@ -31,5 +31,3 @@ Cuando termina la jornada se calcula:
 - El tiempo total de espera acumulado.
 - La media de espera por pedido.
 - El número total de comparaciones realizadas en la búsqueda del mínimo.
-
-De esta manera el programa no solo simula el funcionamiento del restaurante, sino que también permite analizar la eficiencia de la estructura usada.
