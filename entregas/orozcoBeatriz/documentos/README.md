@@ -21,8 +21,9 @@ Además, es más difícil de implementar.
 **Cola de prioridad**  
 Esta estructura está pensada justo para este tipo de problemas ya que permite añadir pedidos fácilmente y siempre deja el pedido más corto en la primera posición. Es muy eficiente incluso con muchos pedidos.  
 
-## Conclusión  
-La cola de prioridad es la estructura adecuada porque permite seleccionar siempre el pedido con menor tiempo de preparación de forma eficiente.  
+---
+
+Entonces, la cola de prioridad es la estructura adecuada porque permite seleccionar siempre el pedido con menor tiempo de preparación de forma eficiente.  
 Es simple de usar, eficiente y se ajusta perfectamente al problema.
 
 ---
