@@ -1,5 +1,5 @@
 @startuml
-title RCCCF - Modelo UML
+title RCCCF - UML con visibilidad pública/privada
 
 class Pedido {
     - tipo: String
@@ -39,6 +39,9 @@ class Cocina {
     + getTotalAtendidos(): int
     + getTiempoEsperaTotal(): int
     + getPendientes(): int
+    --
+    - seleccionarSiguientePedido(): void
+    - actualizarEstadisticas(pedido: Pedido): void
 }
 
 class Simulation {
