@@ -22,22 +22,50 @@ graph TD
 
 ```mermaid
 classDiagram
-    class Simulador {
+    class Restaurante {
+        -cartaMenu: TipoPlato[]
+        -cocina: Cocina
         +main()
-        +ejecutarJornada()
-    }
-
-    class Pedido {
-        -tipo: TipoPlato
-        -tiempoRestante: int
-        +compareTo(Pedido): int
+        +run()
     }
 
     class Cocina {
-        -cola: PriorityQueue~Pedido~
-        +procesarMinuto()
+        -cola: MinHeapPedidos
+        -enProceso: Pedido
+        +recibirPedido(Pedido)
+        +trabajar()
+        +estado()
     }
 
-    Simulador --> Cocina
-    Cocina --> Pedido
+    class MinHeapPedidos {
+        -heap: Pedido[]
+        -size: int
+        +insertar(Pedido)
+        +extraerMinimo() Pedido
+        -flotar(int)
+        -hundir(int)
+    }
+
+    class Pedido {
+        +nombrePlato: String
+        +tiempoRestante: int
+        +esMasUrgenteQue(Pedido) boolean
+        +cocinar()
+    }
+
+    class TipoPlato {
+        +nombre: String
+        +tiempoMin: int
+        +tiempoMax: int
+        +calcularTiempoReal() int
+    }
+
+    Restaurante --> Cocina : Tiene
+    Restaurante ..> TipoPlato : Define Menú
+    Restaurante ..> Pedido : Genera
+
+    Cocina *-- MinHeapPedidos : Compone (Usa internamente)
+    MinHeapPedidos o-- Pedido : Almacena
+
+    Pedido ..> TipoPlato : Se basa en
 ```
