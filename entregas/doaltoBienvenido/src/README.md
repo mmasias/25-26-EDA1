@@ -130,4 +130,4 @@ Acumula métricas de la simulación.
 ## ESQUEMA – Diagrama UML
 
 
-![Diagrama](..\documentosUML\Esquema.png)
+![Diagrama](../documentosUML/Esquema.png)
