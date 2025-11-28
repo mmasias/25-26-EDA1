@@ -7,3 +7,19 @@ class Pedido {
   ..
   + toString(): String
 }
+class Restaurante {
+  - PLATOS: String[5]
+  - RANGOS: int[5][2]
+  - cola: ArrayList<Pedido>
+  - cocinando: Pedido
+  - rand: Random
+  - minutoActual: int
+  - pedidosAtendidos: int
+  - tiempoTotalEspera: long
+  - comparaciones: int
+  ..
+  + Restaurante()
+  + avanzarMinuto()
+  + getPedidosPendientes(): int
+  + cerrar()
+}
