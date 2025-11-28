@@ -1,0 +1,9 @@
+@startuml
+class Pedido {
+  - tipo: String
+  - tiempoPreparacion: int
+  - tiempoRestante: int
+  - minutoLlegada: int
+  ..
+  + toString(): String
+}
