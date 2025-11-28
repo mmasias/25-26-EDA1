@@ -1,0 +1,54 @@
+@startuml
+top to bottom direction
+
+class RCCCF {
+    -int tiempoJornada
+    -Cocina cocina
+    +iniciarSimulacion()
+    +generarEventosAleatorios()
+    +mostrarReporteFinal()
+}
+
+class Cocina {
+    -Pedido pedidoEnPreparacion
+    -PriorityQueue<Pedido> colaPrioridad
+    -Stack<Pedido> pilaHistorial
+    +recibirPedido(Pedido pedido1)
+    +trabajarPorMinuto()
+    +asignarSiguientePedido()
+    +hayPedidosPendientes() boolean
+    +obtenerMetricas() String
+}
+
+class ComparadorTiempo {
+    -double contadorComparaciones
+    +comparacion(Pedido pedido1, Pedido pedido2) int
+    +obtenerContadorComparaciones() double
+}
+
+class Pedido {
+    -Plato plato
+    -int tiempoTotal
+    -int tiempoRestante
+    -int horaLlegada
+    +reducirTiempo(int minutos)
+    +estaTerminado() boolean
+    +toString() String
+}
+
+class Plato {
+    -String nombre
+    -int tiempoMinimo
+    -int tiempoMaximo
+    +obtenerNombre() String
+    +obtenerMinTiempo() int
+    +obtenerMaxTiempo() int
+}
+
+RCCCF *-- Cocina : Controla
+Cocina o-- Pedido : Gestiona
+Pedido --> Plato : Tiene un
+Cocina ..> ComparadorTiempo : utiliza para ordenar por prioridad de tiempos
+ComparadorTiempo ..> Pedido : Compara
+
+@enduml
