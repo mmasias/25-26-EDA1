@@ -24,7 +24,6 @@ Esta estructura está pensada justo para este tipo de problemas ya que permite a
 ---
 
 Entonces, la cola de prioridad es la estructura adecuada porque permite seleccionar siempre el pedido con menor tiempo de preparación de forma eficiente.  
-Es simple de usar, eficiente y se ajusta perfectamente al problema.
 
 ---
 
