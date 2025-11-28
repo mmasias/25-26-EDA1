@@ -1,4 +1,4 @@
-@startuml Arquitectura App Restaurante RCCCF
+@startuml 
 
 class Cliente {
   + {static} void main(String[] args)

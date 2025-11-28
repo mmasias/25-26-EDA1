@@ -1,6 +1,5 @@
 ```plantuml
 @startuml
-title Arquitectura App Restaurante RCCCF 
 
 class Cliente {
   + {static} void main(String[] args)
@@ -15,7 +14,7 @@ class JornadaRestaurante {
   - final Random generadorAleatorio
   - int comparacionesTotales
   - int pedidosAtendidos
-  
+
   + void ejecutar()
   - void gestionarLlegadas(int minuto)
   - void procesarCocina()
