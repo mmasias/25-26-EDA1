@@ -5,7 +5,7 @@ public class Pedido {
     private final int tiempoTotal;
     private int tiempoRestante;
     private final int minutoLlegada;
-    private int minutoInicio; // -1 mientras no haya empezado
+    private int minutoInicio; 
     
     public Pedido(int id, String nombrePlato, int tiempoTotal, int minutoLlegada) {
     this.id = id;

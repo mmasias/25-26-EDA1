@@ -1,6 +1,4 @@
-/**
- * Representa un cocinero que puede procesar un pedido a la vez.
- */
+
 public class Cocinero {
     private Pedido pedidoActual;
 
@@ -22,10 +20,6 @@ public class Cocinero {
         }
     }
 
-    /**
-     * Procesa un minuto de trabajo en el pedido actual.
-     * @return El pedido terminado, o null si aún no termina.
-     */
     public Pedido procesarMinuto() {
         if (pedidoActual == null) {
             return null;

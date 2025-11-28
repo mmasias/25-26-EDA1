@@ -29,10 +29,7 @@ public EstructuraPedidosPendientes(int capacidadMaxima) {
     usados++;
     }
     
-    /**
-    * Busca y extrae el pedido con menor tiempo restante.
-    * Si está vacía, devuelve null.
-    */
+ 
     public Pedido extraerMenorTiempo() {
     if (estaVacia()) {
     return null;
@@ -48,7 +45,6 @@ public EstructuraPedidosPendientes(int capacidadMaxima) {
     
     Pedido min = pedidos[indiceMin];
     
-    // Compactamos el array desplazando a la izquierda
     for (int i = indiceMin; i < usados - 1; i++) {
     pedidos[i] = pedidos[i + 1];
     }
@@ -72,10 +68,7 @@ public EstructuraPedidosPendientes(int capacidadMaxima) {
     pedidoActual.setMinutoInicio(minutoActual);
     }
     
-    /**
-    * Procesa un minuto del pedido actual.
-    * Devuelve el pedido terminado si acaba en este minuto, o null en caso contrario.
-    */
+ 
     public Pedido procesarMinuto() {
     if (pedidoActual == null) {
     return null;
