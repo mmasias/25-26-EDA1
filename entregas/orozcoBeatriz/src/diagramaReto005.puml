@@ -1,0 +1,50 @@
+@startuml diagramaReto005
+title Diagrama Sistema de Gestión de Pedidos del RCCCF
+
+class Simulacion {
+    + main(args : String[]) : void
+}
+
+class Restaurante {
+    - cocinero : Cocinero
+    - generadorPedidos : GeneradorPedidos
+    - minutoActual : int
+    + ejecutar() : void
+    - recibirPedido(pedido : Pedido) : void
+    - seleccionarPedido() : Pedido
+    - procesarCocina() : void
+}
+
+class GeneradorPedidos {
+    - probabilidadLlegada : double
+    - generadorAleatorio : Random
+    + generarPedido(minutoActual : int) : Pedido
+}
+
+class Cocinero {
+    - pedidoActual : Pedido
+    + asignarPedido(pedido : Pedido, minutoActual : int) : void
+    + cocinarDuranteUnMinuto() : Pedido
+    + estaLibre() : boolean
+}
+
+class Pedido {
+    - tipoPlato : TipoPlato
+    - tiempoTotalPreparacion : int
+    - tiempoRestantePreparacion : int
+    - minutoLlegada : int
+    - minutoInicioPreparacion : Integer
+}
+
+class TipoPlato {
+}
+
+Simulacion --> Restaurante
+Restaurante --> GeneradorPedidos : usa
+Restaurante --> Cocinero : tiene
+Restaurante --> Pedido : gestiona
+GeneradorPedidos --> Pedido : crea
+Cocinero --> Pedido : cocina
+Pedido --> TipoPlato : usa
+
+@enduml
