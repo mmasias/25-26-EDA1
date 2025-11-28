@@ -1,0 +1,57 @@
+@startuml RCCCF
+top to bottom direction
+skinparam classAttributeIconSize 0
+
+class Pedido {
+  - tipo : String
+  - tiempoPreparacion : int
+  - tiempoRestante : int
+  - tiempoLlegada : int
+  + Pedido(tipo : String, tiempoPreparacion : int, tiempoLlegada : int)
+  + calcularTiempoEspera(minutoInicio : int) : int
+  + estaTerminado() : boolean
+}
+
+class ColaPedidos {
+  - pendientes : List<Pedido>
+  + agregar(p : Pedido) : void
+  + extraerMinimoPorTiempoPreparacion(minutoActual : int, ctx : SimulacionContexto) : Pedido
+  + estaVacia() : boolean
+  + size() : int
+}
+
+class Cocinero {
+  - pedidoEnProceso : Pedido
+  + asignarPedido(p : Pedido) : void
+  + avanzarMinuto() : void
+  + finalizarSiTerminado() : Pedido
+  + estaLibre() : boolean
+  + getPedidoEnProceso() : Pedido
+}
+
+class SimulacionContexto {
+  - duracionJornada : int = 120
+  - probabilidadLlegada : double = 0.4
+  - pedidosAtendidos : int 
+  - comparacionesTotales : int
+  - tiempoTotalEspera : int
+  - generador : Random
+}
+
+class SimuladorRCCCF {
+  - cocineros : List<Cocinero>
+  - cola : ColaPedidos
+  - contexto : SimulacionContexto
+  + inicializar() : void
+  + simularMinuto(minuto : int) : void
+  + ejecutar() : void
+  + mostrarResumen() : void
+}
+
+SimuladorRCCCF "1" --> "1" SimulacionContexto : usa >
+SimuladorRCCCF "1" --> "1" ColaPedidos : gestiona >
+SimuladorRCCCF "1" --> "1..*" Cocinero : coordina >
+ColaPedidos "1" o-- "0..*" Pedido : contiene >
+Cocinero "1" --> "0..1" Pedido : procesa >
+
+@enduml
