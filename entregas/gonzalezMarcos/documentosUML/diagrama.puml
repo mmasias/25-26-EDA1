@@ -1,0 +1,44 @@
+@startuml
+title Diagrama de Clases - Restaurante RCCCF
+
+class Cliente {
+    +main(String[] args)
+}
+
+class Restaurante {
+    -int DURACION_JORNADA
+    -double PROBABILIDAD_LLEGADA
+    -Object[][] PLATOS
+    +iniciar()
+}
+
+class Monticulo {
+    -Pedido[] heap
+    -int size
+    -long comparaciones
+    +Monticulo(int capacity)
+    +boolean isEmpty()
+    +int size()
+    +long getComparaciones()
+    +void insert(Pedido p)
+    +Pedido extractMin()
+    -void siftUp(int index)
+    -void siftDown(int index)
+    -void swap(int i, int j)
+    -void resize()
+}
+
+class Pedido {
+    +String tipo
+    +int tiempoTotal
+    +int tiempoRestante
+    +int minutoLlegada
+    +Pedido(String tipo, int tiempoTotal, int minutoLlegada)
+    +toString() String
+}
+
+Cliente --> Restaurante : ejecuta
+Restaurante --> Monticulo : usa
+Monticulo o-- Pedido : contiene
+Restaurante ..> Pedido : crea
+@enduml
