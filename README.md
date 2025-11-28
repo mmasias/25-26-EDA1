@@ -1,94 +1,97 @@
-# Simulación de Restaurante (Optimización de Colas)
+# Simulación de Restaurante (Implementación con ArrayList)
 
-Este proyecto implementa una simulación en **Java** para optimizar el flujo de trabajo en una cocina de alta demanda.  
-El sistema sustituye el modelo tradicional FIFO por un modelo inteligente basado en el **tiempo de preparación restante**.
+Este proyecto implementa una simulación en **Java** para optimizar el flujo de trabajo en una cocina, aplicando la estrategia **SJF (Shortest Job First)** mediante una **Búsqueda Lineal** sobre una lista estándar (`ArrayList`).
 
 ---
 
 ## Contexto del Problema
 
-En un sistema tradicional (como una caja de supermercado), los clientes se atienden en orden.  
-En una cocina, esto puede causar ineficiencia.
+En un sistema de colas tradicional (FIFO), un pedido rápido puede quedar bloqueado detrás de uno lento.
 
-### Ejemplo de problema
+**Ejemplo:**
+- Ensalada → 8 min  
+- Café → 2 min (pero queda esperando detrás)
 
-- Llega una **Ensalada** (8 min)  
-- Justo después llega un **Café** (2 min)
-
-**Problema con FIFO:** El Café debe esperar 8 minutos innecesariamente.
-
-**Objetivo de la simulación:**  
-El cocinero debe seleccionar siempre el pedido con **menor tiempo de preparación restante**, maximizando el número de pedidos atendidos y minimizando la espera.
+ **Objetivo:**  
+El cocinero debe seleccionar siempre el pedido con **menor tiempo de preparación restante** para reducir tiempos de espera y aumentar la productividad.
 
 ---
 
-## Solución Técnica: Transformación de la Cola
+## 💡 Solución Técnica: Búsqueda Lineal
 
-Para resolver este problema, se descarta el uso de estructuras lineales como `ArrayList` y se implementa una **Cola de Prioridad (PriorityQueue)**.
+En esta versión del proyecto, la optimización se implementa, sino con una estructura simple:
 
-### Comparativa de Estructuras
+### 🔍 Lógica del Algoritmo
 
-| Estructura          | Comportamiento                                                                      | Eficiencia                         |
-|---------------------|--------------------------------------------------------------------------------------|------------------------------------|
-| **Lista Normal**    | Busca el pedido más rápido recorriendo uno por uno.                                 | Baja (costoso computacionalmente)  |
-| **Cola de Prioridad** | Funciona como un *min-heap*: el pedido más rápido “flota” a la cima automáticamente. | Alta (acceso inmediato)            |
+1. **Almacenamiento**  
+   Los pedidos se guardan en un `ArrayList` a medida que llegan.
+
+2. **Selección del Siguiente Pedido**  
+   Cuando el cocinero queda libre, el sistema **recorre toda la lista** de principio a fin.
+
+3. **Comparación**  
+   Se compara el tiempo restante de cada pedido para encontrar el más rápido.
+
+4. **Extracción**  
+   Se elimina ese pedido de la lista y se asigna al cocinero.
+
+> **Nota de Ingeniería:**  
+> A diferencia de una PriorityQueue (que mantiene el mínimo automáticamente), este enfoque requiere revisar **N elementos por búsqueda**, lo cual implica un coste **O(N)** por cada asignación de trabajo.
 
 ---
 
 ## Arquitectura del Código
 
-El proyecto sigue el paradigma de **Programación Orientada a Objetos (POO)** y se estructura en los siguientes componentes:
+El sistema sigue un diseño orientado a objetos con roles claramente definidos:
 
 ---
 
-### 1. **Clase Main** (Punto de Entrada)
+### 1. **Main** (Punto de Entrada)
 
-- Inicia la simulación.
-- Crea la instancia del `Restaurante`.
-- Define la duración de la jornada (ej.: 480 minutos).
+- Inicializa la simulación.
+- Configura la duración de la jornada (ej.: 480 minutos).
 
 ---
 
-### 2. **Clase Restaurante** (El Gestor)
+### 2. **Restaurante** (Gestor de Lógica)
 
-Es el **cerebro del sistema**.
+Es el componente más importante y el que cambia en esta versión.
 
 **Responsabilidades:**
-- Administrar la cola de pedidos.
-- Asignar trabajo al cocinero minuto a minuto.
-- Registrar métricas y mostrar el resumen final.
 
-**Elementos clave:**
+- Usa `List<Pedido>` (`ArrayList`) para almacenar todos los pedidos pendientes.
+- Implementa el método **`buscarYExtraerMasRapido()`**, encargado de:
+  - Recorrer toda la lista
+  - Comparar el tiempo restante de cada pedido
+  - Seleccionar el más rápido
+  - Incrementar un contador interno de comparaciones
 
-- `PriorityQueue<Pedido>` → Estructura central.
-- `Comparator` personalizado → Ordena por `tiempoRestante`.
-- Métrica interna → Cuenta cuántas comparaciones realiza la cola para medir eficiencia.
-
----
-
-### 3. **Clase Cocinero** (El Trabajador)
-
-Representa al empleado que procesa la comida.
-
-- Puede estar **libre** u **ocupado**.
-- Procesa un pedido reduciendo su tiempo restante cada minuto.
-- Cuando termina, queda disponible para el siguiente pedido más rápido.
+**Métrica incluida:**
+- Número de comparaciones realizadas → Permite medir la eficiencia real del algoritmo.
 
 ---
 
-### 4. **Clase Pedido** (La Entidad)
+### 3. **Cocinero** (El Trabajador)
 
-Unidad de trabajo que fluye por el sistema.
-
-- Contiene `tipo`, `tiempoRestante`, `minutoLlegada` e ID único.
-- `tiempoRestante` es **la clave de prioridad**.
-- Se decrementa conforme el cocinero trabaja.
+- Representa el recurso que procesa pedidos minuto a minuto.
+- No conoce la lógica de selección.
+- Solo recibe un pedido y lo procesa hasta completarlo.
 
 ---
 
-### 5. **Enum TipoPlato** (Configuración)
+### 4. **Pedido** (La Entidad)
 
-Define el menú del restaurante:
+Contiene toda la información relevante sobre cada trabajo:
+
+- `tipo` → Referencia al plato solicitado.
+- `tiempoRestante` → Valor crítico utilizado para determinar la prioridad.
+- `minutoLlegada` → Para métricas y análisis de espera.
+
+---
+
+### 5. **TipoPlato** (Configuración)
+
+Enum que centraliza el menú del restaurante:
 
 - Bebida  
 - Café  
@@ -96,4 +99,4 @@ Define el menú del restaurante:
 - Bocadillo  
 - Ensalada  
 
-Cada tipo tiene un **rango de tiempo de preparación aleatorio** que genera variabilidad en el sistema.
+Cada uno define un rango de tiempo de preparación aleatorio para la simulación.
