@@ -73,4 +73,3 @@ NodoPedido o-- "1" Pedido : "guarda"
 ColaPedidos ..> ResultadoExtraccion : "crea y retorna"
 ResultadoExtraccion o-- "1" Pedido : "contiene"
 @enduml
-```
