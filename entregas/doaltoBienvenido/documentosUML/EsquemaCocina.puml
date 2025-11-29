@@ -1,0 +1,86 @@
+@startuml Esquema
+
+' ========================================
+' Diagrama de clases Sistema de Cocina
+' Implementación con Árbol Binario para ColaPedidos (SPT)
+' ========================================
+
+class Simulacion {
+        +main(String[] args)
+    }
+
+    class Restaurante {
+        -colaDePedidos : ColaPedidos
+        -cocineroPrincipal : Cocinero
+        -estadisticas : Estadisticas
+        -semillaAleatoria : double
+        +Restaurante(double semillaAleatoria)
+        +void ejecutar(int minutosTotales)
+        -void generarPedidoSiCorresponde(int minutoActual)
+        -void asignarPedidoAlCocinero(int minutoActual)
+        -void cocinarDuranteUnMinuto(int minutoActual)
+    }
+
+    class Cocinero {
+        -pedidoActual : Pedido
+        +boolean estaLibre()
+        +void asignarPedido(Pedido pedido, int minutoActual)
+        +void cocinarUnMinuto()
+        +boolean haTerminado()
+        +Pedido obtenerPedidoTerminado()
+    }
+
+    class ColaPedidos {
+        -nodoRaiz : NodoArbol
+        +void insertar(Pedido nuevoPedido)
+        +Pedido extraerPedidoDeMayorPrioridad()
+        +boolean estaVacia()
+    }
+
+    class Pedido {
+        -identificador : int
+        -tipoDePlato : String
+        -tiempoDePreparacion : double
+        -tiempoRestante : double
+        -instanteDeLlegada : int
+        -instanteDeInicio : int
+        +Pedido(int identificador, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)
+        +int getIdentificador()
+        +String getTipoDePlato()
+        +double getTiempoDePreparacion()
+        +double getTiempoRestante()
+        +int getInstanteDeLlegada()
+        +int getInstanteDeInicio()
+        +void reducirTiempoRestante()
+        +void marcarComoIniciado(int instanteDeInicio)
+        +boolean estaCompleto()
+        +int compareTo(Pedido otroPedido)
+        +String toString()
+    }
+
+    class Estadisticas {
+        -cantidadAtendidos : int
+        -cantidadPendientes : int
+        -tiempoTotalDeEspera : double
+        +void registrarInicioDePreparacion(Pedido pedido)
+        +void registrarPedidoTerminado(Pedido pedido)
+        +String generarResumen()
+    }
+
+    class TipoPlato {
+        -static final String BEBIDA
+        -static final String CAFE
+        -static final String COLACAO
+        -static final String BOCADILLO
+        -static final String ENSALADA
+        +String seleccionarTipoAleatorio()
+        +double generarTiempoDePreparacion(String tipoDePlato)
+    }
+
+    Simulacion --> Restaurante
+    Restaurante --> Cocinero
+    Restaurante --> ColaPedidos
+    Restaurante --> Estadisticas
+    ColaPedidos --> Pedido
+    Cocinero --> Pedido
+@enduml
