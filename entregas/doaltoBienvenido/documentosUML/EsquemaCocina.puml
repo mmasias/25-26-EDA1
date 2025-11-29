@@ -5,96 +5,82 @@
 ' Implementación con Árbol Binario para ColaPedidos (SPT)
 ' ========================================
 
-class Pedido {
-    -id : int
-    -tipo : String
-    -tiempoPreparacion : int
-    -tiempoRestante : int
-    -instanteLlegada : int
-    -instanteInicio : int
-    +Pedido(int id, String tipo, int tiempoPreparacion, int instanteLlegada)
-    +int getId()
-    +String getTipo()
-    +int getTiempoPreparacion()
-    +int getTiempoRestante()
-    +int getInstanteLlegada()
-    +void decrementarTiempoRestante()
-    +void marcarComoIniciado(int instante)
-    +boolean estaCompleto()
-    +int compareTo(Pedido otro)
-    +String toString()
-}
-
-class NodoPedido {
-    -pedido : Pedido
-    -izquierdo : NodoPedido
-    -derecho : NodoPedido
-    -padre : NodoPedido
-    +NodoPedido(Pedido pedido)
-}
-
-class ColaPedidos {
-    -root : NodoPedido
-    -cantidadPedidos : int
-    +ColaPedidos()
-    +void insertar(Pedido pedido)
-    +Pedido extraerMin()
-    +Pedido peekMin()
-    +int tamaño()
-    +boolean estaVacia()
-}
-
 class Simulacion {
-    -colaPedidos : ColaPedidos
-    -estadisticas : Estadisticas
-    -semillaAleatoria : double
-    +Simulacion()
-    +Simulacion(double semilla)
-    +void ejecutar()
-    +void ejecutar(int minutos)
-    +int getPedidosAtendidos()
-    +int getPedidosPendientes()
-    +double getTiempoEsperaTotal()
-    +double getTiempoEsperaMedio()
-    +double getComparacionesTotales()
-}
+        +main(String[] args)
+    }
 
-class TipoPlato {
-    -static final String BEBIDA
-    -static final String CAFE
-    -static final String COLACAO
-    -static final String BOCADILLO
-    -static final String ENSALADA
-    +static int getMin(String tipo)
-    +static int getMax(String tipo)
-    +static String muestrearTipo()
-    +static String muestrearTipo(double semilla)
-    +static int generarTiempoParaTipo(String tipo)
-    +static int generarTiempoParaTipo(String tipo, double semilla)
-}
+    class Restaurante {
+        -colaDePedidos : ColaPedidos
+        -cocineroPrincipal : Cocinero
+        -estadisticas : Estadisticas
+        -semillaAleatoria : double
+        +Restaurante(double semillaAleatoria)
+        +void ejecutar(int minutosTotales)
+        -void generarPedidoSiCorresponde(int minutoActual)
+        -void asignarPedidoAlCocinero(int minutoActual)
+        -void cocinarDuranteUnMinuto(int minutoActual)
+    }
 
-class Estadisticas {
-    -totalPedidosAtendidos : int
-    -totalPedidosPendientes : int
-    -tiempoEsperaAcumulado : double
-    -comparacionesRealizadas : double
-    +Estadisticas()
-    +void registrarInicioServicio(Pedido pedido, int instanteInicio)
-    +void registrarPedidoAtendido(Pedido pedido)
-    +void registrarComparaciones(double cantidadComparaciones)
-    +int getTotalPedidosAtendidos()
-    +int getTotalPedidosPendientes()
-    +double getTiempoEsperaAcumulado()
-    +double getTiempoEsperaMedio()
-    +double getComparacionesRealizadas()
-    +String generarResumen()
-}
+    class Cocinero {
+        -pedidoActual : Pedido
+        +boolean estaLibre()
+        +void asignarPedido(Pedido pedido, int minutoActual)
+        +void cocinarUnMinuto()
+        +boolean haTerminado()
+        +Pedido obtenerPedidoTerminado()
+    }
 
-' Relaciones
-Simulacion --> ColaPedidos : usa
-Simulacion --> Estadisticas : usa
-Simulacion --> TipoPlato : usa
-ColaPedidos --> NodoPedido : contiene
-NodoPedido --> Pedido : contiene
-Estadisticas --> Pedido : consulta
+    class ColaPedidos {
+        -nodoRaiz : NodoArbol
+        +void insertar(Pedido nuevoPedido)
+        +Pedido extraerPedidoDeMayorPrioridad()
+        +boolean estaVacia()
+    }
+
+    class Pedido {
+        -identificador : int
+        -tipoDePlato : String
+        -tiempoDePreparacion : double
+        -tiempoRestante : double
+        -instanteDeLlegada : int
+        -instanteDeInicio : int
+        +Pedido(int identificador, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)
+        +int getIdentificador()
+        +String getTipoDePlato()
+        +double getTiempoDePreparacion()
+        +double getTiempoRestante()
+        +int getInstanteDeLlegada()
+        +int getInstanteDeInicio()
+        +void reducirTiempoRestante()
+        +void marcarComoIniciado(int instanteDeInicio)
+        +boolean estaCompleto()
+        +int compareTo(Pedido otroPedido)
+        +String toString()
+    }
+
+    class Estadisticas {
+        -cantidadAtendidos : int
+        -cantidadPendientes : int
+        -tiempoTotalDeEspera : double
+        +void registrarInicioDePreparacion(Pedido pedido)
+        +void registrarPedidoTerminado(Pedido pedido)
+        +String generarResumen()
+    }
+
+    class TipoPlato {
+        -static final String BEBIDA
+        -static final String CAFE
+        -static final String COLACAO
+        -static final String BOCADILLO
+        -static final String ENSALADA
+        +String seleccionarTipoAleatorio()
+        +double generarTiempoDePreparacion(String tipoDePlato)
+    }
+
+    Simulacion --> Restaurante
+    Restaurante --> Cocinero
+    Restaurante --> ColaPedidos
+    Restaurante --> Estadisticas
+    ColaPedidos --> Pedido
+    Cocinero --> Pedido
 @enduml
