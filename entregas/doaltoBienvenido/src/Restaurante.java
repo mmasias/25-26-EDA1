@@ -11,23 +11,33 @@ public class Restaurante {
     }
 
     public void ejecutar(int minutos) {
-        for (int t = 1; t <= minutos; t++) {
-            if (Math.random() < PROBABILIDAD_LLEGADA) {
-                String tipo = TipoPlato.muestrearTipo();
-                int tiempoPrep = TipoPlato.generarTiempoParaTipo(tipo);
-                Pedido nuevoPedido = new Pedido(t, tipo, tiempoPrep, t);
-                colaPedidos.insertar(nuevoPedido);
-            }
-
-            if (!cocinero.estaOcupado() && !colaPedidos.estaVacia()) {
-                Pedido pedidoMin = colaPedidos.extraerMin();
-                cocinero.asignarPedido(pedidoMin);
-                estadisticas.registrarInicioServicio(pedidoMin, t);
-            }
-
-            cocinero.procesarUnMinuto();
+        for (int tiempo = 1; tiempo <= minutos; tiempo++) {
+            avanzarUnMinuto(tiempo);
         }
 
+        finalizar();
+    }
+
+    public void avanzarUnMinuto(int tiempo) {
+        if (Math.random() < PROBABILIDAD_LLEGADA) {
+            String tipo = TipoPlato.muestrearTipo();
+            int tiempoPreparacion = TipoPlato.generarTiempoParaTipo(tipo);
+            Pedido nuevoPedido = new Pedido(tiempo, tipo, tiempoPreparacion, tiempo);
+            colaPedidos.insertar(nuevoPedido);
+            System.out.println("Nuevo pedido: " + nuevoPedido);
+        }
+
+        if (!cocinero.estaOcupado() && !colaPedidos.estaVacia()) {
+            Pedido pedidoMin = colaPedidos.extraerMin();
+            cocinero.asignarPedido(pedidoMin);
+            estadisticas.registrarInicioServicio(pedidoMin, tiempo);
+            System.out.println("El cocinero comienza a preparar: " + pedidoMin);
+        }
+
+        cocinero.procesarUnMinuto();
+    }
+
+    public void finalizar() {
         estadisticas.registrarComparaciones(colaPedidos.tamaño());
         System.out.println(estadisticas.generarResumen());
     }
