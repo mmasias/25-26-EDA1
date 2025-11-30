@@ -5,7 +5,7 @@ public class Simulacion {
         int duracionSimulacionMinutos = 60;
         double probabilidadLlegadaPedido = 0.4;
 
-        Cocina cocinaRCCCF = new Cocina(duracionSimulacionMinutos, probabilidadLlegadaPedido);
-        cocinaRCCCF.ejecutarSimulacion();
+        Cocina cocina = new Cocina(duracionSimulacionMinutos, probabilidadLlegadaPedido);
+        cocina.ejecutarSimulacion();
     }
 }

@@ -11,7 +11,7 @@ public class Cocina {
     private Cocinero cocineroUnico;
     private EstadisticasJornada estadisticasJornada;
 
-    public CocinaRCCCF(int duracionSimulacionMinutos, double probabilidadLlegadaPedido) {
+    public Cocina(int duracionSimulacionMinutos, double probabilidadLlegadaPedido) {
         this.instanteActualMinuto = 0;
         this.duracionSimulacionMinutos = duracionSimulacionMinutos;
         this.probabilidadLlegadaPedido = probabilidadLlegadaPedido;
