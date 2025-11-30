@@ -35,6 +35,17 @@ public class ColaPrioridadPedidos implements IEstructuraPedidos {
     public int tamano() {
         return cola.size();
     }
+
+    @Override
+    public long getComparaciones() {
+        return comparaciones;
+    }
+
+    @Override
+    public void resetComparaciones() {
+        comparaciones = 0;
+    }
 }
+
 
 
