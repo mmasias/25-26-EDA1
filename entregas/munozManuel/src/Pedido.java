@@ -2,7 +2,7 @@ package entregas.munozManuel.src;
 
 class Pedido {
     private final String pedido;
-    private final int tiempoPreparacion;
+    private int tiempoPreparacion;
     private final String[] PEDIDOS_DISPONIBLES = {"Bebida", "Café", "Colacao", "Bocadillo", "Ensalada"};
     private final static int[][] TIEMPO_PREPARACION = {{1, 2}, {2, 3}, {2, 4}, {3, 5}, {5, 8}};
 
@@ -14,6 +14,10 @@ class Pedido {
 
     public String pedido() {
         return pedido;
+    }
+
+    public void restarTiempo(){
+        tiempoPreparacion -= 1;
     }
 
     public int tiempoPreparacion() {
