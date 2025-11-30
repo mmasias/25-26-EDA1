@@ -18,7 +18,6 @@ public class Cocina {
             Pedido siguiente = estructuraPedidos.extraerMinimo();
             estadisticas.sumarComparaciones(estructuraPedidos.getComparaciones());
             estructuraPedidos.resetComparaciones();
-
             if (siguiente != null) {
                 siguiente.setInstanteInicio(tiempoActual);
                 pedidoActual = siguiente;
@@ -29,7 +28,6 @@ public class Cocina {
     public void procesarMinuto(int tiempoActual, Estadisticas estadisticas) {
         if (pedidoActual != null) {
             pedidoActual.decrementarTiempo();
-
             if (pedidoActual.estaTerminado()) {
                 estadisticas.registrarAtencion(pedidoActual);
                 pedidoActual = null;
@@ -44,7 +42,16 @@ public class Cocina {
     public Pedido getPedidoActual() {
         return pedidoActual;
     }
+
+    public int calcularPedidosPendientesAlFinal() {
+        int pendientes = estructuraPedidos.tamano();
+        if (pedidoActual != null) {
+            pendientes++;
+        }
+        return pendientes;
+    }
 }
+
 
 
 
