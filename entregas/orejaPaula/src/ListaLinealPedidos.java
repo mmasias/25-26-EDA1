@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaLinealPedidos implements IEstructuraPedidos {
     private final List<Pedido> lista;
@@ -16,6 +16,25 @@ public class ListaLinealPedidos implements IEstructuraPedidos {
     }
 
     @Override
+    public Pedido extraerMinimo() {
+        if (lista.isEmpty()) {
+            return null;
+        }
+        int indiceMinimo = 0;
+        Pedido minimo = lista.get(0);
+        for (int i = 1; i < lista.size(); i++) {
+            Pedido actual = lista.get(i);
+            comparaciones++;
+            if (actual.getTiempoPreparacion() < minimo.getTiempoPreparacion()) {
+                minimo = actual;
+                indiceMinimo = i;
+            }
+        }
+        lista.remove(indiceMinimo);
+        return minimo;
+    }
+
+    @Override
     public boolean estaVacia() {
         return lista.isEmpty();
     }
@@ -26,26 +45,16 @@ public class ListaLinealPedidos implements IEstructuraPedidos {
     }
 
     @Override
-    public Pedido extraerMinimo() {
-        if (lista.isEmpty()) {
-            return null;
-        }
-        int indiceMinimo = 0;
-        Pedido minimo = lista.get(0);
+    public long getComparaciones() {
+        return comparaciones;
+    }
 
-        for (int i = 1; i < lista.size(); i++) {
-            Pedido actual = lista.get(i);
-            comparaciones++;
-            if (actual.getTiempoPreparacion() < minimo.getTiempoPreparacion()) {
-                minimo = actual;
-                indiceMinimo = i;
-            }
-        }
-
-        lista.remove(indiceMinimo);
-        return minimo;
+    @Override
+    public void resetComparaciones() {
+        comparaciones = 0;
     }
 }
+
 
 
 
