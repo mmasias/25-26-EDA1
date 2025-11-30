@@ -13,6 +13,11 @@ public class Estadisticas {
     public void sumarComparaciones(long n) {
         comparacionesTotales += n;
     }
+
+    public void setPedidosPendientes(int n) {
+        pedidosPendientes = n;
+    }
 }
+
 
 
