@@ -6,5 +6,11 @@ public class Cocina {
         this.estructuraPedidos = estructuraPedidos;
         this.pedidoActual = null;
     }
+
+    public void recibirPedido(Pedido p, Estadisticas estadisticas) {
+        estructuraPedidos.insertar(p);
+        estadisticas.sumarComparaciones(estructuraPedidos.getComparaciones());
+        estructuraPedidos.resetComparaciones();
+    }
 }
 
