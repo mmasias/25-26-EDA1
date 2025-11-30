@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Restaurante restaurante = new Restaurante();
         Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
         int idCounter = 1;
 
         System.out.println("========================================");
@@ -28,8 +29,14 @@ public class Main {
             System.out.println("COLA: " + restaurante.obtenerTamanoCola() + " pedidos");
             System.out.println(restaurante.obtenerEstadoCocinero());
             System.out.println("----------------------------------------");
+
+            if (minuto % 60 == 0) {
+                System.out.println("\n>>> Fin de la hora " + (minuto / 60) + ". Pulsa ENTER para continuar...");
+                scanner.nextLine();
+            }
         }
 
         restaurante.mostrarReporteFinal();
+        scanner.close();
     }
 }
