@@ -1,0 +1,72 @@
+@startuml
+
+' Estilos visuales
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+
+class Utilidades {
+    + {static} mensaje(string: String) : void
+    + {static} saltarLinea() : void
+    + {static} leerCadena(string: String) : String
+}
+
+class Simulacion {
+    + {static} main(args: String[]) : void
+}
+
+class RestauranteRCCCF {
+    - tiempoActual : int
+    - pedidosCompletados : int
+    - tiempoTotalEspera : int
+    - cocinero : Cocinero
+    - cola : ColaPrioridad
+    
+    + RestauranteRCCCF()
+    + simular() : void
+    - llegadaNuevosPedidos() : void
+    - imprimirEstado() : void
+    - imprimirResumenFinal() : void
+}
+
+class ColaPrioridad {
+    - pedidos : List<Pedido>
+    - comparaciones : int
+    
+    + agregar(pedido : Pedido) : void
+    + obtenerSiguiente() : Pedido
+    + estaVacia() : boolean
+    + cantidadPendientes() : int
+    + getComparaciones() : int
+}
+
+class Cocinero {
+    - pedidoActual : Pedido
+    
+    + trabajar() : void
+    + asignar(pedido : Pedido) : void
+    + estaLibre() : boolean
+    + getPedidoActual() : Pedido
+}
+
+class Pedido {
+    - tipo : String
+    - tiempoTotal : int
+    - tiempoRestante : int
+    - tiempoLlegada : int
+    
+    + Pedido(tipo : String, tiempo : int, llegada: int)
+    + procesarMinuto() : void
+    + estaTerminado() : boolean
+    + getTiempoRestante() : int
+    + toString() : String
+}
+
+' Relaciones
+Simulacion ..> RestauranteRCCCF : "Usa"
+RestauranteRCCCF ..> Utilidades : "Usa"
+RestauranteRCCCF *-- Cocinero : "Tiene 1"
+RestauranteRCCCF *-- ColaPrioridad : "Tiene 1"
+ColaPrioridad o-- Pedido : "Gestiona *"
+Cocinero --> Pedido : "Procesa"
+
+@enduml
