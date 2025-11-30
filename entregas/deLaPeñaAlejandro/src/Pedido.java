@@ -28,7 +28,6 @@ public class Pedido {
         return nombre;
     }
     
-    // Formato: [Café - 2 min restantes]
     @Override
     public String toString() {
         return "[" + nombre + " - " + tiempoRestante + " min restantes]";

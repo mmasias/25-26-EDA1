@@ -7,7 +7,6 @@ public class Cocinero {
     }
 
     public void asignar(Pedido pedido) {
-        // Aseguramos que no reciba trabajo si ya está ocupado
         assert estaLibre() : "El cocinero ya está ocupado, no puede recibir otro pedido.";
         this.pedidoActual = pedido;
     }
@@ -16,7 +15,6 @@ public class Cocinero {
         if (pedidoActual != null) {
             pedidoActual.procesarMinuto();
             
-            // Si el pedido llega a 0, el cocinero queda libre
             if (pedidoActual.estaTerminado()) {
                 pedidoActual = null;
             }
