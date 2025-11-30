@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Simulacion {
 
     private final int duracion;
@@ -13,14 +11,10 @@ public class Simulacion {
     }
 
     public void iniciar() {
-        Random r = new Random();
-
         for (int minuto = 1; minuto <= duracion; minuto++) {
 
-            if (r.nextDouble() < 0.40) {
-                Pedido pedido = new Pedido(
-                        Pedido.Tipo.values()[r.nextInt(5)]
-                );
+            if (Main.rnd.nextDouble() < 0.40) {
+                Pedido pedido = new Pedido(Pedido.Tipo.values()[Main.rnd.nextInt(5)]);
                 pedido.setTiempoLlegada(minuto);
                 cocinero.agregarPedido(pedido);
 

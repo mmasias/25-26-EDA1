@@ -1,6 +1,9 @@
 public class Main {
+    // Generador global
+    public static MiRandom rnd = new MiRandom();
+
     public static void main(String[] args) {
-        Simulacion s = new Simulacion(120);
-        s.iniciar();
+        Simulacion sim = new Simulacion(120); // 120 minutos
+        sim.iniciar();
     }
 }
