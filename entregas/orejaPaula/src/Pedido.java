@@ -14,6 +14,15 @@ public class Pedido {
         this.instanteLlegada = instanteLlegada;
         this.instanteInicio = -1;
     }
+
+    public void decrementarTiempo() {
+        tiempoRestante--;
+    }
+
+    public boolean estaTerminado() {
+        return tiempoRestante <= 0;
+    }
 }
+
 
 
