@@ -1,9 +1,13 @@
+import java.util.Random;
+
 public enum Plato {
     BEBIDA("Bebida", 1, 2),
     CAFE("Café", 2, 3),
     COLACAO("Colacao", 2, 4),
     BOCADILLO("Bocadillo", 3, 5),
     ENSALADA("Ensalada", 5, 8);
+
+    private static final Random RANDOM = new Random();
 
     private final String nombre;
     private final int minTiempo;
@@ -26,6 +30,14 @@ public enum Plato {
     public int getMaxTiempo() {
         return maxTiempo;
     }
+
+    public int tiempoAleatorio() {
+        if (minTiempo == maxTiempo) {
+            return minTiempo;
+        }
+        return minTiempo + RANDOM.nextInt(maxTiempo - minTiempo + 1);
+    }
 }
+
 
 
