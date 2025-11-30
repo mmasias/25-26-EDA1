@@ -14,4 +14,18 @@ public enum Plato {
         this.minTiempo = minTiempo;
         this.maxTiempo = maxTiempo;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getMinTiempo() {
+        return minTiempo;
+    }
+
+    public int getMaxTiempo() {
+        return maxTiempo;
+    }
 }
+
+
