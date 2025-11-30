@@ -12,5 +12,19 @@ public class Cocina {
         estadisticas.sumarComparaciones(estructuraPedidos.getComparaciones());
         estructuraPedidos.resetComparaciones();
     }
+
+    public void seleccionarSiguientePedido(int tiempoActual, Estadisticas estadisticas) {
+        if (pedidoActual == null && !estructuraPedidos.estaVacia()) {
+            Pedido siguiente = estructuraPedidos.extraerMinimo();
+            estadisticas.sumarComparaciones(estructuraPedidos.getComparaciones());
+            estructuraPedidos.resetComparaciones();
+
+            if (siguiente != null) {
+                siguiente.setInstanteInicio(tiempoActual);
+                pedidoActual = siguiente;
+            }
+        }
+    }
 }
+
 
