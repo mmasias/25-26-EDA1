@@ -15,7 +15,7 @@ public class Cocinero {
  
     public void asignarPedido(Pedido pedidoAsignado) {
         this.pedidoActual = pedidoAsignado;
-        // ¡REFACTORIZADO! - Se usa el nombre de parámetro descriptivo
+     
         this.tiempoRestante = pedidoAsignado.getTiempoPreparacion();
     }
 
