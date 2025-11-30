@@ -25,6 +25,18 @@ public class Cocina {
             }
         }
     }
+
+    public void procesarMinuto(int tiempoActual, Estadisticas estadisticas) {
+        if (pedidoActual != null) {
+            pedidoActual.decrementarTiempo();
+
+            if (pedidoActual.estaTerminado()) {
+                estadisticas.registrarAtencion(pedidoActual);
+                pedidoActual = null;
+            }
+        }
+    }
 }
+
 
 
