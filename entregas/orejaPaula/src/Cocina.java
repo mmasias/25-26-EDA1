@@ -36,6 +36,14 @@ public class Cocina {
             }
         }
     }
+
+    public int getNumeroPedidosEnCola() {
+        return estructuraPedidos.tamano();
+    }
+
+    public Pedido getPedidoActual() {
+        return pedidoActual;
+    }
 }
 
 
