@@ -37,7 +37,14 @@ public enum Plato {
         }
         return minTiempo + RANDOM.nextInt(maxTiempo - minTiempo + 1);
     }
+
+    public static Plato aleatorio() {
+        Plato[] valores = values();
+        int i = RANDOM.nextInt(valores.length);
+        return valores[i];
+    }
 }
+
 
 
 
