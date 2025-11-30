@@ -1,0 +1,48 @@
+@startuml
+
+class Pedido {
+    - tipoPlato
+    - tiempoRestante
+    - minutoLlegada
+    --
+    + reducirTiempo()
+    + getTiempoRestante()
+}
+
+class Plato {
+    - nombre
+    - minTiempo
+    - maxTiempo
+    --
+    + generarTiempoPreparacion()
+}
+
+class RestauranteRCCCF {
+    - colaPedidos
+    - comparaciones
+    - cocineroLibre
+    --
+    + iniciarSimulacion()
+    + llegadaDeClientes()
+    + insertarPedidoOrdenado()
+    + procesarCocinero()
+    + mostrarResultados()
+}
+
+class Mundo {
+    + main()
+}
+
+class Console {
+    + print()
+    + println()
+    + readString()
+    + readInt()
+}
+
+RestauranteRCCCF --> Pedido : usa
+RestauranteRCCCF --> Plato : usa
+Mundo --> RestauranteRCCCF : crea
+Mundo --> Console : usa
+
+@enduml
