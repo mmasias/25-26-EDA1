@@ -11,16 +11,16 @@ public class PresentacionConsola {
     }
 
     public void imprimirLlegadaPedido(Pedido pedido) {
-        System.out.println("Llega pedido: " + pedido.getNombre() + 
-                           " (" + pedido.getTiempoPreparacion() + " min)");
+        System.out.println("Llega pedido: " + pedido.getNombre() +
+                " (" + pedido.getTiempoPreparacion() + " min)");
     }
 
     public void imprimirEstado(int tamanoCola, Pedido pedidoEnProceso) {
         System.out.println("COLA: " + tamanoCola + " pedidos");
-        
+
         if (pedidoEnProceso != null) {
-            System.out.println("Cocinero: [" + pedidoEnProceso.getNombre() + 
-                               " - " + pedidoEnProceso.getTiempoRestante() + " min restantes]");
+            System.out.println("Cocinero: [" + pedidoEnProceso.getNombre() +
+                    " - " + pedidoEnProceso.getTiempoRestante() + " min restantes]");
         } else {
             System.out.println("Cocinero: [ESPERANDO]");
         }

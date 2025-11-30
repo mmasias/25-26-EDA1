@@ -4,8 +4,8 @@ public class Nodo {
     Nodo derecha;
 
     public Nodo(Pedido pedido) {
-        this.pedido = pedido; 
-        izquierda = null;     
-        derecha = null;       
+        this.pedido = pedido;
+        izquierda = null;
+        derecha = null;
     }
 }

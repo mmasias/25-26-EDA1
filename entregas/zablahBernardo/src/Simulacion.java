@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Simulacion {
 
@@ -23,7 +24,12 @@ public class Simulacion {
     }
 
     public void start() {
+        Scanner scanner = new Scanner(System.in);
+
         for (int minuto = 1; minuto <= JORNADA_MINUTOS; minuto++) {
+
+            System.out.print(">> Presiona ENTER para simular el minuto " + minuto + "...");
+            scanner.nextLine();
 
             presentacionConsola.imprimirCabeceraMinuto(minuto);
 
@@ -40,6 +46,8 @@ public class Simulacion {
             presentacionConsola.imprimirEstado(arbolPedidos.getTamano(), pedido);
             procesarCocina(minuto);
         }
+
+        scanner.close();
 
         int pendientes = arbolPedidos.getTamano() + (pedido != null ? 1 : 0);
 

@@ -34,7 +34,8 @@ public class ArbolPedidos {
     }
 
     public Pedido extraerMinimo() {
-        if (nodo == null) return null;
+        if (nodo == null)
+            return null;
 
         Nodo padre = null;
         Nodo actual = nodo;
