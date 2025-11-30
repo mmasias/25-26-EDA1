@@ -13,6 +13,16 @@ class Cocinero {
         this.pedidoActual = pedido;
     }
 
+    Pedido dejarPedido() {
+        Pedido p = this.pedidoActual;
+        this.pedidoActual = null;
+        return p;
+    }
+
+    Pedido getPedidoActual() {
+        return this.pedidoActual;
+    }
+
     Pedido trabajar() {
         if (this.pedidoActual != null) {
             boolean terminado = this.pedidoActual.procesarMinuto();
@@ -28,9 +38,7 @@ class Cocinero {
 
     String obtenerEstado() {
         if (this.pedidoActual != null) {
-            return String.format("[%s - %d min rest]", 
-                this.pedidoActual.getNombrePlato(), 
-                this.pedidoActual.getTiempoRestante());
+            return "[" + this.pedidoActual.getNombrePlato() + " - " + this.pedidoActual.getTiempoRestante() + " min rest]";
         }
         return "[Libre]";
     }

@@ -38,9 +38,32 @@ class Restaurante {
     }
 
     void gestionarTurno(int minutoActual) {
+        if (!this.cocinero.estaLibre() && !this.colaPedidos.isEmpty()) {
+            Pedido enCocina = this.cocinero.getPedidoActual();
+
+            int mejorIndiceCola = -1;
+            int mejorTiempoCola = Integer.MAX_VALUE;
+            
+            for (int i = 0; i < this.colaPedidos.size(); i++) {
+                this.contadorComparaciones++;
+                if (this.colaPedidos.get(i).getTiempoRestante() < mejorTiempoCola) {
+                    mejorTiempoCola = this.colaPedidos.get(i).getTiempoRestante();
+                    mejorIndiceCola = i;
+                }
+            }
+
+             this.contadorComparaciones++;
+
+             if (mejorIndiceCola != -1 && mejorTiempoCola < enCocina.getTiempoRestante()) {
+                System.out.println("   >> PRIORIDAD: Pausando " + enCocina.getNombrePlato() + " (" + enCocina.getTiempoRestante() + "m) por pedido de " + mejorTiempoCola + "m");
+                
+                Pedido pausado = this.cocinero.dejarPedido();
+                this.colaPedidos.add(pausado);
+            }
+        }
+
         if (this.cocinero.estaLibre() && !this.colaPedidos.isEmpty()) {
             Pedido siguiente = this.buscarYExtraerMasRapido();
-            this.tiempoTotalEspera += (minutoActual - siguiente.getMinutoLlegada());
             this.cocinero.asignarPedido(siguiente);
         }
 
@@ -49,11 +72,10 @@ class Restaurante {
         if (terminado != null) {
             this.pedidosAtendidos++;
             
-            if (!this.colaPedidos.isEmpty()) {
-                Pedido siguienteInmediato = this.buscarYExtraerMasRapido();
-                this.tiempoTotalEspera += (minutoActual - siguienteInmediato.getMinutoLlegada());
-                this.cocinero.asignarPedido(siguienteInmediato);
-            }
+            int espera = (minutoActual - terminado.getMinutoLlegada() + 1) - terminado.getTiempoTotal();
+            if (espera < 0) espera = 0;
+
+            this.tiempoTotalEspera += espera;
         }
     }
 
