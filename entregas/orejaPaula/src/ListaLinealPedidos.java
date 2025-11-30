@@ -9,6 +9,22 @@ public class ListaLinealPedidos implements IEstructuraPedidos {
         lista = new ArrayList<>();
         comparaciones = 0;
     }
+
+    @Override
+    public void insertar(Pedido p) {
+        lista.add(p);
+    }
+
+    @Override
+    public boolean estaVacia() {
+        return lista.isEmpty();
+    }
+
+    @Override
+    public int tamano() {
+        return lista.size();
+    }
 }
+
 
 
