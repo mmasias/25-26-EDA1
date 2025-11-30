@@ -22,7 +22,36 @@ public class Pedido {
     public boolean estaTerminado() {
         return tiempoRestante <= 0;
     }
+
+    public Plato getPlato() {
+        return plato;
+    }
+
+    public int getTiempoRestante() {
+        return tiempoRestante;
+    }
+
+    public int getInstanteLlegada() {
+        return instanteLlegada;
+    }
+
+    public int getInstanteInicio() {
+        return instanteInicio;
+    }
+
+    public void setInstanteInicio(int instanteInicio) {
+        this.instanteInicio = instanteInicio;
+    }
+
+    public int getTiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
+
 
 
 
