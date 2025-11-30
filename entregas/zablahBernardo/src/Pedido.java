@@ -8,7 +8,7 @@ public class Pedido {
     private int tiempoRestante;
     private int minutoLlegada;
 
-    public Pedido(String nombre, int tiempo, int minutoActual) {
+    public Pedido(String nombre, int tiempoPreparacion, int minutoLlegada) {
         this.id = contadorId++;
         this.nombre = nombre;
         this.tiempoPreparacion = tiempoPreparacion;
