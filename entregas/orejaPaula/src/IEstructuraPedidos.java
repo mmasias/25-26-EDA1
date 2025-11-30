@@ -3,6 +3,9 @@ public interface IEstructuraPedidos {
     Pedido extraerMinimo();
     boolean estaVacia();
     int tamano();
+    long getComparaciones();
+    void resetComparaciones();
 }
+
 
 
