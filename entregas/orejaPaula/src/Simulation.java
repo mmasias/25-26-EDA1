@@ -65,6 +65,12 @@ public class Simulation {
         System.out.println("Comparaciones totales    : " + estadisticas.getComparacionesTotales());
         System.out.println("========================================");
     }
+
+    public static void main(String[] args) {
+        IEstructuraPedidos estructura = new ColaPrioridadPedidos();
+        Simulation simulation = new Simulation(120, 0.4, estructura);
+        simulation.iniciar();
+    }
 }
 
 
