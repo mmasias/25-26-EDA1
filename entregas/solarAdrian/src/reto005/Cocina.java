@@ -20,7 +20,6 @@ public class Cocina {
     }
 
     public void trabajar() {
-
         if (pedidoEnProceso == null && !colaPedidos.isEmpty()) {
             pedidoEnProceso = colaPedidos.poll();
 
@@ -40,10 +39,10 @@ public class Cocina {
     private void finalizarPedidoActual() {
         pedidosAtendidos++;
         pedidoEnProceso = null;
-       
+
         if (!colaPedidos.isEmpty()) {
             pedidoEnProceso = colaPedidos.poll();
-        
+        }
     }
 
     public void imprimirEstado() {
