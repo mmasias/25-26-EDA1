@@ -1,3 +1,4 @@
+
 public class Cocinero {
 
     private Pedido pedidoEnPreparacion;
@@ -42,4 +43,3 @@ public class Cocinero {
         return sumaTiemposEsperaPedidosAtendidos;
     }
 }
-

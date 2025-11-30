@@ -1,3 +1,4 @@
+
 public class Cocina {
 
     private int instanteActualMinuto;
@@ -56,14 +57,14 @@ public class Cocina {
         String textoCocinero;
         if (cocineroUnico.estaAtendiendoPedido()) {
             Pedido pedidoEnCurso = cocineroUnico.pedidoEnPreparacion();
-            textoCocinero = "Cocinero preparando pedido " + pedidoEnCurso.identificador() +
-                    " (restante: " + pedidoEnCurso.duracionRestante() + " min)";
+            textoCocinero = "Cocinero preparando pedido " + pedidoEnCurso.identificador()
+                    + " (restante: " + pedidoEnCurso.duracionRestante() + " min)";
         } else {
             textoCocinero = "Cocinero libre";
         }
-        System.out.println("Minuto " + instanteActualMinuto +
-                ": pedidos en espera=" + arbolPedidos.cantidadPedidos() +
-                " | " + textoCocinero);
+        System.out.println("Minuto " + instanteActualMinuto
+                + ": pedidos en espera=" + arbolPedidos.cantidadPedidos()
+                + " | " + textoCocinero);
     }
 
     private void construirEstadisticasFinales() {
