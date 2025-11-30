@@ -1,5 +1,7 @@
+import java.util.*;
+
 public class Main {
-    private static final int JORNADA_MINUTOS = 480;
+    private static final int JORNADA_MINUTOS = 720;
     private static final double PROBABILIDAD_LLEGADA = 0.40;
 
     public static void main(String[] args) {
@@ -12,17 +14,17 @@ public class Main {
         System.out.println("========================================");
 
         for (int minuto = 1; minuto <= JORNADA_MINUTOS; minuto++) {
-            StringBuilder logOutput = new StringBuilder();
-            logOutput.append("[").append(minuto).append(".0] ");
+            System.out.print("[" + minuto + ".0] ");
 
             if (random.nextDouble() < PROBABILIDAD_LLEGADA) {
                 Pedido nuevoPedido = new Pedido(idCounter++, minuto);
-                logOutput.append(restaurante.recibirPedido(nuevoPedido)).append(" | ");
+                System.out.print(restaurante.recibirPedido(nuevoPedido) + " | ");
             }
+
+            System.out.println();
 
             restaurante.gestionarTurno(minuto);
 
-            System.out.println(logOutput.toString());
             System.out.println("COLA: " + restaurante.obtenerTamanoCola() + " pedidos");
             System.out.println(restaurante.obtenerEstadoCocinero());
             System.out.println("----------------------------------------");

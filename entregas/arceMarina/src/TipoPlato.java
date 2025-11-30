@@ -1,3 +1,5 @@
+import java.util.*;
+
 class TipoPlato {
     private String nombre;
     private int min;

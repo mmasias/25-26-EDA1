@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Restaurante {
     private List<Pedido> colaPedidos;
     private Cocinero cocinero;
@@ -16,8 +18,7 @@ class Restaurante {
 
     String recibirPedido(Pedido pedido) {
         this.colaPedidos.add(pedido);
-        return String.format("Llega pedido: %s (%d min)", 
-            pedido.getNombrePlato(), pedido.getTiempoTotal());
+        return "Llega pedido: " + pedido.getNombrePlato() + " (" + pedido.getTiempoTotal() + " min)";
     }
 
     private Pedido buscarYExtraerMasRapido() {
@@ -69,13 +70,15 @@ class Restaurante {
             ? (double) this.tiempoTotalEspera / this.pedidosAtendidos 
             : 0.0;
 
+        double promedioRedondeado = Math.round(promedio * 10.0) / 10.0;
+
         System.out.println("========================================");
         System.out.println("RESUMEN DE LA JORNADA");
         System.out.println("========================================");
         System.out.println("Pedidos atendidos        : " + this.pedidosAtendidos);
         System.out.println("Pedidos pendientes       : " + this.colaPedidos.size());
         System.out.println("Tiempo total de espera   : " + this.tiempoTotalEspera + " min");
-        System.out.println("Tiempo medio de espera   : " + String.format("%.1f", promedio) + " min");
+        System.out.println("Tiempo medio de espera   : " + promedioRedondeado + " min");
         System.out.println("Comparaciones SJF (O(N)): " + this.contadorComparaciones);
         System.out.println("========================================");
     }
