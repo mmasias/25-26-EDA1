@@ -15,6 +15,26 @@ public class ColaPrioridadPedidos implements IEstructuraPedidos {
         });
         comparaciones = 0;
     }
+
+    @Override
+    public void insertar(Pedido p) {
+        cola.add(p);
+    }
+
+    @Override
+    public Pedido extraerMinimo() {
+        return cola.poll();
+    }
+
+    @Override
+    public boolean estaVacia() {
+        return cola.isEmpty();
+    }
+
+    @Override
+    public int tamano() {
+        return cola.size();
+    }
 }
 
 
