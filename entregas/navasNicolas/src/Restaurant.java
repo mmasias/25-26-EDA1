@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 class Restaurant {
     private final double OPENING_TIME = 9.0;
@@ -21,6 +22,7 @@ class Restaurant {
     }
 
     public void run() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("=== INICIO DE JORNADA RCCCF ===");
         
         for (double time = OPENING_TIME; time < CLOSING_TIME; time = time + MINUTE) {
@@ -31,6 +33,7 @@ class Restaurant {
             processQueue();
             
              showSummary(); 
+            scanner.nextLine();
         }
         
         printFinalReport();
