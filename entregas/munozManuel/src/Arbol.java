@@ -4,14 +4,18 @@ class Arbol{
     private Nodo raiz;
     private int cantidadNodos = 0;
 
-    public void insertarPedido(Pedido pedido){
+    public void insertarPedido(Nodo nodo){
         if (raiz == null) {
-            raiz = new Nodo(pedido);
+            raiz = nodo;
             cantidadNodos++;
         }else{
-            raiz.insertarHijo(new Nodo(pedido));
+            raiz.insertarHijo(nodo);
             cantidadNodos++;
         }
+    }
+    
+    public Nodo buscarNodoMinimo() {
+        return buscarNodoRecursivo(raiz, null);
     }
 
     public void recorrerArbol() {
@@ -27,7 +31,7 @@ class Arbol{
 
         for (Nodo nodosOrdenado : nodosOrdenados) {
             if (nodosOrdenado != null) {
-                System.out.println(nodosOrdenado.nombrePedido() + " elemnto con timepo: " + nodosOrdenado.tiempoPreparacion());
+                System.out.println(nodosOrdenado.nombrePedido() + " elemento con timepo: " + nodosOrdenado.tiempoPreparacion());
             }
         }
     }
@@ -44,5 +48,21 @@ class Arbol{
 
         return indice;
     }
+
+
+private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMin) {
+    if (nodo == null) return actualMin;
+
+    actualMin = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMin);
+
+    if (actualMin == null || nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
+        actualMin = nodo;
+    }
+
+    actualMin = buscarNodoRecursivo(nodo.hijoDerecha(), actualMin);
+
+    return actualMin;
+}
+
 
 }
