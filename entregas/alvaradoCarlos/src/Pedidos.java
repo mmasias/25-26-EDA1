@@ -1,7 +1,7 @@
 class Pedido {
-    String nombre;
-    int tiempoTotal;
-    int tiempoRestante;
+    private String nombre;
+    private int tiempoTotal;
+    private int tiempoRestante;
 
     public Pedido(TipoPlato plato) {
         this.nombre = plato.nombre();
