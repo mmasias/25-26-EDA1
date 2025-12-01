@@ -37,6 +37,7 @@ class ArbolPedidos {
   + incrementarEspera() : void
   + tiempoTotalEspera() : int
   + printTree() : void
+  + isEmpty() : boolean
 }
 
 class Pedido {
