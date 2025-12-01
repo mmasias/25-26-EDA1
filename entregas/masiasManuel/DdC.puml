@@ -1,0 +1,72 @@
+@startuml
+
+class Simulation {
+  + {static} main(String[] args) : void
+}
+
+class Restaurant {
+  - DURACION_JORNADA : int
+  - PROBABILITY_ARRIVAL : double
+  - cola : ArbolPedidos
+  - pedidoActual : Pedido
+  - tiempoRestante : int
+  - pedidosAtendidos : int
+  - tiempoTotalEsperaAtendidos : int
+  - minutoActual : int
+  - scanner : Scanner
+  - TIPOS_PLATOS : String[]
+  - RANGOS_TIEMPO : int[][]
+  + Restaurant()
+  + run() : void
+  - validarLlegada() : void
+  - procesarCocina() : void
+  - mostrarEstado(int minuto) : void
+  - mostrarResumen() : void
+  - cleanScreen() : void
+}
+
+class ArbolPedidos {
+  - raiz : Nodo
+  - comparaciones : int
+  - tamaño : int
+  + ArbolPedidos()
+  + insertar(Pedido pedido) : void
+  + extraerMinimo() : Pedido
+  + tamanio() : int
+  + getComparaciones() : int
+  + incrementarEspera() : void
+  + tiempoTotalEspera() : int
+  + printTree() : void
+}
+
+class Pedido {
+  - tipo : String
+  - tiempoPreparacion : int
+  - tiempoEspera : int
+  + Pedido(String tipo, int tiempoPreparacion)
+  + getTipo() : String
+  + getTiempoPreparacion() : int
+  + getTiempoEspera() : int
+  + incrementarEspera() : void
+}
+
+class Nodo {
+  - pedido : Pedido
+  - izquierdo : Nodo
+  - derecho : Nodo
+  + Nodo(Pedido pedido)
+  + getPedido() : Pedido
+  + getIzquierdo() : Nodo
+  + setIzquierdo(Nodo izquierdo) : void
+  + getDerecho() : Nodo
+  + setDerecho(Nodo derecho) : void
+}
+
+Simulation ..> Restaurant : usa
+Restaurant *-- ArbolPedidos : contiene
+Restaurant o.. Pedido : gestiona
+ArbolPedidos *-- Nodo : contiene
+Nodo o-- Pedido : contiene
+Nodo o-- Nodo : izquierdo/derecho
+
+@enduml
