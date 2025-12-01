@@ -1,0 +1,40 @@
+@startuml DiagramaClasesRCCCF_Final
+
+class Pedido {
+    - String nombrePlato
+    - int tiempoTotal
+    - int tiempoRestante
+    - int minutoLlegada
+    
+    + Pedido(String nombre, int total, int llegada)
+    + void restarMinuto()
+    + boolean estaTerminado()
+    + int getTiempoRestante()
+    + int getTiempoTotal()
+    + int getMinutoLlegada()
+}
+
+class Cocinero {
+    - Pedido pedidoActual
+    - int platosAtendidos
+    
+    + Cocinero()
+    + boolean estaLibre()
+    + void asignarPedido(Pedido p)
+    + Pedido getPedidoActual()
+    + int getPlatosAtendidos()
+    + void trabajar()
+}
+
+class Main {
+    - static int comparacionesTotales
+    + static void main(String[] args)
+    - static Pedido buscarSiguientePedido(List<Pedido> cola)
+    - static void generarPedidoSiToca(int minutoActual, List<Pedido> cola)
+}
+
+Main ..> Cocinero
+Main ..> Pedido
+Cocinero --> Pedido
+
+@enduml
