@@ -1,0 +1,85 @@
+@startuml
+
+object ":Simulation" as sim {
+}
+
+object ":Restaurant" as rest {
+  minutoActual = 15
+  pedidosAtendidos = 8
+  tiempoRestante = 1
+  tiempoTotalEsperaAtendidos = 45
+}
+
+object "pedidoActual:Pedido" as pedActual {
+  tipo = "Café"
+  tiempoPreparacion = 3
+  tiempoEspera = 2
+}
+
+object "cola:ArbolPedidos" as arbol {
+  comparaciones = 47
+  tamaño = 4
+}
+
+object "raiz:Nodo" as nodo1 {
+}
+
+object ":Pedido" as ped1 {
+  tipo = "Bocadillo"
+  tiempoPreparacion = 4
+  tiempoEspera = 5
+}
+
+object "izquierdo:Nodo" as nodo2 {
+}
+
+object ":Pedido" as ped2 {
+  tipo = "Colacao"
+  tiempoPreparacion = 3
+  tiempoEspera = 3
+}
+
+object "derecho:Nodo" as nodo3 {
+}
+
+object ":Pedido" as ped3 {
+  tipo = "Ensalada"
+  tiempoPreparacion = 7
+  tiempoEspera = 8
+}
+
+object "izquierdo:Nodo" as nodo4 {
+}
+
+object ":Pedido" as ped4 {
+  tipo = "Bebida"
+  tiempoPreparacion = 2
+  tiempoEspera = 1
+}
+
+' Relaciones principales
+sim ..> rest
+rest *-- arbol
+rest o.. pedActual
+
+' Estructura del árbol
+arbol *-- nodo1
+nodo1 o-- ped1
+nodo1 *-- nodo2 : izquierdo
+nodo1 *-- nodo3 : derecho
+
+nodo2 o-- ped2
+nodo2 *-- nodo4 : izquierdo
+
+nodo3 o-- ped3
+
+nodo4 o-- ped4
+
+note right of rest
+  El cocinero está terminando
+  un Café (1 min restante)
+
+  4 pedidos en cola esperando
+end note
+
+@enduml
