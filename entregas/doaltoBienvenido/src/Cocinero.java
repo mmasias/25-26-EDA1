@@ -17,12 +17,15 @@ public class Cocinero {
         return pedidoActual; 
     }
 
-    public void procesarUnMinuto() {
+    public Pedido procesarUnMinuto() {
         if (pedidoActual != null) {
             pedidoActual.decrementarTiempoRestante();
             if (pedidoActual.estaCompleto()) {
+                Pedido pedidoTerminado = pedidoActual;
                 pedidoActual = null;
+                return pedidoTerminado;
             }
         }
+        return null;
     }
 }

@@ -12,33 +12,39 @@ public class Restaurante {
 
     public void ejecutar(int minutos) {
         for (int tiempo = 1; tiempo <= minutos; tiempo++) {
-            avanzarUnMinuto(tiempo);
+            System.out.println("========================================");
+            System.out.println("[Minuto " + tiempo + "]");
+
+            if (Math.random() < PROBABILIDAD_LLEGADA) {
+                String tipo = TipoPlato.muestrearTipo();
+                int tiempoPreparacion = TipoPlato.generarTiempoParaTipo(tipo);
+                Pedido nuevoPedido = new Pedido(tiempo, tipo, tiempoPreparacion, tiempo);
+                colaPedidos.insertar(nuevoPedido);
+                System.out.println("Llega pedido: " + nuevoPedido.getTipo() + " (" + nuevoPedido.getTiempoPreparacion() + " min)");
+            }
+
+            if (!cocinero.estaOcupado() && !colaPedidos.estaVacia()) {
+                Pedido pedidoMin = colaPedidos.extraerMin();
+                cocinero.asignarPedido(pedidoMin);
+                estadisticas.registrarInicioServicio(pedidoMin, tiempo);
+            }
+
+            Pedido pedidoTerminado = cocinero.procesarUnMinuto();
+            if (pedidoTerminado != null) {
+                estadisticas.registrarPedidoAtendido(pedidoTerminado);
+                System.out.println("Pedido completado: " + pedidoTerminado.getTipo());
+            }
+
+            System.out.println("COLA: " + colaPedidos.tamaño() + " pedidos");
+            if (cocinero.estaOcupado()) {
+                System.out.println("Cocinero: [" + cocinero.obtenerPedido().getTipo() + " - " + cocinero.obtenerPedido().getTiempoRestante() + " min restantes]");
+            } else {
+                System.out.println("Cocinero: libre");
+            }
         }
 
-        finalizar();
-    }
-
-    public void avanzarUnMinuto(int tiempo) {
-        if (Math.random() < PROBABILIDAD_LLEGADA) {
-            String tipo = TipoPlato.muestrearTipo();
-            int tiempoPreparacion = TipoPlato.generarTiempoParaTipo(tipo);
-            Pedido nuevoPedido = new Pedido(tiempo, tipo, tiempoPreparacion, tiempo);
-            colaPedidos.insertar(nuevoPedido);
-            System.out.println("Nuevo pedido: " + nuevoPedido);
-        }
-
-        if (!cocinero.estaOcupado() && !colaPedidos.estaVacia()) {
-            Pedido pedidoMin = colaPedidos.extraerMin();
-            cocinero.asignarPedido(pedidoMin);
-            estadisticas.registrarInicioServicio(pedidoMin, tiempo);
-            System.out.println("El cocinero comienza a preparar: " + pedidoMin);
-        }
-
-        cocinero.procesarUnMinuto();
-    }
-
-    public void finalizar() {
         estadisticas.registrarComparaciones(colaPedidos.tamaño());
+        System.out.println("========================================");
         System.out.println(estadisticas.generarResumen());
     }
 }
