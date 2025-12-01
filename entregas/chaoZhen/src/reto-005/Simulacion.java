@@ -11,10 +11,11 @@ public class Simulacion {
 
     private void inicializarMenu() {
         menu = new Plato[4];
-        menu[0] = new Plato("Arroz Frito", 5, 10);
-        menu[1] = new Plato("Pollo Agridulce", 10, 20);
-        menu[2] = new Plato("Rollito Primavera", 3, 7);
-        menu[3] = new Plato("Sopa Wantan", 8, 15);
+        menu[0] = new Plato("Bebida", 1, 2);
+        menu[1] = new Plato("cafe", 2, 3);
+        menu[2] = new Plato("Colacao", 2, 4);
+        menu[3] = new Plato("Bocadillo", 3, 5);
+        menu[4] = new Plato("Ensalada", 5, 8);
     }
 
     public void generarEventosAleatorios(int minutoActual) {
