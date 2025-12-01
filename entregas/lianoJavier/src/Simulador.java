@@ -6,7 +6,6 @@ public class Simulador {
 
         private Arbol colaPedidos;
         private Cocinero cocinero;
-        private GeneradorDePedidos generador;
         private EstadisticasJornada estadisticas;
         private Reloj reloj;
         private int estadoActual;
@@ -14,7 +13,6 @@ public class Simulador {
         public Simulador() {
                 this.colaPedidos = new Arbol();
                 this.cocinero = new Cocinero();
-                this.generador = new GeneradorDePedidos();
                 this.estadisticas = new EstadisticasJornada();
                 this.reloj = new Reloj();
                 this.estadoActual = INICIO;
@@ -56,13 +54,14 @@ public class Simulador {
         }
 
         private void gestionarLlegadaPedidos(int minuto) {
-                Pedido nuevoPedido = generador.intentarGenerar(minuto);
+                Pedido nuevoPedido;
+                final double PROBABILIDAD_LLEGADA = 0.4;
 
-                if (nuevoPedido == null)
-                        return;
-
-                colaPedidos.insertar(nuevoPedido);
-                VisualizadorDeSimulacion.mostrarLlegadaPedido(nuevoPedido, minuto);
+                if (Math.random() < PROBABILIDAD_LLEGADA) {
+                        nuevoPedido = generarPedido(minuto);
+                        colaPedidos.insertar(nuevoPedido);
+                        VisualizadorDeSimulacion.mostrarLlegadaPedido(nuevoPedido, minuto);
+                }
         }
 
         private void gestionarCocina(int minuto) {
@@ -96,4 +95,11 @@ public class Simulador {
                         estadisticas.registrarPedidoPendiente();
                 }
         }
+
+	private Pedido generarPedido(int minuto) {
+		Pedido nuevoPedido;
+		int tipoAleatorio = TipoDePlato.generarTipoAleatorio();
+		nuevoPedido = new Pedido(tipoAleatorio, minuto);
+		return nuevoPedido;
+	}
 }
