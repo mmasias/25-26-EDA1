@@ -1,5 +1,3 @@
-package restaurant;
-
 import java.util.Random;
 
 class Restaurant {

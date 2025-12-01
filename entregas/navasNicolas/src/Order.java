@@ -1,5 +1,3 @@
-package restaurant;
-
 public class Order {
     String type;
     int totalTime;

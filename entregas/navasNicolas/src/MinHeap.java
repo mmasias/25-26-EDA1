@@ -1,5 +1,3 @@
-package restaurant;
-
 public class MinHeap {
     private Order[] heap;
     private int size;
