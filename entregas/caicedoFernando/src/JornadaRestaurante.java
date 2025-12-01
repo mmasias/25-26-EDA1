@@ -58,7 +58,7 @@ public class JornadaRestaurante {
     }
 
     private void procesarCocina() {
-        Pedido pedidoTerminado = null;
+        Pedido pedidoTerminado;
         if (!cocinero.estaLibre()) {
             pedidoTerminado = cocinero.trabajar();
             if (pedidoTerminado != null) {
