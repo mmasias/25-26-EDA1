@@ -12,7 +12,7 @@ public class Estadisticas {
     }
 
     public void registrarInicioServicio(Pedido pedido, int instanteInicio) {
-        tiempoEsperaAcumulado += (instanteInicio - pedido.getInstanteLlegada());
+        tiempoEsperaAcumulado += (instanteInicio - pedido.getId());
     }
 
     public void registrarPedidoAtendido(Pedido pedido) {

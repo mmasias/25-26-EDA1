@@ -1,10 +1,12 @@
-public class ColaPedidos {
+public class ArbolPedidos {
     private NodoPedido raiz;
     private int cantidadPedidos;
+    private static final int CANTIDAD_INICIAL = 0;
+    private static final int CANTIDAD_VACIA = 0;
 
-    public ColaPedidos() {
+    public ArbolPedidos() {
         raiz = null;
-        cantidadPedidos = 0;
+        cantidadPedidos = CANTIDAD_INICIAL;
     }
 
     public void insertar(Pedido pedido) {
@@ -34,7 +36,7 @@ public class ColaPedidos {
     }
 
     public boolean estaVacia() { 
-        return cantidadPedidos == 0; 
+        return cantidadPedidos == CANTIDAD_VACIA; 
     }
 
     private void insertarEnArbol(NodoPedido actual, NodoPedido nuevo) {
@@ -93,7 +95,5 @@ public class ColaPedidos {
         if (nuevo != null) {
             nuevo.setPadre(nodo.getPadre());
         }
-    }
-
-    
+    }    
 }
