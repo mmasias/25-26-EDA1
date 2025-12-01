@@ -1,19 +1,27 @@
 package entregas.munozManuel.src;
 
-class Arbol{
+class Arbol {
     private Nodo raiz;
     private int cantidadNodos = 0;
 
-    public void insertarPedido(Nodo nodo){
+    public Arbol(){
+
+    }
+
+    public void insertarPedido(Nodo nodo) {
         if (raiz == null) {
             raiz = nodo;
             cantidadNodos++;
-        }else{
+        } else {
             raiz.insertarHijo(nodo);
             cantidadNodos++;
         }
     }
-    
+
+    public int cantidadNodos(){
+        return cantidadNodos;
+    }
+
     public Nodo buscarNodoMinimo() {
         return buscarNodoRecursivo(raiz, null);
     }
@@ -31,13 +39,15 @@ class Arbol{
 
         for (Nodo nodosOrdenado : nodosOrdenados) {
             if (nodosOrdenado != null) {
-                System.out.println(nodosOrdenado.nombrePedido() + " elemento con timepo: " + nodosOrdenado.tiempoPreparacion());
+                System.out.println(
+                        nodosOrdenado.nombrePedido() + " elemento con timepo: " + nodosOrdenado.tiempoPreparacion());
             }
         }
     }
 
     private int recorrerInOrden(Nodo nodo, Nodo[] arreglo, int indice) {
-        if (nodo == null) return indice;
+        if (nodo == null)
+            return indice;
 
         indice = recorrerInOrden(nodo.hijoIzquerda(), arreglo, indice);
 
@@ -49,20 +59,19 @@ class Arbol{
         return indice;
     }
 
+    private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMin) {
+        if (nodo == null)
+            return actualMin;
 
-private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMin) {
-    if (nodo == null) return actualMin;
+        actualMin = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMin);
 
-    actualMin = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMin);
+        if (actualMin == null || nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
+            actualMin = nodo;
+        }
 
-    if (actualMin == null || nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
-        actualMin = nodo;
+        actualMin = buscarNodoRecursivo(nodo.hijoDerecha(), actualMin);
+
+        return actualMin;
     }
-
-    actualMin = buscarNodoRecursivo(nodo.hijoDerecha(), actualMin);
-
-    return actualMin;
-}
-
 
 }
