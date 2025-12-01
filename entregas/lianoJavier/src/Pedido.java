@@ -26,9 +26,9 @@ public class Pedido {
     }
 
     public void procesarMinuto() {
-        if (tiempoPreparacion > 0) {
-            tiempoPreparacion--;
-        }
+        assert tiempoPreparacion <= 0 : "Tiempo Negativo o 0";
+
+        tiempoPreparacion--;
     }
 
     public boolean estaCompletado() {
