@@ -42,8 +42,6 @@ class MinHeap {
     }
 
     public Pedido extraerMinimo() {
-        if (tamaño == 0) return null;
-
         Pedido min = heap[0];
         heap[0] = heap[tamaño - 1];
         heap[tamaño - 1] = null;
