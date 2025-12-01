@@ -1,4 +1,5 @@
-class Pedido {
+public class Pedido {
+
     private String tipo;
     private int tiempoPreparacion;
     private int tiempoRestante;
@@ -13,11 +14,25 @@ class Pedido {
         this.minutoLlegada = minutoLlegada;
     }
     
-    public String getTipo() { return tipo; }
-    public int getTiempoPreparacion() { return tiempoPreparacion; }
-    public int getTiempoRestante() { return tiempoRestante; }
-    public int getIdOrden() { return idOrden; }
-    public int getMinutoLlegada() { return minutoLlegada; }
+    public String getTipo() {
+        return tipo;
+    }
+    
+    public int getTiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+    
+    public int getTiempoRestante() {
+        return tiempoRestante;
+    }
+    
+    public int getIdOrden() {
+        return idOrden;
+    }
+    
+    public int getMinutoLlegada() {
+        return minutoLlegada;
+    }
     
     public void decrementarTiempo() {
         if (tiempoRestante > 0) {
@@ -27,5 +42,17 @@ class Pedido {
     
     public boolean estaCompletado() {
         return tiempoRestante == 0;
+    }
+    
+    public int compararCon(Pedido otro) {
+        if (this.tiempoPreparacion != otro.tiempoPreparacion) {
+            return Integer.compare(this.tiempoPreparacion, otro.tiempoPreparacion);
+        }
+        return Integer.compare(this.idOrden, otro.idOrden);
+    }
+    
+    @Override
+    public String toString() {
+        return tipo + " (" + tiempoRestante + " min restantes)";
     }
 }
