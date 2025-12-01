@@ -4,6 +4,8 @@ public class Nodo {
     private Nodo derecho;
 
     public Nodo(Pedido pedido) {
+        assert pedido != null : "El pedido no puede ser null";
+        
         this.pedido = pedido;
         this.izquierdo = null;
         this.derecho = null;
