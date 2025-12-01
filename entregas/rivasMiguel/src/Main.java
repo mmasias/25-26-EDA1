@@ -1,5 +1,4 @@
 public class Main {
-    // Generador global
     public static MiRandom rnd = new MiRandom();
 
     public static void main(String[] args) {
