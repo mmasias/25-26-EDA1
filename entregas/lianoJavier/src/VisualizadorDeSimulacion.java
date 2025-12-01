@@ -6,7 +6,7 @@ public class VisualizadorDeSimulacion {
         }
 
         public static void mostrarEstadoCocina(Cocinero cocinero, Arbol cola, int minuto) {
-                Console.imprimirln("COLA: " + cola.obtenerTamanio() + " pedidos");
+                Console.imprimirln("COLA: " + cola.obtenerTamaño() + " pedidos");
 
                 if (cocinero.estaOcupado()) {
                         Pedido pedidoActual = cocinero.obtenerPedidoActual();

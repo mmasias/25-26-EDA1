@@ -1,17 +1,17 @@
 public class Arbol {
         private NodoArbol raiz;
-        private int tamanio;
+        private int tamaño;
         private int comparaciones;
 
         public Arbol() {
                 raiz = null;
-                tamanio = 0;
+                tamaño = 0;
                 comparaciones = 0;
         }
 
         public void insertar(Pedido pedido) {
                 raiz = insertarRecursivo(raiz, pedido);
-                tamanio++;
+                tamaño++;
         }
 
         private NodoArbol insertarRecursivo(NodoArbol nodoActual, Pedido pedido) {
@@ -37,7 +37,7 @@ public class Arbol {
 
                 Pedido minimo = encontrarMinimo(raiz);
                 raiz = eliminarMinimo(raiz);
-                tamanio--;
+                tamaño--;
 
                 return minimo;
         }
@@ -64,8 +64,8 @@ public class Arbol {
                 return raiz == null;
         }
 
-        public int obtenerTamanio() {
-                return tamanio;
+        public int obtenerTamaño() {
+                return tamaño;
         }
 
         public int obtenerComparaciones() {
