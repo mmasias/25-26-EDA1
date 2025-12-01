@@ -16,7 +16,7 @@ class Restaurant {
     private double currentTime; 
 
     public Restaurant() {
-        this.orderQueue = new MinHeap(500);
+        this.orderQueue = new MinHeap(350);
         this.random = new Random();
     }
 

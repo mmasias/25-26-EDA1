@@ -1,8 +1,9 @@
 public class Order {
-    String type;
-    int totalTime;
-    int remainingTime; 
-    double arrivalTime;
+    private String type;
+    private int totalTime;
+    private int remainingTime; 
+    private double arrivalTime;
+    
     public Order(String type, int time, double arrivalTime) {
         this.type = type;
         this.totalTime = time;

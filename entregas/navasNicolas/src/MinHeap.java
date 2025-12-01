@@ -28,7 +28,6 @@ public class MinHeap {
     }
 
     public Order extractMin() {
-        if (isEmpty()) return null;
         Order min = heap[1];
         swap(1, size);
         heap[size] = null;
