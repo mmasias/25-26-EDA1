@@ -74,17 +74,14 @@ class Restaurant {
 
     private Order generateRandomOrder() {
         int type = random.nextInt(5);
-        String name = "";
-        int time = 0;
-
-        switch (type) {
-            case 0: name = "Bebida";    time = 1 + random.nextInt(2); break; 
-            case 1: name = "Café";      time = 2 + random.nextInt(2); break; 
-            case 2: name = "Colacao";   time = 2 + random.nextInt(3); break; 
-            case 3: name = "Bocadillo"; time = 3 + random.nextInt(3); break; 
-            case 4: name = "Ensalada";  time = 5 + random.nextInt(4); break; 
-        }
-        return new Order(name, time, currentTime);
+        return switch (type) {
+            case 0 -> new Order("Bebida", 1 + random.nextInt(2), currentTime);
+            case 1 -> new Order("Café", 2 + random.nextInt(2), currentTime);
+            case 2 -> new Order("Colacao", 2 + random.nextInt(3), currentTime);
+            case 3 -> new Order("Bocadillo", 3 + random.nextInt(3), currentTime);
+            case 4 -> new Order("Ensalada", 5 + random.nextInt(4), currentTime);
+            default -> new Order("Desconocido", 1, currentTime);
+        };
     }
 
     private void printFinalReport() {
