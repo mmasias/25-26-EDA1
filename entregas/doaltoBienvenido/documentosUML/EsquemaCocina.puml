@@ -14,10 +14,7 @@ class Restaurante {
     -cocineroPrincipal : Cocinero
     -estadisticas : Estadisticas
     +Restaurante()
-    +void ejecutar(int minutosTotales)
-    -void generarPedidoSiCorresponde(int minutoActual)
-    -void asignarPedidoAlCocinero(int minutoActual)
-    -void cocinarDuranteUnMinuto(int minutoActual)
+    +void ejecutar(int minutos)
 }
 
 class Cocinero {
@@ -45,15 +42,15 @@ class Pedido {
     -tiempoRestante : double
     -instanteDeLlegada : int
     -instanteDeInicio : int
-    +Pedido(int identificador, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)
-    +int getIdentificador()
-    +String getTipoDePlato()
+    +Pedido(int id, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)
+    +int getId()
+    +String getTipo()
     +double getTiempoDePreparacion()
     +double getTiempoRestante()
     +int getInstanteDeLlegada()
     +int getInstanteDeInicio()
     +void decrementarTiempoRestante()
-    +void marcarComoIniciado(int instanteDeInicio)
+    +void marcarComoIniciado(int instante)
     +boolean estaCompleto()
     +int compareTo(Pedido otroPedido)
     +String toString()
@@ -65,9 +62,14 @@ class Estadisticas {
     -tiempoTotalDeEspera : double
     -comparacionesRealizadas : double
     +Estadisticas()
-    +void registrarInicioServicio(Pedido pedido, int minuto)
+    +void registrarInicioServicio(Pedido pedido, int instanteInicio)
     +void registrarPedidoAtendido(Pedido pedido)
     +void registrarComparaciones(double cantidadComparaciones)
+    +public int getTotalPedidosAtendidos() 
+    +public int getTotalPedidosPendientes()  
+    +public double getTiempoEsperaAcumulado() 
+    +public double getTiempoEsperaMedio() 
+    +public double getComparacionesRealizadas()  
     +String generarResumen()
 }
 
