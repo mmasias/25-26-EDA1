@@ -38,20 +38,26 @@ public class ColaPedidos {
     }
 
     private void insertarEnArbol(NodoPedido actual, NodoPedido nuevo) {
-        if (nuevo.getPedido().compareTo(actual.getPedido()) < 0) {
-            if (actual.getIzquierdo() == null) {
-                actual.setIzquierdo(nuevo);
-                nuevo.setPadre(actual);
+        NodoPedido padre = null;
+        NodoPedido nodoActual = actual;
+
+        while (nodoActual != null) {
+            padre = nodoActual;
+            if (nuevo.getPedido().compareTo(nodoActual.getPedido()) < 0) {
+                nodoActual = nodoActual.getIzquierdo();
             } else {
-                insertarEnArbol(actual.getIzquierdo(), nuevo);
+                nodoActual = nodoActual.getDerecho();
             }
+        }
+
+        if (padre == null) {
+            raiz = nuevo;
+        } else if (nuevo.getPedido().compareTo(padre.getPedido()) < 0) {
+            padre.setIzquierdo(nuevo);
+            nuevo.setPadre(padre);
         } else {
-            if (actual.getDerecho() == null) {
-                actual.setDerecho(nuevo);
-                nuevo.setPadre(actual);
-            } else {
-                insertarEnArbol(actual.getDerecho(), nuevo);
-            }
+            padre.setDerecho(nuevo);
+            nuevo.setPadre(padre);
         }
     }
 
