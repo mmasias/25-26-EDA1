@@ -10,6 +10,8 @@ public class ArbolPedidos {
     }
 
     public void insertar(Pedido pedido) {
+        assert pedido != null : "El pedido no puede ser null";
+
         if (raiz == null) {
             raiz = new Nodo(pedido);
         } else {
@@ -70,7 +72,7 @@ public class ArbolPedidos {
 
     public void incrementarEspera() {
         if (raiz != null) {
-            Nodo[] cola = new Nodo[1000];
+            Nodo[] cola = new Nodo[tamaño];
             int inicio = 0;
             int fin = 0;
 
@@ -98,7 +100,7 @@ public class ArbolPedidos {
         int total = 0;
 
         if (raiz != null) {
-            Nodo[] cola = new Nodo[1000];
+            Nodo[] cola = new Nodo[tamaño];
             int inicio = 0;
             int fin = 0;
 
@@ -129,10 +131,10 @@ public class ArbolPedidos {
             Pedido pedidoRaiz = raiz.getPedido();
             System.out.println(pedidoRaiz.getTipo() + " (" + pedidoRaiz.getTiempoPreparacion() + " min)");
 
-            Nodo[] stack = new Nodo[100];
-            String[] prefixStack = new String[100];
-            boolean[] isLastStack = new boolean[100];
-            boolean[] isLeftStack = new boolean[100];
+            Nodo[] stack = new Nodo[tamaño];
+            String[] prefixStack = new String[tamaño];
+            boolean[] isLastStack = new boolean[tamaño];
+            boolean[] isLeftStack = new boolean[tamaño];
             int top = -1;
 
             if (raiz.getIzquierdo() != null) {
