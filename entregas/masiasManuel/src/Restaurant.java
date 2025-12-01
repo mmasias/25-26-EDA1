@@ -75,9 +75,11 @@ public class Restaurant {
                 pedidosAtendidos++;
                 tiempoTotalEsperaAtendidos += pedidoActual.getTiempoEspera();
 
-                pedidoActual = cola.extraerMinimo();
-                if (pedidoActual != null) {
+                if (!cola.isEmpty()) {
+                    pedidoActual = cola.extraerMinimo();
                     tiempoRestante = pedidoActual.getTiempoPreparacion();
+                } else {
+                    pedidoActual = null;
                 }
             }
         }

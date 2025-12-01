@@ -41,29 +41,33 @@ public class ArbolPedidos {
     }
 
     public Pedido extraerMinimo() {
-        Pedido min = null;
+        assert tamaño > 0 : "No se puede extraer de un árbol vacío";
 
-        if (raiz != null) {
-            if (raiz.getIzquierdo() == null) {
-                min = raiz.getPedido();
-                raiz = raiz.getDerecho();
-            } else {
-                Nodo padre = raiz;
-                while (padre.getIzquierdo().getIzquierdo() != null) {
-                    comparaciones++;
-                    padre = padre.getIzquierdo();
-                }
-                min = padre.getIzquierdo().getPedido();
-                padre.setIzquierdo(padre.getIzquierdo().getDerecho());
+        Pedido min;
+
+        if (raiz.getIzquierdo() == null) {
+            min = raiz.getPedido();
+            raiz = raiz.getDerecho();
+        } else {
+            Nodo padre = raiz;
+            while (padre.getIzquierdo().getIzquierdo() != null) {
+                comparaciones++;
+                padre = padre.getIzquierdo();
             }
-            tamaño--;
+            min = padre.getIzquierdo().getPedido();
+            padre.setIzquierdo(padre.getIzquierdo().getDerecho());
         }
+        tamaño--;
 
         return min;
     }
 
     public int tamaño() {
         return tamaño;
+    }
+
+    public boolean isEmpty() {
+        return tamaño == 0;
     }
 
     public int getComparaciones() {
