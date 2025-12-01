@@ -1,0 +1,48 @@
+@startuml
+title Diagrama de Clases - Simulación RCCCF
+
+skinparam classAttributeIconSize 0
+
+
+class Pedido {
+    - String tipo
+    - int tiempoTotal
+    - int tiempoRestante
+    + {static} int comparacionesTotales
+    __
+    + Pedido(String tipo, int tiempo)
+    + int compareTo(Pedido otro)
+    + void procesarMinuto()
+    + boolean estaTerminado()
+    + String toString()
+    + int getTiempoTotal()
+}
+
+
+class Cocina {
+    - PriorityQueue<Pedido> colaPedidos
+    - Pedido pedidoEnProceso
+    - int pedidosAtendidos
+    - int tiempoEsperaAcumulado
+    __
+    + Cocina()
+    + void recibirPedido(Pedido p)
+    + void trabajar()
+    - void finalizarPedidoActual()
+    + void imprimirEstado()
+    + void mostrarResumen()
+}
+
+
+class Simulacion {
+    __
+    + {static} void main(String[] args)
+    - {static} Pedido generarPedidoAleatorio()
+}
+
+
+Cocina o--  Pedido : "gestiona"
+Simulacion ..> Cocina : "instancia y controla"
+Simulacion ..> Pedido : "crea (Factory)"
+
+@enduml
