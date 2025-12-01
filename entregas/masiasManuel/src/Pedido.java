@@ -4,6 +4,10 @@ public class Pedido {
     private int tiempoEspera;
 
     public Pedido(String tipo, int tiempoPreparacion) {
+        assert tipo != null : "El tipo no puede ser null";
+        assert !tipo.isEmpty() : "El tipo no puede estar vacío";
+        assert tiempoPreparacion > 0 : "El tiempo de preparación debe ser positivo";
+
         this.tipo = tipo;
         this.tiempoPreparacion = tiempoPreparacion;
         this.tiempoEspera = 0;
