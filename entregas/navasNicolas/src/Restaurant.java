@@ -6,8 +6,7 @@ class Restaurant {
     private final double CLOSING_TIME = 21.0;
     private final double MINUTE = 1.0 / 60.0;
     private final double PROBABILITY_ARRIVAL = 0.4;
-    private final int NUM_COCINEROS = 1; 
-
+    
     private MinHeap orderQueue;
     private Order currentOrder; 
     private Random random;
@@ -37,6 +36,7 @@ class Restaurant {
         }
         
         printFinalReport();
+        scanner.close();
     }
 
     private void showSummary() {
