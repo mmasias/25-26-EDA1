@@ -125,4 +125,4 @@ public class SimulacionRCCCF {
     private int generarEnteroAleatorio(int minimo, int maximo) {
         return minimo + (int)(Math.random() * ((maximo - minimo) + 1));
     }
-}
+} 
