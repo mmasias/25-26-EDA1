@@ -29,15 +29,6 @@ public class ColaPedidos {
         return min;
     }
 
-    public Pedido cogerMinimo() {
-        if (raiz == null) return null;
-        NodoPedido nodoMin = raiz;
-        while (nodoMin.getIzquierdo() != null) {
-            nodoMin = nodoMin.getIzquierdo();
-        }
-        return nodoMin.getPedido();
-    }
-
     public int tamaño() { 
         return cantidadPedidos; 
     }
