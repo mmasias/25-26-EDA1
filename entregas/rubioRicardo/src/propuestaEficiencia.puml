@@ -1,0 +1,71 @@
+@startuml
+' --- Configuración Visual ---
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam linetype ortho
+
+' --- Definición de Clases ---
+
+class SimulacionRCCCF {
+    -ColaPrioridadHeap cola
+    -Cocinero cocinero
+    -Estadisticas stats
+    -GeneradorPedidos generador
+    -Random random
+    +main(String[] args)
+    +runSimulacion()
+    -imprimirEstado()
+    -imprimirResumen()
+}
+
+class ColaPrioridadHeap {
+    -Pedido[] heap
+    -int tamaño
+    -int CAPACIDAD_MAXIMA
+    +void agregar(pedidoAgregar : Pedido, stats : Estadisticas)
+    +Pedido extraerMinimo(stats : Estadisticas)
+    -void flotar(indice : int, stats : Estadisticas)
+    -void hundir(indice : int, stats : Estadisticas)
+    -void intercambiar(i : int, j : int)
+    +int getTamaño()
+    +boolean estaVacia()
+}
+
+class Pedido {
+    -String tipo
+    -int tiempoPreparacion
+    -int minutoLlegada
+    +String getTipo()
+    +int getTiempoPreparacion()
+    +int getMinutoLlegada()
+}
+
+class Cocinero {
+    -Pedido pedidoActual
+    -int tiempoRestante
+    +boolean estaLibre()
+    +void asignarPedido(pedidoAsignado : Pedido)
+    +Pedido procesarMinuto()
+    +Pedido getPedidoActual()
+}
+
+class GeneradorPedidos {
+    -String[] NOMBRES_PLATOS
+    -int[] TIEMPOS_MIN
+    -int[] TIEMPOS_MAX
+    -Random random
+    +Pedido generar(minutoActual : int)
+}
+
+class Estadisticas {
+    +int pedidosAtendidos
+    +long tiempoTotalEspera
+    +long comparacionesTotales
+    +void registrarPedidoTerminado(minutoActual : int, pedidoCompletado : Pedido)
+    +void registrarComparacion()
+    +double getTiempoMedioEspera()
+}
+
+
+
+@enduml
