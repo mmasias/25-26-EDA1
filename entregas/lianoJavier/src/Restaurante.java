@@ -1,24 +1,33 @@
 
 public class Restaurante {
 
-  public void abrir() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'abrir'");
+  private static final int MINUTOS_POR_HORA = 60;
+  private static final int HORA_APERTURA = 9, HORA_CIERRE = 21;
+
+  private Cocinero cocinero;
+  private Arbol arbol;
+
+  private int tiempo;
+
+  public Restaurante() {
+    arbol = new Arbol();
+    cocinero = new Cocinero(arbol);
   }
 
-  public void recibir(Pedido pedido) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'recibir'");
+  public void abrir() {
+    tiempo = HORA_APERTURA * MINUTOS_POR_HORA;
+  }
+
+  public void recoger(Pedido pedido) {
+    arbol.insertar(pedido);
   }
 
   public boolean estaAbierto() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'estaAbierto'");
+    return tiempo <= HORA_CIERRE * MINUTOS_POR_HORA;
   }
 
   public void actualizar() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'actualizar'");
+    cocinero.actualizar();
   }
 
   public void mostrarEstado() {
