@@ -14,9 +14,12 @@ public class Mundo {
 
   private static void empezarSimulacion(Restaurante restaurante) {
     while (restaurante.estaAbierto()) {
+      Console.imprimirln("=====================================");
+
       if (llegaPersona()) {
         Pedido pedido = personaPide();
         restaurante.recoger(pedido);
+        Console.imprimirln("Llega un pedido: " + pedido.getNombrePlato());
       }
 
       restaurante.actualizar();
@@ -30,6 +33,7 @@ public class Mundo {
   }
 
   private static boolean llegaPersona() {
-    return Math.random() <= 0.6;
+    final double PROBABILIDAD_DE_LLEGADA = 0.6;
+    return Math.random() <= PROBABILIDAD_DE_LLEGADA;
   }
 }
