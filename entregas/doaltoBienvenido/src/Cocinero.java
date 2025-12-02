@@ -18,6 +18,9 @@ public class Cocinero {
     }
 
     public void asignarPedido(Pedido pedido, int instanteInicio) {
+        assert pedido != null : "pedido no puede ser null";
+        assert instanteInicio >= 0 : "instanteInicio no puede ser negativo";
+        assert pedido.getTiempoPreparacion() >= 0 : "tiempoPreparacion no puede ser negativo";
         this.pedidoActual = pedido;
         this.tiempoRestanteActual = pedido.getTiempoPreparacion();
         this.instanteInicioActual = instanteInicio;

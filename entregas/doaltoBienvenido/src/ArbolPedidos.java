@@ -10,6 +10,7 @@ public class ArbolPedidos {
     }
 
     public void insertar(Pedido pedido) {
+        assert pedido != null : "pedido no puede ser null";
         NodoPedido nodo = new NodoPedido(pedido);
         if (raiz == null) {
             raiz = nodo;
@@ -40,6 +41,8 @@ public class ArbolPedidos {
     }
 
     private void insertarEnArbol(NodoPedido actual, NodoPedido nuevo) {
+        assert actual != null : "actual no puede ser null";
+        assert nuevo != null : "nuevo no puede ser null";
         NodoPedido padre = null;
         NodoPedido nodoActual = actual;
 
@@ -65,7 +68,8 @@ public class ArbolPedidos {
 
 
     private void eliminarNodo(NodoPedido nodo) {
-        
+        assert nodo != null : "nodo no puede ser null";
+
         if (nodo.getIzquierdo() == null && nodo.getDerecho() != null) {
             reemplazarNodoEnPadre(nodo, nodo.getDerecho());
         } else if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) {
@@ -83,6 +87,7 @@ public class ArbolPedidos {
     }
 
     private void reemplazarNodoEnPadre(NodoPedido nodo, NodoPedido nuevo) {
+        assert nodo != null : "nodo no puede ser null";
         if (nodo.getPadre() != null) {
             if (nodo.getPadre().getIzquierdo() == nodo) {
                 nodo.getPadre().setIzquierdo(nuevo);

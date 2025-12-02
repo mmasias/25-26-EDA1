@@ -5,6 +5,7 @@ public class NodoPedido {
     private NodoPedido padre;
 
     public NodoPedido(Pedido pedido) {
+        assert pedido != null : "pedido no puede ser null";
         this.pedido = pedido;
         this.izquierdo = null;
         this.derecho = null;
@@ -20,6 +21,7 @@ public class NodoPedido {
     }
 
     public void setIzquierdo(NodoPedido izquierdo) { 
+        assert izquierdo != this : "no puede asignarse como su propio hijo izquierdo";
         this.izquierdo = izquierdo; 
     }
 
@@ -28,6 +30,7 @@ public class NodoPedido {
     }
 
     public void setDerecho(NodoPedido derecho) { 
+        assert derecho != this : "no puede asignarse como su propio hijo derecho";
         this.derecho = derecho; 
     }
 
@@ -36,6 +39,7 @@ public class NodoPedido {
     }
     
     public void setPadre(NodoPedido padre) { 
+        assert padre != this : "no puede asignarse como su propio padre";
         this.padre = padre; 
     }
 }

@@ -12,6 +12,8 @@ public class Estadisticas {
     }
 
     public void registrarInicioServicio(Pedido pedido, int instanteInicio) {
+        assert pedido != null : "pedido no puede ser null";
+        assert instanteInicio >= 0 : "instanteInicio no puede ser negativo";
         tiempoEsperaAcumulado += (instanteInicio - pedido.getId());
     }
 

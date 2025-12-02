@@ -37,6 +37,7 @@ public class TipoPlato {
     }
 
     public static int generarTiempoParaTipo(String tipo) {
+        assert tipo != null : "tipo no puede ser null";
         Random random = new Random();
         switch (tipo) {
             case BEBIDA: return MIN_TIEMPO_BEBIDA + random.nextInt(MAX_TIEMPO_BEBIDA - MIN_TIEMPO_BEBIDA + 1);

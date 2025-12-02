@@ -8,6 +8,8 @@ public class Pedido {
     private int tiempoPreparacion;
     
     public Pedido(int id, String tipo, int tiempoPreparacion) {
+        assert tipo != null : "tipo no puede ser null";
+        assert tiempoPreparacion >= 0 : "tiempoPreparacion no puede ser negativo";
         this.id = id;
         this.tipo = tipo;
         this.tiempoPreparacion = tiempoPreparacion;
@@ -24,6 +26,7 @@ public class Pedido {
     }
     
     public int compareTo(Pedido otroPedido) {
+        assert otroPedido != null : "otroPedido no puede ser null";
         if (this.tiempoPreparacion != otroPedido.tiempoPreparacion) {
             return this.tiempoPreparacion < otroPedido.tiempoPreparacion ? ORDEN_ANTERIOR : ORDEN_POSTERIOR;
         }

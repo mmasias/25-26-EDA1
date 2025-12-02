@@ -12,6 +12,7 @@ public class Restaurante {
     }
 
     public void ejecutar(int minutos) {
+        assert minutos > 0 : "minutos debe ser mayor que 0";
         for (int tiempo = MINUTO_INICIAL; tiempo <= minutos; tiempo++) {
             System.out.println("========================================");
             System.out.println("[Minuto " + tiempo + "]");
