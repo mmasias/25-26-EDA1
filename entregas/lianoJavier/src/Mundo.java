@@ -20,7 +20,6 @@ public class Mundo {
       }
 
       restaurante.actualizar();
-      restaurante.mostrarEstado();
     }
   }
 

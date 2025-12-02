@@ -30,11 +30,6 @@ public class Restaurante {
     cocinero.actualizar();
   }
 
-  public void mostrarEstado() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mostrarEstado'");
-  }
-
   public void resultadoFinal() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'resultadoFinal'");
