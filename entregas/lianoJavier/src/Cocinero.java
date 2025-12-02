@@ -28,14 +28,20 @@ public class Cocinero {
   public void actualizar() {
     if (!estaCocinando()) {
       comandaActual = comandas.sacarMinimo();
+
       tiempoCocinandoComanda = 0;
-      int rangoTiempoPlato = Math
-          .abs(TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][1]
-              - TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][0]);
+
+      int rangoTiempoPlato = calcularRango();
       tiempoDePreparacion = Console.randomIntInRange(rangoTiempoPlato);
     } else {
       cocinar();
     }
+  }
+
+  private int calcularRango() {
+    return Math
+        .abs(TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][1]
+            - TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][0]);
   }
 
   private void cocinar() {
