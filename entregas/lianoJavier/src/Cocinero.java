@@ -10,7 +10,7 @@ public class Cocinero {
 
   public void actualizar() {
     if (!estaCocinando()) {
-      comandaActual = comandas.sacar();
+      comandaActual = comandas.sacarMinimo();
     } else {
       cocinar();
     }
