@@ -26,7 +26,3 @@ Para resolver el problema de eficiencia, no utilizamos una lista simple. Impleme
 
 ### Diagrama UML
 ![Diagrama UML](../documentosUML/UMLdiagram.png)
-
-### Diagrama de Clases
-![Diagrama Conceptual](./Conceptualdiagram.png)
-
