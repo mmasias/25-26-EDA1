@@ -22,7 +22,7 @@ public class Pedido {
 
   public boolean esMenor(Pedido pedido) {
     final int MAXIMO = 1;
-    return TIEMPO_PREPARACION_PLATOS[plato][MAXIMO] <= TIEMPO_PREPARACION_PLATOS[pedido.getPlato()][MAXIMO];
+    return TIEMPO_PREPARACION_PLATOS[plato][MAXIMO] < TIEMPO_PREPARACION_PLATOS[pedido.getPlato()][MAXIMO];
   }
 
   public Pedido platoAleatorio() {
