@@ -5,13 +5,13 @@ public class Restaurante {
   private static final int HORA_APERTURA = 9, HORA_CIERRE = 21;
 
   private Cocinero cocinero;
-  private Arbol arbol;
+  private Arbol comandas;
 
   private int tiempo;
 
   public Restaurante() {
-    arbol = new Arbol();
-    cocinero = new Cocinero(arbol);
+    comandas = new Arbol();
+    cocinero = new Cocinero(comandas);
   }
 
   public void abrir() {
@@ -19,7 +19,7 @@ public class Restaurante {
   }
 
   public void recoger(Pedido pedido) {
-    arbol.insertar(pedido);
+    comandas.insertar(pedido);
   }
 
   public boolean estaAbierto() {
