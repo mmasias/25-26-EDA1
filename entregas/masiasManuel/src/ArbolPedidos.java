@@ -20,7 +20,7 @@ public class ArbolPedidos {
 
             while (!insertado) {
                 comparaciones++;
-                if (pedido.getTiempoPreparacion() < actual.getPedido().getTiempoPreparacion()) {
+                if (pedido.getTiempoPreparacion() < actual.getTiempoPreparacion()) {
                     if (actual.getIzquierdo() == null) {
                         actual.setIzquierdo(new Nodo(pedido));
                         insertado = true;
@@ -50,12 +50,14 @@ public class ArbolPedidos {
             raiz = raiz.getDerecho();
         } else {
             Nodo padre = raiz;
-            while (padre.getIzquierdo().getIzquierdo() != null) {
+            Nodo hijoIzquierdo = padre.getIzquierdo();
+            while (hijoIzquierdo.getIzquierdo() != null) {
                 comparaciones++;
-                padre = padre.getIzquierdo();
+                padre = hijoIzquierdo;
+                hijoIzquierdo = padre.getIzquierdo();
             }
-            min = padre.getIzquierdo().getPedido();
-            padre.setIzquierdo(padre.getIzquierdo().getDerecho());
+            min = hijoIzquierdo.getPedido();
+            padre.setIzquierdo(hijoIzquierdo.getDerecho());
         }
         tamaño--;
 
@@ -86,7 +88,7 @@ public class ArbolPedidos {
             while (inicio < fin) {
                 Nodo actual = cola[inicio];
                 inicio++;
-                actual.getPedido().incrementarEspera();
+                actual.incrementarEspera();
 
                 if (actual.getIzquierdo() != null) {
                     cola[fin] = actual.getIzquierdo();
@@ -114,7 +116,7 @@ public class ArbolPedidos {
             while (inicio < fin) {
                 Nodo actual = cola[inicio];
                 inicio++;
-                total += actual.getPedido().getTiempoEspera();
+                total += actual.getTiempoEspera();
 
                 if (actual.getIzquierdo() != null) {
                     cola[fin] = actual.getIzquierdo();
@@ -132,8 +134,7 @@ public class ArbolPedidos {
 
     public void printTree() {
         if (raiz != null) {
-            Pedido pedidoRaiz = raiz.getPedido();
-            System.out.println(pedidoRaiz.getTipo() + " (" + pedidoRaiz.getTiempoPreparacion() + " min)");
+            System.out.println(raiz.getTipo() + " (" + raiz.getTiempoPreparacion() + " min)");
 
             Nodo[] stack = new Nodo[tamaño];
             String[] prefixStack = new String[tamaño];
@@ -168,8 +169,7 @@ public class ArbolPedidos {
                 String extension = isLast ? "  " : "│ ";
                 String side = isLeft ? "L: " : "R: ";
 
-                Pedido pedido = nodo.getPedido();
-                System.out.println(prefix + connector + side + pedido.getTipo() + " (" + pedido.getTiempoPreparacion() + " min)");
+                System.out.println(prefix + connector + side + nodo.getTipo() + " (" + nodo.getTiempoPreparacion() + " min)");
 
                 String newPrefix = prefix + extension;
 

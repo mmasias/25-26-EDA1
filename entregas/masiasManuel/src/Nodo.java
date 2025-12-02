@@ -15,6 +15,22 @@ public class Nodo {
         return pedido;
     }
 
+    public String getTipo() {
+        return pedido.getTipo();
+    }
+
+    public int getTiempoPreparacion() {
+        return pedido.getTiempoPreparacion();
+    }
+
+    public void incrementarEspera() {
+        pedido.incrementarEspera();
+    }
+
+    public int getTiempoEspera() {
+        return pedido.getTiempoEspera();
+    }
+
     public Nodo getIzquierdo() {
         return izquierdo;
     }
