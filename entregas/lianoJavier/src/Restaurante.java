@@ -27,7 +27,10 @@ public class Restaurante {
   }
 
   public void actualizar() {
+    Console.imprimirln("[" + tiempo / 60 + ":" + tiempo % 60 + "]");
+    Console.imprimirln("Número de comandas: " + comandas.getNumeroNodos());
     cocinero.actualizar();
+    tiempo++;
   }
 
   public void resultadoFinal() {
