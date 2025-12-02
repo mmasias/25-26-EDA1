@@ -24,7 +24,8 @@ public class Mundo {
   }
 
   private static Pedido personaPide() {
-    Pedido pedido = new Pedido();
+    Pedido pedido = new Pedido()
+        .platoAleatorio();
     return pedido;
   }
 
