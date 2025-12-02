@@ -1,0 +1,93 @@
+@startuml Esquema
+
+' ========================================
+' Diagrama de clases Sistema de Cocina
+' Implementación con Árbol Binario para ColaPedidos (SPT)
+' ========================================
+
+class Simulacion {
+    +main(String[] args)
+}
+
+class Restaurante {
+    -colaDePedidos : ColaPedidos
+    -cocineroPrincipal : Cocinero
+    -estadisticas : Estadisticas
+    +Restaurante()
+    +void ejecutar(int minutos)
+}
+
+class Cocinero {
+    -pedidoActual : Pedido
+    +Cocinero()
+    +boolean estaOcupado()
+    +void asignarPedido(Pedido pedido)
+    +Pedido obtenerPedido()
+    +Pedido procesarUnMinuto()
+}
+
+class ColaPedidos {
+    -nodoRaiz : NodoArbol
+    +ColaPedidos()
+    +void insertar(Pedido nuevoPedido)
+    +Pedido extraerMin()
+    +boolean estaVacia()
+    +int tamaño()
+}
+
+class Pedido {
+    -identificador : int
+    -tipoDePlato : String
+    -tiempoDePreparacion : double
+    -tiempoRestante : double
+    -instanteDeLlegada : int
+    -instanteDeInicio : int
+    +Pedido(int id, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)
+    +int getId()
+    +String getTipo()
+    +double getTiempoDePreparacion()
+    +double getTiempoRestante()
+    +int getInstanteDeLlegada()
+    +int getInstanteDeInicio()
+    +void decrementarTiempoRestante()
+    +void marcarComoIniciado(int instante)
+    +boolean estaCompleto()
+    +int compareTo(Pedido otroPedido)
+    +String toString()
+}
+
+class Estadisticas {
+    -cantidadAtendidos : int
+    -cantidadPendientes : int
+    -tiempoTotalDeEspera : double
+    -comparacionesRealizadas : double
+    +Estadisticas()
+    +void registrarInicioServicio(Pedido pedido, int instanteInicio)
+    +void registrarPedidoAtendido(Pedido pedido)
+    +void registrarComparaciones(double cantidadComparaciones)
+    +public int getTotalPedidosAtendidos() 
+    +public int getTotalPedidosPendientes()  
+    +public double getTiempoEsperaAcumulado() 
+    +public double getTiempoEsperaMedio() 
+    +public double getComparacionesRealizadas()  
+    +String generarResumen()
+}
+
+class TipoPlato {
+    -static final String BEBIDA
+    -static final String CAFE
+    -static final String COLACAO
+    -static final String BOCADILLO
+    -static final String ENSALADA
+    +String muestrearTipo()
+    +double generarTiempoParaTipo(String tipo)
+}
+
+Simulacion --> Restaurante
+Restaurante --> Cocinero
+Restaurante --> ColaPedidos
+Restaurante --> Estadisticas
+ColaPedidos --> Pedido
+Cocinero --> Pedido
+
+@enduml
