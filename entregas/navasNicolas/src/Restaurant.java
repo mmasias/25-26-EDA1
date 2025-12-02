@@ -31,7 +31,9 @@ class Restaurant {
             
             processQueue();
             
-             showSummary(); 
+            showSummary(); 
+            
+            orderQueue.printTree();
             scanner.nextLine();
         }
         
