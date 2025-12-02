@@ -5,11 +5,11 @@ public class Nodo {
   private Nodo izquierdo;
   private Nodo derecho;
 
-  private int numeroComanda;
+  private int idNodo;
 
   public Nodo(Pedido pedido, int numeroComanda) {
     pedidoNodo = pedido;
-    this.numeroComanda = numeroComanda;
+    this.idNodo = numeroComanda;
   }
 
   public void insertar(Pedido pedido, int numeroComanda) {
@@ -66,11 +66,11 @@ public class Nodo {
   }
 
   public boolean esIgualNumeroComanda(Nodo nodoExtraido) {
-    return numeroComanda == nodoExtraido.getNumeroComanda();
+    return idNodo == nodoExtraido.getIdNodo();
   }
 
-  private int getNumeroComanda() {
-    return numeroComanda;
+  private int getIdNodo() {
+    return idNodo;
   }
 
 }
