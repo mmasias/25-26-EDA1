@@ -34,4 +34,8 @@ public class Pedido {
     return plato;
   }
 
+  public String getNombrePlato() {
+    return NOMBRE_PLATOS[plato];
+  }
+
 }
