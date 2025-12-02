@@ -22,11 +22,9 @@ El restaurante **RCCCF** ha cambiado su modelo de atención. A diferencia de una
 
 ## Arquitectura de la Solución
 
-Para resolver el problema de eficiencia, no utilizamos una lista simple. Implementamos un **Arbol de Prioridad basada en un Min-Heap (Montículo de Mínimos)**.
+Para resolver el problema de eficiencia, no utilizamos una lista simple. Implementamos un **Arbol de Decisión Binario Simple**.
 
 ### Diagrama UML
 ![Diagrama UML](../documentosUML/UMLdiagram.png)
 
-### Diagrama de Clases
-![Diagrama Conceptual](./Conceptualdiagram.png)
 
