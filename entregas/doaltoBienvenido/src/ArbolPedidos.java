@@ -11,11 +11,27 @@ public class ArbolPedidos {
 
     public void insertar(Pedido pedido) {
         assert pedido != null : "pedido no puede ser null";
-        NodoPedido nodo = new NodoPedido(pedido);
+        NodoPedido nuevo = new NodoPedido(pedido);
         if (raiz == null) {
-            raiz = nodo;
+            raiz = nuevo;
         } else {
-            insertarEnArbol(raiz, nodo);
+            NodoPedido padre = null;
+            NodoPedido actual = raiz;
+            while (actual != null) {
+                padre = actual;
+                if (nuevo.getPedido().compareTo(actual.getPedido()) < 0) {
+                    actual = actual.getIzquierdo();
+                } else {
+                    actual = actual.getDerecho();
+                }
+            }
+            if (nuevo.getPedido().compareTo(padre.getPedido()) < 0) {
+                padre.setIzquierdo(nuevo);
+                nuevo.setPadre(padre);
+            } else {
+                padre.setDerecho(nuevo);
+                nuevo.setPadre(padre);
+            }
         }
         cantidadPedidos++;
     }
@@ -30,7 +46,7 @@ public class ArbolPedidos {
         eliminarNodo(nodoMin);
         cantidadPedidos--;
         return min;
-    }
+    } 
 
     public int tamaño() { 
         return cantidadPedidos; 
@@ -39,33 +55,6 @@ public class ArbolPedidos {
     public boolean estaVacia() { 
         return cantidadPedidos == CANTIDAD_VACIA; 
     }
-
-    private void insertarEnArbol(NodoPedido actual, NodoPedido nuevo) {
-        assert actual != null : "actual no puede ser null";
-        assert nuevo != null : "nuevo no puede ser null";
-        NodoPedido padre = null;
-        NodoPedido nodoActual = actual;
-
-        while (nodoActual != null) {
-            padre = nodoActual;
-            if (nuevo.getPedido().compareTo(nodoActual.getPedido()) < 0) {
-                nodoActual = nodoActual.getIzquierdo();
-            } else {
-                nodoActual = nodoActual.getDerecho();
-            }
-        }
-
-        if (padre == null) {
-            raiz = nuevo;
-        } else if (nuevo.getPedido().compareTo(padre.getPedido()) < 0) {
-            padre.setIzquierdo(nuevo);
-            nuevo.setPadre(padre);
-        } else {
-            padre.setDerecho(nuevo);
-            nuevo.setPadre(padre);
-        }
-    }
-
 
     private void eliminarNodo(NodoPedido nodo) {
         assert nodo != null : "nodo no puede ser null";
