@@ -2,7 +2,7 @@
 public class Cocinero {
 
   private Arbol comandas;
-  private Comanda comandaActual;
+  private Pedido comandaActual;
 
   public Cocinero(Arbol comandas) {
     this.comandas = comandas;
