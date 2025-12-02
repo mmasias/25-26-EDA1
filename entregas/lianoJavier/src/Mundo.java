@@ -6,20 +6,30 @@ public class Mundo {
 
     restaurante.abrir();
 
-    do {
-      if (personaPide()) {
-        Pedido pedido = new Pedido();
-        restaurante.recibir(pedido);
-      }
-      restaurante.actualizar();
-      restaurante.mostrarEstado();
-    } while (restaurante.estaAbierto());
+    empezarSimulacion(restaurante);
 
     restaurante.resultadoFinal();
 
   }
 
-  private static boolean personaPide() {
+  private static void empezarSimulacion(Restaurante restaurante) {
+    while (restaurante.estaAbierto()) {
+      if (llegaPersona()) {
+        Pedido pedido = personaPide();
+        restaurante.recoger(pedido);
+      }
+
+      restaurante.actualizar();
+      restaurante.mostrarEstado();
+    }
+  }
+
+  private static Pedido personaPide() {
+    Pedido pedido = new Pedido();
+    return pedido;
+  }
+
+  private static boolean llegaPersona() {
     return Math.random() <= 0.6;
   }
 }
