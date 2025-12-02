@@ -1,3 +1,5 @@
+package v001;
+
 import java.util.Random;
 
 public class TipoPlato {

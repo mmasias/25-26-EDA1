@@ -1,3 +1,5 @@
+package v001;
+
 public class Pedido {
     private static final int ORDEN_ANTERIOR = -1;
     private static final int ORDEN_IGUAL = 0;

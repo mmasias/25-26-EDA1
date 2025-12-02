@@ -1,3 +1,5 @@
+package v001;
+
 public class NodoPedido {
     private Pedido pedido;
     private NodoPedido izquierdo;
