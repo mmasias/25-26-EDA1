@@ -10,7 +10,7 @@ class Simulacion {
 }
 
 class Restaurante {
-    -colaDePedidos : ColaPedidos
+    -arbolPedidos : ArbolPedidos
     -cocineroPrincipal : Cocinero
     -estadisticas : Estadisticas
     +Restaurante()
@@ -21,37 +21,44 @@ class Cocinero {
     -pedidoActual : Pedido
     +Cocinero()
     +boolean estaOcupado()
-    +void asignarPedido(Pedido pedido)
+    +void asignarPedido(Pedido pedido, int instanteInicio)
     +Pedido obtenerPedido()
     +Pedido procesarUnMinuto()
 }
 
-class ColaPedidos {
-    -nodoRaiz : NodoArbol
-    +ColaPedidos()
+class ArbolPedidos {
+    -raiz : NodoPedido
+    -cantidadPedidos : int
+    +ArbolPedidos()
     +void insertar(Pedido nuevoPedido)
     +Pedido extraerMin()
     +boolean estaVacia()
     +int tamaño()
 }
 
+class NodoPedido {
+    -pedido : Pedido
+    -izquierdo : NodoPedido
+    -derecho : NodoPedido
+    -padre : NodoPedido
+    +NodoPedido(Pedido pedido)
+    +Pedido getPedido()
+    +NodoPedido getIzquierdo()
+    +void setIzquierdo(NodoPedido izquierdo)
+    +NodoPedido getDerecho()
+    +void setDerecho(NodoPedido derecho)
+    +NodoPedido getPadre()
+    +void setPadre(NodoPedido padre)
+}
+
 class Pedido {
-    -identificador : int
-    -tipoDePlato : String
-    -tiempoDePreparacion : double
-    -tiempoRestante : double
-    -instanteDeLlegada : int
-    -instanteDeInicio : int
-    +Pedido(int id, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)
+    -id : int
+    -tipo : String
+    -tiempoPreparacion : int
+    +Pedido(int id, String tipo, int tiempoPreparacion)
     +int getId()
     +String getTipo()
-    +double getTiempoDePreparacion()
-    +double getTiempoRestante()
-    +int getInstanteDeLlegada()
-    +int getInstanteDeInicio()
-    +void decrementarTiempoRestante()
-    +void marcarComoIniciado(int instante)
-    +boolean estaCompleto()
+    +int getTiempoPreparacion()
     +int compareTo(Pedido otroPedido)
     +String toString()
 }
@@ -80,14 +87,14 @@ class TipoPlato {
     -static final String BOCADILLO
     -static final String ENSALADA
     +String muestrearTipo()
-    +double generarTiempoParaTipo(String tipo)
+    +int generarTiempoParaTipo(String tipo)
 }
 
 Simulacion --> Restaurante
 Restaurante --> Cocinero
-Restaurante --> ColaPedidos
+Restaurante --> ArbolPedidos
 Restaurante --> Estadisticas
-ColaPedidos --> Pedido
+ArbolPedidos --> NodoPedido
 Cocinero --> Pedido
 
 @enduml

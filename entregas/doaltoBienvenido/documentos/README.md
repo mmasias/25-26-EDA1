@@ -12,75 +12,80 @@ A continuación se describe la arquitectura final basada en **Restaurante**, **C
 
 ## Clase `Pedido`
 
-Representa un pedido gestionado en la cocina.
+Representa un pedido gestionado en la cocina. En la implementación actual la clase es mínima y contiene los campos necesarios para la política SPT usada por la cola.
 
 ### Atributos privados
-- `identificador` : int — Identificador único del pedido.  
-- `tipoDePlato` : String — Tipo de plato (bebida, café, colacao, bocadillo, ensalada…).  
-- `tiempoDePreparacion` : double — Tiempo total necesario para preparar el pedido.  
-- `tiempoRestante` : double — Tiempo restante por cocinar.  
-- `instanteDeLlegada` : int — Momento en que el pedido llega al Restaurantee.  
-- `instanteDeInicio` : int — Momento en que el cocinero comienza a prepararlo.  
+
+- `id` : int — Identificador único del pedido.
+- `tipo` : String — Tipo de plato (bebida, café, colacao, bocadillo, ensalada…).
+- `tiempoPreparacion` : int — Tiempo total necesario para preparar el pedido (entero en minutos).
 
 ### Métodos públicos
-- `Pedido(int identificador, String tipoDePlato, double tiempoDePreparacion, int instanteDeLlegada)`  
-- `int getIdentificador()`  
-- `String getTipoDePlato()`  
-- `double getTiempoDePreparacion()`  
-- `double getTiempoRestante()`  
-- `int getInstanteDeLlegada()`  
-- `int getInstanteDeInicio()`  
-- `void reducirTiempoRestante()`  
-- `void marcarComoIniciado(int instanteDeInicio)`  
-- `boolean estaCompleto()`  
-- `int compareTo(Pedido otroPedido)` — SPT: menor tiempo → mayor prioridad; en empate, llega antes.  
-- `String toString()`  
+
+- `Pedido(int id, String tipo, int tiempoPreparacion)`
+- `int getId()`
+- `String getTipo()`
+- `int getTiempoPreparacion()`
+- `int compareTo(Pedido otroPedido)` — Orden natural: menor tiempo de preparación tiene mayor prioridad; en empate, menor `id` (llegada) gana.
+- `String toString()`
 
 ---
 
-## Clase `NodoArbol`
+## Clase `NodoPedido`
 
-Nodo del árbol binario que contiene un pedido.
+Nodo del árbol binario que contiene un `Pedido` y referencias a sus hijos y padre. Esta clase es pequeña y tiene getters/setters con aserciones para evitar auto-referencias.
 
 ### Atributos privados
-- `pedido` : Pedido — Pedido almacenado en el nodo.  
-- `nodoIzquierdo` : NodoArbol — Hijo izquierdo.  
-- `nodoDerecho` : NodoArbol — Hijo derecho.  
+
+- `pedido` : Pedido
+- `izquierdo` : NodoPedido
+- `derecho` : NodoPedido
+- `padre` : NodoPedido
 
 ### Métodos públicos
-- `NodoArbol(Pedido pedido)`  
+
+- `NodoPedido(Pedido pedido)`
+
+Los setters (`setIzquierdo`, `setDerecho`, `setPadre`) usan `assert` para evitar asignar un nodo como hijo/padre de sí mismo.
 
 ---
 
-## Clase `ColaPedidos`
+## Clase `ArbolPedidos`
 
-Cola de prioridad basada en un **árbol binario de mínima prioridad** siguiendo la política SPT.
+Implementación de la cola de prioridad mediante un árbol binario de búsqueda orientado a SPT (Shortest Processing Time). En el código se llama `ArbolPedidos` y gestiona nodos `NodoPedido`.
 
 ### Atributos privados
-- `nodoRaiz` : NodoArbol — Raíz del árbol de prioridad.  
-- `cantidadPedidos` : int — Número total de pedidos almacenados.  
+
+- `raiz` : NodoPedido
+- `cantidadPedidos` : int
 
 ### Métodos públicos
-- `ColaPedidos()`  
-- `void insertar(Pedido nuevoPedido)` — Inserta manteniendo la mínima prioridad.  
-- `Pedido extraerPedidoDeMayorPrioridad()` — Extrae el pedido con menor tiempo de preparación.  
-- `boolean estaVacia()`  
+
+- `ArbolPedidos()`
+- `void insertar(Pedido nuevoPedido)` — Inserta respetando el orden SPT (usa `compareTo` de `Pedido`).
+- `Pedido extraerMin()` — Extrae el pedido con menor tiempo de preparación.
+- `boolean estaVacia()`
+- `int tamaño()`
 
 ---
 
 ## Clase `Cocinero`
 
-Representa al cocinero encargado de preparar los pedidos.
+Representa al cocinero encargado de preparar los pedidos. `asignarPedido` recibe el `instanteInicio` para estadísticas.
 
 ### Atributos privados
-- `pedidoActual` : Pedido — Pedido que se está cocinando actualmente.  
+
+- `pedidoActual` : Pedido
+- `tiempoRestanteActual` : int
+- `instanteInicioActual` : int
 
 ### Métodos públicos
-- `boolean estaLibre()`  
-- `void asignarPedido(Pedido pedido, int instanteActual)`  
-- `void cocinarUnMinuto()`  
-- `boolean haTerminado()`  
-- `Pedido obtenerPedidoTerminado()`  
+
+- `boolean estaOcupado()`
+- `void asignarPedido(Pedido pedido, int instanteInicio)`
+- `Pedido obtenerPedido()`
+- `int getTiempoRestante()`
+- `Pedido procesarUnMinuto()`
 
 ---
 
@@ -89,27 +94,30 @@ Representa al cocinero encargado de preparar los pedidos.
 Registra métricas de la simulación.
 
 ### Atributos privados
-- `cantidadAtendidos` : int  
-- `cantidadPendientes` : int  
-- `tiempoTotalDeEspera` : double  
+
+- `cantidadAtendidos` : int
+- `cantidadPendientes` : int
+- `tiempoTotalDeEspera` : double
 
 ### Métodos públicos
-- `Estadisticas()`  
-- `void registrarInicioDePreparacion(Pedido pedido)`  
-- `void registrarPedidoTerminado(Pedido pedido)`  
-- `String generarResumen()`  
+
+- `Estadisticas()`
+- `void registrarInicioDePreparacion(Pedido pedido)`
+- `void registrarPedidoTerminado(Pedido pedido)`
+- `String generarResumen()`
 
 ---
 
 ## Clase `TipoPlato`
 
-Gestiona los tipos de plato y su tiempo estimado de preparación.
+Gestiona los tipos de plato y su tiempo estimado de preparación. La implementación actual devuelve tiempos enteros (minutos).
 
 ### Métodos estáticos públicos
-- `String seleccionarTipoAleatorio()`  
-- `double generarTiempoDePreparacion(String tipoDePlato)`  
 
-*(Esta clase no usa enum porque lo has pedido explícitamente.)*
+- `String muestrearTipo()`
+- `int generarTiempoParaTipo(String tipo)`
+
+_(Esta clase no usa `enum` por decisión de diseño en este repo.)_
 
 ---
 
@@ -118,34 +126,45 @@ Gestiona los tipos de plato y su tiempo estimado de preparación.
 Clase principal que controla toda la lógica de la simulación.
 
 ### Atributos privados
-- `colaDePedidos` : ColaPedidos  
-- `cocineroPrincipal` : Cocinero  
-- `estadisticas` : Estadisticas  
-- `semillaAleatoria` : double  
+
+- `arbolPedidos` : ArbolPedidos
+- `cocinero` : Cocinero
+- `estadisticas` : Estadisticas
 
 ### Métodos públicos
-- `Restaurante(double semillaAleatoria)`  
-- `void ejecutar(int minutosTotales)`  
 
-### Métodos privados
-- `void generarPedidoSiCorresponde(int minutoActual)`  
-- `void asignarPedidoAlCocinero(int minutoActual)`  
-- `void cocinarDuranteUnMinuto(int minutoActual)`  
+- `Restaurante()`
+- `void ejecutar(int minutos)`
+
+### Detalles de ejecución
+
+- En cada minuto se puede generar un nuevo `Pedido` (probabilidad configurable), se asigna al `Cocinero` si está libre y se procesa un minuto.
+- Se usan `assert` en puntos claves (precondiciones) para ayudar en pruebas y detectar supuestos rotos cuando se ejecuta la JVM con `-ea`.
 
 ---
 
 ## Clase `Simulacion`
 
-Clase mínima que solo inicializa y lanza el Restaurantee.
+Clase mínima que solo inicializa y lanza el `Restaurante`.
 
 ### Métodos públicos
-- `main(String[] args)`  
-  - Crea un objeto `Restaurante`.  
+
+- `main(String[] args)`
+  - Crea un objeto `Restaurante`.
   - Ejecuta `Restaurante.ejecutar(minutosTotales)`.
 
 ---
 
-## ESQUEMA – Diagrama UML
+## ESQUEMAS – Diagramas UML
 
-
-![Diagrama](../documentosUML/Esquema.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="../documentosUML/EsquemaMinimalista.png" alt="DiagramaMinimalista" style="max-width:100%; height:auto;
+      " />
+    </td>
+    <td align="center">
+      <img src="../documentosUML/Esquema.png" alt="Diagrama" style="max-width:100%; height:auto;" />
+    </td>
+  </tr>
+</table>

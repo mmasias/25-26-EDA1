@@ -1,0 +1,21 @@
+@startuml MinimalEsquema
+
+' Minimal class diagram (simplified)
+class Simulacion
+class Restaurante
+class ArbolPedidos
+class NodoPedido {
+  ..
+  izquierdo / derecho
+}
+class Pedido
+class Cocinero
+
+Simulacion --> Restaurante : usa
+Restaurante --> ArbolPedidos : contiene
+ArbolPedidos --> NodoPedido : contiene
+NodoPedido --> Pedido : contiene
+Restaurante --> Cocinero : gestiona
+Cocinero --> Pedido : procesa
+
+@enduml
