@@ -9,8 +9,12 @@ class Nodo {
         this.pedido = pedido;
     }
 
-    public String nombrePedido(){
-        return pedido.pedido();
+    public String nombreDelPedido(){
+        return pedido.nombreDelPedido();
+    }
+
+    public Pedido pedido(){
+        return pedido;
     }
 
     public int tiempoPreparacion(){
@@ -42,7 +46,7 @@ class Nodo {
     }
 
     public void restarTiempoDePreparacion(){
-        pedido.restarTiempo();
+        pedido.restarTiempoDePreparacion();
     }
 
     private void hijoIzquerda(Nodo pedido){
