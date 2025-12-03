@@ -3,30 +3,28 @@ package entregas.munozManuel.src;
 import java.util.Scanner;
 
 class Mundo {
-    private double tiempo;
+    private int horas;
+    private int minutos;
     private final Restaurante restaurante;
     private final Chef masiasChef;
     private final Scanner scanner = new Scanner(System.in);
 
     public Mundo(){
-        tiempo = 6.0;
+        horas = 8;
+        minutos = 50;
         masiasChef = new Chef();
         restaurante = new Restaurante("Buena Fumada de Codigo", masiasChef);
     }
 
     public void run(){
-        while(tiempo < restaurante.cierre()){
-            if(tiempo >= restaurante.apertura()){
+        while(horas < restaurante.cierre()){
+            if(horas >= restaurante.apertura()){
                 System.out.println("Hemos abierto el restaurante " + restaurante.nombreRestaurante());
             }
-            while (tiempo >= restaurante.apertura() && tiempo <= restaurante.cierre()){
-                System.out.println("Dentro de restaurante abierto " + tiempo);
+            while (horas >= restaurante.apertura() && horas < restaurante.cierre()){
+                System.out.println("Dentro de restaurante abierto " + tiempo());
 
-                if (masiasChef.ocupado()) {
-                    masiasChef.processarPedido();
-                }
-
-                if (0.4 > Math.random()){
+                if (0.25 > Math.random()){
                     Cliente clienteNuevo = new Cliente();
                     restaurante.tomarPedido(clienteNuevo);
                 }
@@ -35,20 +33,45 @@ class Mundo {
                     restaurante.asignarPedido();
                 }
 
-                System.out.println("| Pedido |".repeat(restaurante.personasEnFila()));
-                System.out.println("Presiona Enter para continuar...");
-                scanner.nextLine();
-                pasarTiempo();
+                if (masiasChef.ocupado()) {
+                    masiasChef.processarPedido();
+                    masiasChef.mostrarPedidoActual();
+                }
+
+                restaurante.mostrarPedidosEnFila();
+                continuarPrograma();
+                pasarTiempo(masiasChef);
 
             }
 
-            System.out.println("Ey funciona " + tiempo);
-            pasarTiempo();
+            System.out.println("Ey funciona " + tiempo());
+            continuarPrograma();
+            pasarTiempo(masiasChef);
         }
+        System.out.println("Se hicieron " + restaurante.pedidosAtendidos());
+        System.out.println("Han quedado pendientes " + restaurante.pedidosPendientes());
         scanner.close();
     }
 
-    private void pasarTiempo(){
-        tiempo += 0.1;
+    private void continuarPrograma(){
+        System.out.println("Presiona Enter para continuar...");
+        scanner.nextLine();
+    }
+
+    private String tiempo(){
+        if(minutos < 10){
+            return horas + ":0" + minutos;
+        }
+        return horas + ":" + minutos;
+        
+    }
+
+    private void pasarTiempo(Chef chef){
+        chef.trabajarEnPedido();
+        minutos += 1;
+        if (minutos == 60){
+            horas += 1;
+            minutos = 0;
+        }
     }
 }

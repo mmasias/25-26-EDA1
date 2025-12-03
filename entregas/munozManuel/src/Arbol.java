@@ -45,6 +45,26 @@ class Arbol {
         }
     }
 
+    public int recorrerOrdenes(boolean terminado) {
+        Nodo[] nodosOrdenados = new Nodo[cantidadNodos];
+        int cantidadSatisfecha = 0;
+        
+        if (raiz == null || cantidadNodos == 0) {
+            return cantidadSatisfecha;
+        }
+
+        int indiceInicial = 0;
+
+        recorrerInOrden(raiz, nodosOrdenados, indiceInicial);
+
+        for (Nodo nodosOrdenado : nodosOrdenados) {
+            if (nodosOrdenado != null && nodosOrdenado.pedidoHecho() == terminado) {
+                cantidadSatisfecha += 1;
+            }
+        }
+        return cantidadSatisfecha;
+    }
+
     private int recorrerInOrden(Nodo nodo, Nodo[] nodosOrdenados, int indice) {
         if (nodo == null)
             return indice;

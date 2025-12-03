@@ -31,6 +31,15 @@ class Restaurante {
         personasEnFila -= 1;
     }
 
+    public int pedidosAtendidos(){
+        return ordenes.recorrerOrdenes(true);
+    }
+
+    public int pedidosPendientes(){
+        return ordenes.recorrerOrdenes(false);
+    }
+
+
     public String nombreRestaurante() {
         return nombreRestaurante;
     }
