@@ -1,48 +1,94 @@
-@startuml
+@startuml RestauranteSimulacion
 
-
+' Configuración de apariencia
+hide circle
 skinparam classAttributeIconSize 0
-skinparam defaultTextAlignment center
+
+' ----------------------------------------------------
+' 1. Clases del Modelo y Componentes de Estructura de Datos
+' ----------------------------------------------------
 
 class Pedido {
-  - tipo: String
-  - tiempoPrep: int
-  - tiempoRestante: int
-  - llegada: int
-  - inicio: int
-  + procesarMinuto()
-  + toString()
+    - static int contadorId
+    - int id
+    - String nombre
+    - int tiempoPreparacionTotal
+    - int tiempoRestante
+    - int minutoLlegada
+    + Pedido(nombre, tiempo, minuto)
+    + cocinarUnMinuto()
+    + estaTerminado(): boolean
+    + getTiempoPreparacionTotal(): int
 }
 
-class HeapPedidos {
-  - heap: ArrayList<Pedido>
-  - comparaciones: int
-  + insertar(Pedido)
-  + extraerMin(): Pedido
-  + size(): int
-  + getComparaciones(): int
+class NodoArbol {
+    - Pedido pedido
+    - NodoArbol nodoIzquierdo
+    - NodoArbol nodoDerecho
+    + NodoArbol(pedido)
+    + obtenerPedido(): Pedido
+    + obtenerIzquierdo(): NodoArbol
+    + asignarIzquierdo(NodoArbol)
 }
 
-class Cocina {
-  - heap: HeapPedidos
-  - actual: Pedido
-  + recibirPedido(Pedido)
-  + asignarSiLibre(int)
-  + procesarMinuto(): boolean
-  + liberarPedido()
-  + pedidosEnCola(): int
-  + getActual(): Pedido
-  + getComparaciones(): int
+class ArbolPedidos {
+    - NodoArbol raiz
+    - int tamano
+    - int contadorComparaciones
+    + ArbolPedidos()
+    + insertar(Pedido)
+    + obtenerMaxPrioridad(): Pedido
+    + estaVacio(): boolean
+    + getComparaciones(): int
 }
 
-class Simulacion {
-  + main(String[])
+' Relaciones internas de la estructura de datos
+NodoArbol "1" -- "1" Pedido : contiene >
+ArbolPedidos "1" -- "0..1" NodoArbol : raiz
+NodoArbol "1" -- "0..1" NodoArbol : nodoIzquierdo
+NodoArbol "1" -- "0..1" NodoArbol : nodoDerecho
+
+' ----------------------------------------------------
+' 2. Clases del Controlador, Vista y Launcher
+' ----------------------------------------------------
+
+class Consola {
+    + imprimirSeparador()
+    + imprimirCabeceraMinuto(int)
+    + imprimirEstado(int, Pedido)
+    + imprimirResumen(...)
 }
 
+class SistemaRestaurante {
+    - ArbolPedidos arbolPedidos
+    - Consola visor
+    - Random random
+    - Pedido pedidoEnCocina
+    - int HORAS_SERVICIO_MINUTOS = 720
+    - double PROBABILIDAD_LLEGADA = 0.4
+    - int pedidosAtendidos
+    + SistemaRestaurante()
+    + iniciarServicio()
+    - procesarCocina(int)
+    - generarPedidoAleatorio(int): Pedido
+}
 
-Cocina --> HeapPedidos : usa
-Cocina --> Pedido : procesa
-HeapPedidos --> Pedido : almacena
-Simulacion --> Cocina : inicia
+class Restaurante {
+    + {static} main(String[] args)
+}
+
+' Relaciones funcionales
+
+' Launcher -> Controller
+Restaurante ..> SistemaRestaurante : crea/usa
+
+' Controlador y sus dependencias
+SistemaRestaurante "1" *-- "1" ArbolPedidos : gestiona
+SistemaRestaurante "1" *-- "1" Consola : presenta
+SistemaRestaurante "1" o-- "0..1" Pedido : pedidoEnCocina
+
+' Uso de Pedido por otras clases
+Consola .down.> Pedido : <<muestra datos>>
+ArbolPedidos .up.> Pedido : <<compara>>
 
 @enduml
