@@ -3,11 +3,13 @@ package entregas.munozManuel.src;
 class Pedido {
     private final String pedido;
     private int tiempoPreparacion;
+    private boolean pedidoHecho;
     private final String[] PEDIDOS_DISPONIBLES = {"Bebida", "Café", "Colacao", "Bocadillo", "Ensalada"};
     private final static int[][] TIEMPO_PREPARACION = {{1, 2}, {2, 3}, {2, 4}, {3, 5}, {5, 8}};
 
     public Pedido() {
         int numeroDePedido = (int)(Math.random() * 5);
+        pedidoHecho = false;
         pedido = PEDIDOS_DISPONIBLES[numeroDePedido];
         tiempoPreparacion = calcularTiempoPreparacion(numeroDePedido);
     }
@@ -22,6 +24,14 @@ class Pedido {
     
     public void restarTiempo(){
         tiempoPreparacion -= 1;
+    }
+
+    public boolean pedidoHehco(){
+        return pedidoHecho;
+    }
+
+    public void terminarPedido(){
+        pedidoHecho = true;
     }
 
     private int calcularTiempoPreparacion(int numeroDePedido){
