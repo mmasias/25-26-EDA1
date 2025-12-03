@@ -9,14 +9,14 @@ class Chef {
     }
 
     public void processarPedido(){
-        trabajarEnPedido();
         actualizarEstadoDelPedido();
     }
     
-    public void tomarPedido(Pedido pedido){
-        pedidoActual = pedido;
+    public void mostrarPedidoActual(){
+        int tiempoRestante = pedidoActual.tiempoPreparacion() - tiempoDeTrabajoEnPedido;
+        System.out.println("Se esta haciendo el pedido " + pedidoActual.nombreDelPedido() + " le falta " + tiempoRestante);
     }
-
+    
     private void actualizarEstadoDelPedido(){
         if(pedidoActual.tiempoPreparacion() == tiempoDeTrabajoEnPedido){
             System.out.println("Se termino el pedido " + pedidoActual.nombreDelPedido());
@@ -25,14 +25,18 @@ class Chef {
         }
     }
 
-    public boolean ocupado(){
-        return pedidoActual != null;
-    }
-
     public void trabajarEnPedido(){
         if(ocupado()){
             tiempoDeTrabajoEnPedido += 1;
         }
+    }
+
+    public void tomarPedido(Pedido pedido){
+        pedidoActual = pedido;
+    }
+
+    public boolean ocupado(){
+        return pedidoActual != null;
     }
 
     private void terminarPedido(){
