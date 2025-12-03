@@ -20,31 +20,32 @@ public class ArbolPedidos {
 
         if (nodo == null) {
             nodo = nuevoNodo;
-            return;
-        }
+        } else {
+            Nodo actual = nodo;
+            boolean insertado = false;
 
-        Nodo actual = nodo;
-        while (true) {
-            comparaciones++;
-            if (nuevoPedido.getTiempoPreparacion() <= actual.getPedido().getTiempoPreparacion()) {
-                if (actual.getIzquierda() == null) {
-                    actual.setIzquierda(nuevoNodo);
-                    return;
+            while (!insertado) {
+                comparaciones++;
+                if (nuevoPedido.getTiempoPreparacion() <= actual.getPedido().getTiempoPreparacion()) {
+                    if (actual.getIzquierda() == null) {
+                        actual.setIzquierda(nuevoNodo);
+                        insertado = true;
+                    } else {
+                        actual = actual.getIzquierda();
+                    }
+                } else {
+                    if (actual.getDerecha() == null) {
+                        actual.setDerecha(nuevoNodo);
+                        insertado = true;
+                    } else {
+                        actual = actual.getDerecha();
+                    }
                 }
-                actual = actual.getIzquierda();
-            } else {
-                if (actual.getDerecha() == null) {
-                    actual.setDerecha(nuevoNodo);
-                    return;
-                }
-                actual = actual.getDerecha();
             }
         }
     }
 
     public Pedido extraerMinimo() {
-        if (nodo == null)
-            return null;
 
         Nodo padre = null;
         Nodo actual = nodo;
@@ -56,11 +57,13 @@ public class ArbolPedidos {
         }
 
         tamano--;
+
         if (padre == null) {
             nodo = actual.getDerecha();
         } else {
             padre.setIzquierda(actual.getDerecha());
         }
+
         return actual.getPedido();
     }
 
