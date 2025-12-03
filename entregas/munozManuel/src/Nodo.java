@@ -31,7 +31,15 @@ class Nodo {
         } else {
             this.hijoDerecha(pedido);
         }
-    } 
+    }
+
+    public boolean pedidoHecho(){
+        return pedido.pedidoHehco();
+    }
+
+    public void terminarPedido(){
+        pedido.terminarPedido();
+    }
 
     public void restarTiempoDePreparacion(){
         pedido.restarTiempo();
