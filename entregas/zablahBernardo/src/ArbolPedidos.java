@@ -15,22 +15,31 @@ public class ArbolPedidos {
     }
 
     public void insertar(Pedido nuevoPedido) {
-        nodo = insertarRecursivo(nodo, nuevoPedido);
         tamano++;
-    }
+        Nodo nuevoNodo = new Nodo(nuevoPedido);
 
-    private Nodo insertarRecursivo(Nodo actual, Pedido nuevoPedido) {
-        if (actual == null) {
-            return new Nodo(nuevoPedido);
+        if (nodo == null) {
+            nodo = nuevoNodo;
+            return;
         }
 
-        comparaciones++;
-        if (nuevoPedido.getTiempoPreparacion() <= actual.pedido.getTiempoPreparacion()) {
-            actual.izquierda = insertarRecursivo(actual.izquierda, nuevoPedido);
-        } else {
-            actual.derecha = insertarRecursivo(actual.derecha, nuevoPedido);
+        Nodo actual = nodo;
+        while (true) {
+            comparaciones++;
+            if (nuevoPedido.getTiempoPreparacion() <= actual.getPedido().getTiempoPreparacion()) {
+                if (actual.getIzquierda() == null) {
+                    actual.setIzquierda(nuevoNodo);
+                    return;
+                }
+                actual = actual.getIzquierda();
+            } else {
+                if (actual.getDerecha() == null) {
+                    actual.setDerecha(nuevoNodo);
+                    return;
+                }
+                actual = actual.getDerecha();
+            }
         }
-        return actual;
     }
 
     public Pedido extraerMinimo() {
@@ -40,22 +49,19 @@ public class ArbolPedidos {
         Nodo padre = null;
         Nodo actual = nodo;
 
-        while (actual.izquierda != null) {
+        while (actual.getIzquierda() != null) {
             comparaciones++;
             padre = actual;
-            actual = actual.izquierda;
-        }
-
-        Pedido pedidoMinimo = actual.pedido;
-
-        if (padre == null) {
-            nodo = actual.derecha;
-        } else {
-            padre.izquierda = actual.derecha;
+            actual = actual.getIzquierda();
         }
 
         tamano--;
-        return pedidoMinimo;
+        if (padre == null) {
+            nodo = actual.getDerecha();
+        } else {
+            padre.setIzquierda(actual.getDerecha());
+        }
+        return actual.getPedido();
     }
 
     public int getTamano() {
@@ -65,5 +71,4 @@ public class ArbolPedidos {
     public Object getComparaciones() {
         return comparaciones;
     }
-
 }

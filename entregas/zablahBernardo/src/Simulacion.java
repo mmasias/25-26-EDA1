@@ -17,7 +17,6 @@ public class Simulacion {
         this.arbolPedidos = new ArbolPedidos();
         this.presentacionConsola = new PresentacionConsola();
         this.random = new Random();
-        this.pedido = null;
 
         pedidosAtendidos = 0;
         tiempoEsperaTotal = 0;
@@ -81,26 +80,26 @@ public class Simulacion {
         int tiempo = 0;
 
         switch (tipo) {
-            case 0:
+            case 0 -> {
                 nombre = "Bebida";
                 tiempo = 1 + random.nextInt(2);
-                break;
-            case 1:
+            }
+            case 1 -> {
                 nombre = "Café";
                 tiempo = 2 + random.nextInt(2);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 nombre = "Colacao";
                 tiempo = 2 + random.nextInt(3);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 nombre = "Bocadillo";
                 tiempo = 3 + random.nextInt(3);
-                break;
-            case 4:
+            }
+            case 4 -> {
                 nombre = "Ensalada";
                 tiempo = 5 + random.nextInt(4);
-                break;
+            }
         }
         return new Pedido(nombre, tiempo, minutoActual);
     }

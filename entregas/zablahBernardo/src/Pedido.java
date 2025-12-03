@@ -1,7 +1,7 @@
 
 public class Pedido {
     private static int contadorId = 1;
-    
+
     private int id;
     private String nombre;
     private int tiempoPreparacion;
@@ -24,10 +24,24 @@ public class Pedido {
         return tiempoRestante <= 0;
     }
 
-    public String getNombre() { return nombre; }
-    public int getTiempoPreparacion() { return tiempoPreparacion; }
-    public int getTiempoRestante() { return tiempoRestante; }
-    public int getMinutoLlegada() { return minutoLlegada; }
-    public int getId() { return id; }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getTiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+
+    public int getTiempoRestante() {
+        return tiempoRestante;
+    }
+
+    public int getMinutoLlegada() {
+        return minutoLlegada;
+    }
+
+    public int getId() {
+        return id;
+    }
 
 }
