@@ -16,15 +16,15 @@ class Pedido {
         return pedido;
     }
 
+    public int tiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+    
     public void restarTiempo(){
         tiempoPreparacion -= 1;
     }
 
-    public int tiempoPreparacion() {
-        return tiempoPreparacion;
-    }
-
-    private static int calcularTiempoPreparacion(int numeroDePedido){
+    private int calcularTiempoPreparacion(int numeroDePedido){
         int min = TIEMPO_PREPARACION[numeroDePedido][0];
         int max = TIEMPO_PREPARACION[numeroDePedido][1];
         return (int)(Math.random() * (max - min + 1)) + min;

@@ -1,28 +1,44 @@
 package entregas.munozManuel.src;
 
+import java.util.Scanner;
+
 class Mundo {
-    public static void main(String[] args) {
-        Arbol arbol1 = new Arbol();
-        Pedido pedido1 = new Pedido();
-        Pedido pedido2 = new Pedido();
-        Pedido pedido3 = new Pedido();
-        Pedido pedido4 = new Pedido();
-        Pedido pedido5 = new Pedido();
-        Pedido pedido6 = new Pedido();
-        Pedido pedido7 = new Pedido();
-        Pedido pedido8 = new Pedido();
-        Pedido pedido9 = new Pedido();
+    private double tiempo;
+    private final Restaurante restaurante;
+    private final Chef masiasChef;
+    private final Scanner scanner = new Scanner(System.in);
 
-        arbol1.insertarPedido(pedido1);
-        arbol1.insertarPedido(pedido2);
-        arbol1.insertarPedido(pedido3);
-        arbol1.insertarPedido(pedido4);
-        arbol1.insertarPedido(pedido5);
-        arbol1.insertarPedido(pedido6);
-        arbol1.insertarPedido(pedido7);
-        arbol1.insertarPedido(pedido8);
-        arbol1.insertarPedido(pedido9);
+    public Mundo(){
+        tiempo = 6.0;
+        masiasChef = new Chef();
+        restaurante = new Restaurante("Buena Fumada de Codigo", masiasChef);
+    }
 
-        arbol1.recorrerArbol();
+    public void run(){
+        while(tiempo < restaurante.cierre()){
+            if(tiempo >= restaurante.apertura()){
+                System.out.println("Hemos abierto el restaurante " + restaurante.nombreRestaurante());
+            }
+            while (tiempo >= restaurante.apertura() && tiempo <= restaurante.cierre()){
+                System.out.println("Dentro de restaurante abierto " + tiempo);
+                if (0.4 > Math.random()){
+                    restaurante.tomarPedido(new Cliente());
+                }
+                masiasChef.actualizarEstadoDelPedido();
+                System.out.println("| Pedido |".repeat(restaurante.cantidadOrdenes()));
+                // System.out.println("Presiona Enter para continuar...");
+                // scanner.nextLine();
+                pasarTiempo();
+
+            }
+
+            System.out.println("Ey funciona " + tiempo);
+            pasarTiempo();
+        }
+        scanner.close();
+    }
+
+    private void pasarTiempo(){
+        tiempo += 0.1;
     }
 }

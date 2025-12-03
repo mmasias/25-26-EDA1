@@ -1,7 +1,7 @@
 package entregas.munozManuel.src;
 
 class Nodo {
-    private Pedido pedido;
+    private final Pedido pedido;
     private Nodo hijoIzquerda;
     private Nodo hijoDerecha;
 
@@ -24,13 +24,17 @@ class Nodo {
     public Nodo hijoDerecha(){
         return hijoDerecha;
     }
-
+    
     public void insertarHijo(Nodo pedido){
         if(this.tiempoPreparacion() >= pedido.tiempoPreparacion()){
             this.hijoIzquerda(pedido);
         } else {
             this.hijoDerecha(pedido);
         }
+    } 
+
+    public void restarTiempoDePreparacion(){
+        pedido.restarTiempo();
     }
 
     private void hijoIzquerda(Nodo pedido){
@@ -40,17 +44,13 @@ class Nodo {
             this.hijoIzquerda.insertarHijo(pedido);
         }
     }
-
+    
     private void hijoDerecha(Nodo pedido){
         if(this.hijoDerecha == null){
             this.hijoDerecha = pedido;
         }else{
             this.hijoDerecha.insertarHijo(pedido);
         }
-    }
-
-    public void terminarPedido(){
-        this.pedido = null;
     }
 
 }
