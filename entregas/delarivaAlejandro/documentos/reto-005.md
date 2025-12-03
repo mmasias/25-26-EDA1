@@ -1,0 +1,158 @@
+# UML Reto005 
+
+```plantuml
+@startuml
+title UML - Reto005 (Simulacion, Restaurante, NodoPedido, Pedido, TipoPlato)
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam arrowColor Black
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+skinparam classFontSize 13
+skinparam classFontStyle plain
+skinparam defaultTextAlignment left
+skinparam noteBackgroundColor #F8F8F8
+skinparam noteBorderColor #BBBBBB
+
+left to right direction
+
+' ============================
+' CLASE PRINCIPAL (MAIN)
+' ============================
+class Simulacion <<Main>> {
+    + main(args: String[]): void
+}
+
+note right of Simulacion
+Punto de entrada del programa.
+Crea el Restaurante y lanza la simulación.
+end note
+
+' ============================
+' RESTAURANTE
+' ============================
+class Restaurante {
+  -- Atributos --
+  - raizArbol: NodoPedido
+  - numeroPendientes: int
+  - pedidoEnCurso: Pedido
+  - tiempoActual: int
+  - duracionJornada: int
+  - pedidosAtendidos: int
+  - tiempoEsperaTotal: int
+  - comparacionesTotales: int
+  - siguienteId: int
+  - PROB_LLEGADA: double <<static, final>>
+
+  -- Métodos públicos --
+  + Restaurante(duracionJornada: int)
+  + simular(): void
+
+  -- Métodos privados --
+  - llegaPedido(): boolean
+  - generarPedido(): Pedido
+  - generarTipoAleatorio(): TipoPlato
+  - insertarPedido(pedido: Pedido): void
+  - compararPedidos(p1: Pedido, p2: Pedido): int
+  - seleccionarNuevoPedido(): void
+  - extraerMinimo(): Pedido
+  - procesarMinutoActual(): void
+  - mostrarResumen(): void
+}
+
+note bottom of Restaurante
+Simula minuto a minuto la jornada.
+Gestiona un árbol binario de pedidos.
+Controla el tiempo y las estadísticas.
+end note
+
+' ============================
+' NODO DEL ÁRBOL
+' ============================
+class NodoPedido {
+  -- Atributos --
+  - pedido: Pedido
+  - izquierdo: NodoPedido
+  - derecho: NodoPedido
+
+  -- Métodos --
+  + NodoPedido(pedido: Pedido)
+  + getPedido(): Pedido
+  + getIzquierdo(): NodoPedido
+  + getDerecho(): NodoPedido
+  + setIzquierdo(n: NodoPedido): void
+  + setDerecho(n: NodoPedido): void
+}
+
+note bottom of NodoPedido
+Nodo de un árbol binario de búsqueda.
+Almacena un Pedido y referencias a hijos.
+end note
+
+' ============================
+' PEDIDO
+' ============================
+class Pedido {
+  -- Atributos --
+  - id: int
+  - tipo: TipoPlato
+  - tiempoTotal: int
+  - tiempoRestante: int
+  - instanteLlegada: int
+  - instanteInicio: int
+
+  -- Métodos --
+  + Pedido(id: int, tipo: TipoPlato, tiempoTotal: int, instanteLlegada: int)
+  + getId(): int
+  + getTipo(): TipoPlato
+  + getTiempoTotal(): int
+  + getTiempoRestante(): int
+  + getInstanteLlegada(): int
+  + getInstanteInicio(): int
+  + setInstanteInicio(i: int): void
+  + decrementarTiempo(): void
+}
+
+note bottom of Pedido
+Modelo de pedido individual:
+tipo de plato, tiempos y marca temporal.
+end note
+
+' ============================
+' ENUM TIPOPLATO
+' ============================
+enum TipoPlato {
+    BEBIDA
+    CAFE
+    COLACAO
+    BOCADILLO
+    ENSALADA
+}
+
+TipoPlato : - tiempoMinimo: int
+TipoPlato : - tiempoMaximo: int
+TipoPlato : - nombre: String
+TipoPlato : + getNombre(): String
+TipoPlato : + generarTiempoPreparacion(): int
+
+note right of TipoPlato
+Enum que define cada tipo de plato,
+su rango de tiempo y su nombre.
+end note
+
+' ============================
+' RELACIONES DEL DIAGRAMA
+' ============================
+Simulacion --> Restaurante : «usa»
+
+Restaurante "1" o-- "0..1" NodoPedido : raizArbol
+Restaurante "1" --> "0..1" Pedido : pedidoEnCurso
+
+NodoPedido "1" o-- "0..1" NodoPedido : izquierdo
+NodoPedido "1" o-- "0..1" NodoPedido : derecho
+NodoPedido "1" --> "1" Pedido : pedido
+
+Pedido "1" --> "1" TipoPlato : tipo
+
+@enduml
