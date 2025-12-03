@@ -6,11 +6,13 @@ class Restaurante {
     private final String nombreRestaurante;
     private final Chef chef;
     private final Arbol ordenes;
+    private int personasEnFila;
 
     public Restaurante(String nombre, Chef chef){
         this.chef = chef;
         nombreRestaurante = nombre;
         ordenes = new Arbol();
+        personasEnFila = 0;
     }
 
     public String nombreRestaurante(){
@@ -22,20 +24,18 @@ class Restaurante {
     }
     
     public void tomarPedido(Cliente cliente){
-        System.out.println("Cliente en fila");
-        if(!chef.ocupado()){
-            Nodo pedidoDeCliente = ordenes.buscarNodoMinimo();
-            chef.tomarPedido(pedidoDeCliente);
-            System.out.println("Haciendo pedido de cliente");
-        }else{
-            aceptarOrdenDeCliente(cliente);
-        }
-    }
-    
-    private void aceptarOrdenDeCliente(Cliente cliente){
-        ordenes.insertarPedido(new Nodo(cliente.darPedido()));
+        System.out.println("Nuevo cliente en fila");
+        personasEnFila += 1;
+        aceptarOrdenDeCliente(cliente);
+        System.out.println("Pedido de cliente en cola");
     }
 
+    public void asignarPedido(){
+        Nodo pedidoDeCliente = ordenes.buscarNodoConTiempoMinimo();
+        chef.tomarPedido(pedidoDeCliente.pedido());
+        personasEnFila -= 1;
+    }
+    
     public double apertura(){
         return HORA_APERTURA;
     }
@@ -44,7 +44,12 @@ class Restaurante {
         return HORA_CIERRE;
     }
 
+    public int personasEnFila(){
+        return  personasEnFila;
+    }
 
-
+    private void aceptarOrdenDeCliente(Cliente cliente){
+        ordenes.insertarPedido(new Nodo(cliente.darPedido()));
+    }
     
 }

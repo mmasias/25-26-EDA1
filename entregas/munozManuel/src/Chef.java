@@ -1,32 +1,43 @@
 package entregas.munozManuel.src;
 
 class Chef {
-    private Nodo pedidoActual;
+    private Pedido pedidoActual;
+    private int tiempoDeTrabajoEnPedido;
 
     public Chef(){
+        tiempoDeTrabajoEnPedido = 0;
     }
 
     public void processarPedido(){
+        trabajarEnPedido();
         actualizarEstadoDelPedido();
-        if(pedidoActual.tiempoPreparacion() == 0){
-            pedidoActual.terminarPedido();
-            pedidoActual = null;
-        }
     }
     
-    public void tomarPedido(Nodo pedido){
+    public void tomarPedido(Pedido pedido){
         pedidoActual = pedido;
+    }
+
+    private void actualizarEstadoDelPedido(){
+        if(pedidoActual.tiempoPreparacion() == tiempoDeTrabajoEnPedido){
+            System.out.println("Se termino el pedido " + pedidoActual.nombreDelPedido());
+            pedidoActual.terminarPedido();
+            terminarPedido();
+        }
     }
 
     public boolean ocupado(){
         return pedidoActual != null;
     }
 
-    public void actualizarEstadoDelPedido(){
-        if(pedidoActual.tiempoPreparacion() == 1){
-            System.out.println("Se termino el pedido " + pedidoActual.nombrePedido());
-            pedidoActual.terminarPedido();
+    public void trabajarEnPedido(){
+        if(ocupado()){
+            tiempoDeTrabajoEnPedido += 1;
         }
-        pedidoActual.restarTiempoDePreparacion();
     }
+
+    private void terminarPedido(){
+        pedidoActual = null;
+        tiempoDeTrabajoEnPedido = 0;
+    }
+
 }

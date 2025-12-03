@@ -1,7 +1,7 @@
 package entregas.munozManuel.src;
 
 class Pedido {
-    private final String pedido;
+    private final String nombreDelPedido;
     private int tiempoPreparacion;
     private boolean pedidoHecho;
     private final String[] PEDIDOS_DISPONIBLES = {"Bebida", "Café", "Colacao", "Bocadillo", "Ensalada"};
@@ -10,19 +10,19 @@ class Pedido {
     public Pedido() {
         int numeroDePedido = (int)(Math.random() * 5);
         pedidoHecho = false;
-        pedido = PEDIDOS_DISPONIBLES[numeroDePedido];
+        nombreDelPedido = PEDIDOS_DISPONIBLES[numeroDePedido];
         tiempoPreparacion = calcularTiempoPreparacion(numeroDePedido);
     }
 
-    public String pedido() {
-        return pedido;
+    public String nombreDelPedido() {
+        return nombreDelPedido;
     }
 
     public int tiempoPreparacion() {
         return tiempoPreparacion;
     }
     
-    public void restarTiempo(){
+    public void restarTiempoDePreparacion(){
         tiempoPreparacion -= 1;
     }
 

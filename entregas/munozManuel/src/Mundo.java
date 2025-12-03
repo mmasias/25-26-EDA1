@@ -21,11 +21,21 @@ class Mundo {
             }
             while (tiempo >= restaurante.apertura() && tiempo <= restaurante.cierre()){
                 System.out.println("Dentro de restaurante abierto " + tiempo);
-                if (0.4 > Math.random()){
-                    restaurante.tomarPedido(new Cliente());
+
+                if (masiasChef.ocupado()) {
+                    masiasChef.processarPedido();
                 }
-                masiasChef.actualizarEstadoDelPedido();
-                System.out.println("| Pedido |".repeat(restaurante.cantidadOrdenes()));
+
+                if (0.4 > Math.random()){
+                    Cliente clienteNuevo = new Cliente();
+                    restaurante.tomarPedido(clienteNuevo);
+                }
+
+                if (restaurante.personasEnFila() > 0 && !masiasChef.ocupado()){
+                    restaurante.asignarPedido();
+                }
+
+                System.out.println("| Pedido |".repeat(restaurante.personasEnFila()));
                 // System.out.println("Presiona Enter para continuar...");
                 // scanner.nextLine();
                 pasarTiempo();
