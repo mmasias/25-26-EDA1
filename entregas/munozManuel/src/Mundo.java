@@ -36,8 +36,8 @@ class Mundo {
                 }
 
                 System.out.println("| Pedido |".repeat(restaurante.personasEnFila()));
-                // System.out.println("Presiona Enter para continuar...");
-                // scanner.nextLine();
+                System.out.println("Presiona Enter para continuar...");
+                scanner.nextLine();
                 pasarTiempo();
 
             }
