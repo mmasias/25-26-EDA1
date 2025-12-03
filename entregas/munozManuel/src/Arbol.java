@@ -60,12 +60,13 @@ class Arbol {
     }
 
     private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMinimo) {
-        if (nodo == null)
+        if (nodo == null){
             return actualMinimo;
+        }
 
         actualMinimo = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMinimo);
 
-        if (actualMinimo == null || nodo.tiempoPreparacion() < actualMinimo.tiempoPreparacion()) {
+        if ((actualMinimo == null || nodo.tiempoPreparacion() < actualMinimo.tiempoPreparacion()) && !nodo.pedidoHecho()) {
             actualMinimo = nodo;
         }
 
