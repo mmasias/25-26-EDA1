@@ -9,7 +9,8 @@ class Chef {
     public void processarPedido(){
         actualizarEstadoDelPedido();
         if(pedidoActual.tiempoPreparacion() == 0){
-            terminarPedido();
+            pedidoActual.terminarPedido();
+            pedidoActual = null;
         }
     }
     
@@ -21,13 +22,10 @@ class Chef {
         return pedidoActual != null;
     }
 
-    private void terminarPedido(){
-        pedidoActual = null;
-    }
-
     public void actualizarEstadoDelPedido(){
         if(pedidoActual.tiempoPreparacion() == 1){
             System.out.println("Se termino el pedido " + pedidoActual.nombrePedido());
+            pedidoActual.terminarPedido();
         }
         pedidoActual.restarTiempoDePreparacion();
     }
