@@ -2,10 +2,10 @@ package entregas.munozManuel.src;
 
 class Arbol {
     private Nodo raiz;
-    private int cantidadNodos = 0;
+    private int cantidadNodos;
 
     public Arbol(){
-
+        cantidadNodos = 0;
     }
 
     public void insertarPedido(Nodo nodo) {
@@ -22,7 +22,7 @@ class Arbol {
         return cantidadNodos;
     }
 
-    public Nodo buscarNodoConTiempoMinimo() {
+    public Nodo buscarNodoMinimo() {
         return buscarNodoRecursivo(raiz, null);
     }
 
