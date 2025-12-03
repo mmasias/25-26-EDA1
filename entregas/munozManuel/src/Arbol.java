@@ -22,7 +22,7 @@ class Arbol {
         return cantidadNodos;
     }
 
-    public Nodo buscarNodoMinimo() {
+    public Nodo buscarNodoConTiempoMinimo() {
         return buscarNodoRecursivo(raiz, null);
     }
 
