@@ -45,33 +45,33 @@ class Arbol {
         }
     }
 
-    private int recorrerInOrden(Nodo nodo, Nodo[] arreglo, int indice) {
+    private int recorrerInOrden(Nodo nodo, Nodo[] nodosOrdenados, int indice) {
         if (nodo == null)
             return indice;
 
-        indice = recorrerInOrden(nodo.hijoIzquerda(), arreglo, indice);
+        indice = recorrerInOrden(nodo.hijoIzquerda(), nodosOrdenados, indice);
 
-        arreglo[indice] = nodo;
+        nodosOrdenados[indice] = nodo;
         indice += 1;
 
-        indice = recorrerInOrden(nodo.hijoDerecha(), arreglo, indice);
+        indice = recorrerInOrden(nodo.hijoDerecha(), nodosOrdenados, indice);
 
         return indice;
     }
 
-    private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMin) {
+    private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMinimo) {
         if (nodo == null)
-            return actualMin;
+            return actualMinimo;
 
-        actualMin = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMin);
+        actualMinimo = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMinimo);
 
-        if (actualMin == null || nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
-            actualMin = nodo;
+        if (actualMinimo == null || nodo.tiempoPreparacion() < actualMinimo.tiempoPreparacion()) {
+            actualMinimo = nodo;
         }
 
-        actualMin = buscarNodoRecursivo(nodo.hijoDerecha(), actualMin);
+        actualMinimo = buscarNodoRecursivo(nodo.hijoDerecha(), actualMinimo);
 
-        return actualMin;
+        return actualMinimo;
     }
 
 }
