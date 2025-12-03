@@ -26,9 +26,9 @@ class Arbol {
         return buscarNodoRecursivo(raiz, null);
     }
 
-    public void recorrerArbol() {
+    public void recorrerOrdenes() {
         if (raiz == null || cantidadNodos == 0) {
-            System.out.println("Árbol vacío");
+            System.out.println("Ordenes vacío");
             return;
         }
 
@@ -38,9 +38,9 @@ class Arbol {
         recorrerInOrden(raiz, nodosOrdenados, indiceInicial);
 
         for (Nodo nodosOrdenado : nodosOrdenados) {
-            if (nodosOrdenado != null) {
+            if (nodosOrdenado != null && !nodosOrdenado.pedidoHecho()) {
                 System.out.println(
-                        nodosOrdenado.nombreDelPedido() + " elemento con timepo: " + nodosOrdenado.tiempoPreparacion());
+                        nodosOrdenado.nombreDelPedido() + " con timepo: " + nodosOrdenado.tiempoPreparacion());
             }
         }
     }
