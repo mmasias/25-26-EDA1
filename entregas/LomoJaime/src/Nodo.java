@@ -1,9 +1,9 @@
-class NodoArbol {
+class Nodo {
     Pedido pedido;
-    NodoArbol izquierdo;
-    NodoArbol derecho;
+    Nodo izquierdo;
+    Nodo derecho;
 
-    public NodoArbol(Pedido pedido) {
+    public Nodo(Pedido pedido) {
         this.pedido = pedido;
         this.izquierdo = null;
         this.derecho = null;

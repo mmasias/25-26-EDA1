@@ -1,5 +1,5 @@
 public class ArbolPedidos {
-    private NodoArbol raiz;
+    private Nodo raiz;
     private int tamaño;
 
     public ArbolPedidos() {
