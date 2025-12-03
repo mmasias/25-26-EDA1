@@ -1,8 +1,8 @@
 package entregas.munozManuel.src;
 
 class Restaurante {
-    private final double HORA_APERTURA = 9.0;
-    private final double HORA_CIERRE = 21.0;
+    private final int HORA_APERTURA = 9;
+    private final int HORA_CIERRE = 21;
     private final String nombreRestaurante;
     private final Chef chef;
     private final Arbol ordenes;
@@ -15,12 +15,8 @@ class Restaurante {
         personasEnFila = 0;
     }
 
-    public String nombreRestaurante(){
-        return nombreRestaurante;
-    }
-
-    public int cantidadOrdenes(){
-        return ordenes.cantidadNodos();
+    public void mostrarPedidosEnFila(){
+        ordenes.recorrerOrdenes();
     }
     
     public void tomarPedido(Cliente cliente){
@@ -29,11 +25,19 @@ class Restaurante {
         aceptarOrdenDeCliente(cliente);
         System.out.println("Pedido de cliente en cola");
     }
-
+    
     public void asignarPedido(){
         Nodo pedidoDeCliente = ordenes.buscarNodoConTiempoMinimo();
         chef.tomarPedido(pedidoDeCliente.pedido());
         personasEnFila -= 1;
+    }
+
+    public String nombreRestaurante(){
+        return nombreRestaurante;
+    }
+
+    public int cantidadOrdenes(){
+        return ordenes.cantidadNodos();
     }
     
     public double apertura(){
@@ -49,7 +53,9 @@ class Restaurante {
     }
 
     private void aceptarOrdenDeCliente(Cliente cliente){
-        ordenes.insertarPedido(new Nodo(cliente.darPedido()));
+        Pedido pedidoDelCliente = cliente.darPedido();
+        ordenes.insertarPedido(new Nodo(pedidoDelCliente));
+        System.out.println("Se ha aceptado la orden " + pedidoDelCliente.nombreDelPedido() + " del cliente " + cliente.nombre());
     }
     
 }
