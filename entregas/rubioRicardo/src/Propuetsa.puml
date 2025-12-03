@@ -1,0 +1,74 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide circle
+
+class SimulacionRestaurante {
+    + {static} main(args: String[])
+}
+
+class Restaurante {
+    - colaPedidos : ArbolPedidos
+    - pedidoEnCocina : Pedido
+    - tiempoCoccionRestante : int
+    - totalPedidosAtendidos : int
+    - entradaUsuario : Scanner
+    - NOMBRES_PLATOS : String[]
+    - TIEMPOS_PREPARACION : int[]
+    
+    + Restaurante()
+    + iniciarSimulacion()
+    - procesarCocina()
+    - mostrarEstado()
+    - gestionarInputUsuario()
+    - generarPedidoAleatorio() : Pedido
+}
+
+class ArbolPedidos {
+    - raiz : Nodo
+    - cantidadNodos : int
+    
+    + ArbolPedidos()
+    + estaVacio() : boolean
+    + getCantidad() : int
+    + insertar(pedidoNuevo: Pedido)
+    + extraerMinimo() : Pedido
+    + imprimirArbolIterativo()
+    + actualizarTiemposDeEspera()
+}
+
+class Nodo {
+    - pedido : Pedido
+    - izquierdo : Nodo
+    - derecho : Nodo
+    
+    + Nodo(pedido: Pedido)
+    + getPedido() : Pedido
+    + getIzquierdo() : Nodo
+    + setIzquierdo(n: Nodo)
+    + getDerecho() : Nodo
+    + setDerecho(n: Nodo)
+}
+
+class Pedido {
+    - nombre : String
+    - tiempoPreparacion : int
+    - tiempoEspera : int
+    
+    + Pedido(nombre: String, tiempo: int)
+    + incrementarTiempoEspera()
+    + getNombre() : String
+    + getTiempoPreparacion() : int
+    + getTiempoEspera() : int
+}
+
+' Relaciones
+SimulacionRestaurante ..> Restaurante : crea >
+Restaurante *-- ArbolPedidos : contiene
+Restaurante o-- Pedido : cocina (actual)
+
+ArbolPedidos *-- Nodo : gestiona (raiz)
+Nodo o-- Pedido : envuelve
+Nodo o-- Nodo : enlaces (izq/der)
+
+@enduml
