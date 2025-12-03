@@ -8,54 +8,54 @@ class Restaurante {
     private final Arbol ordenes;
     private int personasEnFila;
 
-    public Restaurante(String nombre, Chef chef){
+    public Restaurante(String nombre, Chef chef) {
         this.chef = chef;
         nombreRestaurante = nombre;
         ordenes = new Arbol();
         personasEnFila = 0;
     }
 
-    public void mostrarPedidosEnFila(){
+    public void mostrarPedidosEnFila() {
         ordenes.recorrerOrdenes();
     }
-    
-    public void tomarPedido(Cliente cliente){
+
+    public void tomarPedido(Cliente cliente) {
         System.out.println("Nuevo cliente en fila");
         personasEnFila += 1;
         aceptarOrdenDeCliente(cliente);
-        System.out.println("Pedido de cliente en cola");
     }
-    
-    public void asignarPedido(){
+
+    public void asignarPedido() {
         Nodo pedidoDeCliente = ordenes.buscarNodoConTiempoMinimo();
         chef.tomarPedido(pedidoDeCliente.pedido());
         personasEnFila -= 1;
     }
 
-    public String nombreRestaurante(){
+    public String nombreRestaurante() {
         return nombreRestaurante;
     }
 
-    public int cantidadOrdenes(){
+    public int cantidadOrdenes() {
         return ordenes.cantidadNodos();
     }
-    
-    public double apertura(){
+
+    public double apertura() {
         return HORA_APERTURA;
     }
 
-    public double cierre(){
+    public double cierre() {
         return HORA_CIERRE;
     }
 
-    public int personasEnFila(){
-        return  personasEnFila;
+    public int personasEnFila() {
+        return personasEnFila;
     }
 
-    private void aceptarOrdenDeCliente(Cliente cliente){
+    private void aceptarOrdenDeCliente(Cliente cliente) {
         Pedido pedidoDelCliente = cliente.darPedido();
         ordenes.insertarPedido(new Nodo(pedidoDelCliente));
-        System.out.println("Se ha aceptado la orden " + pedidoDelCliente.nombreDelPedido() + " del cliente " + cliente.nombre());
+        System.out.println("Se ha aceptado la orden " + pedidoDelCliente.nombreDelPedido() + " del cliente "
+                + cliente.nombre() + " y esta esperando en fila");
     }
-    
+
 }

@@ -13,8 +13,10 @@ class Chef {
     }
     
     public void mostrarPedidoActual(){
-        int tiempoRestante = pedidoActual.tiempoPreparacion() - tiempoDeTrabajoEnPedido;
-        System.out.println("Se esta haciendo el pedido " + pedidoActual.nombreDelPedido() + " le falta " + tiempoRestante);
+        if(ocupado()){
+            int tiempoRestante = pedidoActual.tiempoPreparacion() - tiempoDeTrabajoEnPedido;
+            System.out.println("Se esta haciendo el pedido " + pedidoActual.nombreDelPedido() + " le falta " + tiempoRestante + " minuto");
+        }
     }
     
     private void actualizarEstadoDelPedido(){

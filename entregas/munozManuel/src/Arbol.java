@@ -40,7 +40,7 @@ class Arbol {
         for (Nodo nodosOrdenado : nodosOrdenados) {
             if (nodosOrdenado != null && !nodosOrdenado.pedidoHecho()) {
                 System.out.println(
-                        nodosOrdenado.nombreDelPedido() + " con timepo: " + nodosOrdenado.tiempoPreparacion());
+                        nodosOrdenado.nombreDelPedido() + " con tiempo: " + nodosOrdenado.tiempoPreparacion());
             }
         }
     }
