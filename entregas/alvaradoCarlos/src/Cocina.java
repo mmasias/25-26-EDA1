@@ -1,36 +1,46 @@
-class Cocina {
-    private MinHeap cola;
+public class Cocina {
+    private ArbolBinario arbol;
     private Pedido enProceso;
     private int completados = 0;
+    private int contadorPendientes = 0;
 
     public Cocina() {
-        this.cola = new MinHeap(20);
+        this.arbol = new ArbolBinario();
     }
 
     public void recibirPedido(Pedido pedido) {
-        cola.insertar(pedido);
+        arbol.insertar(pedido);
+        contadorPendientes++;
     }
 
     public void trabajar() {
-        if (enProceso == null && !cola.esVacia()) {
-            enProceso = cola.extraerMinimo();
+        if (enProceso == null && !arbol.esVacio()) {
+            enProceso = arbol.extraerMasRapido();
         }
 
         if (enProceso != null) {
             enProceso.cocinar();
-            if (enProceso.estaTerminado()) {
+            if (enProceso.tiempoRestante() <= 0) {
                 completados++;
+                contadorPendientes--;
                 enProceso = null;
             }
         }
     }
 
-    public String estado() {
-        if (enProceso == null) return "Libre";
-        return String.format("[%s - %d min]", enProceso.nombrePlato(), enProceso.tiempoRestante());
+    public int pendientes() { 
+        return contadorPendientes; 
     }
 
-    public int pendientes() { return cola.tamaño(); }
-    public int completados() { return completados; }
-    public int eficiencia() { return cola.comparaciones(); }
+    public int completados() { 
+        return completados; 
+    }
+
+    public String estado() { 
+        return (enProceso == null) ? "Libre" : enProceso.toString(); 
+    }
+
+    public int eficiencia() { 
+        return arbol.comparaciones(); 
+    }
 }

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class Restaurante {
+public class Restaurante {
     private Cocina cocina;
     private TipoPlato[] cartaMenu;
     private Random rnd;
@@ -24,7 +24,7 @@ class Restaurante {
 
     public void run() throws InterruptedException {
         System.out.println("=== BIENVENIDO AL RESTAURANTE RCCCF ===");
-        System.out.println("Sistema de cocina inteligente (Min-Heap) iniciado...");
+        System.out.println("Sistema de cocina inteligente iniciado...");
 
         for (int minuto = 1; minuto <= DURACION_JORNADA; minuto++) {
             System.out.println("----------------------------------------");
@@ -62,7 +62,7 @@ class Restaurante {
         System.out.println("========================================");
         System.out.println("Pedidos servidos       : " + cocina.completados());
         System.out.println("Pedidos pendientes     : " + cocina.pendientes());
-        System.out.println("Comparaciones: " + cocina.eficiencia());
+        System.out.println("Comparaciones (Eficiencia): " + cocina.eficiencia());
         System.out.println("========================================");
     }
 }
