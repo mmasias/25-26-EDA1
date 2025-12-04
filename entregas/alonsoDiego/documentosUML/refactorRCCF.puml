@@ -1,0 +1,48 @@
+@startuml
+
+title Diagrama de Clases - Refactorización Arbol
+
+class Simulation {
+    + main()
+}
+
+class Restaurant {
+    - ArbolPedidos cola
+    - Pedido pedidoActual
+    - int minutoActual
+    + run()
+}
+
+class ArbolPedidos {
+    - Nodo raiz
+    - int tamaño
+    + insertar(Pedido p)
+    + extraerMinimo() : Pedido
+    + isEmpty() : boolean
+}
+
+class Nodo {
+    - Pedido pedido
+    - Nodo izquierdo
+    - Nodo derecho
+    + getPedido()
+    + setIzquierdo()
+    + setDerecho()
+}
+
+class Pedido {
+    - int tiempoPreparacion
+    - int minutoLlegada
+    + getTiempoPreparacion()
+    + getMinutoLlegada()
+}
+
+' Relaciones
+Simulation ..> Restaurant : usa >
+Restaurant *-- ArbolPedidos : tiene >
+Restaurant o-- Pedido : gestiona >
+ArbolPedidos *-- Nodo : manipulando >
+Nodo o-- Pedido : contiene >
+Nodo --> Nodo : se enlaza con >
+
+@enduml
