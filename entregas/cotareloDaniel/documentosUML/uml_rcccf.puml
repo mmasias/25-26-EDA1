@@ -1,0 +1,46 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class SimulacionRCCCF {
+    + main(String[]) : void
+}
+
+class Pedido {
+    - tipo : String
+    - tiempoPreparacion : int
+    - tiempoRestante : int
+    - instanteLlegada : int
+    - instanteInicio : int
+
+    + Pedido(String, int, int)
+    + obtenerTiempoRestante() : int
+    + reducirTiempo() : void
+    + marcarInicio(int) : void
+    + obtenerEspera() : int
+    + obtenerTipo() : String
+}
+
+class ArbolPedidos {
+    - raiz : Nodo
+    - comparaciones : int
+
+    + ArbolPedidos()
+    + insertar(Pedido) : void
+    + estaVacio() : boolean
+    + extraerMinimo() : Pedido
+    + obtenerComparaciones() : int
+}
+
+class Nodo {
+    - pedido : Pedido
+    - izquierda : Nodo
+    - derecha : Nodo
+
+    + Nodo(Pedido)
+}
+
+SimulacionRCCCF --> ArbolPedidos
+ArbolPedidos --> Nodo
+Nodo --> Pedido
+
+@enduml
