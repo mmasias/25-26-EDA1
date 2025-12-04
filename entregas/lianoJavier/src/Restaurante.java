@@ -7,6 +7,8 @@ public class Restaurante {
   private Cocinero cocinero;
   private Arbol comandas;
 
+  private int pedidosAtendidos;
+  private int tiempoTotalEspera;
   private int tiempo;
 
   public Restaurante() {
@@ -19,6 +21,7 @@ public class Restaurante {
   }
 
   public void recoger(Pedido pedido) {
+    pedido.setTiempoLlegada(tiempo);
     comandas.insertar(pedido);
   }
 
@@ -30,12 +33,23 @@ public class Restaurante {
     Console.imprimirln("[" + tiempo / 60 + ":" + tiempo % 60 + "]");
     Console.imprimirln("Número de comandas: " + comandas.getNumeroNodos());
     cocinero.actualizar();
+    if (cocinero.tienePedidoListo()) {
+      Pedido pedidoTerminado = cocinero.recogerPedido();
+      pedidosAtendidos++;
+      tiempoTotalEspera += (tiempo - pedidoTerminado.getTiempoLlegada());
+    }
     tiempo++;
   }
 
   public void resultadoFinal() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'resultadoFinal'");
+    Console.imprimirln("RESUMEN DE LA JORNADA");
+    Console.imprimirln("========================================");
+    Console.imprimirln("Pedidos atendidos        : " + pedidosAtendidos);
+    Console.imprimirln("Pedidos pendientes       : " + comandas.getNumeroNodos());
+    Console.imprimirln("Tiempo total de espera   : " + tiempoTotalEspera);
+    Console.imprimirln(
+        "Tiempo medio de espera   : " + (pedidosAtendidos > 0 ? (double) tiempoTotalEspera / pedidosAtendidos : 0));
+    Console.imprimirln("========================================");
   }
 
 }
