@@ -31,6 +31,7 @@ public class Restaurante {
             System.out.printf("[%d.0]\n", minuto);
 
             gestionarLlegadaClientes();
+            cocina.asignarTrabajo();
             mostrarEstado();
             
             cocina.trabajar();

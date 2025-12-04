@@ -22,9 +22,15 @@ public class Cocina {
             enProceso.cocinar();
             if (enProceso.tiempoRestante() <= 0) {
                 completados++;
-                contadorPendientes--;
                 enProceso = null;
             }
+        }
+    }
+
+    public void asignarTrabajo() {
+        if (enProceso == null && !arbol.esVacio()) {
+            enProceso = arbol.extraerMasRapido();
+            contadorPendientes--;
         }
     }
 
