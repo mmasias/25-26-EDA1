@@ -1,0 +1,94 @@
+@startuml RestauranteSimulacion
+
+' Configuración de apariencia
+hide circle
+skinparam classAttributeIconSize 0
+
+' ----------------------------------------------------
+' 1. Clases del Modelo y Componentes de Estructura de Datos
+' ----------------------------------------------------
+
+class Pedido {
+    - static int contadorId
+    - int id
+    - String nombre
+    - int tiempoPreparacionTotal
+    - int tiempoRestante
+    - int minutoLlegada
+    + Pedido(nombre, tiempo, minuto)
+    + cocinarUnMinuto()
+    + estaTerminado(): boolean
+    + getTiempoPreparacionTotal(): int
+}
+
+class NodoArbol {
+    - Pedido pedido
+    - NodoArbol nodoIzquierdo
+    - NodoArbol nodoDerecho
+    + NodoArbol(pedido)
+    + obtenerPedido(): Pedido
+    + obtenerIzquierdo(): NodoArbol
+    + asignarIzquierdo(NodoArbol)
+}
+
+class ArbolPedidos {
+    - NodoArbol raiz
+    - int tamano
+    - int contadorComparaciones
+    + ArbolPedidos()
+    + insertar(Pedido)
+    + obtenerMaxPrioridad(): Pedido
+    + estaVacio(): boolean
+    + getComparaciones(): int
+}
+
+' Relaciones internas de la estructura de datos
+NodoArbol "1" -- "1" Pedido : contiene >
+ArbolPedidos "1" -- "0..1" NodoArbol : raiz
+NodoArbol "1" -- "0..1" NodoArbol : nodoIzquierdo
+NodoArbol "1" -- "0..1" NodoArbol : nodoDerecho
+
+' ----------------------------------------------------
+' 2. Clases del Controlador, Vista y Launcher
+' ----------------------------------------------------
+
+class Consola {
+    + imprimirSeparador()
+    + imprimirCabeceraMinuto(int)
+    + imprimirEstado(int, Pedido)
+    + imprimirResumen(...)
+}
+
+class SistemaRestaurante {
+    - ArbolPedidos arbolPedidos
+    - Consola visor
+    - Random random
+    - Pedido pedidoEnCocina
+    - int HORAS_SERVICIO_MINUTOS = 720
+    - double PROBABILIDAD_LLEGADA = 0.4
+    - int pedidosAtendidos
+    + SistemaRestaurante()
+    + iniciarServicio()
+    - procesarCocina(int)
+    - generarPedidoAleatorio(int): Pedido
+}
+
+class Restaurante {
+    + {static} main(String[] args)
+}
+
+' Relaciones funcionales
+
+' Launcher -> Controller
+Restaurante ..> SistemaRestaurante : crea/usa
+
+' Controlador y sus dependencias
+SistemaRestaurante "1" *-- "1" ArbolPedidos : gestiona
+SistemaRestaurante "1" *-- "1" Consola : presenta
+SistemaRestaurante "1" o-- "0..1" Pedido : pedidoEnCocina
+
+' Uso de Pedido por otras clases
+Consola .down.> Pedido : <<muestra datos>>
+ArbolPedidos .up.> Pedido : <<compara>>
+
+@enduml
