@@ -49,4 +49,9 @@ public class ArbolPedidos {
 
         return actual.p;
     }
+
+    public boolean vacio() {
+        return raiz == null;
+    }
 }
+
