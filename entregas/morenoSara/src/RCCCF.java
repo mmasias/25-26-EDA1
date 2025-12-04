@@ -16,7 +16,7 @@ public class RCCCF {
         for (int minutoActual = 1; minutoActual <= 120; minutoActual++) {
 
             System.out.println("========================================");
-            System.out.println("[" + minutoActual + "]");
+            System.out.println("[" + String.format("%.1f", (double) minutoActual) + "]");
 
             if (generadorAleatorio.nextDouble() < 0.40) {
                 Pedido nuevoPedido = generarPedido(minutoActual);
@@ -25,7 +25,7 @@ public class RCCCF {
                 recepcionista.recibirPedido(nuevoPedido, cocinero);
             }
 
-            System.out.println("COLA: " + cocinero.getFilaPedidos().cantidadPendientes() + " pedidos");
+            System.out.println("COLA: " + cocinero.getArbolPedidos().cantidadPendientes() + " pedidos");
 
             if (cocinero.estaLibre()) {
                 cocinero.recibirSiguientePedido();
@@ -44,7 +44,7 @@ public class RCCCF {
             System.out.println("Cocinero: " + cocinero.estadoActual());
         }
 
-        totalComparaciones = cocinero.getFilaPedidos().getTotalComparaciones();
+        totalComparaciones = cocinero.getArbolPedidos().getTotalComparaciones();
         resumenFinal();
     }
 
@@ -68,13 +68,14 @@ public class RCCCF {
         System.out.println("RESUMEN DE LA JORNADA");
         System.out.println("========================================");
         System.out.println("Pedidos atendidos        : " + totalPedidosAtendidos);
-        System.out.println("Pedidos pendientes       : " + cocinero.getFilaPedidos().cantidadPendientes());
-        System.out.println("Tiempo total de espera   : " + tiempoTotalDeEspera);
+        System.out.println("Pedidos pendientes       : " + cocinero.getArbolPedidos().cantidadPendientes());
+        System.out.println("Tiempo total de espera   : " + tiempoTotalDeEspera + " minutos");
         if (totalPedidosAtendidos > 0) {
-            System.out.println("Tiempo medio de espera   : " + 
-                (tiempoTotalDeEspera / (double) totalPedidosAtendidos));
+            System.out.println("Tiempo medio de espera   : " +
+                (tiempoTotalDeEspera / (double) totalPedidosAtendidos) + " minutos");
         }
         System.out.println("Comparaciones totales    : " + totalComparaciones);
         System.out.println("========================================");
     }
 }
+
