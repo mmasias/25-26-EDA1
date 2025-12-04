@@ -1,0 +1,59 @@
+@startuml DiagramaArbolRCCCF
+
+class SimulacionRCCCFConArbol {
+  - minutosJornada : int
+  - probabilidadLlegada : double
+  - cocina : CocinaConArbol
+  - siguienteIdPedido : int
+  - tiempoEsperaAcumulado : int
+  + ejecutar()
+  + main(args : String[])
+}
+
+class CocinaConArbol {
+  - pedidosPendientes : ArbolPedidos
+  - pedidoEnCocina : Pedido
+  - pedidosAtendidos : int
+  - comparacionesInsercion : int
+  - comparacionesSeleccion : int
+  + anadirPedido(p : Pedido)
+  + seleccionarSiguientePedido()
+  + procesarUnMinuto()
+  + getNumeroPedidosPendientes() : int
+  + getPedidoEnCocina() : Pedido
+  + getPedidosAtendidos() : int
+  + getComparacionesInsercion() : int
+  + getComparacionesSeleccion() : int
+}
+
+class ArbolPedidos {
+  - raiz : NodoArbolPedido
+  - tamano : int
+  + insertar(p : Pedido)
+  + extraerMinimo() : Pedido
+  + estaVacio() : boolean
+  + getTamano() : int
+}
+
+class NodoArbolPedido {
+  - dato : Pedido
+  - izquierdo : NodoArbolPedido
+  - derecho : NodoArbolPedido
+}
+
+class Pedido {
+  - id : int
+  - tipo : String
+  - tiempoPreparacion : int
+  - tiempoRestante : int
+  - minutoLlegada : int
+}
+
+SimulacionRCCCFConArbol --> CocinaConArbol
+CocinaConArbol --> ArbolPedidos
+CocinaConArbol --> Pedido
+
+ArbolPedidos *-- NodoArbolPedido
+NodoArbolPedido --> Pedido
+
+@enduml
