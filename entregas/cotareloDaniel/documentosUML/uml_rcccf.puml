@@ -1,5 +1,4 @@
 @startuml
-skinparam classAttributeIconSize 0
 
 class SimulacionRCCCF {
     + main(String[]) : void
