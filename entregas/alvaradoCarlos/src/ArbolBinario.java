@@ -16,16 +16,17 @@ public class ArbolBinario {
             boolean insertado = false;
 
             while (!insertado) {
+                comparaciones++;
                 if (pedido.esMasRapidoQue(actual.pedido())) {
                     if (actual.izquierda() == null) {
-                        actual = nuevo;
+                        actual.crearNodoIzquierda(nuevo);
                         insertado = true;
                     } else {
                         actual = actual.izquierda();
                     }
                 } else {
                     if (actual.derecha() == null) {
-                        actual = nuevo;
+                        actual.crearNodoDerecha(nuevo);
                         insertado = true;
                     } else {
                         actual = actual.derecha();
@@ -52,7 +53,7 @@ public class ArbolBinario {
         }
 
         Pedido pedido = actual.pedido();
-        padre = actual.derecha(); 
+        padre.crearNodoIzquierda(actual.derecha());
         
         return pedido;
     }

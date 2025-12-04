@@ -9,15 +9,23 @@ public class Nodo {
         this.derecha = null;
     }
 
-    public Nodo izquierda(){
+    public Nodo izquierda() {
         return izquierda;
     }
 
-    public Nodo derecha(){
+    public void crearNodoIzquierda(Nodo nodo) {
+        this.izquierda = nodo;
+    }
+
+    public Nodo derecha() {
         return derecha;
     }
 
-    public Pedido pedido(){
+    public void crearNodoDerecha(Nodo nodo) {
+        this.derecha = nodo;
+    }
+
+    public Pedido pedido() {
         return pedido;
     }
 }
