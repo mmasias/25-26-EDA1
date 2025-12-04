@@ -22,7 +22,6 @@ class Chef {
     private void actualizarEstadoDelPedido(){
         if(pedidoActual.tiempoPreparacion() == tiempoDeTrabajoEnPedido){
             System.out.println("Se termino el pedido " + pedidoActual.nombreDelPedido());
-            pedidoActual.terminarPedido();
             terminarPedido();
         }
     }
@@ -42,6 +41,7 @@ class Chef {
     }
 
     private void terminarPedido(){
+        pedidoActual.terminarPedido();
         pedidoActual = null;
         tiempoDeTrabajoEnPedido = 0;
     }
