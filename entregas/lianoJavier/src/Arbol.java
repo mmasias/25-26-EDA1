@@ -21,11 +21,28 @@ public class Arbol {
   }
 
   public Pedido sacarMinimo() {
+    assert raiz != null : "No se puede sacar el mínimo de un árbol vacío";
+
     numeroDeNodos--;
-    Nodo nodoExtraido = raiz.sacarPedidoMinimo();
-    if (raiz.esIgualNumeroComanda(nodoExtraido))
-      raiz = raiz.sacarArbolMayor();
-    return nodoExtraido.getPedido();
+
+    if (raiz.getIzquierdo() == null) {
+      Pedido pedido = raiz.getPedido();
+      raiz = raiz.getDerecho();
+      return pedido;
+    }
+
+    Nodo padre = null;
+    Nodo actual = raiz;
+
+    while (actual.getIzquierdo() != null) {
+      padre = actual;
+      actual = actual.getIzquierdo();
+    }
+
+    Pedido pedido = actual.getPedido();
+    padre.setIzquierdo(actual.getDerecho());
+
+    return pedido;
   }
 
   public int getNumeroNodos() {
