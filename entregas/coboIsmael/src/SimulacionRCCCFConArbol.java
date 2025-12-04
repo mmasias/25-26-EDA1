@@ -1,20 +1,22 @@
-public class SimulacionRCCCF {
+import java.text.DecimalFormat;
+
+public class SimulacionRCCCFConArbol {
 
     private static final int MINUTOS_JORNADA = 12 * 60;
     private static final double PROBABILIDAD_LLEGADA = 0.4;
 
-    private Cocina cocina;
+    private CocinaConArbol cocina;
     private int siguienteIdPedido;
     private int tiempoEsperaAcumulado;
 
-    public SimulacionRCCCF() {
-        this.cocina = new Cocina();
+    public SimulacionRCCCFConArbol() {
+        this.cocina = new CocinaConArbol();
         this.siguienteIdPedido = 1;
         this.tiempoEsperaAcumulado = 0;
     }
 
     public static void main(String[] args) {
-        SimulacionRCCCF simulacion = new SimulacionRCCCF();
+        SimulacionRCCCFConArbol simulacion = new SimulacionRCCCFConArbol();
         simulacion.ejecutar();
     }
 
@@ -40,10 +42,13 @@ public class SimulacionRCCCF {
             if (pedidoActual == null) {
                 System.out.println("Cocinero: [libre]");
             } else {
-                System.out.println("Cocinero: [" +
-                    pedidoActual.getTipo() + " - " +
+                System.out.println(
+                    "Cocinero: [" +
+                    pedidoActual.getTipo() +
+                    " - " +
                     pedidoActual.getTiempoRestante() +
-                    " min restantes]");
+                    " min restantes]"
+                );
             }
 
             cocina.procesarUnMinuto();
@@ -68,11 +73,21 @@ public class SimulacionRCCCF {
             tiempoMedioEspera = (double) tiempoEsperaAcumulado / pedidosTotales;
         }
 
-        System.out.println("Tiempo medio de espera   : " +
-            String.format("%.2f", tiempoMedioEspera) +
-            " minutos");
-        System.out.println("Comparaciones totales    : " +
-            cocina.getComparacionesSeleccion());
+        DecimalFormat formato = new DecimalFormat("0.00");
+
+        System.out.println(
+            "Tiempo medio de espera   : " +
+            formato.format(tiempoMedioEspera) +
+            " minutos"
+        );
+        System.out.println(
+            "Comparaciones inserción  : " +
+            cocina.getComparacionesInsercion()
+        );
+        System.out.println(
+            "Comparaciones selección  : " +
+            cocina.getComparacionesSeleccion()
+        );
         System.out.println("========================================");
     }
 
@@ -123,6 +138,6 @@ public class SimulacionRCCCF {
     }
 
     private int generarEnteroAleatorio(int minimo, int maximo) {
-        return minimo + (int)(Math.random() * ((maximo - minimo) + 1));
+        return minimo + (int) (Math.random() * ((maximo - minimo) + 1));
     }
-} 
+}
