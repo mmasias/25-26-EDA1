@@ -42,3 +42,47 @@ Los clientes eligen los platos con una distribución aleatoria uniforme. El tiem
 
 ### Diagrama de Clases refactorizado RCCCF
 ![Diagrama de Clases RCCCF con Árbol](../documentosUML/refactorRCCF.png)
+
+### Vista pública
+
+<div align=center>
+
+|Simulation.java
+|-
+public static void main(String[] args)
+
+|Restaurant.java
+|-
+public Restaurant()
+public void run()
+
+|ArbolPedidos.java
+|-
+public ArbolPedidos()
+public void insertar(Pedido pedido)
+public Pedido extraerMinimo()
+public boolean isEmpty()
+public int getComparaciones()
+
+|Pedido.java
+|-
+public Pedido(String nombrePlato, int tiempoPreparacion, int minutoLlegada)
+public void restarMinuto()
+public boolean estaTerminado()
+public int calcularTiempoEspera(int minutoActual)
+public String getNombrePlato()
+public int getTiempoPreparacion()
+public int getTiempoRestante()
+public int getMinutoLlegada()
+
+|Nodo.java
+|-
+public Nodo(Pedido pedido)
+public Pedido getPedido()
+public int getTiempoPreparacion()
+public Nodo getIzquierdo()
+public void setIzquierdo(Nodo izquierdo)
+public Nodo getDerecho()
+public void setDerecho(Nodo derecho)
+
+</div>
