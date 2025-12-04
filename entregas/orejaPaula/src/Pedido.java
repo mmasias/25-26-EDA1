@@ -16,7 +16,12 @@ public class Pedido {
     public boolean terminado() {
         return tiempoRestante <= 0;
     }
+
+    public void tick() {
+        tiempoRestante--;
+    }
 }
+
 
 
 
