@@ -21,10 +21,6 @@ class Pedido {
     public int tiempoPreparacion() {
         return tiempoPreparacion;
     }
-    
-    public void restarTiempoDePreparacion(){
-        tiempoPreparacion -= 1;
-    }
 
     public boolean pedidoHehco(){
         return pedidoHecho;
