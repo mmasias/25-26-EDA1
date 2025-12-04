@@ -52,24 +52,6 @@ class Arbol {
         return contador[0];
     }
 
-    private Nodo buscarMinimoConContador(Nodo nodo, Nodo actualMin, int[] contador) {
-        if (nodo == null) return actualMin;
-
-        actualMin = buscarMinimoConContador(nodo.hijoIzquerda(), actualMin, contador);
-
-        if (actualMin != null) {
-            contador[0]++;
-            if (nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
-                actualMin = nodo;
-            }
-        } else {
-            actualMin = nodo;
-        }
-
-        actualMin = buscarMinimoConContador(nodo.hijoDerecha(), actualMin, contador);
-
-        return actualMin;
-    }
 
     public int recorrerOrdenes(boolean terminado) {
         Nodo[] nodosOrdenados = new Nodo[cantidadNodos];
@@ -89,6 +71,25 @@ class Arbol {
             }
         }
         return cantidadSatisfecha;
+    }
+    
+    private Nodo buscarMinimoConContador(Nodo nodo, Nodo actualMin, int[] contador) {
+        if (nodo == null) return actualMin;
+
+        actualMin = buscarMinimoConContador(nodo.hijoIzquerda(), actualMin, contador);
+
+        if (actualMin != null) {
+            contador[0]++;
+            if (nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
+                actualMin = nodo;
+            }
+        } else {
+            actualMin = nodo;
+        }
+
+        actualMin = buscarMinimoConContador(nodo.hijoDerecha(), actualMin, contador);
+
+        return actualMin;
     }
 
     private int recorrerInOrden(Nodo nodo, Nodo[] nodosOrdenados, int indice) {
