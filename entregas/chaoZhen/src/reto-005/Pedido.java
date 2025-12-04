@@ -11,24 +11,24 @@ public class Pedido {
     }
 
     private int generarTiempo(Plato plato) {
-        int min = plato.obtenerMinTiempo();
-        int max = plato.obtenerMaxTiempo();
-        return min + (int)(Math.random() * (max - min + 1));
+        int mininmo = plato.obtenerMinTiempo();
+        int maximo = plato.obtenerMaxTiempo();
+        return mininmo + (int) (Math.random() * (maximo - mininmo + 1));
     }
 
     public void incrementarTiempoEspera() {
         tiempoEspera++;
     }
 
-    public String getNombre() { 
-        return plato.obtenerNombre(); 
+    public String getNombre() {
+        return plato.obtenerNombre();
     }
 
-    public int getTiempoPreparacion() { 
-        return tiempoPreparacion; 
+    public int getTiempoPreparacion() {
+        return tiempoPreparacion;
     }
 
-    public int getTiempoEspera() { 
-        return tiempoEspera; 
+    public int getTiempoEspera() {
+        return tiempoEspera;
     }
 }

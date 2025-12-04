@@ -4,9 +4,3 @@ public class Simulacion {
         restaurante.iniciarSimulacion();
     }
 }
-
-
-
-
-
-

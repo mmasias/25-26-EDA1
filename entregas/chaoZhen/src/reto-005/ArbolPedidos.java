@@ -6,36 +6,53 @@ public class ArbolPedidos {
     public ArbolPedidos() {
         this.raiz = null;
         this.cantidadNodos = 0;
+
+        assert cantidadNodos >= 0 : "La cantidad de nodos no puede ser negativa";
     }
 
     public boolean estaVacio() {
+        assert cantidadNodos >= 0 : "cantidadNodos no debe ser negativa";
         return cantidadNodos == 0;
     }
 
     public int getCantidad() {
+        assert cantidadNodos >= 0 : "cantidadNodos no debe ser negativa";
         return cantidadNodos;
     }
 
     public void insertar(Pedido pedidoNuevo) {
-        raiz = insertarRec(raiz, pedidoNuevo);
+
+        assert pedidoNuevo != null : "No se puede insertar un pedido null";
+        assert pedidoNuevo.getTiempoPreparacion() >= 0 : "El tiempo de preparación no puede ser negativo";
+
+        int antes = cantidadNodos;
+
+        raiz = insertarReciente(raiz, pedidoNuevo);
         cantidadNodos++;
+
+        assert cantidadNodos == antes + 1 : "La cantidad de nodos no se incrementó correctamente";
     }
 
-    private Nodo insertarRec(Nodo actual, Pedido pedidoNuevo) {
+    private Nodo insertarReciente(Nodo actual, Pedido pedidoNuevo) {
         if (actual == null)
             return new Nodo(pedidoNuevo);
 
+        assert actual.getPedido() != null : "Nodo con pedido null detectado";
+
         if (pedidoNuevo.getTiempoPreparacion() < actual.getPedido().getTiempoPreparacion()) {
-            actual.setIzquierdo(insertarRec(actual.getIzquierdo(), pedidoNuevo));
+            actual.setIzquierdo(insertarReciente(actual.getIzquierdo(), pedidoNuevo));
         } else {
-            actual.setDerecho(insertarRec(actual.getDerecho(), pedidoNuevo));
+            actual.setDerecho(insertarReciente(actual.getDerecho(), pedidoNuevo));
         }
 
         return actual;
     }
 
     public Pedido extraerMinimo() {
-        if (raiz == null) return null;
+        assert cantidadNodos >= 0 : "cantidadNodos no debe ser negativa";
+
+        if (raiz == null)
+            return null;
 
         Nodo padre = null;
         Nodo actual = raiz;
@@ -44,6 +61,8 @@ public class ArbolPedidos {
             padre = actual;
             actual = actual.getIzquierdo();
         }
+
+        assert actual != null : "El nodo mínimo no debe ser null";
 
         Pedido resultado = actual.getPedido();
 
@@ -54,10 +73,13 @@ public class ArbolPedidos {
         }
 
         cantidadNodos--;
+
+        assert cantidadNodos >= 0 : "cantidadNodos no puede quedar en negativo";
+
         return resultado;
     }
 
-    public void imprimirArbolIterativo() {
+    public void imprimirArbol() {
         if (raiz == null) {
             System.out.println("(Árbol vacío)");
             return;
@@ -69,68 +91,41 @@ public class ArbolPedidos {
         cola[fin++] = raiz;
 
         while (inicio < fin) {
-            Nodo act = cola[inicio++];
+            Nodo actual = cola[inicio++];
 
-            String izq = (act.getIzquierdo() != null) ? "SI" : "NO";
-            String der = (act.getDerecho() != null) ? "SI" : "NO";
+            String izq = (actual.getIzquierdo() != null) ? "SI" : "NO";
+            String der = (actual.getDerecho() != null) ? "SI" : "NO";
 
-            System.out.println("Pedido: " + act.getPedido().getNombre()
-                    + " | Prep: " + act.getPedido().getTiempoPreparacion()
-                    + " | Espera: " + act.getPedido().getTiempoEspera()
-                    + " | Hijos [Izq:" + izq + " Der:" + der + "]");
+            System.out.println(
+                    "Pedido: " + actual.getPedido().getNombre() +
+                            " | Prep: " + actual.getPedido().getTiempoPreparacion() +
+                            " | Espera: " + actual.getPedido().getTiempoEspera() +
+                            " | Hijos [Izq:" + izq + " Der:" + der + "]");
 
-            if (act.getIzquierdo() != null) cola[fin++] = act.getIzquierdo();
-            if (act.getDerecho() != null) cola[fin++] = act.getDerecho();
+            if (actual.getIzquierdo() != null)
+                cola[fin++] = actual.getIzquierdo();
+            if (actual.getDerecho() != null)
+                cola[fin++] = actual.getDerecho();
         }
     }
 
-    public void actualizarTiemposDeEspera() {
-        recorrerYActualizar(raiz);
+    public void actualizarTiemposDeEspera(Pedido pedidoEnCocina) {
+        recorrerYActualizar(raiz, pedidoEnCocina);
     }
 
-    private void recorrerYActualizar(Nodo nodo) {
-        if (nodo == null) return;
-        nodo.getPedido().incrementarTiempoEspera();
-        recorrerYActualizar(nodo.getIzquierdo());
-        recorrerYActualizar(nodo.getDerecho());
+    private void recorrerYActualizar(Nodo nodo, Pedido pedidoEnCocina) {
+
+        assert nodo.getPedido() != null : "Nodo con pedido null detectado";
+
+        if (nodo.getPedido() != pedidoEnCocina) {
+            int antes = nodo.getPedido().getTiempoEspera();
+            nodo.getPedido().incrementarTiempoEspera();
+
+            assert nodo.getPedido().getTiempoEspera() == antes + 1 : "Tiempo de espera no se incrementó correctamente";
+        }
+
+        recorrerYActualizar(nodo.getIzquierdo(), pedidoEnCocina);
+        recorrerYActualizar(nodo.getDerecho(), pedidoEnCocina);
     }
 
-
-    public void imprimirArbol() {
-        if (raiz == null) {
-            System.out.println("(Árbol vacío)");
-        } else {
-            imprimirNodo(raiz, "", true);
-        }
-    }
-
-    private void imprimirNodo(Nodo nodo, String prefijo, boolean esUltimo) {
-        System.out.print(prefijo);
-
-        if (esUltimo) {
-            System.out.print("└── ");
-        } else {
-            System.out.print("├── ");
-        }
-
-    
-        System.out.println(nodo.getPedido().getNombre() + " (" + nodo.getPedido().getTiempoPreparacion() + ")");
-
-       
-        String nuevoPrefijo = prefijo + (esUltimo ? "    " : "│   ");
-
-        
-        boolean tieneIzq = (nodo.getIzquierdo() != null);
-        boolean tieneDer = (nodo.getDerecho() != null);
-
-       
-        if (tieneIzq) {
-            imprimirNodo(nodo.getIzquierdo(), nuevoPrefijo, !tieneDer);
-        }
-
-       
-        if (tieneDer) {
-            imprimirNodo(nodo.getDerecho(), nuevoPrefijo, true);
-        }
-    }
 }
