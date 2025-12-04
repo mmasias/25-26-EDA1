@@ -1,5 +1,3 @@
-package v001;
-
 public class Simulacion {
     private static final int DURACION_SIMULACION = 200;
 

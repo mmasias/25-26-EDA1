@@ -1,5 +1,3 @@
-package v001;
-
 public class Cocinero {
     private static final int INSTANTE_NO_INICIADO = -1;
     private static final int TIEMPO_RESTANTE_INICIAL = 0;

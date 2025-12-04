@@ -1,4 +1,4 @@
-package v001;
+
 
 public class Restaurante {
     private static final double PROBABILIDAD_LLEGADA = 0.4;

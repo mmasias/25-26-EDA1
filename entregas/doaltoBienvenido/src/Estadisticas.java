@@ -1,5 +1,3 @@
-package v001;
-
 public class Estadisticas {
     private int totalPedidosAtendidos;
     private int totalPedidosPendientes;
