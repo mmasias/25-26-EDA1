@@ -6,24 +6,18 @@ Así que la estructura de datos principal tiene que posibilitar de manera eficaz
 ## Comparación de estructuras de datos
 
 **Cola FIFO**  
-No sirve porque atiende en orden de llegada.
+No sirve porque atiende en orden de llegada y aquí no queremos atender por orden de llegada, sino según el tiempo de preparación.
 
-**Lista desordenada**  
-Insertar es rápido, pero para encontrar el más corto hay que recorrerla entera. 
+**Pila (LIFO)**  
+Tampoco sirve porque atiende el último que entra primero, y en este sistema necesitamos otro criterio distinto.
 
-**Lista ordenada**  
-Extraer el mínimo es inmediato, pero insertar es lento porque hay que buscar la posición correcta.  
-
-**Árbol binario de búsqueda**  
-Permite buscar y ordenar de forma decente, pero si crece de forma irregular puede acabar funcionando como una lista normal. 
-Además, es más difícil de implementar.
-
-**Cola de prioridad**  
-Esta estructura está pensada justo para este tipo de problemas ya que permite añadir pedidos fácilmente y siempre deja el pedido más corto en la primera posición. Es muy eficiente incluso con muchos pedidos.  
+**Lista**  
+Es la opción que mejor encaja dentro de lo visto en clase, porque nos permite insertar los pedidos donde queramos.  
+De esta forma, en el código podemos decidir en qué posición colocar cada pedido según su tiempo de preparación y así controlar cuál será el siguiente pedido que se atienda.
 
 ---
 
-Entonces, la cola de prioridad es la estructura adecuada porque permite seleccionar siempre el pedido con menor tiempo de preparación de forma eficiente.  
+Entonces, la lista es la estructura adecuada porque nos da la flexibilidad necesaria para organizar los pedidos según lo que necesita el sistema.
 
 ---
 
@@ -32,56 +26,111 @@ Entonces, la cola de prioridad es la estructura adecuada porque permite seleccio
 ## Diagrama Sistema de Gestión de Pedidos del RCCCF
 
 ```plantuml
-@startuml diagramaReto005
-title Diagrama Sistema de Gestión de Pedidos del RCCCF
+    @startuml diagramaReto005_v2
+    title Diagrama Sistema de Gestión de Pedidos del RCCCF (con Lista)
 
-class Simulacion {
-    + main(args : String[]) : void
-}
+    class Simulacion {
+        + main(args : String[]) : void
+    }
 
-class Restaurante {
-    - cocinero : Cocinero
-    - generadorPedidos : GeneradorPedidos
-    - minutoActual : int
-    + ejecutar() : void
-    - recibirPedido(pedido : Pedido) : void
-    - seleccionarPedido() : Pedido
-    - procesarCocina() : void
-}
+    class Restaurante {
+        - HORA_APERTURA : double
+        - HORA_CIERRE : double
+        - MINUTO : double
+        - PROBABILIDAD_LLEGADA : double
+        - cocinero : Cocinero
+        - generadorPedidos : GeneradorPedidos
+        - listaPedidos : ListaPedidos
+        - minutoActual : int
+        - pedidosAtendidos : int
+        - tiempoEsperaTotal : long
+        + Restaurante()
+        + ejecutar() : void
+        - validarLlegada() : void
+        - recibirPedido(pedido : Pedido) : void
+        - seleccionarPedido() : Pedido
+        - procesarCocina() : Pedido
+        - mostrarResumen() : void
+    }
 
-class GeneradorPedidos {
-    - probabilidadLlegada : double
-    - generadorAleatorio : Random
-    + generarPedido(minutoActual : int) : Pedido
-}
+    class Cocinero {
+        - pedidoActual : Pedido
+        + asignarPedido(pedido : Pedido, minutoActual : int) : void
+        + estaLibre() : boolean
+        + cocinarDuranteUnMinuto() : Pedido
+        + getPedidoActual() : Pedido
+    }
 
-class Cocinero {
-    - pedidoActual : Pedido
-    + asignarPedido(pedido : Pedido, minutoActual : int) : void
-    + cocinarDuranteUnMinuto() : Pedido
-    + estaLibre() : boolean
-}
+    class GeneradorPedidos {
+        - probabilidadLlegada : double
+        - generadorAleatorio : Random
+        + GeneradorPedidos(probabilidadLlegada : double)
+        + generarPedido(minutoActual : int) : Pedido
+    }
 
-class Pedido {
-    - tipoPlato : TipoPlato
-    - tiempoTotalPreparacion : int
-    - tiempoRestantePreparacion : int
-    - minutoLlegada : int
-    - minutoInicioPreparacion : Integer
-}
+    class ListaPedidos {
+        - cabeza : NodoPedido
+        - tamaño : int
+        + ListaPedidos()
+        + insertarOrdenado(pedido : Pedido) : void
+        + extraerPrimero() : Pedido
+        + estaVacia() : boolean
+        + tamaño() : int
+    }
 
-class TipoPlato {
-}
+    class NodoPedido {
+        - dato : Pedido
+        - siguiente : NodoPedido
+        + NodoPedido(dato : Pedido)
+        + getDato() : Pedido
+        + getSiguiente() : NodoPedido
+        + setSiguiente(siguiente : NodoPedido) : void
+    }
 
-Simulacion --> Restaurante
-Restaurante --> GeneradorPedidos : usa
-Restaurante --> Cocinero : tiene
-Restaurante --> Pedido : gestiona
-GeneradorPedidos --> Pedido : crea
-Cocinero --> Pedido : cocina
-Pedido --> TipoPlato : usa
+    class Pedido {
+        - siguienteId : int <<static>>
+        - comparaciones : long <<static>>
+        - identificador : int
+        - tipoPlato : TipoPlato
+        - tiempoTotalPreparacion : int
+        - tiempoRestantePreparacion : int
+        - minutoLlegada : int
+        - minutoInicioPreparacion : Integer
+        + Pedido(tipoPlato : TipoPlato, tiempoTotalPreparacion : int, minutoLlegada : int)
+        + getTipoPlato() : TipoPlato
+        + getTiempoTotalPreparacion() : int
+        + getTiempoRestantePreparacion() : int
+        + reducirTiempoRestante() : void
+        + calcularTiempoEspera() : int
+        + setMinutoInicioPreparacion(minuto : int) : void
+        + getComparaciones() : long <<static>>
+        + compareTo(otro : Pedido) : int
+        + toString() : String
+    }
 
-@enduml
+    class TipoPlato {
+        - nombre : String
+        - tiempoMinimo : int
+        - tiempoMaximo : int
+        + TipoPlato(nombre : String, tiempoMinimo : int, tiempoMaximo : int)
+        + getNombre() : String
+        + obtenerTiempoAleatorio(r : Random) : int
+        + obtenerAleatorio(r : Random) : TipoPlato <<static>>
+        {static} TIPOS : TipoPlato[]
+    }
+
+    Simulacion --> Restaurante
+    Restaurante --> Cocinero : tiene
+    Restaurante --> GeneradorPedidos : usa
+    Restaurante --> ListaPedidos : gestiona
+    GeneradorPedidos --> Pedido : crea
+    GeneradorPedidos --> TipoPlato : usa
+    ListaPedidos --> NodoPedido : encadena
+    NodoPedido --> Pedido : contiene
+    Cocinero --> Pedido : cocina
+    Pedido --> TipoPlato : usa
+
+    @enduml
 ```
 
 ![Diagrama UML RCCCF](../documentosUML/diagramaReto005.svg)

@@ -12,19 +12,20 @@ public class Cocinero {
     }
 
     public Pedido cocinarDuranteUnMinuto() {
+        Pedido resultado = null;
+
         if (pedidoActual == null) {
-            return null;
+            return resultado;
         }
 
         pedidoActual.reducirTiempoRestante();
 
         if (pedidoActual.getTiempoRestantePreparacion() == 0) {
-            Pedido terminado = pedidoActual;
+            resultado = pedidoActual;
             pedidoActual = null;
-            return terminado;
         }
 
-        return null;
+        return resultado;
     }
 
     public Pedido getPedidoActual() {

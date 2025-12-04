@@ -22,7 +22,8 @@ public class TipoPlato {
     }
 
     public static TipoPlato obtenerAleatorio(Random r) {
-        return TIPOS[r.nextInt(TIPOS.length)];
+        TipoPlato resultado = TIPOS[r.nextInt(TIPOS.length)];
+        return resultado;
     }
 
     public static final TipoPlato[] TIPOS = {

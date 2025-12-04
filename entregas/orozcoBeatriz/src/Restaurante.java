@@ -1,5 +1,3 @@
-import java.util.PriorityQueue;
-
 public class Restaurante {
 
     private final double HORA_APERTURA = 9.0;
@@ -9,7 +7,7 @@ public class Restaurante {
 
     private Cocinero cocinero;
     private GeneradorPedidos generadorPedidos;
-    private PriorityQueue<Pedido> colaPedidos;
+    private ListaPedidos listaPedidos;
 
     private int minutoActual;
     private int pedidosAtendidos;
@@ -18,7 +16,7 @@ public class Restaurante {
     public Restaurante() {
         this.cocinero = new Cocinero();
         this.generadorPedidos = new GeneradorPedidos(PROBABILIDAD_LLEGADA);
-        this.colaPedidos = new PriorityQueue<>();
+        this.listaPedidos = new ListaPedidos();
         this.minutoActual = 0;
         this.pedidosAtendidos = 0;
         this.tiempoEsperaTotal = 0;
@@ -26,6 +24,7 @@ public class Restaurante {
 
     public void ejecutar() {
         for (double tiempo = HORA_APERTURA; tiempo < HORA_CIERRE; tiempo += MINUTO) {
+
             minutoActual++;
 
             System.out.println("========================================");
@@ -33,12 +32,12 @@ public class Restaurante {
 
             validarLlegada();
 
-            if (cocinero.estaLibre() && !colaPedidos.isEmpty()) {
+            if (cocinero.estaLibre() && !listaPedidos.estaVacia()) {
                 Pedido siguiente = seleccionarPedido();
                 cocinero.asignarPedido(siguiente, minutoActual);
             }
 
-            System.out.println("COLA: " + colaPedidos.size() + " pedidos");
+            System.out.println("LISTA: " + listaPedidos.tamaño() + " pedidos");
 
             Pedido terminado = procesarCocina();
             if (terminado != null) {
@@ -70,35 +69,34 @@ public class Restaurante {
     }
 
     private void recibirPedido(Pedido pedido) {
-        colaPedidos.add(pedido);
+        listaPedidos.insertarOrdenado(pedido);
     }
 
     private Pedido seleccionarPedido() {
-        return colaPedidos.poll();
+        Pedido seleccionado = listaPedidos.extraerPrimero();
+        return seleccionado;
     }
 
     private Pedido procesarCocina() {
-        return cocinero.cocinarDuranteUnMinuto();
+        Pedido terminado = cocinero.cocinarDuranteUnMinuto();
+        return terminado;
     }
 
     private void mostrarResumen() {
-        int pedidosPendientes = colaPedidos.size();
-        if (!cocinero.estaLibre()) {
-            pedidosPendientes++;
-        }
+        int pendientes = listaPedidos.tamaño();
+        if (!cocinero.estaLibre()) pendientes++;
 
-        double tiempoMedioEspera = pedidosAtendidos > 0
+        double media = pedidosAtendidos > 0
                 ? (double) tiempoEsperaTotal / pedidosAtendidos
                 : 0.0;
 
         System.out.println("RESUMEN DE LA JORNADA");
         System.out.println("========================================");
         System.out.println("Pedidos atendidos        : " + pedidosAtendidos);
-        System.out.println("Pedidos pendientes       : " + pedidosPendientes);
+        System.out.println("Pedidos pendientes       : " + pendientes);
         System.out.println("Tiempo total de espera   : " + tiempoEsperaTotal + " minutos");
-        System.out.printf("Tiempo medio de espera   : %.1f minutos%n", tiempoMedioEspera);
+        System.out.printf("Tiempo medio de espera   : %.1f minutos%n", media);
         System.out.println("Comparaciones totales    : " + Pedido.getComparaciones());
         System.out.println("========================================");
     }
 }
-

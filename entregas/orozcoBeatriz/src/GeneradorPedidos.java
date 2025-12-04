@@ -11,11 +11,14 @@ public class GeneradorPedidos {
     }
 
     public Pedido generarPedido(int minutoActual) {
+        Pedido generado = null;
+
         if (generadorAleatorio.nextDouble() < probabilidadLlegada) {
             TipoPlato tipo = TipoPlato.obtenerAleatorio(generadorAleatorio);
             int tiempo = tipo.obtenerTiempoAleatorio(generadorAleatorio);
-            return new Pedido(tipo, tiempo, minutoActual);
+            generado = new Pedido(tipo, tiempo, minutoActual);
         }
-        return null;
+
+        return generado;
     }
 }

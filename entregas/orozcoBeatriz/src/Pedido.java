@@ -38,8 +38,13 @@ public class Pedido implements Comparable<Pedido> {
     }
 
     public int calcularTiempoEspera() {
-        if (minutoInicioPreparacion == null) return 0;
-        return minutoInicioPreparacion - minutoLlegada;
+        int resultado = 0;
+
+        if (minutoInicioPreparacion != null) {
+            resultado = minutoInicioPreparacion - minutoLlegada;
+        }
+
+        return resultado;
     }
 
     public void setMinutoInicioPreparacion(int minuto) {
@@ -58,7 +63,6 @@ public class Pedido implements Comparable<Pedido> {
 
     @Override
     public String toString() {
-        return "Pedido #" + identificador + " - " +
-               tipoPlato.getNombre() + " (" + tiempoTotalPreparacion + " min)";
+        return "Pedido #" + identificador + " - " + tipoPlato.getNombre() + " (" + tiempoTotalPreparacion + " min)";
     }
 }
