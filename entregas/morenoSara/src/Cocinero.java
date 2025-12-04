@@ -1,6 +1,6 @@
 public class Cocinero {
 
-    private FilaPedidos filaPedidos = new FilaPedidos();
+    private ArbolPedidos arbolPedidos = new ArbolPedidos();
     private Pedido pedidoEnPreparacion = null;
 
     public boolean estaLibre() {
@@ -8,26 +8,23 @@ public class Cocinero {
     }
 
     public Pedido colocarPedidosEnLista(Pedido pedido) {
-        filaPedidos.insertarPedido(pedido);
+        arbolPedidos.insertarPedido(pedido);
         return pedido;
     }
 
     public Pedido recibirSiguientePedido() {
-        pedidoEnPreparacion = filaPedidos.obtenerSiguientePedido();
+        pedidoEnPreparacion = arbolPedidos.obtenerSiguientePedido();
         return pedidoEnPreparacion;
     }
 
     public Pedido avanzarUnMinuto() {
         if (pedidoEnPreparacion == null) return null;
-
         pedidoEnPreparacion.reducirUnMinuto();
-
         if (pedidoEnPreparacion.getMinutosRestantes() == 0) {
             Pedido pedidoTerminado = pedidoEnPreparacion;
             pedidoEnPreparacion = null;
             return pedidoTerminado;
         }
-
         return null;
     }
 
@@ -36,7 +33,8 @@ public class Cocinero {
         return "[Preparando: " + pedidoEnPreparacion.toString() + "]";
     }
 
-    public FilaPedidos getFilaPedidos() {
-        return filaPedidos;
+    public ArbolPedidos getArbolPedidos() {
+        return arbolPedidos;
     }
 }
+
