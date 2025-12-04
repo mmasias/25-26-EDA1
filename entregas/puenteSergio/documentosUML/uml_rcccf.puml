@@ -1,0 +1,75 @@
+@startuml
+class SimulacionRCCCF {
+    - {static} int DURACION_SIMULACION
+    - {static} double PROBABILIDAD_LLEGADA
+    - {static} Random aleatorio
+    + {static} void main(String[] args)
+    - {static} Pedido generarPedidoAleatorio(double tiempoLlegada)
+    - {static} void imprimirResumen(Restaurante restaurant)
+}
+
+class Restaurante {
+    - ArbolPedidos cola
+    - Pedido pedidoActual
+    - int pedidosCompletados
+    - int tiempoTotalEspera
+    - long contadorComparaciones
+    + Restaurante()
+    + void anadirPedido(Pedido pedido)
+    + void tic(double tiempoActual)
+    + Pedido getPedidoActual()
+    + int getTamanoCola()
+    + long getContadorComparaciones()
+    + int getPedidosCompletados()
+    + int getContadorPedidosPendientes()
+}
+
+class ArbolPedidos {
+    - Nodo raiz
+    - int tamano
+    + ArbolPedidos()
+    + void insertar(Pedido pedido)
+    - Nodo insertarRec(Nodo nodo, Pedido pedido)
+    + Pedido eliminarMinimo()
+    + boolean estaVacio()
+    + int getTamano()
+}
+
+class Nodo {
+    - Pedido pedido
+    - Nodo izquierdo
+    - Nodo derecho
+    + Nodo(Pedido pedido)
+    + Pedido getPedido()
+    + Nodo getIzquierdo()
+    + void setIzquierdo(Nodo izquierdo)
+    + Nodo getDerecho()
+    + void setDerecho(Nodo derecho)
+}
+
+class Pedido {
+    - {static} int contadorId
+    - int id
+    - String tipo
+    - int tiempoTotalPreparacion
+    - int tiempoRestante
+    - double tiempoLlegada
+    + Pedido(String tipo, int tiempoPrep, double tiempoLlegada)
+    + void disminuirTiempoRestante()
+    + boolean estaTerminado()
+    + int compareTo(Pedido otro)
+    + String aCadenaEstado()
+    + String toString()
+}
+
+SimulacionRCCCF ..> Restaurante : usa
+SimulacionRCCCF ..> Pedido : crea
+
+Restaurante *-- ArbolPedidos : contiene
+Restaurante o-- Pedido : gestiona
+
+ArbolPedidos *-- Nodo : contiene
+
+Nodo o-- Nodo : izquierdo/derecho
+Nodo *-- Pedido : contiene
+@enduml
