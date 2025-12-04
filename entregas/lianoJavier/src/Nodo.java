@@ -13,7 +13,7 @@ public class Nodo {
   }
 
   public void insertar(Pedido pedido, int numeroComanda) {
-    if (pedidoNodo.esMenor(pedido)) {
+    if (pedido.esMenor(pedidoNodo)) {
       insertarIzquierda(pedido, numeroComanda);
     } else {
       insertarDerecha(pedido, numeroComanda);
@@ -21,7 +21,7 @@ public class Nodo {
   }
 
   private void insertarDerecha(Pedido pedido, int numeroComanda) {
-    if (derecho == null) {
+    if (!hayNodoDerecho()) {
       derecho = new Nodo(pedido, numeroComanda);
     } else {
       derecho.insertar(pedido, numeroComanda);
@@ -29,24 +29,27 @@ public class Nodo {
   }
 
   private void insertarIzquierda(Pedido pedido, int numeroComanda) {
-    if (izquierdo == null) {
+    if (!hayNodoIzquierdo()) {
       izquierdo = new Nodo(pedido, numeroComanda);
     } else {
       izquierdo.insertar(pedido, numeroComanda);
     }
   }
 
-  public Nodo sacarPedidoMinimo() {
-    Nodo nodoASacar;
+  public Nodo getIzquierdo() {
+    return izquierdo;
+  }
 
-    if (hayNodoIzquierdo())
-      nodoASacar = izquierdo.sacarPedidoMinimo();
-    else if (hayNodoDerecho())
-      nodoASacar = derecho.sacarPedidoMinimo();
-    else
-      nodoASacar = this;
+  public void setIzquierdo(Nodo izquierdo) {
+    this.izquierdo = izquierdo;
+  }
 
-    return nodoASacar;
+  public Nodo getDerecho() {
+    return derecho;
+  }
+
+  public void setDerecho(Nodo derecho) {
+    this.derecho = derecho;
   }
 
   private boolean hayNodoDerecho() {
