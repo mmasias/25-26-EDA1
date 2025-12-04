@@ -11,4 +11,21 @@ public class ArbolPedidos {
 
     private Nodo raiz;
     public int comparaciones;   
+
+    public void insertar(Pedido p) {
+        raiz = insertarRec(raiz, p);
+    }
+
+    private Nodo insertarRec(Nodo n, Pedido p) {
+        if (n == null) {
+            return new Nodo(p);
+        }
+        comparaciones++;
+        if (p.tiempoPreparacion < n.p.tiempoPreparacion) {
+            n.izq = insertarRec(n.izq, p);
+        } else {
+            n.der = insertarRec(n.der, p);
+        }
+        return n;
+    }
 }
