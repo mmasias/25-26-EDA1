@@ -4,6 +4,15 @@ public class Pedido {
     public int tiempoRestante;
     public final int llegada;
     public int inicio;
+
+    public Pedido(String nombre, int tiempoPreparacion, int llegada) {
+        this.nombre = nombre;
+        this.tiempoPreparacion = tiempoPreparacion;
+        this.tiempoRestante = tiempoPreparacion;
+        this.llegada = llegada;
+        this.inicio = -1;
+    }
 }
+
 
 
