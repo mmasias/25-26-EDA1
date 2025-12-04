@@ -7,7 +7,7 @@ class Restaurant {
     private final double MINUTE = 1.0 / 60.0;
     private final double PROBABILITY_ARRIVAL = 0.4;
     
-    private MinHeap orderQueue;
+    private BinaryTree orderQueue;
     private Order currentOrder; 
     private Random random;
 
@@ -16,7 +16,7 @@ class Restaurant {
     private double currentTime; 
 
     public Restaurant() {
-        this.orderQueue = new MinHeap(350);
+        this.orderQueue = new BinaryTree(350);
         this.random = new Random();
     }
 
@@ -52,16 +52,16 @@ class Restaurant {
     private void processQueue() {
         if (currentOrder == null && !orderQueue.isEmpty()) {
             currentOrder = orderQueue.extractMin();
-            double waitHours = currentTime - currentOrder.arrivalTime;
+            double waitHours = currentTime - currentOrder.getArrivalTime();
             totalWaitTime += (waitHours * 60); 
         }
 
         if (currentOrder != null) {
-            currentOrder.remainingTime--;
+            currentOrder.decrementRemainingTime();
 
-            if (currentOrder.remainingTime <= 0) {
+            if (currentOrder.getRemainingTime() <= 0) {
                 completedOrders++;
-                System.out.println("   >>> ¡Pedido Terminado: " + currentOrder.type + "!");
+                System.out.println("   >>> ¡Pedido Terminado: " + currentOrder.getType() + "!");
                 currentOrder = null;
             }
         }
@@ -71,7 +71,7 @@ class Restaurant {
         if (random.nextDouble() < PROBABILITY_ARRIVAL) {
             Order newOrder = generateRandomOrder();
             orderQueue.insert(newOrder);
-            System.out.println("   >>> Nuevo Pedido: " + newOrder.type + " (" + newOrder.totalTime + " min)");
+            System.out.println("   >>> Nuevo Pedido: " + newOrder.getType() + " (" + newOrder.getTotalTime() + " min)");
         }
     }
 

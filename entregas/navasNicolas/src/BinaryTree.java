@@ -63,7 +63,7 @@ public class BinaryTree {
         Node current = root;
         while (true) {
             comparisons++;
-            if (order.remainingTime < current.value.remainingTime) {
+            if (order.getRemainingTime() < current.value.getRemainingTime()) {
                 if (current.left == null) {
                     current.left = new Node(order);
                     size++;
@@ -118,7 +118,7 @@ public class BinaryTree {
             System.out.print("   Nivel " + level + ": ");
             for (int i = 0; i < nodesInCurrent; i++) {
                 Node n = q.dequeue();
-                System.out.print(n.value.type + ":" + n.value.remainingTime + "  ");
+                System.out.print(n.value.getType() + ":" + n.value.getRemainingTime() + "  ");
                 if (n.left != null) { q.enqueue(n.left); nodesInNext++; }
                 if (n.right != null) { q.enqueue(n.right); nodesInNext++; }
             }
