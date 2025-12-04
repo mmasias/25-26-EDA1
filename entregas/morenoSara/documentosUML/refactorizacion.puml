@@ -1,0 +1,58 @@
+@startuml
+
+class Pedido {
+  - tipoPlato: String
+  - minutosTotales: int
+  - minutosRestantes: int
+  - minutoDeLlegada: int
+  + reducirUnMinuto()
+  + toString(): String
+}
+
+class NodoPedido {
+  - pedido: Pedido
+  - izquierdo: NodoPedido
+  - derecho: NodoPedido
+}
+
+class ArbolPedidos {
+  - raiz: NodoPedido
+  - totalComparaciones: int
+  + insertarPedido(pedido: Pedido)
+  + obtenerSiguientePedido(): Pedido
+  + cantidadPendientes(): int
+  + estaVacia(): boolean
+}
+
+class Recepcionista {
+  + recibirPedido(pedido: Pedido, cocinero: Cocinero)
+  + entregarSiguientePedido(): Pedido
+}
+
+class Cocinero {
+  - arbolPedidos: ArbolPedidos
+  - pedidoEnPreparacion: Pedido
+  + estaLibre(): boolean
+  + colocarPedidosEnLista(pedido: Pedido)
+  + recibirSiguientePedido(): Pedido
+  + avanzarUnMinuto(): Pedido
+  + estadoActual(): String
+}
+
+class RCCCF {
+  - recepcionista: Recepcionista
+  - cocinero: Cocinero
+  - totalPedidosAtendidos: int
+  - tiempoTotalDeEspera: int
+  - totalComparaciones: int
+  + simularJornada()
+  + resumenFinal()
+}
+
+RCCCF "1" --> "1" Recepcionista
+RCCCF "1" --> "1" Cocinero
+Cocinero "1" --> "1" ArbolPedidos
+ArbolPedidos "1" o-- "0..*" NodoPedido
+NodoPedido "1" --> "1" Pedido
+
+@enduml
