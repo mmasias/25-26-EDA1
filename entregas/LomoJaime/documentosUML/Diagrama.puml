@@ -1,0 +1,56 @@
+@startuml
+left to right direction
+
+class SimuladorRCCCF {
+  - cola: ArbolPedidos
+  - pedidoEnProceso: Pedido
+  - tiempoRestante: int
+  - pedidosAtendidos: int
+  - tiempoTotalEsperaAtendidos: int
+  + ejecutar(): void
+  + procesarLlegada(minuto: int): void
+  + avanzarCoccion(): void
+  + mostrarEstado(minuto: int): void
+  + mostrarResumen(): void
+}
+
+class ArbolPedidos {
+  - raiz: Nodo
+  - comparaciones: int
+  - tamaño: int
+  + insertar(p: Pedido): void
+  + extraerMinimo(): Pedido
+  + estaVacio(): boolean
+  + tamaño(): int
+  + getComparaciones(): int
+  + incrementarEspera(): void
+  + tiempoTotalEspera(): int
+}
+
+class Nodo {
+  - pedido: Pedido
+  - izquierdo: Nodo
+  - derecho: Nodo
+  + getPedido(): Pedido
+  + getIzquierdo(): Nodo
+  + getDerecho(): Nodo
+  + setIzquierdo(n: Nodo): void
+  + setDerecho(n: Nodo): void
+}
+
+class Pedido {
+  - tipo: String
+  - tiempoPreparacion: int
+  - tiempoEspera: int
+  + getTipo(): String
+  + getTiempoPreparacion(): int
+  + getTiempoEspera(): int
+  + incrementarEspera(): void
+}
+
+' Relaciones
+SimuladorRCCCF --> ArbolPedidos : usa
+ArbolPedidos --> Nodo : raíz
+Nodo --> "0..1" Nodo : izquierdo / derecho
+Nodo --> Pedido : contiene
+@enduml
