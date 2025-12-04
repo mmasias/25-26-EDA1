@@ -46,11 +46,21 @@ public class Simulation {
                 System.out.println("Cocinero: [Libre]");
             }
         }
+
+        System.out.println("\nRESUMEN DE LA JORNADA");
+        System.out.println("====================================");
+        System.out.println("Pedidos atendidos        : " + atendidos);
+        System.out.println("Pedidos pendientes       : " + (arbol.vacio() ? 0 : 1));
+        System.out.println("Tiempo total de espera   : " + tiempoEspera + " min");
+        System.out.println("Tiempo medio de espera   : " + (atendidos == 0 ? 0 : (tiempoEspera * 1.0 / atendidos)));
+        System.out.println("Comparaciones totales    : " + arbol.comparaciones);
+        System.out.println("====================================");
     }
 
     public static void main(String[] args) {
         new Simulation().iniciar();
     }
 }
+
 
 
