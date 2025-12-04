@@ -1,0 +1,44 @@
+@startuml
+
+class Simulation {
+    + main(String[]) : void
+    + iniciar() : void
+}
+
+class Pedido {
+    + nombre : String
+    + tiempoPreparacion : int
+    + tiempoRestante : int
+    + llegada : int
+    + inicio : int
+
+    + Pedido(String, int, int)
+    + terminado() : boolean
+    + tick() : void
+}
+
+class ArbolPedidos {
+    - raiz : Nodo
+    + comparaciones : int
+
+    + insertar(Pedido) : void
+    + vacio() : boolean
+    + extraerMinimo() : Pedido
+}
+
+class Nodo {
+    + p : Pedido
+    + izq : Nodo
+    + der : Nodo
+
+    + Nodo(Pedido)
+}
+
+Simulation --> ArbolPedidos
+ArbolPedidos --> Nodo
+Nodo --> Pedido
+
+@enduml
+
+
+
