@@ -133,5 +133,5 @@ Entonces, la lista es la estructura adecuada porque nos da la flexibilidad neces
     @enduml
 ```
 
-![Diagrama UML RCCCF](../documentosUML/diagramaReto005.svg)
+![Diagrama UML RCCCF](../documentos/diagramaReto005.svg)
 
