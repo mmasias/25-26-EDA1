@@ -1,0 +1,123 @@
+@startuml
+
+class SimulacionRCCCF {
+    + main(String[]) : void
+}
+
+class SimulacionCocina {
+    - DURACION_JORNADA_MINUTOS : int
+    - PROBABILIDAD_LLEGADA_PEDIDO : double
+    - CAPACIDAD_MAXIMA_PEDIDOS : int
+    - colaPedidos : ColaPrioridadPedidos
+    - pedidoEnPreparacion : Pedido
+    - minutoActual : int
+    - numeroPedidosAtendidos : int
+    - numeroPedidosPendientes : int
+    - tiempoEsperaTotal : int
+
+    + SimulacionCocina()
+    + ejecutar() : void
+    - procesarLlegadaPedido() : void
+    - generarPlatoAleatorio() : Plato
+    - seleccionarSiguientePedido() : void
+    - procesarTrabajoCocinero() : void
+    - imprimirSeparador() : void
+    - imprimirMinutoActual() : void
+    - imprimirEstadoCocina() : void
+    - imprimirResumenJornada() : void
+}
+
+abstract class Plato {
+    - nombre : String
+    - tiempoPreparacion : int
+
+    + Plato(String, int)
+    + obtenerNombre() : String
+    + obtenerTiempoPreparacion() : int
+}
+
+class Bebida {
+    - TIEMPO_MINIMO : int
+    - TIEMPO_MAXIMO : int
+
+    + Bebida()
+    - generarTiempoAleatorio() : int
+}
+
+class Cafe {
+    - TIEMPO_MINIMO : int
+    - TIEMPO_MAXIMO : int
+
+    + Cafe()
+    - generarTiempoAleatorio() : int
+}
+
+class Colacao {
+    - TIEMPO_MINIMO : int
+    - TIEMPO_MAXIMO : int
+
+    + Colacao()
+    - generarTiempoAleatorio() : int
+}
+
+class Bocadillo {
+    - TIEMPO_MINIMO : int
+    - TIEMPO_MAXIMO : int
+
+    + Bocadillo()
+    - generarTiempoAleatorio() : int
+}
+
+class Ensalada {
+    - TIEMPO_MINIMO : int
+    - TIEMPO_MAXIMO : int
+
+    + Ensalada()
+    - generarTiempoAleatorio() : int
+}
+
+class Pedido {
+    - plato : Plato
+    - tiempoPreparacionInicial : int
+    - tiempoRestante : int
+    - instanteLlegada : int
+    - instanteComienzo : int
+
+    + Pedido(Plato, int)
+    + obtenerPlato() : Plato
+    + obtenerTiempoRestante() : int
+    + reducirTiempoRestante() : void
+    + establecerInstanteComienzo(int) : void
+    + calcularTiempoEspera() : int
+    + obtenerNombrePlato() : String
+}
+
+class ColaPrioridadPedidos {
+    - pedidos : Pedido[]
+    - numeroPedidos : int
+    - numeroComparaciones : long
+
+    + ColaPrioridadPedidos(int)
+    + agregarPedido(Pedido) : void
+    + estaVacia() : boolean
+    + extraerPedidoMenorTiempo() : Pedido
+    - desplazarElementosHaciaIzquierda(int) : void
+    + obtenerNumeroPedidosEnCola() : int
+    + obtenerNumeroComparaciones() : long
+}
+
+SimulacionRCCCF --> SimulacionCocina
+
+SimulacionCocina --> ColaPrioridadPedidos
+SimulacionCocina --> Pedido
+SimulacionCocina --> Plato
+
+Pedido --> Plato
+
+Plato <|-- Bebida
+Plato <|-- Cafe
+Plato <|-- Colacao
+Plato <|-- Bocadillo
+Plato <|-- Ensalada
+
+@enduml
