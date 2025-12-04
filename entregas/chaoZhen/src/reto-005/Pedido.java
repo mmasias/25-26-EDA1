@@ -1,38 +1,34 @@
 public class Pedido {
+
     private Plato plato;
-    private int tiempoTotal;
-    private int tiempoRestante;
-    private int horaLlegada;
+    private int tiempoPreparacion;
+    private int tiempoEspera;
 
-    public Pedido(Plato plato, int horaLlegada) {
+    public Pedido(Plato plato) {
         this.plato = plato;
-        this.horaLlegada = horaLlegada;
-        this.tiempoTotal = (int) (Math.random() * (plato.obtenerMaxTiempo() - plato.obtenerMinTiempo() + 1) + plato.obtenerMinTiempo());
-        this.tiempoRestante = this.tiempoTotal;
+        this.tiempoPreparacion = generarTiempo(plato);
+        this.tiempoEspera = 0;
     }
 
-    public void reducirTiempo(int minutos) {
-        this.tiempoRestante -= minutos;
-        if (this.tiempoRestante < 0) {
-            this.tiempoRestante = 0;
-        }
+    private int generarTiempo(Plato plato) {
+        int min = plato.obtenerMinTiempo();
+        int max = plato.obtenerMaxTiempo();
+        return min + (int)(Math.random() * (max - min + 1));
     }
 
-    public boolean estaTerminado() {
-        return this.tiempoRestante <= 0;
+    public void incrementarTiempoEspera() {
+        tiempoEspera++;
     }
 
-    public int obtenerTiempoRestante() {
-        return tiempoRestante;
-    }
-    
-    public String obtenerNombrePlato() {
-        return plato.obtenerNombre();
+    public String getNombre() { 
+        return plato.obtenerNombre(); 
     }
 
-    @Override
-    public String toString() {
-        return "Pedido: " + plato.obtenerNombre() + 
-               " | Total: " + tiempoTotal + "m | Restante: " + tiempoRestante + "m";
+    public int getTiempoPreparacion() { 
+        return tiempoPreparacion; 
+    }
+
+    public int getTiempoEspera() { 
+        return tiempoEspera; 
     }
 }
