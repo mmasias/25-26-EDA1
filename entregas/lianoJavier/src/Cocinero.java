@@ -4,6 +4,8 @@ public class Cocinero {
   private Arbol comandas;
   private Pedido comandaActual;
 
+  private boolean estaCocinando;
+
   final static int[] TIEMPO_PREPARACION_BEBIDA = { 1, 2 };
   final static int[] TIEMPO_PREPARACION_CAFE = { 2, 3 };
   final static int[] TIEMPO_PREPARACION_COLACAO = { 2, 4 };
@@ -26,43 +28,49 @@ public class Cocinero {
   }
 
   public void actualizar() {
-    if (!estaCocinando()) {
-      comandaActual = comandas.sacarMinimo();
+    if (!estaCocinando) {
+      if (comandas.hayNodos()) {
+        comandaActual = comandas.sacarMinimo();
 
-      tiempoCocinandoComanda = 0;
+        if (comandaActual != null) {
+          tiempoCocinandoComanda = 0;
 
-      int rangoTiempoPlato = calcularRango();
-      tiempoDePreparacion = Console.randomIntInRange(rangoTiempoPlato);
+          tiempoDePreparacion = Console.randomInt(
+              TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][0],
+              TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][1]);
+
+          estaCocinando = true;
+        }
+      }
     } else {
       cocinar();
+      Console.imprimirln(
+          "Cocinero: " + comandaActual.getNombrePlato() + "(" + (tiempoDePreparacion - tiempoCocinandoComanda)
+              + " minutos restantes)");
     }
   }
 
-  private int calcularRango() {
-    return Math
-        .abs(TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][1]
-            - TIEMPO_PREPARACION_PLATOS[comandaActual.getPlato()][0]);
+  public boolean tienePedidoListo() {
+    return estaCocinando && haTerminada();
+  }
+
+  public Pedido recogerPedido() {
+    Pedido pedidoTerminado = comandaActual;
+    entregarComanda();
+    return pedidoTerminado;
   }
 
   private void cocinar() {
-    assert tiempoCocinandoComanda >= tiempoDePreparacion : "[Cocinero]: ¿Me he pasado del tiempo de Preparación?";
-
     tiempoCocinandoComanda++;
-
-    if (haTerminada())
-      entregarComanda();
   }
 
   private boolean haTerminada() {
-    return tiempoCocinandoComanda == tiempoDePreparacion;
+    return tiempoCocinandoComanda >= tiempoDePreparacion;
   }
 
   private void entregarComanda() {
     comandaActual = null;
-  }
-
-  private boolean estaCocinando() {
-    return comandaActual == null;
+    estaCocinando = false;
   }
 
 }
