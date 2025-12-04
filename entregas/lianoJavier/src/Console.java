@@ -4,6 +4,10 @@ public class Console {
     return (int) (Math.random() * range);
   }
 
+  public static int randomInt(int min, int max) {
+    return min + randomIntInRange(max - min + 1);
+  }
+
   public static void imprimirln(String string) {
     imprimir(string);
     saltoDeLinea();
