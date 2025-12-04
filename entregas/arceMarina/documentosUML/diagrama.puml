@@ -1,0 +1,95 @@
+@startuml
+' Configuración visual
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor #666666
+}
+
+' ======================
+' Clases
+' ======================
+
+class Main {
+    +main(args: String[]): void
+}
+
+class Restaurante {
+    -cola: ArbolPedidos
+    -cocinero: Cocinero
+    -pedidosAtendidos: int
+    -tiempoTotalEspera: int
+    +Restaurante()
+    +recibirPedido(p: Pedido): void
+    +gestionarTurno(minuto: int): void
+    +getCantidadCola(): int
+    +getTextoEstadoCocinero(): String
+    +mostrarReporteFinal(): void
+}
+
+class Cocinero {
+    -pedidoActual: Pedido
+    +Cocinero()
+    +estaLibre(): boolean
+    +asignarPedido(pedido: Pedido): void
+    +trabajar(): Pedido
+    +getTextoEstado(): String
+}
+
+class ArbolPedidos {
+    -raiz: Nodo
+    -cantidad: int
+    -comparaciones: int
+    +ArbolPedidos()
+    +insertar(p: Pedido): void
+    +extraerMinimo(): Pedido
+    +estaVacio(): boolean
+    +getCantidad(): int
+    +getComparaciones(): int
+}
+
+class Nodo {
+    -pedido: Pedido
+    -izquierdo: Nodo
+    -derecho: Nodo
+    +Nodo(pedido: Pedido)
+    +getPedido(): Pedido
+    +getIzquierdo(): Nodo
+    +setIzquierdo(izquierdo: Nodo): void
+    +getDerecho(): Nodo
+    +setDerecho(derecho: Nodo): void
+}
+
+class Pedido {
+    -id: int
+    -minutoLlegada: int
+    -nombrePlato: String
+    -tiempoTotal: int
+    -tiempoRestante: int
+    +Pedido(id: int, minutoLlegada: int)
+    +getTiempoTotal(): int
+    +getMinutoLlegada(): int
+    +getNombrePlato(): String
+    +getTiempoRestante(): int
+    +procesarMinuto(): boolean
+}
+
+' ======================
+' Relaciones
+' ======================
+
+Main --> Restaurante : usa
+
+Restaurante *-- "1" Cocinero : cocinero
+Restaurante *-- "1" ArbolPedidos : cola
+
+Cocinero o-- "0..1" Pedido : pedidoActual
+
+ArbolPedidos *-- "0..1" Nodo : raiz
+
+Nodo *-- "1" Pedido : pedido
+Nodo o-- "0..1" Nodo : izquierdo
+Nodo o-- "0..1" Nodo : derecho
+
+@enduml

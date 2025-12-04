@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam class {
+  BackgroundColor #F9F9F9
+  BorderColor #333333
+}
+
+class Main
+class Restaurante
+class Cocinero
+class ArbolPedidos
+class Nodo
+class Pedido
+
+Main --> Restaurante
+Restaurante --> Cocinero : tiene
+Restaurante --> ArbolPedidos : tiene
+ArbolPedidos --> Nodo : raíz
+Nodo --> Pedido : contiene
+Nodo --> Nodo : izq / der
+Cocinero --> Pedido : procesa
+
+@enduml
