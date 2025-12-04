@@ -1,0 +1,10 @@
+@startuml
+
+Simulation ..> Restaurant : usa
+Restaurant *-- ArbolPedidos : contiene
+Restaurant o.. Pedido : gestiona
+ArbolPedidos *-- Nodo : contiene
+Nodo o-- Pedido : contiene
+Nodo o-- Nodo : izquierdo/derecho
+
+@enduml

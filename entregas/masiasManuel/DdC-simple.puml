@@ -1,0 +1,47 @@
+@startuml
+
+class Simulation {
+}
+
+class Restaurant {
+  + Restaurant()
+  + run() : void
+}
+
+class ArbolPedidos {
+  + ArbolPedidos()
+  + insertar(Pedido pedido) : void
+  + extraerMinimo() : Pedido
+  + tamanio() : int
+  + getComparaciones() : int
+  + incrementarEspera() : void
+  + tiempoTotalEspera() : int
+  + printTree() : void
+  + isEmpty() : boolean
+}
+
+class Pedido {
+  + Pedido(String tipo, int tiempoPreparacion)
+  + getTipo() : String
+  + getTiempoPreparacion() : int
+  + getTiempoEspera() : int
+  + incrementarEspera() : void
+}
+
+class Nodo {
+  + Nodo(Pedido pedido)
+  + getPedido() : Pedido
+  + getIzquierdo() : Nodo
+  + setIzquierdo(Nodo izquierdo) : void
+  + getDerecho() : Nodo
+  + setDerecho(Nodo derecho) : void
+}
+
+Simulation ..> Restaurant : usa
+Restaurant *-- ArbolPedidos : contiene
+Restaurant o.. Pedido : gestiona
+ArbolPedidos *-- Nodo : contiene
+Nodo o-- Pedido : contiene
+Nodo o-- Nodo : izquierdo/derecho
+
+@enduml
