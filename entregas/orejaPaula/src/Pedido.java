@@ -12,7 +12,12 @@ public class Pedido {
         this.llegada = llegada;
         this.inicio = -1;
     }
+
+    public boolean terminado() {
+        return tiempoRestante <= 0;
+    }
 }
+
 
 
 
