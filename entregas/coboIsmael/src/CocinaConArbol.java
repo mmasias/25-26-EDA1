@@ -1,19 +1,17 @@
-public class Cocina {
+public class CocinaConArbol {
 
-    private ListaPedidos pedidosPendientes;
+    private ArbolPedidos pedidosPendientes;
     private Pedido pedidoEnCocina;
     private int pedidosAtendidos;
-    private int comparacionesSeleccion;
 
-    public Cocina() {
-        this.pedidosPendientes = new ListaPedidos();
+    public CocinaConArbol() {
+        this.pedidosPendientes = new ArbolPedidos();
         this.pedidoEnCocina = null;
         this.pedidosAtendidos = 0;
-        this.comparacionesSeleccion = 0;
     }
 
     public void anadirPedido(Pedido pedido) {
-        pedidosPendientes.insertarAlFinal(pedido);
+        pedidosPendientes.insertar(pedido);
     }
 
     public int getNumeroPedidosPendientes() {
@@ -28,31 +26,22 @@ public class Cocina {
         return pedidosAtendidos;
     }
 
+    public int getComparacionesInsercion() {
+        return pedidosPendientes.getComparacionesInsercion();
+    }
+
     public int getComparacionesSeleccion() {
-        return comparacionesSeleccion;
+        return pedidosPendientes.getComparacionesSeleccion();
     }
 
     public void seleccionarSiguientePedido() {
         if (pedidoEnCocina != null) {
             return;
         }
-        if (pedidosPendientes.estaVacia()) {
+        if (pedidosPendientes.estaVacio()) {
             return;
         }
-
-        int indiceMinimo = 0;
-        Pedido pedidoMinimo = pedidosPendientes.obtenerEn(0);
-
-        for (int posicionActual = 1; posicionActual < pedidosPendientes.getTamano(); posicionActual++) {
-            Pedido pedidoActual = pedidosPendientes.obtenerEn(posicionActual);
-            comparacionesSeleccion++;
-            if (pedidoActual.getTiempoPreparacion() < pedidoMinimo.getTiempoPreparacion()) {
-                indiceMinimo = posicionActual;
-                pedidoMinimo = pedidoActual;
-            }
-        }
-
-        pedidoEnCocina = pedidosPendientes.eliminarEn(indiceMinimo);
+        pedidoEnCocina = pedidosPendientes.extraerMinimo();
     }
 
     public void procesarUnMinuto() {
