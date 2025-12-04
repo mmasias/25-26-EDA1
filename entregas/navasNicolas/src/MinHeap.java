@@ -58,7 +58,7 @@ public class MinHeap {
 
     private boolean greater(int i, int j) {
         comparisons++; 
-        return heap[i].remainingTime > heap[j].remainingTime;
+        return heap[i].getRemainingTime() > heap[j].getRemainingTime();
     }
 
     private void swap(int i, int j) {

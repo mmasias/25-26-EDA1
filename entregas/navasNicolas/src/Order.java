@@ -11,6 +11,30 @@ public class Order {
         this.arrivalTime = arrivalTime;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public int getRemainingTime() {
+        return remainingTime;
+    }
+
+    public double getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void decrementRemainingTime() {
+        this.remainingTime--;
+    }
+
+    public void setRemainingTime(int remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
     @Override
     public String toString() {
         return type + " (" + remainingTime + " min rest)";

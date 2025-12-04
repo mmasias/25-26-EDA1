@@ -50,16 +50,16 @@ class Restaurant {
     private void processQueue() {
         if (currentOrder == null && !orderQueue.isEmpty()) {
             currentOrder = orderQueue.extractMin();
-            double waitHours = currentTime - currentOrder.arrivalTime;
+            double waitHours = currentTime - currentOrder.getArrivalTime();
             totalWaitTime += (waitHours * 60); 
         }
 
         if (currentOrder != null) {
-            currentOrder.remainingTime--;
+            currentOrder.decrementRemainingTime();
 
-            if (currentOrder.remainingTime <= 0) {
+            if (currentOrder.getRemainingTime() <= 0) {
                 completedOrders++;
-                System.out.println("   >>> ¡Pedido Terminado: " + currentOrder.type + "!");
+                System.out.println("   >>> ¡Pedido Terminado: " + currentOrder.getType() + "!");
                 currentOrder = null;
             }
         }
@@ -69,7 +69,7 @@ class Restaurant {
         if (random.nextDouble() < PROBABILITY_ARRIVAL) {
             Order newOrder = generateRandomOrder();
             orderQueue.insert(newOrder);
-            System.out.println("   >>> Nuevo Pedido: " + newOrder.type + " (" + newOrder.totalTime + " min)");
+            System.out.println("   >>> Nuevo Pedido: " + newOrder.getType() + " (" + newOrder.getTotalTime() + " min)");
         }
     }
 
