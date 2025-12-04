@@ -47,7 +47,6 @@ public class MinHeap {
         while (2 * k <= size) {
             int j = 2 * k;
             if (j < size && greater(j, j + 1)) j++;
-            // if parent is not greater than the smaller child, heap property holds
             if (!greater(k, j)) {
                 break;
             }
