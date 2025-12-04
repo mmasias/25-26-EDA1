@@ -1,0 +1,100 @@
+@startuml Esquema
+
+' ========================================
+' Diagrama de clases Sistema de Cocina
+' Implementación con Árbol Binario para ColaPedidos (SPT)
+' ========================================
+
+class Simulacion {
+    +main(String[] args)
+}
+
+class Restaurante {
+    -arbolPedidos : ArbolPedidos
+    -cocineroPrincipal : Cocinero
+    -estadisticas : Estadisticas
+    +Restaurante()
+    +void ejecutar(int minutos)
+}
+
+class Cocinero {
+    -pedidoActual : Pedido
+    +Cocinero()
+    +boolean estaOcupado()
+    +void asignarPedido(Pedido pedido, int instanteInicio)
+    +Pedido obtenerPedido()
+    +Pedido procesarUnMinuto()
+}
+
+class ArbolPedidos {
+    -raiz : NodoPedido
+    -cantidadPedidos : int
+    +ArbolPedidos()
+    +void insertar(Pedido nuevoPedido)
+    +Pedido extraerMin()
+    +boolean estaVacia()
+    +int tamaño()
+}
+
+class NodoPedido {
+    -pedido : Pedido
+    -izquierdo : NodoPedido
+    -derecho : NodoPedido
+    -padre : NodoPedido
+    +NodoPedido(Pedido pedido)
+    +Pedido getPedido()
+    +NodoPedido getIzquierdo()
+    +void setIzquierdo(NodoPedido izquierdo)
+    +NodoPedido getDerecho()
+    +void setDerecho(NodoPedido derecho)
+    +NodoPedido getPadre()
+    +void setPadre(NodoPedido padre)
+}
+
+class Pedido {
+    -id : int
+    -tipo : String
+    -tiempoPreparacion : int
+    +Pedido(int id, String tipo, int tiempoPreparacion)
+    +int getId()
+    +String getTipo()
+    +int getTiempoPreparacion()
+    +int compareTo(Pedido otroPedido)
+    +String toString()
+}
+
+class Estadisticas {
+    -cantidadAtendidos : int
+    -cantidadPendientes : int
+    -tiempoTotalDeEspera : double
+    -comparacionesRealizadas : double
+    +Estadisticas()
+    +void registrarInicioServicio(Pedido pedido, int instanteInicio)
+    +void registrarPedidoAtendido(Pedido pedido)
+    +void registrarComparaciones(double cantidadComparaciones)
+    +public int getTotalPedidosAtendidos() 
+    +public int getTotalPedidosPendientes()  
+    +public double getTiempoEsperaAcumulado() 
+    +public double getTiempoEsperaMedio() 
+    +public double getComparacionesRealizadas()  
+    +String generarResumen()
+}
+
+class TipoPlato {
+    -static final String BEBIDA
+    -static final String CAFE
+    -static final String COLACAO
+    -static final String BOCADILLO
+    -static final String ENSALADA
+    +String muestrearTipo()
+    +int generarTiempoParaTipo(String tipo)
+}
+
+Simulacion --> Restaurante
+Restaurante --> Cocinero
+Restaurante --> ArbolPedidos
+Restaurante --> Estadisticas
+ArbolPedidos --> NodoPedido
+Cocinero --> Pedido
+
+@enduml
