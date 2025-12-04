@@ -24,7 +24,7 @@ class Mundo {
             while (horas >= restaurante.apertura() && horas < restaurante.cierre()){
                 System.out.println("Dentro de restaurante abierto " + tiempo());
 
-                if (0.25 > Math.random()){
+                if (0.4 > Math.random()){
                     Cliente clienteNuevo = new Cliente();
                     restaurante.tomarPedido(clienteNuevo);
                 }
@@ -44,7 +44,7 @@ class Mundo {
 
             }
 
-            System.out.println("Ey funciona " + tiempo());
+            System.out.println("La hora es " + tiempo());
             continuarPrograma();
             pasarTiempo(masiasChef);
         }

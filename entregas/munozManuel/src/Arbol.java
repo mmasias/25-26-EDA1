@@ -4,7 +4,7 @@ class Arbol {
     private Nodo raiz;
     private int cantidadNodos;
 
-    public Arbol(){
+    public Arbol() {
         cantidadNodos = 0;
     }
 
@@ -18,7 +18,7 @@ class Arbol {
         }
     }
 
-    public int cantidadNodos(){
+    public int cantidadNodos() {
         return cantidadNodos;
     }
 
@@ -45,10 +45,36 @@ class Arbol {
         }
     }
 
+    public int contarComparaciones() {
+        if (raiz == null) return 0;
+        int[] contador = new int[1];
+        buscarMinimoConContador(raiz, null, contador);
+        return contador[0];
+    }
+
+    private Nodo buscarMinimoConContador(Nodo nodo, Nodo actualMin, int[] contador) {
+        if (nodo == null) return actualMin;
+
+        actualMin = buscarMinimoConContador(nodo.hijoIzquerda(), actualMin, contador);
+
+        if (actualMin != null) {
+            contador[0]++;
+            if (nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
+                actualMin = nodo;
+            }
+        } else {
+            actualMin = nodo;
+        }
+
+        actualMin = buscarMinimoConContador(nodo.hijoDerecha(), actualMin, contador);
+
+        return actualMin;
+    }
+
     public int recorrerOrdenes(boolean terminado) {
         Nodo[] nodosOrdenados = new Nodo[cantidadNodos];
         int cantidadSatisfecha = 0;
-        
+
         if (raiz == null || cantidadNodos == 0) {
             return cantidadSatisfecha;
         }
@@ -80,13 +106,14 @@ class Arbol {
     }
 
     private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMinimo) {
-        if (nodo == null){
+        if (nodo == null) {
             return actualMinimo;
         }
 
         actualMinimo = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMinimo);
 
-        if ((actualMinimo == null || nodo.tiempoPreparacion() < actualMinimo.tiempoPreparacion()) && !nodo.pedidoHecho()) {
+        if ((actualMinimo == null || nodo.tiempoPreparacion() < actualMinimo.tiempoPreparacion())
+                && !nodo.pedidoHecho()) {
             actualMinimo = nodo;
         }
 
