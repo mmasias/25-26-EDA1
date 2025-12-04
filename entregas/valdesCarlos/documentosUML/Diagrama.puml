@@ -1,0 +1,38 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class Simulacion {
+    +main()
+}
+
+class Restaurante {
+    +recibirPosiblePedido()
+    +gestionarCocina()
+}
+
+class ArbolPedidos {
+    +insertar()
+    +extraerPrioritario()
+}
+
+class Nodo {
+    +izquierdo
+    +derecho
+}
+
+class Pedido {
+    +nombre
+    +tiempoTotal
+}
+
+
+Simulacion ..> Restaurante : 1. Avanza el reloj (minuto a minuto)
+Restaurante *-- ArbolPedidos : 2. Usa para priorizar (Menor Tiempo)
+Restaurante ..> Pedido : 3. Crea y cocina (Reduce tiempo)
+
+ArbolPedidos *-- Nodo : 4. Accede a la Raíz
+Nodo o-- Pedido : 5. Almacena datos del plato
+Nodo --> Nodo : 6. Enlaza: Izq=Rápido | Der=Lento
+
+@enduml
