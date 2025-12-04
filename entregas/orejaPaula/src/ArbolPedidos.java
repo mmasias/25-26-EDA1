@@ -28,4 +28,25 @@ public class ArbolPedidos {
         }
         return n;
     }
+
+    public Pedido extraerMinimo() {
+        if (raiz == null) return null;
+
+        Nodo padre = null;
+        Nodo actual = raiz;
+
+        while (actual.izq != null) {
+            comparaciones++;
+            padre = actual;
+            actual = actual.izq;
+        }
+
+        if (padre == null) {
+            raiz = actual.der;
+        } else {
+            padre.izq = actual.der;
+        }
+
+        return actual.p;
+    }
 }
