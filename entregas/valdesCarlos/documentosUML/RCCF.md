@@ -5,10 +5,13 @@
 Lo que buscabamos era una estructura más optima que las listas y arrays para este enunciado. La estructura `ArbolPedidos` ha sido diseñada específicamente para cumplir con los requisitos del enunciado.
 
 Se destaca:
--  Criterio de Ordenación
-    El árbol organiza los nodos basándose en el atributo `tiempoTotal` del pedido:
-    Rama Izquierda: Contiene los pedidos con tiempos estrictamente menores que el nodo actual.
-    Rama Derecha: Contiene los pedidos con tiempos mayores o iguales.
+
+- Criterio de Ordenación:
+El árbol organiza los nodos basándose en el atributo `tiempoTotal` del pedido:
+
+   Rama Izquierda: Contiene los pedidos con tiempos estrictamente menores que el nodo actual.
+
+   Rama Derecha: Contiene los pedidos con tiempos mayores o iguales.
 
 Esto garantiza que el pedido con la mayor prioridad (menor tiempo) se encuentre siempre en el extremo inferior izquierdo del árbol.
 
