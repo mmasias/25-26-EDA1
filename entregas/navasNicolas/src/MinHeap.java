@@ -44,16 +44,15 @@ public class MinHeap {
     }
 
     private void sink(int k) {
-        boolean moved = true;
-        while (2 * k <= size && moved) {
+        while (2 * k <= size) {
             int j = 2 * k;
             if (j < size && greater(j, j + 1)) j++;
-            if (!greater(k, j)){}
-                swap(k, j);
-                k = j;
-            } else {
-                moved = false;
+            // if parent is not greater than the smaller child, heap property holds
+            if (!greater(k, j)) {
+                break;
             }
+            swap(k, j);
+            k = j;
         }
     }
 
