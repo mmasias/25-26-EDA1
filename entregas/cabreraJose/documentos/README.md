@@ -1,4 +1,4 @@
-# Reto 005: Sistema de Gestión de Pedidos con Priority Queue
+# Reto 005: Sistema de Gestión de Pedidos
 
 > **Asignatura:** Estructuras de Datos y Algoritmos I (EDA1)  
 > **Curso:** 2025-2026  
