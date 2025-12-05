@@ -1,16 +1,16 @@
 package entregas.caicedoFernando.src;
 
 public class ColaPedidos {
-    private NodoPedido cabeza;
+    private NodoPedido raiz;
     private int tamano;
 
     public ColaPedidos() {
-        this.cabeza = null;
+        this.raiz = null;
         this.tamano = 0;
     }
 
     public boolean estaVacia() {
-        return tamano == 0;
+        return raiz == null;
     }
 
     public int obtenerTamano() {
@@ -18,41 +18,42 @@ public class ColaPedidos {
     }
 
     public void agregar(Pedido pedido) {
-        NodoPedido nuevoNodo = new NodoPedido(pedido);
-        nuevoNodo.siguiente = cabeza;
-        cabeza = nuevoNodo;
+        raiz = insertarRecursivo(raiz, pedido);
         tamano++;
     }
 
-    public ResultadoExtraccion extraerMinimo() {
-        if (estaVacia()) {
-            return new ResultadoExtraccion(null, 0);
+    private NodoPedido insertarRecursivo(NodoPedido nodo, Pedido pedido) {
+        if (nodo == null) {
+            return new NodoPedido(pedido);
         }
-
-        int conteoComparaciones = 0;
-        NodoPedido nodoActual = cabeza.siguiente;
-        NodoPedido nodoAnterior = cabeza;
-        
-        NodoPedido nodoMinimo = cabeza;
-        NodoPedido nodoAnteriorAlMinimo = null;
-
-        while (nodoActual != null) {
-            conteoComparaciones++;
-            if (nodoActual.pedido.tiempoPreparacion < nodoMinimo.pedido.tiempoPreparacion) {
-                nodoMinimo = nodoActual;
-                nodoAnteriorAlMinimo = nodoAnterior;
-            }
-            nodoAnterior = nodoActual;
-            nodoActual = nodoActual.siguiente;
-        }
-
-        if (nodoAnteriorAlMinimo == null) {
-            cabeza = nodoMinimo.siguiente;
+        if (pedido.tiempoPreparacion < nodo.pedido.tiempoPreparacion) {
+            nodo.izquierda = insertarRecursivo(nodo.izquierda, pedido);
         } else {
-            nodoAnteriorAlMinimo.siguiente = nodoMinimo.siguiente;
+            nodo.derecha = insertarRecursivo(nodo.derecha, pedido);
+        }
+        return nodo;
+    }
+
+    public ResultadoExtraccion extraerMinimo() {
+        if (estaVacia()) return new ResultadoExtraccion(null, 0);
+
+        int comparaciones = 0;
+        NodoPedido padre = null;
+        NodoPedido actual = raiz;
+
+        while (actual.izquierda != null) {
+            comparaciones++;
+            padre = actual;
+            actual = actual.izquierda;
+        }
+
+        if (padre == null) {
+            raiz = actual.derecha;
+        } else {
+            padre.izquierda = actual.derecha;
         }
 
         tamano--;
-        return new ResultadoExtraccion(nodoMinimo.pedido, conteoComparaciones);
+        return new ResultadoExtraccion(actual.pedido, comparaciones);
     }
 }

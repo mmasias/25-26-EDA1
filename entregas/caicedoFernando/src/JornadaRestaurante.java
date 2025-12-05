@@ -1,120 +1,90 @@
 package entregas.caicedoFernando.src;
-
 import java.util.Random;
+import java.util.Scanner;
 
 public class JornadaRestaurante {
+    private final int APERTURA = 9 * 60;
+    private final int CIERRE = 21 * 60;
+    private final double PROBABILIDAD = 0.4;
+    private final String[] TIPOS = {"Bebida", "Café", "Bocadillo", "Ensalada"};
+    private final int[][] TIEMPOS = {{1, 2}, {2, 3}, {3, 5}, {5, 8}};
 
-    private final double HORA_APERTURA = 9.0;
-    private final double HORA_CIERRE = 21.0;
-    private final double PASO_MINUTO = 1.0 / 60.0;
-    private final double PROBABILIDAD_LLEGADA = 0.4;
-    private final String[] TIPOS_PLATO = {"Bebida", "Café", "Colacao", "Bocadillo", "Ensalada"};
-    private final int[][] RANGOS_TIEMPO = {
-        {1, 2}, 
-        {2, 3}, 
-        {2, 4}, 
-        {3, 5}, 
-        {5, 8}  
-    };
-
-    private final ColaPedidos colaPedidos;
+    private final ColaPedidos arbolPedidos;
     private final Cocinero cocinero;
-    private final Random generadorAleatorio;
-    private int pedidosAtendidos;
-    private int tiempoEsperaTotal;
-    private int comparacionesTotales;
-    private int totalPedidosGenerados;
+    private final Random random;
+    
+    private int atendidos = 0;
+    private int esperaTotal = 0;
+    private int comparaciones = 0;
+    private int generados = 0;
 
     public JornadaRestaurante() {
-        this.colaPedidos = new ColaPedidos();
+        this.arbolPedidos = new ColaPedidos();
         this.cocinero = new Cocinero();
-        this.generadorAleatorio = new Random();
-        this.pedidosAtendidos = 0;
-        this.tiempoEsperaTotal = 0;
-        this.comparacionesTotales = 0;
-        this.totalPedidosGenerados = 0;
+        this.random = new Random();
     }
 
     public void ejecutar() {
-        int minutoActual = 1;
+        Scanner scanner = new Scanner(System.in);
+        boolean enEjecucion = true;
 
-        for (double tiempoActual = HORA_APERTURA; tiempoActual < HORA_CIERRE; tiempoActual = tiempoActual + PASO_MINUTO) {
-            imprimirEstadoMinuto(minutoActual);
-            gestionarLlegadas(minutoActual);
-            procesarCocina();
-            tiempoEsperaTotal += colaPedidos.obtenerTamano();
-            minutoActual++;
-        }
-        imprimirResumenFinal();
-    }
+         for (int minuto = 0; minuto < (CIERRE - APERTURA) && enEjecucion; minuto++) {
+            imprimirEstado(minuto);
+            
+            if (random.nextDouble() < PROBABILIDAD) {
+                Pedido p = fabricarPedido(minuto);
+                arbolPedidos.agregar(p);
+                generados++;
+                System.out.println("--> Nuevo pedido: " + p.tipo + " (" + p.tiempoPreparacion + " min)");
+            }
 
-    private void gestionarLlegadas(int minuto) {
-        if (generadorAleatorio.nextDouble() < PROBABILIDAD_LLEGADA) {
-            Pedido nuevoPedido = generarPedido(minuto);
-            colaPedidos.agregar(nuevoPedido);
-            totalPedidosGenerados++;
-            System.out.println("Llega pedido: " + nuevoPedido.tipo + " (" + nuevoPedido.tiempoPreparacion + " min)");
-        }
-    }
+            if (!cocinero.estaLibre()) {
+                if (cocinero.trabajar() != null) atendidos++;
+            }
 
-    private void procesarCocina() {
-        Pedido pedidoTerminado;
-        if (!cocinero.estaLibre()) {
-            pedidoTerminado = cocinero.trabajar();
-            if (pedidoTerminado != null) {
-                pedidosAtendidos++;
+            if (cocinero.estaLibre() && !arbolPedidos.estaVacia()) {
+                ResultadoExtraccion res = arbolPedidos.extraerMinimo();
+                cocinero.tomarPedido(res.pedidoMinimo);
+                comparaciones += res.comparaciones;
+            }
+
+            esperaTotal += arbolPedidos.obtenerTamano();
+
+            if (!esperarEnter(scanner)) {
+                enEjecucion = false;
             }
         }
-
-        if (cocinero.estaLibre() && !colaPedidos.estaVacia()) {
-            ResultadoExtraccion resultado = colaPedidos.extraerMinimo();
-            cocinero.tomarPedido(resultado.pedidoMinimo);
-            comparacionesTotales += resultado.comparaciones;
-        }
+        imprimirResumen();
     }
 
-    private void imprimirEstadoMinuto(int minuto) {
-        System.out.println("========================================");
-        System.out.println("[" + minuto + ".0]");
+    private boolean esperarEnter(Scanner scanner) {
+        System.out.print("Presiona ENTER para avanzar (o 'Q' para salir)...");
+        String entrada = scanner.nextLine().trim();
         
-        System.out.println("COLA: " + colaPedidos.obtenerTamano() + " pedidos");
-        if (cocinero.estaLibre()) {
-            System.out.println("Cocinero: No tiene platos por preparar!!!");
-        } else {
-            Pedido pedidoActual = cocinero.obtenerPedidoActual();
-            System.out.println("Cocinero: [" + pedidoActual.tipo + " - " + pedidoActual.tiempoRestante + " minutos restantes]");
+        if (entrada.length() > 0) {
+            char letra = entrada.charAt(0); 
+            if (letra == 'q' || letra == 'Q') { 
+                return false;
+            }
         }
+        return true;
     }
 
-    private Pedido generarPedido(int minutoLlegada) {
-        int i = generadorAleatorio.nextInt(TIPOS_PLATO.length);
-        String tipo = TIPOS_PLATO[i];
-        
-        int tiempoMinimo = RANGOS_TIEMPO[i][0];
-        int tiempoMaximo = RANGOS_TIEMPO[i][1];
-        int tiempo = generadorAleatorio.nextInt(tiempoMaximo - tiempoMinimo + 1) + tiempoMinimo;
-
-        return new Pedido(tipo, tiempo, minutoLlegada);
+    private Pedido fabricarPedido(int minuto) {
+        int i = random.nextInt(TIPOS.length);
+        int t = random.nextInt(TIEMPOS[i][1] - TIEMPOS[i][0] + 1) + TIEMPOS[i][0];
+        return new Pedido(TIPOS[i], t, minuto);
     }
 
-    private void imprimirResumenFinal() {
-        System.out.println("========================================");
-        System.out.println("\nRESUMEN DE LA JORNADA");
-        System.out.println("========================================");
-        
-        System.out.println("Pedidos atendidos        : " + pedidosAtendidos);
-        System.out.println("Pedidos pendientes       : " + colaPedidos.obtenerTamano());
-        System.out.println("Tiempo total de espera   : " + tiempoEsperaTotal + " minutos");
-        
-        double tiempoMedio = 0;
-        if (totalPedidosGenerados > 0) {
-             tiempoMedio = (double) tiempoEsperaTotal / totalPedidosGenerados;
-        }
-        
-        double tiempoMedioRedondeado = Math.round(tiempoMedio * 10.0) / 10.0;
-        
-        System.out.println("Tiempo medio de espera   : " + tiempoMedioRedondeado + " minutos");
-        System.out.println("Comparaciones totales    : " + comparacionesTotales);
-        System.out.println("========================================");
+    private void imprimirEstado(int m) {
+        System.out.print("[" + m + "] Cola: " + arbolPedidos.obtenerTamano() + " | Cocina: ");
+        System.out.println(cocinero.estaLibre() ? "Libre" : cocinero.obtenerPedidoActual().tipo);
+    }
+
+    private void imprimirResumen() {
+        System.out.println("\n=== RESUMEN ===");
+        System.out.println("Atendidos: " + atendidos);
+        System.out.println("Promedio espera: " + (generados > 0 ? (esperaTotal / (double)generados) : 0));
+        System.out.println("Comparaciones: " + comparaciones);
     }
 }

@@ -3,10 +3,6 @@ package entregas.caicedoFernando.src;
 public class Cocinero {
     private Pedido pedidoActual;
 
-    public Cocinero() {
-        this.pedidoActual = null;
-    }
-
     public boolean estaLibre() {
         return pedidoActual == null;
     }
@@ -15,23 +11,20 @@ public class Cocinero {
         this.pedidoActual = pedido;
     }
 
+    public Pedido obtenerPedidoActual() {
+        return pedidoActual;
+    }
+
     public Pedido trabajar() {
-        if (pedidoActual == null) {
-            return null;
-        }
+        if (pedidoActual == null) return null;
 
         pedidoActual.tiempoRestante--;
 
         if (pedidoActual.tiempoRestante <= 0) {
-            Pedido pedidoTerminado = pedidoActual;
+            Pedido terminado = pedidoActual;
             pedidoActual = null;
-            return pedidoTerminado;
+            return terminado;
         }
-        
         return null;
-    }
-
-    public Pedido obtenerPedidoActual() {
-        return pedidoActual;
     }
 }

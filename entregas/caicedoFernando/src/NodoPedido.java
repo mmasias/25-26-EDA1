@@ -1,12 +1,13 @@
-
 package entregas.caicedoFernando.src;
 
 public class NodoPedido {
     Pedido pedido;
-    NodoPedido siguiente;
+    NodoPedido izquierda;
+    NodoPedido derecha;
 
     public NodoPedido(Pedido pedido) {
         this.pedido = pedido;
-        this.siguiente = null;
+        this.izquierda = null;
+        this.derecha = null;
     }
 }

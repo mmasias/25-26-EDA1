@@ -1,16 +1,16 @@
 ### Clase Cliente
 
 * **public static void main(String[] args)**
-    Punto de entrada del programa. Crea una instancia de `JornadaRestaurante` y llama a su método `ejecutar()` para iniciar la simulación.
+    Punto de entrada del programa. Crea una instancia de `JornadaRestaurante` y llama a su método `ejecutar()` para iniciar la simulación interactiva.
 
 ---
 
 ### Clase JornadaRestaurante
 
 * **+ JornadaRestaurante()**
-    Constructor. Prepara la jornada inicializando el `Cocinero`, la `ColaPedidos` vacía, el generador aleatorio y todas las métricas a cero.
+    Constructor. Prepara la jornada inicializando el `Cocinero`, la `ColaPedidos` (como un árbol binario vacío), el generador aleatorio y todas las métricas a cero.
 * **+ void ejecutar()**
-    Inicia y controla el bucle principal de la simulación (de 9:00 a 21:00), gestionando las llegadas y el trabajo de la cocina en cada minuto. Al finalizar, imprime el resumen.
+    Inicia y controla el bucle principal de la simulación (de 9:00 a 21:00). Gestiona las llegadas y el trabajo de la cocina minuto a minuto. **Pausa la ejecución** en cada ciclo esperando que el usuario presione ENTER para avanzar o 'Q' para terminar anticipadamente. Al finalizar, imprime el resumen.
 
 ---
 
@@ -21,60 +21,60 @@
 * **+ boolean estaLibre()**
     Devuelve `true` si el cocinero no está procesando ningún pedido en este momento.
 * **+ void tomarPedido(Pedido pedido)**
-    Asigna un nuevo pedido al cocinero para que empiece a trabajar en él.
+    Asigna un nuevo pedido al cocinero para que empiece a trabajar en él inmediatamente.
 * **+ Pedido trabajar()**
-    Simula un minuto de trabajo del cocinero. Reduce el `tiempoRestante` del pedido actual. Si el pedido se termina (tiempo llega a 0), lo devuelve.
+    Simula un minuto de trabajo. Reduce el `tiempoRestante` del pedido actual. Si el tiempo llega a 0, devuelve el pedido terminado; de lo contrario, devuelve `null`.
 * **+ Pedido obtenerPedidoActual()**
-    Devuelve el `Pedido` en el que el cocinero está trabajando actualmente.
+    Devuelve el objeto `Pedido` que el cocinero está preparando actualmente.
 
 ---
 
 ### Clase Pedido
 
 * **+ Pedido(String tipo, int tiempoPreparacion, int minutoLlegada)**
-    Constructor público para crear nuevos pedidos.
+    Constructor para crear nuevos pedidos con sus características iniciales.
 * **+ String tipo**
-    Atributo público. El tipo de plato (ej. "Café", "Bocadillo").
+    Atributo público. El tipo de plato (ej. "Café", "Ensalada").
 * **+ int tiempoPreparacion**
-    Atributo público. El tiempo original asignado para preparar este pedido.
+    Atributo público. El tiempo total requerido para preparar el plato. **Es el criterio de ordenamiento** dentro del árbol de pedidos.
 * **+ int tiempoRestante**
     Atributo público. El tiempo que falta para completar el pedido (se reduce por el cocinero).
-* **+ int minutoLlegada**
-    Atributo público. El minuto de la simulación en que el pedido entró a la cola.
 
 ---
 
-### Clase ColaPedidos
+### Clase ColaPedidos (Árbol Binario)
 
 * **+ ColaPedidos()**
-    Constructor. Inicializa una cola de pedidos vacía (pone la `cabeza` en `null`).
+    Constructor. Inicializa la estructura del árbol estableciendo la `raiz` en `null` y el tamaño en 0.
 * **+ void agregar(Pedido pedido)**
-    Añade un nuevo pedido a la cola (lo inserta al inicio de la lista enlazada).
+    Inserta un nuevo pedido en el **Árbol Binario de Búsqueda**. Recorre la estructura recursivamente comparando el `tiempoPreparacion` para colocar los tiempos menores a la izquierda y los mayores o iguales a la derecha.
 * **+ boolean estaVacia()**
-    Devuelve `true` si no hay ningún pedido en la cola de espera.
+    Devuelve `true` si el árbol no tiene nodos (la raíz es `null`).
 * **+ int obtenerTamano()**
-    Devuelve el número actual de pedidos que están en la cola.
+    Devuelve el contador actual de pedidos pendientes en el árbol.
 * **+ ResultadoExtraccion extraerMinimo()**
-    Busca en toda la lista el pedido con el menor `tiempoPreparacion`, lo elimina de la lista y lo devuelve (junto con el conteo de comparaciones).
+    Busca el nodo situado más a la **izquierda** del árbol (el de menor tiempo), lo elimina de la estructura reajustando los punteros del padre y devuelve el pedido encontrado junto con las comparaciones realizadas.
 
 ---
 
 ### Clase NodoPedido
 
 * **+ NodoPedido(Pedido pedido)**
-    Constructor. Crea un nuevo eslabón de la lista enlazada para contener un pedido.
+    Constructor. Crea un nodo para el árbol que contiene el pedido y referencias nulas a sus hijos.
 * **+ Pedido pedido**
-    Atributo público. El `Pedido` almacenado en este nodo.
-* **+ NodoPedido siguiente**
-    Atributo público. Referencia al siguiente nodo de la lista (o `null` si es el último).
+    Atributo público. El objeto de datos almacenado en este nodo.
+* **+ NodoPedido izquierda**
+    Atributo público. Referencia al hijo izquierdo (pedidos con **menor** tiempo de preparación).
+* **+ NodoPedido derecha**
+    Atributo público. Referencia al hijo derecho (pedidos con **mayor o igual** tiempo de preparación).
 
 ---
 
 ### Clase ResultadoExtraccion
 
 * **+ ResultadoExtraccion(Pedido pedidoMinimo, int comparaciones)**
-    Constructor. Crea un objeto para empaquetar los dos valores que devuelve `extraerMinimo()`.
+    Constructor. Crea un objeto auxiliar para devolver dos valores simultáneamente desde `extraerMinimo()`.
 * **+ Pedido pedidoMinimo**
-    Atributo público. El `Pedido` que se extrajo de la cola.
+    Atributo público. El pedido con el menor tiempo de preparación que fue extraído del árbol.
 * **+ int comparaciones**
-    Atributo público. El número de comparaciones que costó encontrar ese pedido mínimo.
+    Atributo público. El número de nodos que se tuvieron que visitar (profundidad) para encontrar el elemento mínimo.
