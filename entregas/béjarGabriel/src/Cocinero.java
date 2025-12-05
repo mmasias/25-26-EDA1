@@ -1,37 +1,38 @@
 
 public class Cocinero {
 
-    private Pedido actual = null;
-    private final EstructuraPedidos estructura;
+    private Pedido pedidoActual;
 
-    public Cocinero(EstructuraPedidos estructura) {
-        this.estructura = estructura;
+    public Cocinero() {
+        this.pedidoActual = null;
     }
 
-    public void tomarSiguienteSiNecesario(int minuto) {
-        if (actual == null && !estructura.isEmpty()) {
-            actual = estructura.extraerMinimo();
-        }
+    public void asignarPedido(Pedido p) {
+        assert pedidoActual == null : "El cocinero ya está ocupado";
+        assert p != null : "No se puede asignar un pedido nulo";
+        this.pedidoActual = p;
     }
 
-    public Pedido procesarMinuto() {
-        if (actual == null) {
+    public Pedido cocinar() {
+        if (pedidoActual == null) {
             return null;
         }
-        actual.decrementarMinuto();
-        if (actual.getTiempoRestante() == 0) {
-            Pedido terminado = actual;
-            actual = null;
+
+        pedidoActual.decrementarMinuto();
+
+        if (pedidoActual.estaTerminado()) {
+            Pedido terminado = pedidoActual;
+            pedidoActual = null;
             return terminado;
         }
         return null;
     }
 
-    public boolean estaOcupado() {
-        return actual != null;
+    public boolean estaLibre() {
+        return pedidoActual == null;
     }
 
-    public Pedido getActual() {
-        return actual;
+    public Pedido getPedidoActual() {
+        return pedidoActual;
     }
 }

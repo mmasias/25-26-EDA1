@@ -2,6 +2,7 @@
 public class Arbol implements EstructuraPedidos {
 
     private static class Nodo {
+
         Pedido pedido;
         Nodo izquierda;
         Nodo derecha;
@@ -28,7 +29,7 @@ public class Arbol implements EstructuraPedidos {
         assert p != null : "No se puede insertar un pedido nulo";
         raiz = insertarRec(raiz, p);
         size++;
-        
+
         assert size > 0 : "El tamaño debe ser positivo tras insertar";
     }
 
