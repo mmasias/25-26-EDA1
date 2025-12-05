@@ -45,10 +45,6 @@ class Nodo {
         pedido.terminarPedido();
     }
 
-    public void restarTiempoDePreparacion(){
-        pedido.restarTiempoDePreparacion();
-    }
-
     private void hijoIzquerda(Nodo pedido){
         if(this.hijoIzquerda == null){
             this.hijoIzquerda = pedido;
