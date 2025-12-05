@@ -1,18 +1,18 @@
 public class Pedido {
 
-    private Plato plato;
+    private ItemMenu item;
     private int tiempoPreparacion;
     private int tiempoEspera;
 
-    public Pedido(Plato plato) {
-        this.plato = plato;
-        this.tiempoPreparacion = generarTiempo(plato);
+    public Pedido(ItemMenu item) {
+        this.item = item;
+        this.tiempoPreparacion = generarTiempo(item);
         this.tiempoEspera = 0;
     }
 
-    private int generarTiempo(Plato plato) {
-        int mininmo = plato.obtenerMinTiempo();
-        int maximo = plato.obtenerMaxTiempo();
+    private int generarTiempo(ItemMenu item) {
+        int mininmo = item.obtenerMinTiempo();
+        int maximo = item.obtenerMaxTiempo();
         return mininmo + (int) (Math.random() * (maximo - mininmo + 1));
     }
 
@@ -21,7 +21,7 @@ public class Pedido {
     }
 
     public String getNombre() {
-        return plato.obtenerNombre();
+        return item.obtenerNombre();
     }
 
     public int getTiempoPreparacion() {

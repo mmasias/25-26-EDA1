@@ -8,19 +8,19 @@ public class Restaurante {
     private int totalPedidosAtendidos;
     private Scanner entradaUsuario;
 
-    private final Plato[] PLATOS = {
-            new Plato("Bebida", 1, 2),
-            new Plato("Cafe", 2, 3),
-            new Plato("Colacao", 2, 4),
-            new Plato("Bocadillo", 3, 5),
-            new Plato("Ensalada", 5, 8)
+    private final ItemMenu[] ITEMS = {
+            new ItemMenu("Bebida", 1, 2),
+            new ItemMenu("Cafe", 2, 3),
+            new ItemMenu("Colacao", 2, 4),
+            new ItemMenu("Bocadillo", 3, 5),
+            new ItemMenu("Ensalada", 5, 8)
     };
 
     public Restaurante() {
         this.colaPedidos = new ArbolPedidos();
         this.entradaUsuario = new Scanner(System.in);
 
-        assert PLATOS.length > 0 : "La lista de platos no puede estar vacía";
+        assert ITEMS.length > 0 : "La lista de platos no puede estar vacía";
     }
 
     public void iniciarSimulacion() {
@@ -87,10 +87,10 @@ public class Restaurante {
     }
 
     private Pedido generarPedidoAleatorio() {
-        int i = (int) (Math.random() * PLATOS.length);
+        int i = (int) (Math.random() * ITEMS.length);
 
-        assert i >= 0 && i < PLATOS.length : "Índice fuera de rango";
-        return new Pedido(PLATOS[i]);
+        assert i >= 0 && i < ITEMS.length : "Índice fuera de rango";
+        return new Pedido(ITEMS[i]);
     }
 
     private void mostrarEstado() {
