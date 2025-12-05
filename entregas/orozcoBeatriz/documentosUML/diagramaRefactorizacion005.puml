@@ -1,0 +1,101 @@
+@startuml diagramaRefactorizacion005
+title Refactorizacion con árboles binarios - RCCCF
+
+class Simulacion {
+    + main(args : String[]) : void
+}
+
+class Restaurante {
+    - HORA_APERTURA : double
+    - HORA_CIERRE : double
+    - MINUTO : double
+    - PROBABILIDAD_LLEGADA : double
+    - cocinero : Cocinero
+    - generadorPedidos : GeneradorPedidos
+    - arbolPedidos : ArbolPedidos
+    - minutoActual : int
+    - pedidosAtendidos : int
+    - tiempoEsperaTotal : long
+    + Restaurante()
+    + ejecutar() : void
+    - validarLlegada() : void
+    - recibirPedido(pedido : Pedido) : void
+    - seleccionarPedido() : Pedido
+    - procesarCocina() : Pedido
+    - mostrarResumen() : void
+}
+
+class Cocinero {
+    - pedidoActual : Pedido
+    + asignarPedido(pedido : Pedido, minutoActual : int) : void
+    + estaLibre() : boolean
+    + cocinarDuranteUnMinuto() : Pedido
+    + getPedidoActual() : Pedido
+}
+
+class GeneradorPedidos {
+    - probabilidadLlegada : double
+    - generadorAleatorio : Random
+    + GeneradorPedidos(probabilidadLlegada : double)
+    + generarPedido(minutoActual : int) : Pedido
+}
+
+class ArbolPedidos {
+    - raiz : NodoArbolPedido
+    - tamaño : int
+    + ArbolPedidos()
+    + insertar(pedido : Pedido) : void
+    + estaVacio() : boolean
+    + tamaño() : int
+    + extraerMinimo() : Pedido
+}
+
+class NodoArbolPedido {
+    - dato : Pedido
+    - izquierdo : NodoArbolPedido
+    - derecho : NodoArbolPedido
+    + NodoArbolPedido(dato : Pedido)
+    + getDato() : Pedido
+    + getIzquierdo() : NodoArbolPedido
+    + getDerecho() : NodoArbolPedido
+    + setIzquierdo(izq : NodoArbolPedido) : void
+    + setDerecho(der : NodoArbolPedido) : void
+}
+
+class Pedido {
+    - identificador : int
+    - tipoPlato : TipoPlato
+    - tiempoTotalPreparacion : int
+    - tiempoRestantePreparacion : int
+    - minutoLlegada : int
+    - minutoInicioPreparacion : Integer
+    + Pedido(tipoPlato : TipoPlato, tiempoTotalPreparacion : int, minutoLlegada : int)
+    + getTipoPlato() : TipoPlato
+    + getTiempoTotalPreparacion() : int
+    + getTiempoRestantePreparacion() : int
+    + reducirTiempoRestante() : void
+    + calcularTiempoEspera() : int
+    + setMinutoInicioPreparacion(minuto : int) : void
+    + compareTo(otro : Pedido) : int
+}
+
+class TipoPlato {
+    - nombre : String
+    - tiempoMinimo : int
+    - tiempoMaximo : int
+    + TipoPlato(nombre : String, tiempoMinimo : int, tiempoMaximo : int)
+    + getNombre() : String
+    + obtenerTiempoAleatorio(r : Random) : int
+    + obtenerAleatorio(r : Random) : TipoPlato
+}
+
+Simulacion --> Restaurante : crea y usa
+Restaurante --> Cocinero : tiene
+Restaurante --> GeneradorPedidos : usa
+Restaurante --> ArbolPedidos : gestiona
+ArbolPedidos --> NodoArbolPedido : compone
+NodoArbolPedido --> Pedido : contiene
+GeneradorPedidos --> Pedido : crea
+Pedido --> TipoPlato : usa
+
+@enduml
