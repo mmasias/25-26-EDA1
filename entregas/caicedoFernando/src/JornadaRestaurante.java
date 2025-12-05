@@ -32,10 +32,10 @@ public class JornadaRestaurante {
             imprimirEstado(minuto);
             
             if (random.nextDouble() < PROBABILIDAD) {
-                Pedido p = fabricarPedido(minuto);
-                arbolPedidos.agregar(p);
+                Pedido pedido = fabricarPedido(minuto);
+                arbolPedidos.agregar(pedido);
                 generados++;
-                System.out.println("--> Nuevo pedido: " + p.tipo + " (" + p.tiempoPreparacion + " min)");
+                System.out.println("--> Nuevo pedido: " + pedido.tipo + " (" + pedido.tiempoPreparacion + " min)");
             }
 
             if (!cocinero.estaLibre()) {
@@ -43,9 +43,9 @@ public class JornadaRestaurante {
             }
 
             if (cocinero.estaLibre() && !arbolPedidos.estaVacia()) {
-                ResultadoExtraccion res = arbolPedidos.extraerMinimo();
-                cocinero.tomarPedido(res.pedidoMinimo);
-                comparaciones += res.comparaciones;
+                ResultadoExtraccion resultado = arbolPedidos.extraerMinimo();
+                cocinero.tomarPedido(resultado.pedidoMinimo);
+                comparaciones += resultado.comparaciones;
             }
 
             esperaTotal += arbolPedidos.obtenerTamano();
