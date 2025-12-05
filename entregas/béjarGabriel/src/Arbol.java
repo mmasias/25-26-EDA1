@@ -2,68 +2,85 @@
 public class Arbol implements EstructuraPedidos {
 
     private static class Nodo {
-
         Pedido pedido;
-        Nodo left;
-        Nodo right;
+        Nodo izquierda;
+        Nodo derecha;
 
         Nodo(Pedido p) {
             this.pedido = p;
+            this.izquierda = null;
+            this.derecha = null;
         }
     }
 
-    private Nodo root;
-    private int size = 0;
-    private long comparaciones = 0;
+    private Nodo raiz;
+    private int size;
+    private long comparaciones;
+
+    public Arbol() {
+        this.raiz = null;
+        this.size = 0;
+        this.comparaciones = 0;
+    }
 
     @Override
     public void insertar(Pedido p) {
-        root = insertarRec(root, p);
+        assert p != null : "No se puede insertar un pedido nulo";
+        raiz = insertarRec(raiz, p);
         size++;
+        
+        assert size > 0 : "El tamaño debe ser positivo tras insertar";
     }
 
     private Nodo insertarRec(Nodo nodo, Pedido p) {
         if (nodo == null) {
             return new Nodo(p);
         }
+
         comparaciones++;
         if (p.getTiempoPreparacion() < nodo.pedido.getTiempoPreparacion()) {
-            nodo.left = insertarRec(nodo.left, p);
+            nodo.izquierda = insertarRec(nodo.izquierda, p);
         } else {
-            nodo.right = insertarRec(nodo.right, p);
+            nodo.derecha = insertarRec(nodo.derecha, p);
         }
         return nodo;
     }
 
     @Override
     public Pedido extraerMinimo() {
-        if (root == null) {
+        if (raiz == null) {
             return null;
         }
-        Nodo parent = null;
-        Nodo cur = root;
-        while (cur.left != null) {
+
+        Nodo padre = null;
+        Nodo actual = raiz;
+
+        while (actual.izquierda != null) {
             comparaciones++;
-            parent = cur;
-            cur = cur.left;
+            padre = actual;
+            actual = actual.izquierda;
         }
-        Pedido min = cur.pedido;
-        if (parent == null) {
-            root = cur.right;
+
+        Pedido minPedido = actual.pedido;
+
+        if (padre == null) {
+            raiz = actual.derecha;
         } else {
-            parent.left = cur.right;
+            padre.izquierda = actual.derecha;
         }
+
         size--;
-        return min;
+        assert size >= 0 : "El tamaño no puede ser negativo";
+        return minPedido;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean estaVacia() {
         return size == 0;
     }
 
     @Override
-    public int size() {
+    public int tamano() {
         return size;
     }
 
