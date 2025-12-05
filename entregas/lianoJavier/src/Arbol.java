@@ -53,4 +53,11 @@ public class Arbol {
     return numeroDeNodos != 0;
   }
 
+  public void print() {
+    if (raiz != null) {
+      Console.imprimirln(raiz.getPedido().getNombrePlato() + " (" + raiz.getPedido().getRangoTiempo() + ")");
+      raiz.print(0);
+    }
+  }
+
 }

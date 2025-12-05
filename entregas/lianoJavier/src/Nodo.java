@@ -52,6 +52,25 @@ public class Nodo {
     this.derecho = derecho;
   }
 
+  public void print(int nivel) {
+    String indent = "";
+    for (int i = 0; i < nivel; i++) {
+      indent += "    ";
+    }
+
+    if (hayNodoIzquierdo()) {
+      Console.imprimirln(indent + "- L: " + izquierdo.getPedido().getNombrePlato() + " ("
+          + izquierdo.getPedido().getRangoTiempo() + ")");
+      izquierdo.print(nivel + 1);
+    }
+
+    if (hayNodoDerecho()) {
+      Console.imprimirln(indent + "- R: " + derecho.getPedido().getNombrePlato() + " ("
+          + derecho.getPedido().getRangoTiempo() + ")");
+      derecho.print(nivel + 1);
+    }
+  }
+
   private boolean hayNodoDerecho() {
     return derecho != null;
   }

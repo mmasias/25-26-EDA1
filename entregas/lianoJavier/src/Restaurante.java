@@ -52,4 +52,8 @@ public class Restaurante {
     Console.imprimirln("========================================");
   }
 
+  public void mostrarArbol() {
+    comandas.print();
+  }
+
 }

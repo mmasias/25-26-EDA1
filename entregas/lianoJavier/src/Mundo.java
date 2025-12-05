@@ -13,6 +13,8 @@ public class Mundo {
   }
 
   private static void empezarSimulacion(Restaurante restaurante) {
+    boolean saltarPregunta = false;
+
     while (restaurante.estaAbierto()) {
       Console.imprimirln("=====================================");
 
@@ -23,6 +25,17 @@ public class Mundo {
       }
 
       restaurante.actualizar();
+
+      if (!saltarPregunta) {
+        Console.imprimirln("[L] Ver Arbol | [T] Terminar Simulacion | [Enter] Siguiente Minuto");
+        String input = Console.leerTexto();
+
+        if (input.equalsIgnoreCase("L")) {
+          restaurante.mostrarArbol();
+        } else if (input.equalsIgnoreCase("T")) {
+          saltarPregunta = true;
+        }
+      }
     }
   }
 
