@@ -1,8 +1,8 @@
 package entregas.caicedoFernando.src;
 
 public class ResultadoExtraccion {
-    Pedido pedidoMinimo;
-    int comparaciones;
+    public Pedido pedidoMinimo;
+    public int comparaciones;
 
     public ResultadoExtraccion(Pedido pedidoMinimo, int comparaciones) {
         this.pedidoMinimo = pedidoMinimo;

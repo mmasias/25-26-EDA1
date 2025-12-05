@@ -1,9 +1,9 @@
 package entregas.caicedoFernando.src;
 
 public class Pedido {
-    String tipo;
-    int tiempoPreparacion;
-    int tiempoRestante;
+    public String tipo;
+    public int tiempoPreparacion;
+    public int tiempoRestante;
 
     public Pedido(String tipo, int tiempoPreparacion, int minutoLlegada) {
         this.tipo = tipo;
