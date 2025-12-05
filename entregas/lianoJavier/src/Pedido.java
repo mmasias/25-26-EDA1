@@ -38,4 +38,19 @@ public class Pedido {
     return NOMBRE_PLATOS[plato];
   }
 
+  private int tiempoLlegada;
+
+  public void setTiempoLlegada(int tiempo) {
+    this.tiempoLlegada = tiempo;
+  }
+
+  public int getTiempoLlegada() {
+    return tiempoLlegada;
+  }
+
+  public String getRangoTiempo() {
+    int[] rango = TIEMPO_PREPARACION_PLATOS[plato];
+    return rango[0] + "-" + rango[1];
+  }
+
 }
