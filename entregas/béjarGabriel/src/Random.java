@@ -1,24 +1,17 @@
 public class Random {
+    private final Random random;
 
-    private final Random rnd;
-
-    public Random() {
-        this.rnd = new Random();
+    public Random(long semilla) {
+        this.random = new Random(semilla);
     }
 
-    public Random(long seed) {
-        this.rnd = new Random(seed);
+    public boolean probabilidad(double p) {
+        assert p >= 0.0 && p <= 1.0 : "Probabilidad fuera de rango";
+        return random.nextDouble() < p;
     }
 
-    public boolean prob(double p) {
-        return rnd.nextDouble() < p;
-    }
-
-    public int nextIntRange(int min, int max) {
-        return min + rnd.nextInt(max - min + 1);
-    }
-
-    public int choice(int n) {
-        return rnd.nextInt(n);
+    public int siguienteEntero(int min, int max) {
+        assert min <= max : "Rango inválido";
+        return min + random.nextInt(max - min + 1);
     }
 }
