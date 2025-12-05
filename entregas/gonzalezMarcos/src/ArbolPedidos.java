@@ -79,10 +79,10 @@ public class ArbolPedidos {
     }
 
     private int calcularEsperaTotal(Nodo nodo) {
-        if (nodo == null)
+        if (nodo == null) {
             return 0;
-        return nodo.getTiempoEspera() + calcularEsperaTotal(nodo.getIzquierdo())
-                + calcularEsperaTotal(nodo.getDerecho());
+        }
+        return nodo.getTiempoEspera() + calcularEsperaTotal(nodo.getIzquierdo()) + calcularEsperaTotal(nodo.getDerecho());
     }
 
     public boolean isEmpty() {
