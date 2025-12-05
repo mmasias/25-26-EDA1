@@ -11,10 +11,10 @@ class Arbol {
     public void insertarPedido(Nodo nodo) {
         if (raiz == null) {
             raiz = nodo;
-            cantidadNodos++;
+            cantidadNodos += 1;
         } else {
             raiz.insertarHijo(nodo);
-            cantidadNodos++;
+            cantidadNodos += 1;
         }
     }
 
@@ -27,7 +27,7 @@ class Arbol {
     }
 
     public void recorrerOrdenes() {
-        if (raiz == null || cantidadNodos == 0) {
+        if (cantidadNodos == 0) {
             System.out.println("Ordenes vacío");
             return;
         }
@@ -37,27 +37,18 @@ class Arbol {
 
         recorrerInOrden(raiz, nodosOrdenados, indiceInicial);
 
-        for (Nodo nodosOrdenado : nodosOrdenados) {
-            if (nodosOrdenado != null && !nodosOrdenado.pedidoHecho()) {
-                System.out.println(
-                        nodosOrdenado.nombreDelPedido() + " con tiempo: " + nodosOrdenado.tiempoPreparacion());
+        for (Nodo nodo : nodosOrdenados) {
+            if (nodo != null && !nodo.pedidoHecho()) {
+                System.out.println(nodo.nombreDelPedido() + " con tiempo: " + nodo.tiempoPreparacion());
             }
         }
     }
-
-    public int contarComparaciones() {
-        if (raiz == null) return 0;
-        int[] contador = new int[1];
-        buscarMinimoConContador(raiz, null, contador);
-        return contador[0];
-    }
-
-
+    
     public int recorrerOrdenes(boolean terminado) {
         Nodo[] nodosOrdenados = new Nodo[cantidadNodos];
         int cantidadSatisfecha = 0;
 
-        if (raiz == null || cantidadNodos == 0) {
+        if (cantidadNodos == 0) {
             return cantidadSatisfecha;
         }
 
@@ -65,36 +56,48 @@ class Arbol {
 
         recorrerInOrden(raiz, nodosOrdenados, indiceInicial);
 
-        for (Nodo nodosOrdenado : nodosOrdenados) {
-            if (nodosOrdenado != null && nodosOrdenado.pedidoHecho() == terminado) {
+        for (Nodo nodo : nodosOrdenados) {
+            if (nodo != null && nodo.pedidoHecho() == terminado) {
                 cantidadSatisfecha += 1;
             }
         }
         return cantidadSatisfecha;
     }
+
+    public int contarComparaciones() {
+        if (cantidadNodos == 0){
+            return 0;
+        }
+        int[] contador = new int[1];
+        contarComparaciones(raiz, null, contador);
+        return contador[0];
+    }
     
-    private Nodo buscarMinimoConContador(Nodo nodo, Nodo actualMin, int[] contador) {
-        if (nodo == null) return actualMin;
-
-        actualMin = buscarMinimoConContador(nodo.hijoIzquerda(), actualMin, contador);
-
-        if (actualMin != null) {
-            contador[0]++;
-            if (nodo.tiempoPreparacion() < actualMin.tiempoPreparacion()) {
-                actualMin = nodo;
-            }
-        } else {
-            actualMin = nodo;
+    private Nodo contarComparaciones(Nodo nodo, Nodo nodoActualMinimo, int[] contador) {
+        if (nodo == null){
+            return nodoActualMinimo;
         }
 
-        actualMin = buscarMinimoConContador(nodo.hijoDerecha(), actualMin, contador);
+        nodoActualMinimo = contarComparaciones(nodo.hijoIzquerda(), nodoActualMinimo, contador);
 
-        return actualMin;
+        if (nodoActualMinimo != null) {
+            contador[0]++;
+            if (nodo.tiempoPreparacion() < nodoActualMinimo.tiempoPreparacion()) {
+                nodoActualMinimo = nodo;
+            }
+        } else {
+            nodoActualMinimo = nodo;
+        }
+
+        nodoActualMinimo = contarComparaciones(nodo.hijoDerecha(), nodoActualMinimo, contador);
+
+        return nodoActualMinimo;
     }
 
     private int recorrerInOrden(Nodo nodo, Nodo[] nodosOrdenados, int indice) {
-        if (nodo == null)
+        if (nodo == null){
             return indice;
+        }
 
         indice = recorrerInOrden(nodo.hijoIzquerda(), nodosOrdenados, indice);
 
@@ -106,21 +109,21 @@ class Arbol {
         return indice;
     }
 
-    private Nodo buscarNodoRecursivo(Nodo nodo, Nodo actualMinimo) {
+    private Nodo buscarNodoRecursivo(Nodo nodo, Nodo nodoConTiempoMinimo) {
         if (nodo == null) {
-            return actualMinimo;
+            return nodoConTiempoMinimo;
         }
 
-        actualMinimo = buscarNodoRecursivo(nodo.hijoIzquerda(), actualMinimo);
+        nodoConTiempoMinimo = buscarNodoRecursivo(nodo.hijoIzquerda(), nodoConTiempoMinimo);
 
-        if ((actualMinimo == null || nodo.tiempoPreparacion() < actualMinimo.tiempoPreparacion())
+        if ((nodoConTiempoMinimo == null || nodo.tiempoPreparacion() < nodoConTiempoMinimo.tiempoPreparacion())
                 && !nodo.pedidoHecho()) {
-            actualMinimo = nodo;
+            nodoConTiempoMinimo = nodo;
         }
 
-        actualMinimo = buscarNodoRecursivo(nodo.hijoDerecha(), actualMinimo);
+        nodoConTiempoMinimo = buscarNodoRecursivo(nodo.hijoDerecha(), nodoConTiempoMinimo);
 
-        return actualMinimo;
+        return nodoConTiempoMinimo;
     }
 
 }
