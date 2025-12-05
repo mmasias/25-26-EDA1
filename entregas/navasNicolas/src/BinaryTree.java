@@ -18,11 +18,11 @@ public class BinaryTree {
 
 
     public void insert(Order order) {
-        if (root == null) {
-            root = new Node(order);
-            size++;
-            return;
-        }
+        assert node == null : "no chilve";
+        root = new Node(order);
+        size++;
+        return;
+
 
         Node current = root;
         while (true) {
