@@ -1,9 +1,9 @@
 package entregas.caicedoFernando.src;
 
 public class NodoPedido {
-    Pedido pedido;
-    NodoPedido izquierda;
-    NodoPedido derecha;
+    public Pedido pedido;
+    public NodoPedido izquierda;
+    public NodoPedido derecha;
 
     public NodoPedido(Pedido pedido) {
         this.pedido = pedido;
