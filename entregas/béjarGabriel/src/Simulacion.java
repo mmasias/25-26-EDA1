@@ -3,20 +3,16 @@ public class Simulacion {
 
     public static void main(String[] args) {
 
-        long semilla = (args.length > 0) ? Long.parseLong(args[0]) : System.currentTimeMillis();
+        long semilla = System.currentTimeMillis();
+        if (args.length > 0) {
+            try {
+                semilla = Long.parseLong(args[0]);
+            } catch (NumberFormatException e) {
+                System.err.println("Semilla inválida, usando tiempo actual.");
+            }
+        }
 
-        RandomGenerator rng = new RandomGenerator(semilla);
-
-        EstructuraPedidos estructura = new ArbolPedidos();
-        Cocinero cocinero = new Cocinero();
-
-        int duracion = 50;
-
-        Restaurant restaurant = new Restaurant(estructura, cocinero, rng, duracion);
-
-        System.out.println("Simulación iniciada con semilla: " + semilla);
-        System.out.println("-------------------------------------------\n");
-
-        restaurant.ejecutar();
+        Restaurante restaurante = new Restaurante(50, semilla);
+        restaurante.ejecutar();
     }
 }
