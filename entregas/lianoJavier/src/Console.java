@@ -20,4 +20,9 @@ public class Console {
   public static void imprimir(String string) {
     System.out.print(string);
   }
+
+  public static String leerTexto() {
+    java.util.Scanner scanner = new java.util.Scanner(System.in);
+    return scanner.nextLine();
+  }
 }
