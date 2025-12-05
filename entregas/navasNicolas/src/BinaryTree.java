@@ -26,20 +26,20 @@ public class BinaryTree {
 
         Node current = root;
         while (true) {
-            if (order.getRemainingTime() < current.value.getRemainingTime()) {
-                if (current.left == null) {
-                    current.left = new Node(order);
+            if (order.getRemainingTime() < current.getValue().getRemainingTime()) {
+                if (current.getLeft() == null) {
+                    current.setLeft(new Node(order));
                     size++;
                     return;
                 }
-                current = current.left;
+                current = current.getLeft();
             } else {
-                if (current.right == null) {
-                    current.right = new Node(order);
+                if (current.getRight() == null) {
+                    current.setRight(new Node(order));
                     size++;
                     return;
                 }
-                current = current.right;
+                current = current.getRight();
             }
         }
     }
@@ -47,18 +47,17 @@ public class BinaryTree {
     public Order extractMin() {
         Node parent = null;
         Node current = root;
-        while (current.left != null) {
+        if (current == null) return null;
+        while (current.getLeft() != null) {
             parent = current;
-            current = current.left;
+            current = current.getLeft();
         }
-        Order min = current.value;
-
+        Order min = current.getValue();
         if (parent == null) {
-            root = current.right;
+            root = current.getRight();
         } else {
-            parent.left = current.right;
+            parent.setLeft(current.getRight());
         }
-
         size--;
         return min;
     }
@@ -68,21 +67,18 @@ public class BinaryTree {
             System.out.println("   [Árbol vacío]");
             return;
         }
-
         SimpleQueue q = new SimpleQueue();
         q.enqueue(root);
-
         int level = 0;
         int nodesInCurrent = 1;
         int nodesInNext = 0;
-
         while (!q.isEmpty()) {
             System.out.print("   Nivel " + level + ": ");
             for (int i = 0; i < nodesInCurrent; i++) {
                 Node n = q.dequeue();
-                System.out.print(n.value.getType() + ":" + n.value.getRemainingTime() + "  ");
-                if (n.left != null) { q.enqueue(n.left); nodesInNext++; }
-                if (n.right != null) { q.enqueue(n.right); nodesInNext++; }
+                System.out.print(n.getValue().getType() + ":" + n.getValue().getRemainingTime() + "  ");
+                if (n.getLeft() != null) { q.enqueue(n.getLeft()); nodesInNext++; }
+                if (n.getRight() != null) { q.enqueue(n.getRight()); nodesInNext++; }
             }
             System.out.println();
             level++;
