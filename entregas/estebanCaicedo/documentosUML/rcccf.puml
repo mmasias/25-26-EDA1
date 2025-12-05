@@ -1,0 +1,56 @@
+@startuml
+title RCCCF - Modelo UML
+
+class Pedido {
+    - tipo: String
+    - tiempoPrep: int
+    - tiempoRestante: int
+    - tiempoLlegada: int
+    --
+    + Pedido(tipo: String, rango: int[])
+    + getTipo(): String
+    + getTiempoPrep(): int
+    + getTiempoRestante(): int
+    + getTiempoLlegada(): int
+    + tick(): void
+    + isTerminado(): boolean
+}
+
+class GeneradorPedidos {
+    - random: Random
+    --
+    + llegaPedido(): boolean
+    + crearPedido(minuto: int): Pedido
+}
+
+class Cocina {
+    - cola: PriorityQueue<Pedido>
+    - pedidoActual: Pedido
+    - comparaciones: int
+    - totalAtendidos: int
+    - tiempoEsperaTotal: int
+    --
+    + Cocina()
+    + agregarPedido(p: Pedido): void
+    + procesarMinuto(): void
+    + getPedidoActual(): Pedido
+    + getColaSize(): int
+    + getComparaciones(): int
+    + getTotalAtendidos(): int
+    + getTiempoEsperaTotal(): int
+    + getPendientes(): int
+    --
+    -seleccionarSiguientePedido(): void
+    - actualizarEstadisticas(pedido: Pedido): void
+}
+
+class Simulation {
+    + main(args: String[]): void
+}
+
+GeneradorPedidos --> Pedido : «crea»
+Cocina --> Pedido : «procesa»   
+Simulation --> Cocina : «usa»
+Simulation --> GeneradorPedidos : «usa»
+
+@enduml
