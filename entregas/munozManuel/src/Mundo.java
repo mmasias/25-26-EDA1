@@ -40,13 +40,13 @@ class Mundo {
 
                 restaurante.mostrarPedidosEnFila();
                 continuarPrograma();
-                pasarTiempo(masiasChef);
+                pasarTiempo();
 
             }
 
             System.out.println("La hora es " + tiempo());
             continuarPrograma();
-            pasarTiempo(masiasChef);
+            pasarTiempo();
         }
         System.out.println("Se hicieron " + restaurante.pedidosAtendidos());
         System.out.println("Han quedado pendientes " + restaurante.pedidosPendientes());
@@ -66,8 +66,8 @@ class Mundo {
         
     }
 
-    private void pasarTiempo(Chef chef){
-        chef.trabajarEnPedido();
+    private void pasarTiempo(){
+        masiasChef.trabajarEnPedido();
         minutos += 1;
         if (minutos == 60){
             horas += 1;
