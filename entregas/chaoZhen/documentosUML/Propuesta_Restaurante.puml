@@ -1,0 +1,82 @@
+@startuml
+
+top to bottom direction
+
+
+class Simulacion {
+    + main(args: String[]): void
+}
+
+class Restaurante {
+    - colaPedidos: ArbolPedidos
+    - pedidoEnCocina: Pedido
+    - tiempoCoccionRestante: int
+    - totalPedidosAtendidos: int
+    - entradaUsuario: Scanner
+    - PLATOS: Plato[]
+    + Restaurante()
+    + iniciarSimulacion(): void
+    - iniciarCocinaCon(pedido: Pedido): void
+    - procesarCocina(): void
+    - generarPedidoAleatorio(): Pedido
+    - mostrarEstado(): void
+    - gestionarInput(): void
+}
+
+class ArbolPedidos {
+    - raiz: Nodo
+    - cantidadNodos: int
+    + ArbolPedidos()
+    + estaVacio(): boolean
+    + getCantidad(): int
+    + insertar(pedidoNuevo: Pedido): void
+    + extraerMinimo(): Pedido
+    + imprimirArbol(): void
+    + actualizarTiemposDeEspera(pedidoEnCocina: Pedido): void
+    - insertarReciente(actual: Nodo, pedidoNuevo: Pedido): Nodo
+    - recorrerYActualizar(nodo: Nodo, pedidoEnCocina: Pedido): void
+}
+
+class Nodo {
+    - pedido: Pedido
+    - izquierdo: Nodo
+    - derecho: Nodo
+    + Nodo(pedido: Pedido)
+    + getPedido(): Pedido
+    + getIzquierdo(): Nodo
+    + getDerecho(): Nodo
+    + setIzquierdo(izq: Nodo): void
+    + setDerecho(der: Nodo): void
+}
+
+class Pedido {
+    - plato: Plato
+    - tiempoPreparacion: int
+    - tiempoEspera: int
+    + Pedido(plato: Plato)
+    - generarTiempo(plato: Plato): int
+    + incrementarTiempoEspera(): void
+    + getNombre(): String
+    + getTiempoPreparacion(): int
+    + getTiempoEspera(): int
+}
+
+class Plato {
+    - nombre: String
+    - tiempoMinimo: int
+    - tiempoMaximo: int
+    + Plato(nombre: String, tiempoMinimo: int, tiempoMaximo: int)
+    + obtenerNombre(): String
+    + obtenerMinTiempo(): int
+    + obtenerMaxTiempo(): int
+}
+
+
+Simulacion --> Restaurante : crea >
+Restaurante --> ArbolPedidos : usa >
+Restaurante --> Pedido : usa >
+ArbolPedidos --> Nodo : contiene >
+Nodo --> Pedido : contiene >
+Pedido --> Plato : usa >
+
+@enduml
