@@ -1,36 +1,4 @@
 public class BinaryTree {
-    private static class Node {
-        Order value;
-        Node left;
-        Node right;
-        Node(Order v) { this.value = v; }
-    }
-
-    private static class QNode {
-        Node treeNode;
-        QNode next;
-        QNode(Node t) { this.treeNode = t; }
-    }
-
-    private static class SimpleQueue {
-        private QNode head;
-        private QNode tail;
-        boolean isEmpty() { return head == null; }
-        void enqueue(Node n) {
-            QNode q = new QNode(n);
-            if (tail != null) tail.next = q;
-            tail = q;
-            if (head == null) head = q;
-        }
-        Node dequeue() {
-            if (head == null) return null;
-            Node t = head.treeNode;
-            head = head.next;
-            if (head == null) tail = null;
-            return t;
-        }
-    }
-
     private Node root;
     private int size;
     private long comparisons;
