@@ -6,7 +6,6 @@ public class BinaryTree {
     public BinaryTree(int capacity) {
         this.root = null;
         this.size = 0;
-        this.comparisons = 0;
     }
 
     public boolean isEmpty() {
@@ -17,9 +16,6 @@ public class BinaryTree {
         return size;
     }
 
-    public long getComparisons() {
-        return comparisons;
-    }
 
     public void insert(Order order) {
         if (root == null) {
@@ -30,7 +26,6 @@ public class BinaryTree {
 
         Node current = root;
         while (true) {
-            comparisons++;
             if (order.getRemainingTime() < current.value.getRemainingTime()) {
                 if (current.left == null) {
                     current.left = new Node(order);
@@ -53,7 +48,6 @@ public class BinaryTree {
         Node parent = null;
         Node current = root;
         while (current.left != null) {
-            comparisons++;
             parent = current;
             current = current.left;
         }

@@ -1,4 +1,4 @@
-    private class SimpleQueue {
+    public class SimpleQueue {
         private NodeValue head;
         private NodeValue tail;
         public boolean isEmpty() { return head == null; }

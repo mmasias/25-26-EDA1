@@ -1,6 +1,6 @@
     public class Node {
-        private Order value;
-        private Node left;
-        private Node right;
+        public Order value;
+        public Node left;
+        public Node right;
         public Node(Order v) { this.value = v; }
     }

@@ -96,7 +96,6 @@ class Restaurant {
         if (completedOrders > 0) {
             System.out.printf("Tiempo medio espera    : %.2f minutos%n", (totalWaitTime / completedOrders));
         }
-        System.out.println("Comparaciones (Heap)   : " + orderQueue.getComparisons());
         System.out.println("========================================");
     }
 }
