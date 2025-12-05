@@ -2,7 +2,7 @@ package entregas.munozManuel.src;
 
 class Pedido {
     private final String nombreDelPedido;
-    private int tiempoPreparacion;
+    private final int tiempoPreparacion;
     private boolean pedidoHecho;
     private final String[] PEDIDOS_DISPONIBLES = {"Bebida", "Café", "Colacao", "Bocadillo", "Ensalada"};
     private final static int[][] TIEMPO_PREPARACION = {{1, 2}, {2, 3}, {2, 4}, {3, 5}, {5, 8}};
