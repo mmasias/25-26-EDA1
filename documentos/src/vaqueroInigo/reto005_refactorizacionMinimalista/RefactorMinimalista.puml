@@ -1,0 +1,60 @@
+@startuml RCCCF_RefactorMinimalista
+top to bottom direction
+skinparam classAttributeIconSize 0
+
+class Pedido {
+  - tipo : String
+  - tiempoPreparacion : int
+  - tiempoRestante : int
+  - tiempoLlegada : int
+  + Pedido(tipo : String, tiempoPreparacion : int, tiempoLlegada : int)
+  + getTipo() : String
+  + getTiempoPreparacion() : int
+  + getTiempoRestante() : int
+  + getTiempoLlegada() : int
+  + trabajarUnMinuto() : void
+  + estaTerminado() : boolean
+}
+
+class ColaPedidos {
+  - pendientes : List<Pedido>
+  - comparacionesTotales : int
+  + ColaPedidos()
+  + agregar(p : Pedido) : void
+  + estaVacia() : boolean
+  + size() : int
+  + extraerMinimo() : Pedido
+  + getComparacionesTotales() : int
+}
+
+class Cocinero {
+  - pedidoEnProceso : Pedido
+  + asignarPedido(p : Pedido) : void
+  + avanzarMinuto() : void
+  + estaLibre() : boolean
+  + getPedidoEnProceso() : Pedido
+  + finalizarSiTerminado() : Pedido
+}
+
+class SimuladorRCCCF {
+  - duracionJornada : int
+  - probabilidadLlegada : double 
+  - pedidosAtendidos : int
+  - tiempoTotalEspera : int
+  - generador : Random
+  - cola : ColaPedidos
+  - cocinero : Cocinero
+  + SimuladorRCCCF()
+  + main(args : String[]) : void
+  + ejecutar() : void
+  + simularMinuto(minuto : int) : void
+  + generarPedidoAleatorio(minutoActual : int) : Pedido
+  + mostrarResumen() : void
+}
+
+SimuladorRCCCF "1" --> "1" ColaPedidos : usa >
+SimuladorRCCCF "1" --> "1" Cocinero : coordina >
+ColaPedidos "1" o-- "0..*" Pedido : contiene >
+Cocinero "1" --> "0..1" Pedido : procesa >
+
+@enduml
