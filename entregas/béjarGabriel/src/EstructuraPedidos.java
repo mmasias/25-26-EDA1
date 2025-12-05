@@ -5,9 +5,9 @@ public interface EstructuraPedidos {
 
     Pedido extraerMinimo();
 
-    boolean isEmpty();
+    boolean estaVacia();
 
-    int size();
+    int tamano();
 
     long getComparaciones();
 }
