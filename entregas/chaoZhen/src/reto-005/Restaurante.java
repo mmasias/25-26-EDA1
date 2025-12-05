@@ -24,7 +24,7 @@ public class Restaurante {
     }
 
     public void iniciarSimulacion() {
-        int JORNADA = 720; 
+        int JORNADA = 720;
         int TIEMPO_VISUALIZACION = 1;
         double PROBABILIDAD_NUEVO_PEDIDO = 0.40;
 
@@ -32,7 +32,7 @@ public class Restaurante {
 
             System.out.println("\n--- MINUTO " + minuto + " ---");
 
-            if (Math.random() < PROBABILIDAD_NUEVO_PEDIDO ) {
+            if (Math.random() < PROBABILIDAD_NUEVO_PEDIDO) {
                 Pedido nuevo = generarPedidoAleatorio();
                 assert nuevo != null : "Error generando nuevo pedido";
 

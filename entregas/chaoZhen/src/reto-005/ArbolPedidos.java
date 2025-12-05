@@ -114,7 +114,8 @@ public class ArbolPedidos {
     }
 
     private void recorrerYActualizar(Nodo nodo, Pedido pedidoEnCocina) {
-
+        if (nodo == null)
+            return;
         assert nodo.getPedido() != null : "Nodo con pedido null detectado";
 
         if (nodo.getPedido() != pedidoEnCocina) {
