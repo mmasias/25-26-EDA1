@@ -1,0 +1,22 @@
+@startuml
+
+class Mundo
+class Cliente
+class Restaurante
+class Arbol
+class Nodo
+class Pedido
+
+Mundo *-- Restaurante : Controla el tiempo
+Mundo *-- Cliente : Crea
+
+Restaurante *-- Cliente : Recibe
+Restaurante *-- Arbol : organiza pedidos
+
+Cliente *-- Pedido : pide
+
+Arbol *-- Nodo : recibe y organiza
+
+Nodo *-- Pedido : guarda
+
+@enduml
