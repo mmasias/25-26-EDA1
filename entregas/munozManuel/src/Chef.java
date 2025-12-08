@@ -32,8 +32,8 @@ class Chef {
         }
     }
 
-    public void tomarPedido(Nodo pedido){
-        pedidoActual = pedido.pedido();
+    public void tomarPedido(Pedido pedido){
+        pedidoActual = pedido;
     }
 
     public boolean ocupado(){
