@@ -28,7 +28,7 @@ class Restaurante {
     public void asignarPedido() {
         Nodo pedidoDeCliente = ordenes.buscarNodoConTiempoMinimo();
         System.out.println("Se ha tardado " + ordenes.contarComparaciones() + " comparaciones para encontrar su orden");
-        chef.tomarPedido(pedidoDeCliente.pedido());
+        chef.tomarPedido(pedidoDeCliente);
         personasEnFila -= 1;
     }
 
