@@ -46,18 +46,18 @@ class Nodo {
     }
 
     private void hijoIzquerda(Nodo pedido){
-        if(this.hijoIzquerda == null){
-            this.hijoIzquerda = pedido;
+        if(hijoIzquerda == null){
+            hijoIzquerda = pedido;
         }else{
-            this.hijoIzquerda.insertarHijo(pedido);
+            hijoIzquerda.insertarHijo(pedido);
         }
     }
     
     private void hijoDerecha(Nodo pedido){
-        if(this.hijoDerecha == null){
-            this.hijoDerecha = pedido;
+        if(hijoDerecha == null){
+            hijoDerecha = pedido;
         }else{
-            this.hijoDerecha.insertarHijo(pedido);
+            hijoDerecha.insertarHijo(pedido);
         }
     }
 
