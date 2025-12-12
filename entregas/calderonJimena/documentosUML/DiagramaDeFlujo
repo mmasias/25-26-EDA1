@@ -1,0 +1,25 @@
+@startuml
+title Procesamiento de una notificación entrante
+
+start
+
+:Recibir notificación del panel\n(correo electrónico);
+
+:Encolar en colaNotificaciones;
+
+:Desencolar la notificación recién agregada\n(o procesar desde la cola);
+
+:Extraer profesor, asignatura y mensaje\n(ProcesadorNotificaciones);
+
+:Recorrer listaSuscripciones\npara buscar coincidencias\npor asignatura;
+
+if (¿Hay suscriptores?) then (Sí)
+  :Para cada suscriptor encontrado,\nenviar mensaje resumido\npor WhatsApp;
+else (No)
+  :Ignorar notificación\n(sin suscriptores);
+endif
+
+:Fin del procesamiento;
+
+stop
+@enduml
