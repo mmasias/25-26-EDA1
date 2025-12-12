@@ -1,0 +1,101 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam handwritten false
+
+class "NodoCorreo" {
+    - Correo dato
+    - NodoCorreo siguiente
+    + NodoCorreo(Correo dato)
+    + Correo getDato()
+    + NodoCorreo getSiguiente()
+    + void setSiguiente(NodoCorreo siguiente)
+}
+
+class "ColaCorreos" {
+    - NodoCorreo frente
+    - NodoCorreo final
+    + ColaCorreos()
+    + boolean esVacia()
+    + void encolar(Correo c)
+    + Correo desencolar()
+}
+
+class "NodoMateria" {
+    - Materia dato
+    - NodoMateria siguiente
+    + NodoMateria(Materia dato)
+    + Materia getDato()
+    + NodoMateria getSiguiente()
+    + void setSiguiente(NodoMateria siguiente)
+}
+
+class "ListaMaterias" {
+    - NodoMateria cabeza
+    + ListaMaterias()
+    + void insertar(Materia m)
+    + Materia buscar(String codigo)
+    + NodoMateria getCabeza()
+}
+
+class "NodoAlumno" {
+    - Alumno dato
+    - NodoAlumno siguiente
+    + NodoAlumno(Alumno dato)
+    + Alumno getDato()
+    + NodoAlumno getSiguiente()
+    + void setSiguiente(NodoAlumno siguiente)
+}
+
+class "ListaAlumnos" {
+    - NodoAlumno cabeza
+    + ListaAlumnos()
+    + void agregar(Alumno a)
+    + void eliminar(Alumno a)
+    + NodoAlumno getCabeza()
+}
+
+class "Correo" {
+    - String asunto
+    - String cuerpo
+    - String codigoMateria
+    + Correo(String asunto, String cuerpo)
+    + String getCodigoMateria()
+}
+
+class "Alumno" {
+    - String nombre
+    - String telefono
+    + Alumno(String nombre, String telefono)
+}
+
+class "Materia" {
+    - String nombreID
+    - ListaAlumnos suscriptores
+    + Materia(String nombreID)
+    + ListaAlumnos getSuscriptores()
+    + void suscribir(Alumno a)
+}
+
+class "SistemaIris" {
+    - ColaCorreos bandejaEntrada
+    - ListaMaterias catalogo
+    + SistemaIris()
+    + void recibir(Correo c)
+    + void procesar()
+}
+
+ColaCorreos *-- NodoCorreo : contiene
+ListaMaterias *-- NodoMateria : contiene
+ListaAlumnos *-- NodoAlumno : contiene
+
+NodoCorreo o-- Correo
+NodoMateria o-- Materia
+NodoAlumno o-- Alumno
+
+SistemaIris --> ColaCorreos : usa
+SistemaIris --> ListaMaterias : usa
+
+Materia *-- ListaAlumnos : gestiona
+
+@enduml
