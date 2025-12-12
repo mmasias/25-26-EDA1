@@ -1,0 +1,33 @@
+@startuml
+
+allowmixing
+
+skinparam componentStyle rectangle
+skinparam monochrome true
+hide circle
+
+
+interface "MensajeEntrante" as IMsg {
+    - asunto: string
+    - cuerpo: string
+    - remitente: string
+}
+
+
+collections "ColaDePrioridad" as Cola
+
+class "ProcesadorIA" as IA {
+    + resumirTexto(texto: string): string
+}
+
+class "WhatsAppEnviar" as WhatsApp {
+    + enviar(telefono: string, resumen: string)
+}
+
+
+IMsg ..> Cola : 1. Enqueue (Entrar)
+Cola ..> IA : 2. Dequeue (Salir)
+IA ..> WhatsApp : 3. Enviar
+
+
+@enduml

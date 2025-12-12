@@ -1,0 +1,35 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide circle
+
+class Alumno {
+    - id: int
+    - nombre: string 
+    - email: string 
+    - telefono: string 
+    - asignaturasSuscritas: Lista<Asignatura>
+    + suscribirse(asignatura: Asignatura): boolean
+    + desuscribirse(asignatura: Asignatura): boolean
+}
+
+class Asignatura {
+    - codigo: string 
+    - nombre: string 
+    - listaSuscriptores: Lista<Alumno>
+    - listaProfesores: Lista<Profesor>
+    + agregarSuscriptor(alumno: Alumno): Void
+    + notificarSuscriptores(mensaje: string ): Void
+}
+
+class Profesor {
+    - id: int 
+    - nombre: string 
+    - asignaturasImpartidas: Lista<Asignatura>
+}
+
+Alumno "0..*" -- "0..*" Asignatura : Se suscribe >
+Asignatura "0..*" -- "1..*" Profesor : Impartida por >
+
+@enduml
