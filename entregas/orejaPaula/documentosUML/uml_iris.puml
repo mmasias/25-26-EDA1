@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+class Iris
+class ArbolAsignaturas
+class NodoAsignatura
+class Asignatura
+class ColaMensajes
+class ListaAlumnos
+class PilaResumenes
+class Mensaje
+class Alumno
+class Resumen
+
+Iris --> ArbolAsignaturas
+
+ArbolAsignaturas --> NodoAsignatura
+NodoAsignatura --> Asignatura
+
+Asignatura --> ColaMensajes
+ColaMensajes --> Mensaje
+
+Asignatura --> ListaAlumnos
+ListaAlumnos --> Alumno
+
+Asignatura --> PilaResumenes
+PilaResumenes --> Resumen
+@enduml
+
+

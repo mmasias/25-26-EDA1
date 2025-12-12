@@ -1,3 +1,3 @@
-# EDA I - Retos
+# EDA I - Reto-006
 
-Rama de origen para la entrega de retos
+ - ## [Documentos de referencia](https://github.com/Paula-Oreja/25-26-EDA1/blob/reto-006/entregas/orejaPaula/documentos/README.md)
