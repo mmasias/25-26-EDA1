@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+
+class Iris
+class ArbolAsignaturas
+class NodoAsignatura
+class Asignatura
+class ColaMensajes
+class ListaAlumnos
+class PilaResumenes
+class Mensaje
+class Alumno
+class Resumen
+
+Iris *-- ArbolAsignaturas
+
+ArbolAsignaturas o-- NodoAsignatura
+NodoAsignatura --> Asignatura
+
+Asignatura *-- ColaMensajes
+ColaMensajes o-- Mensaje
+
+Asignatura *-- ListaAlumnos
+ListaAlumnos o-- Alumno
+
+Asignatura *-- PilaResumenes
+PilaResumenes o-- Resumen
+@enduml
+
