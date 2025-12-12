@@ -1,0 +1,103 @@
+@startuml
+
+!theme plain
+hide empty members
+skinparam linetype ortho
+
+package "Estructuras de Datos (Específicas)" {
+    
+    
+    
+    ' Lista específica para Usuarios
+    class NodoUsuario {
+        + dato: Usuario
+        + siguiente: NodoUsuario
+    }
+    class ListaDeUsuarios {
+        - cabeza: NodoUsuario
+        + insertar(u: Usuario)
+        + eliminar(id: String)
+    }
+
+    ' Lista específica para Asignaturas
+    class NodoAsignatura {
+        + dato: Asignatura
+        + siguiente: NodoAsignatura
+    }
+    class ListaDeAsignaturas {
+        - cabeza: NodoAsignatura
+        + insertar(a: Asignatura)
+        + buscar(codigo: String): Asignatura
+    }
+
+    ' --- COLA PROPIA ---
+    
+    ' Cola específica para Mensajes
+    class NodoMensaje {
+        + dato: Mensaje
+        + siguiente: NodoMensaje
+    }
+    class ColaDeMensajes {
+        - frente: NodoMensaje
+        - final: NodoMensaje
+        + encolar(m: Mensaje)
+        + desencolar(): Mensaje
+        + estaVacia(): boolean
+    }
+
+    ' --- ÁRBOLES PROPIOS ---
+
+    class NodoArbolAsignatura {
+        + dato: Asignatura
+        ' Un nodo del árbol tiene una lista de hijos
+        + hijos: ListaDeAsignaturas 
+    }
+    
+    class ArbolCatalogo {
+        - raiz: NodoArbolAsignatura
+        + buscarAsignatura(nombre: String): Asignatura
+    }
+}
+
+package "Dominio del Problema" {
+
+    class Mensaje {
+        - profesor: String
+        - asignatura: String
+        - cuerpo: String
+        - link: String
+    }
+
+    class Usuario {
+        - nombre: String
+        - telefono: String
+        ' El usuario usa TU lista específica
+        - suscripciones: ListaDeAsignaturas
+    }
+
+    class Asignatura {
+        - nombre: String
+        ' La asignatura usa TU lista específica
+        - suscriptores: ListaDeUsuarios
+    }
+
+    class Plataforma {   
+        - catalogo: ArbolCatalogo
+        - colaEnvios: ColaDeMensajes
+        + procesar()
+    }
+}
+
+' Relaciones - Conectando los Nodos
+ListaDeUsuarios *-- NodoUsuario
+ListaDeAsignaturas *-- NodoAsignatura
+ColaDeMensajes *-- NodoMensaje
+ArbolCatalogo *-- NodoArbolAsignatura
+
+' Relaciones del Dominio con las Estructuras
+Usuario o-- ListaDeAsignaturas  
+Asignatura o-- ListaDeUsuarios  
+Plataforma *-- ArbolCatalogo  
+Plataforma *-- ColaDeMensajes 
+
+@enduml
