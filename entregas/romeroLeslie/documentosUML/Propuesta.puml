@@ -1,0 +1,73 @@
+@startuml
+skinparam ClassAttributeIconVisible false
+hide circle
+title Flujo de Correo a ChatIris
+
+' 1. Ingesta (La Fuente)
+class ServicioCorreo {
+  - credenciales : String
+  - colaMensajesBrutos : MensajeBruto[]  <<Queue>>
+  --
+  + conectar()
+  + pollCorreosNuevos()
+}
+
+class MensajeBruto {
+  - remitente : String
+  - idMateria : String
+  - asunto : String
+  - cuerpo : String
+}
+
+' 2. Filtro (La Inteligencia)
+class GestorSuscripciones {
+  - arbolSuscripciones : Suscripcion[] <<Tree / Map>>
+  - usuario : String
+  --
+  + esMateriaSubscrita(idMateria: String) : Boolean
+}
+
+class Suscripcion {
+  - idMateria : String {key}
+  - nombreMateria : String
+}
+
+' 3. Procesamiento y Transformación (El Control)
+class ProcesadorMensajes {
+  - gestor : GestorSuscripciones
+  --
+  + ejecutarFlujo(servicio: ServicioCorreo)
+  + filtrarYSimplificar(msg: MensajeBruto) : NotificacionIris
+}
+
+' CLASE MEJORADA PARA CLARIDAD
+class NotificacionIris {
+  - remitenteClaro : String
+  - nombreMateria : String
+  - tipoAlerta : String (Ej: "Tarea", "Urgente", "General")
+  - resumenContenido : String
+  - timestamp : DateTime
+  --
+  + generarFormatoWs(): String
+}
+
+' 4. Salida (El Destino)
+class ChatIris {
+  - historialEnviados : NotificacionIris[] <<List / Log>>
+  --
+  + enviar(notificacion: NotificacionIris)
+}
+
+' RELACIONES (Flujo Lógico y Contención)
+
+' Contención de datos (Composición)
+ServicioCorreo *-- MensajeBruto : Contiene
+GestorSuscripciones *-- Suscripcion : Contiene
+ChatIris *-- NotificacionIris : Contiene
+
+' Flujo de ejecución y dependencia
+ProcesadorMensajes --> GestorSuscripciones : Consulta
+ProcesadorMensajes .> MensajeBruto : Procesa
+ProcesadorMensajes .> ChatIris : Coordina el envío
+
+@enduml
