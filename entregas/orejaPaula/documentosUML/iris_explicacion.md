@@ -1,4 +1,4 @@
-Reto 006 – Iris (Razonamiento basado en el UML final)
+Reto 006 – Iris 
 ====================================================
 
 **1) Diagramas**
