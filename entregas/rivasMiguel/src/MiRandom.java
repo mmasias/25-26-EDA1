@@ -1,17 +1,28 @@
 public class MiRandom {
+    private static final long MODULO = 2147483647L;
+    private static final long MULTIPLICADOR = 48271L;
+    
+    private static final double PRECISION = 10000.0;
+
     private long seed;
 
     public MiRandom() {
-        seed = System.currentTimeMillis() % 2147483647;
+        this.seed = System.currentTimeMillis() % MODULO;
     }
 
     public int nextInt(int max) {
-        seed = (seed * 48271) % 2147483647;
-        return (int)(seed % max);
+        if (max <= 0) {
+            return 0;
+        }
+
+        this.seed = (this.seed * MULTIPLICADOR) % MODULO;
+        
+        return (int) (this.seed % max);
     }
 
     public double nextDouble() {
-        seed = (seed * 48271) % 2147483647;
-        return (double)(seed % 10000) / 10000.0;
+        this.seed = (this.seed * MULTIPLICADOR) % MODULO;
+        
+        return (double) (this.seed % PRECISION) / PRECISION;
     }
 }

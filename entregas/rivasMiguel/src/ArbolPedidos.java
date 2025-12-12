@@ -4,59 +4,92 @@ public class ArbolPedidos {
     private int cantidad;
     private int comparaciones;
 
-    public ArbolPedidos() {}
-
-    public void insertar(Pedido pedido) {
-        raiz = insertarRec(raiz, pedido);
-        cantidad++;
-        imprimirArbol();
+    public ArbolPedidos() {
+        this.raiz = null;
+        this.cantidad = 0;
+        this.comparaciones = 0;
     }
 
-    private Nodo insertarRec(Nodo nodo, Pedido pedido) {
-        if (nodo == null) return new Nodo(pedido);
+    public void insertar(Pedido pedido) {
+        Nodo nuevoNodo = new Nodo(pedido);
 
-        comparaciones++;
-        if (pedido.getTiempoPreparacion() < nodo.pedido.getTiempoPreparacion())
-            nodo.left = insertarRec(nodo.left, pedido);
-        else
-            nodo.right = insertarRec(nodo.right, pedido);
+        if (raiz == null) {
+            raiz = nuevoNodo;
+            cantidad++;
+        } else {
+            Nodo actual = raiz;
+            boolean insertado = false;
 
-        return nodo;
+            while (!insertado) {
+                comparaciones++;
+
+                if (pedido.getTiempoPreparacion() < actual.getPedido().getTiempoPreparacion()) {
+                    
+                    if (actual.getLeft() == null) {
+                        actual.setLeft(nuevoNodo);
+                        insertado = true;
+                    } else {
+                        actual = actual.getLeft();
+                    }
+                
+                } 
+                else {
+                    
+                    if (actual.getRight() == null) {
+                        actual.setRight(nuevoNodo);
+                        insertado = true;
+                    } else {
+                        actual = actual.getRight();
+                    }
+                }
+            }
+            cantidad++;
+        }
+        
+        imprimirArbol();
     }
 
     public Pedido consultarMinimo() {
-        if (raiz == null) return null;
-        Nodo n = raiz;
-        while (n.left != null) {
-            comparaciones++;
-            n = n.left;
+        if (raiz == null) {
+            return null;
         }
-        return n.pedido;
+
+        Nodo actual = raiz;
+        
+        while (actual.getLeft() != null) {
+            comparaciones++;
+            actual = actual.getLeft();
+        }
+        
+        return actual.getPedido();
     }
 
     public Pedido extraerMinimo() {
-        if (raiz == null) return null;
-
-        Nodo[] r = extraerMin(raiz, null);
-        raiz = r[0];
-        cantidad--;
-
-        imprimirArbol();
-
-        return r[1].pedido;
-    }
-
-    private Nodo[] extraerMin(Nodo nodo, Nodo padre) {
-        if (nodo.left != null) {
-            comparaciones++;
-            return extraerMin(nodo.left, nodo);
+        if (raiz == null) {
+            return null;
         }
 
-        if (padre == null)
-            return new Nodo[]{ nodo.right, nodo };
+        Nodo actual = raiz;
+        Nodo padre = null;
 
-        padre.left = nodo.right;
-        return new Nodo[]{ raiz, nodo };
+        while (actual.getLeft() != null) {
+            comparaciones++;
+            padre = actual;
+            actual = actual.getLeft();
+        }
+
+        Pedido pedidoEliminado = actual.getPedido();
+
+        if (padre == null) {
+            raiz = actual.getRight();
+        } else {
+            padre.setLeft(actual.getRight());
+        }
+
+        cantidad--;
+        imprimirArbol();
+        
+        return pedidoEliminado;
     }
 
     public boolean estaVacio() {
@@ -73,19 +106,22 @@ public class ArbolPedidos {
 
     public void imprimirArbol() {
         System.out.println("ÁRBOL ACTUAL:");
-        imprimirRec(raiz, 0);
+        imprimirRec(raiz, 0); 
         System.out.println("--------------------------");
     }
 
     private void imprimirRec(Nodo nodo, int nivel) {
-        if (nodo == null) return;
+        if (nodo == null) {
+            return;
+        }
 
-        imprimirRec(nodo.right, nivel + 1);
+        imprimirRec(nodo.getRight(), nivel + 1);
 
-        for (int i = 0; i < nivel; i++) System.out.print("   ");
-        System.out.println(nodo.pedido.getTiempoPreparacion() +
-                " (" + nodo.pedido.getTipo() + ")");
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("   ");
+        }
+        System.out.println(nodo.getPedido().getTiempoPreparacion() + " (" + nodo.getPedido().getTipo() + ")");
 
-        imprimirRec(nodo.left, nivel + 1);
+        imprimirRec(nodo.getLeft(), nivel + 1);
     }
 }

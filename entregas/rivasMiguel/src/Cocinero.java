@@ -5,7 +5,9 @@ public class Cocinero {
     private int comparacionesTotales;
 
     public Cocinero() {
-        arbol = new ArbolPedidos();
+        this.arbol = new ArbolPedidos();
+        this.actual = null;
+        this.comparacionesTotales = 0;
     }
 
     public void agregarPedido(Pedido pedido) {
@@ -24,7 +26,7 @@ public class Cocinero {
         return comparacionesTotales + arbol.getComparaciones();
     }
 
-    public void procesarMinuto() {
+    public void procesarMinuto() {        
         if (actual == null) {
             if (!arbol.estaVacio()) {
                 actual = arbol.extraerMinimo();

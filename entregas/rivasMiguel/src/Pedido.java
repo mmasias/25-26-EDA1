@@ -1,7 +1,23 @@
 public class Pedido {
 
     public enum Tipo {
-        BEBIDA, CAFE, COLACAO, BOCADILLO, ENSALADA
+        BEBIDA(1, 2),
+        CAFE(2, 2),
+        COLACAO(2, 3),
+        BOCADILLO(3, 3),
+        ENSALADA(5, 4);
+
+        private final int tiempoBase;
+        private final int variacionAleatoria;
+
+        Tipo(int tiempoBase, int variacionAleatoria) {
+            this.tiempoBase = tiempoBase;
+            this.variacionAleatoria = variacionAleatoria;
+        }
+
+        public int calcularTiempoPreparacion() {
+            return Main.rnd.nextInt(this.variacionAleatoria) + this.tiempoBase;
+        }
     }
 
     private final Tipo tipo;
@@ -11,24 +27,33 @@ public class Pedido {
 
     public Pedido(Tipo tipo) {
         this.tipo = tipo;
-        this.tiempoPreparacion = generarTiempo(tipo);
-        this.tiempoRestante = tiempoPreparacion;
+        this.tiempoPreparacion = tipo.calcularTiempoPreparacion();
+        this.tiempoRestante = this.tiempoPreparacion;
     }
 
-    public Tipo getTipo() { return tipo; }
-    public int getTiempoPreparacion() { return tiempoPreparacion; }
-    public int getTiempoRestante() { return tiempoRestante; }
-    public int getTiempoLlegada() { return tiempoLlegada; }
-    public void setTiempoLlegada(int minuto) { this.tiempoLlegada = minuto; }
-    public void reducirTiempo() { tiempoRestante--; }
+    public Tipo getTipo() {
+        return tipo;
+    }
 
-    private int generarTiempo(Tipo tipo) {
-        switch (tipo) {
-            case BEBIDA:    return Main.rnd.nextInt(2) + 1;
-            case CAFE:      return Main.rnd.nextInt(2) + 2;
-            case COLACAO:   return Main.rnd.nextInt(3) + 2;
-            case BOCADILLO: return Main.rnd.nextInt(3) + 3;
-            default:        return Main.rnd.nextInt(4) + 5;
+    public int getTiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+
+    public int getTiempoRestante() {
+        return tiempoRestante;
+    }
+
+    public int getTiempoLlegada() {
+        return tiempoLlegada;
+    }
+
+    public void setTiempoLlegada(int minuto) {
+        this.tiempoLlegada = minuto;
+    }
+
+    public void reducirTiempo() {
+        if (tiempoRestante > 0) {
+            tiempoRestante--;
         }
     }
 
