@@ -2,51 +2,48 @@
 
 ## 1. Diagramas
 
-El diseño del sistema se basa en clases conectadas mediante relaciones de uso y composición. Las estructuras de datos empleadas son exclusivamente **listas** y **colas**, tal como se permite en el temario de la asignatura.
+He diseñado el sistema usando clases conectadas entre sí, y solo he utilizado las estructuras de datos que hemos visto en clase: **listas** y **colas**. 
 
-> El diagrama UML completo está disponible en el archivo .
 
 ## 2. Justificación
 
-En esta fase, las operaciones del sistema se apoyan en dos estructuras fundamentales:
+He elegido estas estructuras porque encajan perfectamente con lo que necesito hacer en esta fase del proyecto, y porque son las que mas adecuadas he visto sin tener que darle muchas vueltas y que sea claro.
 
-- **Lista**: se utiliza para colecciones dinámicas cuyo tamaño no se conoce de antemano.
-  - La lista de **asignaturas suscritas** en cada `Usuario` permite recorrerlas fácilmente y verificar si un correo pertenece a una asignatura de interés.
-  - La lista de **usuarios registrados** permite identificar al destinatario activo.
-  - El **catálogo de asignaturas disponibles** se mantiene en una lista para validar que las mencionadas en los correos son reales.
-  
-  Las listas son ideales porque permiten inserción y recorrido secuencial sin necesidad de tamaño fijo (a diferencia de los arrays), y son suficientes para el volumen reducido de datos en un entorno académico.
+- **Lista**: la uso para colecciones que no tienen un tamaño fijo. Por ejemplo:
+  - Cada **usuario** tiene una lista de **asignaturas a las que está suscrito**. Así puedo recorrerla fácilmente y comprobar si un correo es relevante.
+  - Tengo una lista de **todos los usuarios** para identificar al que está activo.
+  - También tengo una lista con el **catálogo de asignaturas disponibles**, para asegurarme de que las que aparecen en los correos son reales.
 
-- **Cola**: se utiliza para gestionar el flujo de correos entrantes.
-  - La `colaCorreos` en el `GestorIris` asegura que los mensajes se procesen en orden de llegada (FIFO).
-  - Esto es crucial para mantener la coherencia temporal, especialmente con alertas de fechas límite.
+  Me pareció la mejor opción porque no sé de antemano cuántas asignaturas va a elegir cada uno, y las listas me permiten añadir o quitar sin problemas. Con un array tendría que adivinar el tamaño, y eso no es práctico.
 
-Además, tras procesar un correo y generar un `MensajeIris`, este se **guarda en una base de datos externa**. Esta acción no depende de una estructura en memoria, pero garantiza que, aunque falle el envío a WhatsApp, la información no se pierde.
+- **Cola**: la uso para procesar los correos en el orden en que llegan. Guardo los correos entrantes en una `Cola<String>` y los proceso uno a uno, del primero al último. Esto es importante porque si no, una alerta de entrega podría procesarse después de que ya haya pasado la fecha límite, solo por el orden en que se leyó ( Como comentaste en clase dijiste que el molaria meter lo de la alertas de correos refiriendose a entregas que caducan pronto la fecha de entrega, asi que he intentado añadirlo).
+
+Además, cada vez que genero un mensaje ya resumido (`MensajeIris`), lo guardo en una base de datos externa. Esto no requiere una estructura especial en memoria, pero me da un respaldo por si falla el envío a WhatsApp.
 
 ## 3. Compromisos
 
-Algunas operaciones se han simplificado o pospuesto su implementación para mantener el diseño alineado con el nivel actual del proyecto:
+Sí, he decidido no implementar algunas cosas, y lo he hecho a propósito para no complicar el núcleo del sistema ya que ultimamente en clase se ha insistido con la mas claridad y simpleza que la complicacion de las cosas.
 
-- **Búsqueda lineal en lugar de indexada**: al comprobar si una asignatura está en la lista de suscripciones, se recorre toda la lista (coste O(n)). En un sistema con decenas de miles de asignaturas, esto sería ineficiente, pero en un contexto universitario con menos de 50, el impacto es imperceptible. No se usan árboles ni tablas hash porque no son necesarios ni están completamente cubiertos en el temario.
+- **Uso búsqueda lineal**: cuando compruebo si una asignatura está en la lista de suscripciones, recorro toda la lista. Sé que eso es O(n), pero en una universidad normal no hay más de 30–50 asignaturas, así que no noto la diferencia. Usar un árbol sería innecesario y, además, aún no lo domino del todo bajo mi punto de vista, asi que si tuviera que implementar el codigo a lo mejor se me compliaria.
 
-- **Sin reenvío automático**: aunque los mensajes se guardan en la base de datos, **no hay lógica de reintento si falla WhatsApp** en esta fase. Esto se implementará en *Golden Messenger*. El coste aceptado es la posible pérdida temporal de una notificación, pero al menos queda registrada.
+- **No reenvío si falla WhatsApp**: aunque guardo una copia del mensaje en la base de datos, no tengo lógica de reintento en esta fase. Por ahora, asumo que el envío funciona, pero al menos la información no se pierde del todo.
 
-- **Sin uso de arrays, pilas ni árboles complejos**: se evitan porque no aportan valor en esta etapa. Los arrays no son dinámicos; las pilas no encajan con el flujo FIFO; y los árboles implicarían una complejidad innecesaria.
+- **No uso arrays, pilas ni árboles**: los arrays no son dinámicos; las pilas no encajan con el flujo que necesito; y los árboles los dejé para cuando realmente los necesite (por ejemplo, si el sistema crece mucho).
 
-El compromiso general es **priorizar la claridad, la seguridad y la alineación con el temario** sobre el rendimiento extremo o funcionalidades avanzadas.
+En resumen, prefiero tener un código claro, seguro y alineado con lo que ya sabemos, y si hace flata añadir alguna cosa teneindo ya una base se puede ir implementando poco a poco.
 
 ## 4. Casos límite
 
-El diseño maneja los siguientes escenarios de forma robusta:
+He pensado en varios escenarios extremos, y el diseño que he hecho los maneja sin romperse:
 
-- **Asignaturas sin alumnos suscritos**: si un correo menciona una asignatura a la que nadie está suscrito, el sistema **no genera ningún mensaje** y descarta el correo sin guardar rastro.
+- **Asignaturas sin alumnos suscritos**: si llega un correo de una asignatura a la que nadie está suscrito, **no genero ninguna notificación**. El sistema lo ignora y no guarda nada.
 
-- **Alumnos sin asignatura inscrita**: si un usuario no ha seleccionado ninguna asignatura, su lista de suscripciones está vacía, por lo que **nunca recibirá notificaciones**. Esto es el comportamiento esperado.
+- **Alumnos sin asignatura inscrita**: si alguien se loguea pero no elige ninguna asignatura, su lista está vacía, así que **nunca recibirá mensajes**. Eso es justo lo que debería pasar.
 
-- **Exalumnos**: si un exalumno ya no está en la lista de usuarios del sistema, no se le procesan correos. Si permanece en la lista pero sin suscripciones, se comporta como un usuario inactivo.
+- **Exalumnos**: si un exalumno ya no está en mi lista de usuarios, no se le procesan correos. Si por algún motivo sigue en la lista pero sin suscripciones, se comporta como un usuario inactivo: no recibe nada.
 
-- **Mensajes que no provienen de una asignatura**: si un correo no permite identificar claramente una asignatura (por ejemplo, un mensaje genérico del rectorado), **no se procesa ni se envía**. Iris prefiere no enviar nada a enviar ruido.
+- **Mensajes que no mencionan asignaturas**: si un correo es genérico (por ejemplo, del rectorado) y no se puede asociar a ninguna asignatura, **no lo proceso ni lo envío**. Prefiero no enviar nada a mandar ruido.
 
-- **Mensajes no enviados**: si el envío a WhatsApp falla, el `MensajeIris` **ya está guardado en la base de datos**. Aunque no se reenvía automáticamente en esta fase, la información no se pierde, cumpliendo con el principio de resiliencia básica.
+- **Mensajes no enviados a WhatsApp**: si falla el envío, el mensaje **ya está guardado en la base de datos**. Aunque en esta fase no lo reenvío automáticamente, al menos queda registrado, así que no se pierde la información esencial.
 
-En **todos los casos**, el sistema **nunca almacena el correo original ni datos sensibles**. Solo se guarda la información esencial, ya depurada y resumida.
+En **ningún caso** guardo el correo original ni ningún dato sensible. Solo almaceno lo que el usuario necesita: profesor, asignatura, resumen claro y, si aplica, la fecha límite.
