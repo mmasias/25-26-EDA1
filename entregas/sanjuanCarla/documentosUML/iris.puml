@@ -1,0 +1,29 @@
+@startuml
+
+class Email {
+  - remitente : String
+  - asunto : String
+  - cuerpo : String
+}
+
+class ColaCorreos {
+  + enqueue(e : Email)
+  + dequeue() : Email
+  + isEmpty() : boolean
+}
+
+class ProcesadorTexto {
+  + generarResumen(e : Email) : String
+}
+
+class GestorFicheros {
+  + leerCorreos() : ColaCorreos
+  + guardarResumen(resumen : String)
+}
+
+GestorFicheros --> ColaCorreos
+ColaCorreos --> Email
+ProcesadorTexto --> Email
+ProcesadorTexto --> GestorFicheros
+
+@enduml
