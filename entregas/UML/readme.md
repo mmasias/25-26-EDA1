@@ -1,9 +1,7 @@
-# pyIris: Análisis de Arquitectura Funcional (Temario EDA)
+# pyIris
 
 
 ## 1. Justificación de Estructuras por Funcionalidad
-
-La elección de las estructuras de datos se basa en sus propiedades funcionales intrínsecas para optimizar las operaciones clave del flujo de mensajes:
 
 | Módulo / Operación | Estructura Utilizada | Propiedad Clave | Justificación Operacional |
 | :--- | :--- | :--- | :--- |
@@ -14,7 +12,6 @@ La elección de las estructuras de datos se basa en sus propiedades funcionales 
 
 ## 2. Compromisos y Costes Aceptados
 
-El diseño aprovecha la eficiencia del Árbol para la clasificación, pero asume los costes asociados a la naturaleza secuencial de las Listas en las operaciones de gestión:
 
 | Operación / Estructura | Compromiso Aceptado |
 | :--- | :--- |
@@ -25,7 +22,6 @@ El diseño aprovecha la eficiencia del Árbol para la clasificación, pero asume
 
 ## 3. Manejo de Casos Límite
 
-El manejo de casos límite se basa en el estado de las estructuras (vacías, raíz, nulo) para garantizar la robustez del sistema.
 
 | Caso Límite | Estructura Involucrada | Manejo del Diseño Propuesto |
 | :--- | :--- | :--- |
