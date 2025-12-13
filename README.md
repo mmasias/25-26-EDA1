@@ -1,3 +1,7 @@
-# EDA I - Retos
+## Enlaces a los apartados del ejercicio.
 
-Rama de origen para la entrega de retos
+[Codigo uml propuesto](/entregas/LomoJaime/src/Diagrama.pulm)
+
+[Ver diagrama UML](/entregas/LomoJaime/documentosUML/imagenes/diagramaIris.png)
+
+[Explicacion de uso de la estructura](/entregas/LomoJaime/src/README.md)
