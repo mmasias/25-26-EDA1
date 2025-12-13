@@ -1,0 +1,46 @@
+@startuml
+!theme plain
+hide empty members
+skinparam linetype ortho
+skinparam nodesep 40
+skinparam ranksep 50
+top to bottom direction
+
+package "Servicios" {
+
+  class GestorCorreos
+  class GestorEnvios
+
+  GestorCorreos -[hidden]-> GestorEnvios
+}
+
+package "Dominio" {
+
+  class Correo
+  class Usuario
+  class Asignatura
+
+  Correo -[hidden]-> Usuario
+  Usuario -[hidden]-> Asignatura
+}
+
+package "Estructuras de Datos" {
+
+  class ArbolAVLAsignaturas
+  class ArbolAVLSuscripciones
+  class ColaEnviosWhatsapp
+
+  ArbolAVLAsignaturas -[hidden]-> ArbolAVLSuscripciones
+  ArbolAVLSuscripciones -[hidden]-> ColaEnviosWhatsapp
+}
+
+GestorCorreos -down-> Correo
+GestorCorreos -down-> ArbolAVLAsignaturas
+
+GestorEnvios -down-> ArbolAVLSuscripciones
+GestorEnvios -down-> ColaEnviosWhatsapp
+
+ArbolAVLSuscripciones -down-> Usuario
+ArbolAVLSuscripciones -down-> Asignatura
+
+@enduml
