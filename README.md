@@ -1,6 +1,6 @@
 ## Enlaces a los apartados del ejercicio.
 
-[Codigo uml propuesta](/entregas/LomoJaime/src/Diagrama.pulm)
+[Codigo uml propuesto](/entregas/LomoJaime/src/Diagrama.pulm)
 
 [Ver diagrama UML](/entregas/LomoJaime/documentosUML/imagenes/diagramaIris.png)
 
