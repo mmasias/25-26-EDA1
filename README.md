@@ -1,4 +1,4 @@
-## Propuesta de diseño
+## Enlaces a los apartados del ejercicio.
 
 [Codigo uml propuesta](/entregas/LomoJaime/src/Diagrama.pulm)
 
