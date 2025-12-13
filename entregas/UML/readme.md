@@ -1,38 +1,35 @@
-# pyIris: Justificación de Arquitectura Basada en Nodos Puros
+# pyIris: Análisis de Arquitectura Funcional (Temario EDA)
 
-## Justificación de las Estructuras por Operación
 
-La arquitectura se centra en un diseño de direccionamiento manual, donde la funcionalidad se obtiene enlazando nodos para crear estructuras dinámicas.
+## 1. Justificación de Estructuras por Funcionalidad
 
-| Operación | Estructura que la soporta | Razón Estructural |
+La elección de las estructuras de datos se basa en sus propiedades funcionales intrínsecas para optimizar las operaciones clave del flujo de mensajes:
+
+| Módulo / Operación | Estructura Utilizada | Propiedad Clave | Justificación Operacional |
+| :--- | :--- | :--- | :--- |
+| **Recepción de Mensajes** | **Cola (FIFO)** | **Orden de Llegada** | El `BufferDeEntrada` (Cola) garantiza que los mensajes se procesen en el orden exacto en que llegaron, asegurando la integridad del flujo (Primero en Entrar, Primero en Salir). |
+| **Clasificación de Fuentes** | **Árbol** | **Jerarquía / Búsqueda Eficiente** | La `EstructuraJerarquica` (Árbol) modela las fuentes de mensajes de forma lógica y permite una **búsqueda rápida (logarítmica)** de cada `NodoFuente`. |
+| **Almacenamiento en Fuente** | **Lista** | **Agrupación** | Cada `NodoFuente` utiliza listas (`MensajesAcumulados`) para agrupar todos los mensajes clasificados bajo esa fuente, sin imponer reglas estrictas de extracción. |
+| **Envío a Clientes** | **Lista** | **Conjunto de Suscripción** | El `RegistroDeClientes` devuelve una lista de suscriptores que debe ser **recorrida secuencialmente** por el `ServicioDeEnvio` para realizar la notificación. |
+
+## 2. Compromisos y Costes Aceptados
+
+El diseño aprovecha la eficiencia del Árbol para la clasificación, pero asume los costes asociados a la naturaleza secuencial de las Listas en las operaciones de gestión:
+
+| Operación / Estructura | Compromiso Aceptado |
+| :--- | :--- |
+| **Búsqueda de Categoría** | El coste de búsqueda en el **Árbol** es **Logarítmico** ($\approx$ rápido), lo cual se acepta como el principal beneficio de eficiencia del diseño, evitando el recorrido lineal. |
+| **Obtención de Clientes** | Se acepta la necesidad de **recorrer secuencialmente** la lista de clientes para enviar el resumen a cada uno. |
+| **Gestión de Hijos/Subfuentes** | La búsqueda de una sub-fuente dentro de un `NodoFuente` requiere **recorrer la Lista de Hijos** de manera secuencial. |
+| **Baja de Suscriptor** | La eliminación de un registro de suscripción requiere un **trabajo proporcional** (recorrer la lista interna del `RegistroDeClientes`) para encontrar y eliminar el registro. |
+
+## 3. Manejo de Casos Límite
+
+El manejo de casos límite se basa en el estado de las estructuras (vacías, raíz, nulo) para garantizar la robustez del sistema.
+
+| Caso Límite | Estructura Involucrada | Manejo del Diseño Propuesto |
 | :--- | :--- | :--- |
-| **Búsqueda Global (por ID)** | Lista Doblemente Enlazada (Global) | Para acceder a cualquier entidad, el sistema tiene que **recorrer** la lista desde el puntero `inicio` comparando el ID en cada nodo. |
-| **Almacenamiento de Mensaje** | Lista Simple de `MensajeNodo` (en `CategoriaNodo`) | La inserción es inmediata una vez se accede a la categoría, ya que solo se manipula el puntero `inicioMensajes`. Esto garantiza que los mensajes se almacenen en orden cronológico. |
-| **Obtener Suscriptores** | Lista Simple de `EnlaceSuscripcion` (en `CategoriaNodo`) | El sistema recorre linealmente esta lista, donde cada nodo proporciona la referencia directa (`refCliente`) al suscriptor para efectuar el envío del resumen. |
-| **Eliminación de Nodos (Bajas)** | Lista Doblemente Enlazada (Global) | La estructura doblemente enlazada permite que, una vez localizado el nodo, la eliminación sea directa: se reencadenan los nodos vecinos (`nodoAnterior` y `nodoSiguiente`) con un solo paso. |
-| **Verificación de Suscripción** | Lista Simple de `EnlaceSuscripcion` | Se debe **revisar** toda la lista de enlaces de suscripción antes de insertar uno nuevo para asegurar que el cliente no esté ya suscrito (garantizando la unicidad sin usar `Set`). |
-
----
-
-## Compromisos Identificados
-
-El diseño acepta comprometer la velocidad de ciertas operaciones para cumplir con la restricción de usar solo nodos y referencias.
-
-| Operación Sacrificada | Impacto Aceptado |
-| :--- | :--- |
-| **Velocidad de Acceso por ID** | El acceso a cualquier entidad (Categoría o Cliente) es siempre lento, requiriendo un recorrido nodo por nodo. Se prioriza la manipulación de referencias sobre la velocidad de indexación. |
-| **Eficiencia en Desuscribir/Eliminar** | La operación de eliminar un cliente completamente del sistema requiere un **barrido exhaustivo** de todas las listas de suscripción de las categorías para limpiar las referencias (`EnlaceSuscripcion`). |
-| **Garantía de Unicidad** | La verificación de que un cliente no esté duplicado requiere **revisar la lista completa** de suscripciones antes de insertar un nuevo enlace, en lugar de una verificación instantánea. |
-
----
-
-## Manejo de Casos Límite
-
-El diseño maneja los casos límite basados en la condición del puntero **nulo** (la ausencia de una dirección válida o de un nodo).
-
-| Caso Límite | Manejo del Diseño Propuesto (Punteros) |
-| :--- | :--- |
-| **Asignaturas sin alumnos suscritos** | El puntero **`inicioSuscripciones`** del `CategoriaNodo` será **nulo**. El sistema detecta la ausencia de dirección y omite el proceso de envío. |
-| **Alumnos sin asignatura inscrita** | El puntero **`inicioSuscripciones`** del `ClienteNodo` será **nulo**. El nodo existe en el registro, pero no tiene enlaces salientes. |
-| **Exalumnos** | El proceso implica: 1. Localizar y eliminar el `ClienteNodo` del registro global. 2. Recorrer las listas de `EnlaceSuscripcion` en las categorías suscritas para eliminar las referencias. |
-| **Categoría no registrada** | Solo se considera activo si está enlazado a la lista de mensajes de una Categoría. Los borradores (instancias no enlazadas) son ignorados.
+| **Fuente No Registrada** | `EstructuraJerarquica` (Árbol) | El método `BuscarNodo(IDFuente)` del Árbol **falla** (retorna nulo). El `ProcesadorDeMensajes` detecta esta ausencia de nodo válido y descarta el mensaje. |
+| **Asignaturas sin alumnos suscritos** | `RegistroDeClientes` (Lista) | El método `ObtenerDestinatarios()` devuelve una **lista vacía**. El `ServicioDeEnvio` recibe esta lista vacía y no realiza ninguna acción de envío. |
+| **Exsuscriptores (Baja)** | Estructura de Suscripción | El registro del suscriptor es **eliminado** de la estructura subyacente del `RegistroDeClientes`. |
+| **Cola Vacía** | `BufferDeEntrada` (Cola) | El `ProcesadorDeMensajes` verifica **`BufferDeEntrada.esVacia()`**. Si es verdadero, el ciclo de procesamiento se detiene. |
