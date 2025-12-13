@@ -1,10 +1,6 @@
-# ⚛️ pyIris: Justificación de Arquitectura Basada en Nodos Puros
+# pyIris: Justificación de Arquitectura Basada en Nodos Puros
 
-Este documento detalla la elección de estructuras de datos para el proyecto pyIris, diseñado bajo la restricción de **no utilizar colecciones nativas** de Java (`Map`, `List`, `Set`, etc.), basándose únicamente en la manipulación de nodos y referencias (punteros).
-
----
-
-## 2. Justificación de las Estructuras por Operación
+## Justificación de las Estructuras por Operación
 
 La arquitectura se centra en un diseño de direccionamiento manual, donde la funcionalidad se obtiene enlazando nodos para crear estructuras dinámicas.
 
@@ -18,7 +14,7 @@ La arquitectura se centra en un diseño de direccionamiento manual, donde la fun
 
 ---
 
-## 3. Compromisos Identificados
+## Compromisos Identificados
 
 El diseño acepta comprometer la velocidad de ciertas operaciones para cumplir con la restricción de usar solo nodos y referencias.
 
@@ -30,7 +26,7 @@ El diseño acepta comprometer la velocidad de ciertas operaciones para cumplir c
 
 ---
 
-## 🚨 4. Manejo de Casos Límite
+## Manejo de Casos Límite
 
 El diseño maneja los casos límite basados en la condición del puntero **nulo** (la ausencia de una dirección válida o de un nodo).
 
@@ -39,4 +35,4 @@ El diseño maneja los casos límite basados en la condición del puntero **nulo*
 | **Asignaturas sin alumnos suscritos** | El puntero **`inicioSuscripciones`** del `CategoriaNodo` será **nulo**. El sistema detecta la ausencia de dirección y omite el proceso de envío. |
 | **Alumnos sin asignatura inscrita** | El puntero **`inicioSuscripciones`** del `ClienteNodo` será **nulo**. El nodo existe en el registro, pero no tiene enlaces salientes. |
 | **Exalumnos** | El proceso implica: 1. Localizar y eliminar el `ClienteNodo` del registro global. 2. Recorrer las listas de `EnlaceSuscripcion` en las categorías suscritas para eliminar las referencias. |
-| **Categoría no registrada** | La operación de Bús
+| **Categoría no registrada** | Solo se considera activo si está enlazado a la lista de mensajes de una Categoría. Los borradores (instancias no enlazadas) son ignorados.
