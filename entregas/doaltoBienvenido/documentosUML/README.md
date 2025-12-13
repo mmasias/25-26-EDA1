@@ -1,4 +1,4 @@
-# Iris Message Redirector – Uso de Estructuras de Datos
+# Uso de Estructuras de Datos
 
 Este documento explica dónde y por qué se utilizan **listas**, **colas** y **árboles** (y por qué **no** se usan pilas) dentro del diseño del proyecto *Iris Message Redirector*, siguiendo únicamente el temario de **Estructuras de Datos y Algoritmos**.
 
