@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam handwriting false
+skinparam monochrome false
+title Arquitectura de Datos - Proyecto Iris
+
+class "Sistema Iris" as System {
+    - colaMensajes : Queue
+    - arbolUsuarios : BST
+    - arbolAsignaturas : BST
+}
+
+class "Mensaje" as Msg {
+    (Dato temporal)
+}
+
+class "Usuario" as User {
+    (Dato persistente)
+}
+
+class "Asignatura" as Subject {
+    - arbolSuscriptores : BST
+}
+
+System o-down- Msg : "1. Usa una COLA (Queue)\npara procesar picos de carga"
+
+System *-down- User : "2. Usa un ÁRBOL (BST)\npara buscar usuarios rápido"
+
+System *-down- Subject : "3. Usa un ÁRBOL (BST)\npara buscar asignaturas rápido"
+
+Subject o-right- User : "4. Contiene un ÁRBOL interno\nde alumnos suscritos"
+
+@enduml
