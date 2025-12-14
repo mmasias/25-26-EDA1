@@ -1,0 +1,11 @@
+@startuml
+
+
+[*] --> Creado
+Creado --> PendienteEnvio
+PendienteEnvio --> Enviado
+PendienteEnvio --> Fallido
+Fallido --> PendienteEnvio : reintento
+
+
+@enduml

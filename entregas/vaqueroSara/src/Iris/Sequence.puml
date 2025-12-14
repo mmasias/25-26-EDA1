@@ -1,0 +1,17 @@
+@startuml
+
+
+actor Profesor
+participant Asignatura
+participant Mensaje
+participant ServicioEnvio
+participant Alumno
+
+
+Profesor -> Asignatura : publicarMsg()
+Asignatura -> Mensaje : crear()
+Asignatura -> ServicioEnvio : enviar(mensaje)
+ServicioEnvio -> Alumno : entregar()
+
+
+@enduml
