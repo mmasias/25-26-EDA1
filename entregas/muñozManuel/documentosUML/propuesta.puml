@@ -16,7 +16,8 @@ CorreoIdentificado --> GenerarMensaje : crearMensaje()
 
 GenerarMensaje --> MensajeEnviado : enviarMensaje()
 
+CorreoDescartado --> [*]
+
 MensajeEnviado --> [*]
 
 @enduml
-
