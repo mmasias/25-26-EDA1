@@ -1,0 +1,34 @@
+@startuml
+class Iris {
+    - colaMensajes: Cola
+    - nodoAsignatura: NodoAsignatura
+}
+
+class Cola {
+    + encolar(m: Mensaje)
+    + desencolar(): Mensaje
+}
+
+class Mensaje {
+    - texto: String
+    - codigoAsignatura: String
+}
+
+class NodoAsignatura {
+    - codigo: String
+    - izquierda: NodoAsignatura
+    - derecha: NodoAsignatura
+    - suscriptores: Lista<Estudiante>
+}
+
+class Estudiante {
+    - nombre: String
+    - telefono: String
+    - misAsignaturas: Lista<String>
+}
+
+Iris --> Cola : "1. Recibe en"
+Cola o-- Mensaje : "FIFO"
+Iris --> NodoAsignatura : "2. Busca en (BST)"
+NodoAsignatura o-- Estudiante : "3. Distribuye a"
+@enduml
