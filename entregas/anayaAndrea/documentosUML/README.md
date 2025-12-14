@@ -1,5 +1,5 @@
+```mermaid
 erDiagram
-
     USUARIO {
         int id PK
         string nombre
@@ -47,7 +47,6 @@ erDiagram
 
     USUARIO ||--o{ SUSCRIPCION : se_suscribe
     ASIGNATURA ||--o{ SUSCRIPCION : es_suscrita
-
     PROFESOR ||--o{ MENSAJE_PROCESADO : crea
     ASIGNATURA ||--o{ MENSAJE_PROCESADO : pertenece
-    MENSAJE_CORREO ||--|| MENSAJE_PROCESADO : se_procesa
+    MENSAJE_CORREO ||--|| MENSAJE_PROCESADO :
