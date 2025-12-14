@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
     %% --- CLASES DE DATOS (Payloads) ---
     class Asignatura {
@@ -83,3 +84,4 @@ classDiagram
 
     ColaBandejaEntrada *-- "*" NodoMensaje : Contiene
     NodoMensaje --> "1" Mensaje : Almacena
+```
