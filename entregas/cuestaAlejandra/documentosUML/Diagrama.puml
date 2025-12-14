@@ -1,0 +1,76 @@
+@startuml
+skinparam rectangle {
+  BackgroundColor<<component>> LightGreen
+}
+
+' Clases principales
+class Iris <<component>> {
+  + procesarMensajes()
+  + enviarResumenes()
+}
+
+class Asignatura <<component>> {
+  - String codigo
+  - String nombre
+  + agregarMensaje(Mensaje m)
+  + agregarAlumno(Alumno a)
+  + generarResumen()
+}
+
+class ColaMensajes <<component>> {
+  - Queue<Mensaje> cola
+  + enqueue(Mensaje m)
+  + dequeue() : Mensaje
+}
+
+class ListaAlumnos <<component>> {
+  - List<Alumno> lista
+  + add(Alumno a)
+  + remove(Alumno a)
+}
+
+class PilaResumenes <<component>> {
+  - Stack<Resumen> pila
+  + push(Resumen r)
+  + pop() : Resumen
+}
+
+class Mensaje <<component>> {
+  - String contenido
+  - Instant fecha
+}
+
+class Alumno <<component>> {
+  - String id
+  - String nombre
+}
+
+class Resumen <<component>> {
+  - String texto
+  - Instant fechaGeneracion
+}
+
+' Relaciones: Composición (agregación fuerte)
+Iris --> Asignatura : gestiona
+Asignatura "1" *-- "1" ColaMensajes : contiene
+Asignatura "1" *-- "1" ListaAlumnos : contiene
+Asignatura "1" *-- "1" PilaResumenes : contiene
+
+ColaMensajes --> Mensaje : almacena
+ListaAlumnos --> Alumno : almacena
+PilaResumenes --> Resumen : almacena
+
+' Estilo: layout horizontal
+left to right direction
+
+note top of Iris
+  Sistema principal que coordina
+  la recepción, resumen y envío de mensajes.
+end note
+
+note right of Asignatura
+  Entidad central que agrupa:
+  mensajes, alumnos y resúmenes.
+end note
+
+@enduml
