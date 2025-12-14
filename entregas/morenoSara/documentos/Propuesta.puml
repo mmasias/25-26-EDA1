@@ -1,0 +1,67 @@
+@startuml
+
+package "Mensajería" {
+  class Mensaje {
+    - id: String
+    - contenido: String
+    - categoriaId: String
+    - timestamp: DateTime
+  }
+
+  class ColaMensajes {
+    + encolar(m: Mensaje)
+    + desencolar(): Mensaje
+    + esVacia(): Boolean
+  }
+}
+
+package "Categorías" {
+  class NodoCategoria {
+    - id: String
+    - nombre: String
+    - mensajes: Lista<Mensaje>
+    - hijos: Lista<NodoCategoria>
+  }
+
+  class ArbolCategorias {
+    - raiz: NodoCategoria
+    + buscar(id: String): NodoCategoria
+    + insertar(id: String, padreId: String)
+  }
+}
+
+package "Suscripciones" {
+  class Suscripcion {
+    - alumnoId: String
+    - categoriaId: String
+  }
+
+  class GestorSuscripciones {
+    - suscripciones: Lista<Suscripcion>
+    + suscribir(alumnoId: String, categoriaId: String)
+    + obtenerAlumnos(categoriaId: String): Lista<String>
+  }
+}
+
+package "Envío" {
+  class Resumen {
+    - categoriaId: String
+    - contenido: String
+    - alumnosDestino: Lista<String>
+  }
+
+  class Redirector {
+    + enviar(resumen: Resumen)
+  }
+}
+
+
+Mensaje --> ColaMensajes : encola
+ColaMensajes --> ArbolCategorias : procesa y ubica
+ArbolCategorias --> NodoCategoria : compuesto de
+NodoCategoria --> Mensaje : contiene (lista)
+GestorSuscripciones --> Suscripcion : administra
+GestorSuscripciones --> ArbolCategorias : usa IDs
+Redirector --> Resumen : genera y envía
+
+@enduml
