@@ -1,10 +1,6 @@
 # Proyecto Iris - Memoria Técnica Resumida
 
-## 1. Diagramas
-La arquitectura del sistema (clases y conexiones) se detalla visualmente en el archivo:
-[Diagrama de Clases del Proyecto Iris](entregas/arceMarina/documentosUML/Diagrama.png)
-
-## 2. Justificación de Estructuras 
+## 1. Justificación de Estructuras 
 El diseño combina cuatro estructuras fundamentales de EDA. Cada una se ha elegido para resolver un problema específico de eficiencia:
 
 | Operación | Estructura Elegida | ¿Por qué esta estructura? |
@@ -14,12 +10,12 @@ El diseño combina cuatro estructuras fundamentales de EDA. Cada una se ha elegi
 | **Recibir Mensajes** | **Cola** | La mensajería es temporal. La Cola garantiza el orden estricto de llegada (FIFO), asegurando que los mensajes se procesen tal cual fueron enviados. |
 | **Generar Resumen** | **Pila** | Para la vista del usuario, queremos mostrar lo más reciente arriba. La Pila invierte el orden natural de la Cola (LIFO), dejando el último mensaje listo para leer primero. |
 
-## 3. Compromisos (Trade-offs)
+## 2. Compromisos (Trade-offs)
 Para mantener la simplicidad y eficiencia del diseño, hemos aceptado estos costes:
 * **Velocidad de Acceso al Alumno:** Al usar Listas en lugar de Arrays, buscar a un alumno concreto es lento (secuencial). **Motivo:** Priorizamos la flexibilidad de memoria y la inserción rápida sobre la búsqueda individual.
 * **Redundancia de Datos:** Si un mensaje va a 100 alumnos, se replica en 100 colas. **Motivo:** Permite que cada alumno gestione su lectura de forma independiente.
 
-## 4. Manejo de Casos Límite
+## 3. Manejo de Casos Límite
 Así responde el sistema ante situaciones excepcionales:
 
 * **Asignaturas sin alumnos:** El sistema detecta que la Lista está vacía (`null`) y detiene el envío inmediatamente. Coste computacional nulo.
