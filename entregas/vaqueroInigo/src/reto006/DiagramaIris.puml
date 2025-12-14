@@ -1,0 +1,51 @@
+@startuml  DiagramaIris
+skinparam linetype ortho
+hide empty members
+
+class Usuario {
+  - idUsuario: String
+  - telefono: String
+  - suscripciones: Lista<Asignatura>
+}
+
+class Asignatura {
+  - codigo: String
+  - nombre: String
+}
+
+class MensajeIris {
+  - profesor: String
+  - asignatura: String
+  - contenidoClaro: String
+  - tipo: String
+  - fechaEnvio: String
+  - fechaLimite: String (opcional)
+}
+
+class GestorIris {
+  - colaCorreos: Cola<String>
+  - usuarios: Lista<Usuario>
+  - asignaturasDisponibles: Lista<Asignatura>
+  + procesarCorreo()
+  + filtrarPorSuscripciones()
+  + enviarAWhatsApp()
+  + guardarEnBaseDatos()
+}
+
+Usuario "1" -- "0..*" Asignatura : suscrito a
+GestorIris --> Usuario : gestiona
+GestorIris --> MensajeIris : genera
+MensajeIris --> Asignatura : asociado a
+
+note right of GestorIris
+  - colaCorreos: Cola → procesa en orden de llegada (FIFO)
+  - usuarios y asignaturas: Lista → colecciones dinámicas
+  - suscripciones: Lista → fácil de recorrer e insertar
+end note
+
+note left of MensajeIris
+  Solo contiene información esencial.
+  Nunca se almacena el correo original.
+  Se guarda en base de datos tras el envío.
+end note
+@enduml
