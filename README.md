@@ -11,9 +11,9 @@ Aquí tienes los accesos directos a todos los archivos del proyecto:
   * *Explicación detallada de las estructuras elegidas (Árboles, Listas, Colas, Pilas), compromisos de diseño y manejo de casos límite.*
 
 ### Diagramas UML
-* **[Ver Diagrama de Clases (Imagen PNG)](entregas/arceMarina/documentosUML/DiagramaIris.png)**
+* **[Ver Diagrama de Clases (Imagen PNG)](entregas/arceMarina/documentosUML/Diagrama.png)**
   * *Visualización rápida de la arquitectura.*
-* **[Código Fuente del Diagrama (.puml)](entregas/arceMarina/documentosUML/DiagramaIris.puml)**
+* **[Código Fuente del Diagrama (.puml)](entregas/arceMarina/documentosUML/Diagrama.puml)**
   * *Archivo fuente en formato PlantUML.*
 
 ---
