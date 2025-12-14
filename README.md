@@ -10,7 +10,7 @@ Aquí tienes los accesos directos a todos los archivos del proyecto:
 * **[Memoria Técnica y Justificación](documentos/MemoriaTecnica.md)**
   * *Explicación detallada de las estructuras elegidas (Árboles, Listas, Colas, Pilas), compromisos de diseño y manejo de casos límite.*
 
-### 📊 Diagramas UML
+### Diagramas UML
 * **[Ver Diagrama de Clases (Imagen PNG)](documentos%20UML/DiagramaIris.png)**
   * *Visualización rápida de la arquitectura.*
 * **[Código Fuente del Diagrama (.puml)](documentos%20UML/DiagramaIris.puml)**
@@ -18,7 +18,7 @@ Aquí tienes los accesos directos a todos los archivos del proyecto:
 
 ---
 
-## 🚀 Resumen del Proyecto
+## Resumen del Proyecto
 El objetivo es limpiar el "ruido" de los correos masivos académicos. El sistema:
 1.  Recibe correos y busca la asignatura en un **Árbol Binario**.
 2.  Localiza a los alumnos en una **Lista de Nodos**.
