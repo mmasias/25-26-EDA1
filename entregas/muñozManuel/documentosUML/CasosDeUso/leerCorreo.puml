@@ -1,0 +1,30 @@
+@startuml leerCorreo
+
+skinparam linetype polyline
+
+state leerCorreo as "leerCorreo()" {
+
+    state " " as CorreoRecibido
+
+    [*] -[#green]-> CorreoRecibido
+    note on link
+    <b>Sistema</b> solicita el correo recibido
+    end note
+
+    CorreoRecibido -[#green]-> [*]
+    note on link
+    <b>Sistema</b> permite enviar una copia del correo a cola de correos
+    end note
+}
+
+leerCorreo -[#green]-> CorreoNoIdentificado
+note on link
+filtrarCorreo()
+end note
+
+leerCorreo -[#green]-> CorreoIdentificado
+note on link
+filtrarCorreo()
+end note
+
+@enduml
