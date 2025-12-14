@@ -16,7 +16,7 @@ class Alumno {
     - nombre: string
     - telefono: string
     ' HashSet para evitar duplicados y búsqueda rápida O(1)
-    - asignaturasSuscritas: Conjunto<Asignatura> 
+    - asignaturasSuscritas: asignatura[]
     + recibirNotificacion(texto: string): void
 }
 
