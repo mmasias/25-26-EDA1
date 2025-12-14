@@ -71,7 +71,7 @@ El árbol se utiliza para modelar la **jerarquía de categorías**.
 - Contiene la raíz del árbol.
 - Permite buscar e insertar categorías.
 
-### ✔ 3.2. `NodoCategoria`
+### ✔ 3.2. `Nodoategoria`
 - Cada nodo representa una categoría.
 - Contiene una lista de hijos y mensajes asociados.
 
@@ -95,4 +95,4 @@ Un árbol permite organizar y buscar eficientemente dentro de esa jerarquía.
 
 ---
 
-
+![DiagramaIris](../documentos/DiagramaIris.png)
