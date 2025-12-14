@@ -1,0 +1,51 @@
+@startuml entidadesPrincipales
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide circle
+
+class "SistemaIris" as Sistema {
+    ' Diccionario para acceso O(1) por código
+    - catalogoAsignaturas: asignatura[]
+    - colaProcesamiento: mensaje[]
+    + recibirMensaje(msg: Mensaje): void
+    + despachar(): void
+}
+
+class Alumno {
+    - id: int
+    - nombre: string
+    - telefono: string
+    ' HashSet para evitar duplicados y búsqueda rápida O(1)
+    - asignaturasSuscritas: asignatura[]
+    + recibirNotificacion(texto: string): void
+}
+
+class Asignatura {
+    - codigo: string
+    - nombre: string
+    ' LinkedList para iteración eficiente o HashSet para unicidad
+    - listaSuscriptores: alumno[]
+    + agregarSuscriptor(alumno: Alumno): void
+    + eliminarSuscriptor(alumno: Alumno): void
+    + obtenerSuscriptores(): alumno[]
+}
+
+class Profesor {
+    - id: int 
+    - nombre: string 
+    - asignaturasImpartidas: asignatura[]
+}
+
+class Mensaje {
+    - id: string
+    - asunto: string
+    - prioridad: int
+    - timestamp: DateTime
+}
+
+Sistema "1" *-- "1" Asignatura : contiene >
+Sistema "1" o-- "0..*" Mensaje : encola >
+Asignatura "0..*" o-- "0..*" Alumno : notifica a >
+Asignatura "0..*" -- "1..*" Profesor : Impartida por >
+
+@enduml
