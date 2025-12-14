@@ -1,0 +1,56 @@
+@startuml Iris_Diagrama
+skinparam linetype ortho
+hide empty members
+
+class Alumno {
+    - id: String
+    - email: String
+    + recibirResumen(resumen: String)
+}
+
+class Asignatura {
+    - id: String
+    - nombre: String
+    - suscriptores: Set<Alumno>
+    - colaMensajes: Queue<Mensaje>
+    + addSuscriptor(alumno: Alumno)
+    + removeSuscriptor(alumno: Alumno)
+    + encolarMensaje(msg: Mensaje)
+    + generarResumen(): String
+    + limpiarCola()
+}
+
+class Mensaje {
+    - contenido: String
+    - idAsignaturaOrigen: String
+    - timestamp: Date
+}
+
+class IrisManager {
+    - asignaturas: Map<String, Asignatura>
+    + registrarAsignatura(id: String)
+    + suscribirAlumno(idAsignatura: String, alumno: Alumno)
+    + desuscribirAlumno(idAsignatura: String, alumno: Alumno)
+    + recibirMensaje(mensaje: Mensaje)
+    + enviarResumenes(idAsignatura: String)
+}
+
+IrisManager "1" --> "*" Asignatura : gestiona
+Asignatura "1" --> "*" Alumno : tiene suscriptores
+Asignatura "1" --> "*" Mensaje : almacena
+
+note right of IrisManager
+    + asignaturas: Mapa para acceso O(1)
+    + Gestiona el ciclo de vida de suscripciones
+end note
+
+note right of Asignatura
+    + suscriptores: Set para unicidad y alta/baja rapida
+    + colaMensajes: Cola para mantener orden llegada
+end note
+
+note bottom of Mensaje
+    Objeto de datos inmutable
+end note
+
+@enduml
