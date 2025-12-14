@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+package "Estructura de Datos Iris" {
+
+    class "IrisController" as Controller {
+        + recibirMensaje(m: Mensaje)
+        + despacharPendientes()
+        + generarEnvios()
+    }
+
+    class "BuzonEntrada" as Buzon {
+        - cola: Queue<Mensaje>
+        + enqueue(m: Mensaje)
+        + dequeue(): Mensaje
+        + esVacia(): Boolean
+    }
+
+    class "DirectorioTemas" as Directorio {
+        - mapaTemas: HashMap<String, Tema>
+        + obtenerTema(id: String): Tema
+        + existeTema(id: String): Boolean
+        + registrarTema(t: Tema)
+    }
+
+    class "Tema" as Tema {
+        - id: String
+        - nombre: String
+        - bufferMensajes: LinkedList<Mensaje>
+        - suscriptores: HashSet<Suscriptor>
+        + agregarMensaje(m: Mensaje)
+        + suscribir(s: Suscriptor)
+        + desuscribir(s: Suscriptor)
+        + colapsarEnResumen(): Resumen
+    }
+
+    class "Suscriptor" as Suscriptor {
+        - id: String
+        - email: String
+        + recibir(r: Resumen)
+    }
+
+    class "Mensaje" as Mensaje {
+        - id: String
+        - contenido: String
+        - categoriaID: String
+        - timestamp: DateTime
+    }
+
+    class "Resumen" as Resumen {
+        - textoConsolidado: String
+        - cantidadMensajes: Integer
+        - fechaGeneracion: DateTime
+    }
+}
+
+' Relaciones
+Controller "1" *-- "1" Buzon : gestiona >
+Controller "1" --> "1" Directorio : consulta >
+Directorio "1" o-- "0..*" Tema : indexa (Clave: ID) >
+Tema "1" *-- "0..*" Mensaje : acumula >
+Tema "1" o-- "0..*" Suscriptor : notifica a >
+Tema ..> Resumen : produce >
+
+note right of Buzon
+  **FIFO (Cola)**
+  Desacopla la recepción masiva
+  del procesamiento lógico.
+end note
+
+note right of Directorio
+  **HashMap (Diccionario)**
+  Acceso O(1) a categorías.
+  Más rápido que recorrer un árbol.
+end note
+
+note left of Tema::suscriptores
+  **HashSet (Conjunto)**
+  Garantiza unicidad.
+  Evita envíos duplicados
+  al mismo usuario.
+end note
+
+@enduml
