@@ -1,0 +1,76 @@
+@startuml Diagrama_Iris_EDA
+
+' Configuración de estilo
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam packageStyle rectangle
+
+package "API Pública (Negocio)" {
+    class SistemaIris {
+        + main(args: String[])
+        + recibirCorreo(codigo: String, texto: String)
+        + registrarAlumno(nombre: String)
+        + crearAsignatura(codigo: String)
+    }
+
+    class Asignatura {
+        - codigo: String
+        - nombre: String
+        + Asignatura(codigo, nombre)
+    }
+
+    class Alumno {
+        - nombre: String
+        + Alumno(nombre)
+        + verResumen()
+    }
+
+    class Mensaje {
+        - texto: String
+        - siguiente: Mensaje
+        + Mensaje(texto)
+    }
+}
+
+package "Estructuras de Datos (EDA)" {
+    class "ArbolAsignaturas (BST)" as Arbol {
+        - raiz: Asignatura
+        + insertar(codigo, nombre)
+        + buscar(codigo): Asignatura
+        note right: Organiza asignaturas alfabéticamente\npara encontrarlas rápido.
+    }
+
+    class "ListaSuscriptores (LinkedList)" as Lista {
+        - cabeza: NodoSuscriptor
+        + agregar(alumno: Alumno)
+        + notificarTodos(texto: String)
+        + eliminar(alumno: Alumno)
+        note right: Lista de alumnos que crece\nsegún se necesite.
+    }
+
+    class "ColaMensajes (Queue)" as Cola {
+        - frente: Mensaje
+        - final: Mensaje
+        + encolar(texto: String)
+        + desencolar(): Mensaje
+        note right: Los mensajes se guardan\nen orden de llegada.
+    }
+
+    class "PilaHistorial (Stack)" as Pila {
+        - cima: Mensaje
+        + apilar(mensaje: Mensaje)
+        + desapilar(): Mensaje
+        note right: Muestra el último mensaje\nrecibido en la parte superior.
+    }
+}
+
+' Relaciones
+SistemaIris --> Arbol : "Gestiona"
+Arbol *-- Asignatura : "Contiene nodos"
+Asignatura --> Lista : "Tiene suscriptores"
+Lista --> Alumno : "Apunta a"
+
+Alumno *-- Cola : "Tiene (Buzón)"
+Alumno *-- Pila : "Tiene (Resumen)"
+
+@enduml
