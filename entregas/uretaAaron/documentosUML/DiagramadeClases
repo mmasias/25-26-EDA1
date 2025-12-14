@@ -1,0 +1,71 @@
+@startuml
+title Diagrama de clases - pyIris
+
+class Usuario {
+  - id: UUID
+  - nombre: String
+  - whatsappId: String
+  + suscribirse(materia: Materia): void
+  + desuscribirse(materia: Materia): void
+}
+
+class Materia {
+  - codigo: String
+  - nombre: String
+}
+
+class Suscripcion {
+  - id: UUID
+  - activa: boolean
+  --
+  - usuario: Usuario
+  - materia: Materia
+}
+
+class NotificacionEntrante {
+  - id: UUID
+  - asuntoOriginal: String
+  - cuerpoOriginal: String
+  - fecha: LocalDateTime
+  + esRelevante(): boolean
+}
+
+class NotificacionProcesada {
+  - id: UUID
+  - profesor: String
+  - asignatura: String
+  - mensaje: String
+  + toString(): String
+}
+
+class ProcesadorNotificaciones {
+  + procesar(notificacion: NotificacionEntrante): NotificacionProcesada
+  + extraerProfesor(correo: String): String
+  + extraerAsignatura(correo: String): String
+  + extraerMensaje(correo: String): String
+}
+
+class ServicioWhatsApp {
+  + enviar(usuario: Usuario, mensaje: String): boolean
+}
+
+class Iris {
+  + recibirNotificacion(notificacion: NotificacionEntrante): void
+}
+
+' Relaciones dominio
+Usuario "1" -- "0..*" Suscripcion : suscripciones
+Materia "1" -- "0..*" Suscripcion : materias
+Suscripcion "1" --> "1" Usuario : usuario
+Suscripcion "1" --> "1" Materia : materia
+
+' Uso / dependencias
+Iris ..> ProcesadorNotificaciones : usa
+Iris ..> ServicioWhatsApp : usa
+
+ProcesadorNotificaciones ..> NotificacionEntrante : procesa
+ProcesadorNotificaciones ..> NotificacionProcesada : crea
+
+ServicioWhatsApp ..> NotificacionProcesada : envía
+
+@enduml
