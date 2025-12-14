@@ -7,13 +7,13 @@
 Aquí tienes los accesos directos a todos los archivos del proyecto:
 
 ### Documentación
-* **[Memoria Técnica y Justificación](documentos/MemoriaTecnica.md)**
+* **[Memoria Técnica y Justificación](entregas/arceMarina/documentos/MemoriaTecnica.md)**
   * *Explicación detallada de las estructuras elegidas (Árboles, Listas, Colas, Pilas), compromisos de diseño y manejo de casos límite.*
 
 ### Diagramas UML
-* **[Ver Diagrama de Clases (Imagen PNG)](documentos%20UML/DiagramaIris.png)**
+* **[Ver Diagrama de Clases (Imagen PNG)](entregas/arceMarina/documentos%20UML/DiagramaIris.png)**
   * *Visualización rápida de la arquitectura.*
-* **[Código Fuente del Diagrama (.puml)](documentos%20UML/DiagramaIris.puml)**
+* **[Código Fuente del Diagrama (.puml)](entregas/arceMarina/documentos%20UML/DiagramaIris.puml)**
   * *Archivo fuente en formato PlantUML.*
 
 ---

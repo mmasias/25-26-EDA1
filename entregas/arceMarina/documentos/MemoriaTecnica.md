@@ -2,7 +2,7 @@
 
 ## 1. Diagramas
 La arquitectura del sistema (clases y conexiones) se detalla visualmente en el archivo:
-[Diagrama de Clases del Proyecto Iris](documentos%20UML/DiagramaIris.puml)
+[Diagrama de Clases del Proyecto Iris](entregas/arceMarina/documentos%20UML/DiagramaIris.puml)
 
 ## 2. Justificación de Estructuras 
 El diseño combina cuatro estructuras fundamentales de EDA. Cada una se ha elegido para resolver un problema específico de eficiencia:
