@@ -1,0 +1,23 @@
+@startuml estadoDeMensajesEnIris
+
+title Estado de mensajes en Iris
+
+[*] --> RecibirMensajeEnCorreoUni
+
+RecibirMensajeEnCorreoUni --> ColaDeCorreos : leerCorreo()
+
+ColaDeCorreos --> CorreoNoIdentificado : filtrarMensaje()
+
+ColaDeCorreos --> CorreoIdentificado : filtrarMensaje()
+
+CorreoNoIdentificado --> CorreoDescartado : eliminarCorreo()
+
+CorreoIdentificado --> GenerarMensaje : crearMensaje()
+
+GenerarMensaje --> MensajeEnviado : enviarMensaje()
+
+CorreoDescartado --> [*]
+
+MensajeEnviado --> [*]
+
+@enduml
