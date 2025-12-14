@@ -1,36 +1,38 @@
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.ArrayList;
 
 public class Cocina {
 
-    private PriorityQueue<Pedido> cola;
-    public AtomicLong comparaciones;
+    ArrayList<Pedido> cola;
+    int comparaciones;
 
     public Cocina() {
-        comparaciones = new AtomicLong(0);
-        cola = new PriorityQueue<>(new Comparator<Pedido>() {
-            @Override
-            public int compare(Pedido a, Pedido b) {
-                comparaciones.incrementAndGet();
-                if (a.tiempoRestante != b.tiempoRestante) {
-                    return Integer.compare(a.tiempoRestante, b.tiempoRestante);
-                } else {
-                    return Integer.compare(a.llegada, b.llegada);
-                }
-            }
-        });
+        cola = new ArrayList<>();
+        comparaciones = 0;
     }
 
     public void agregarPedido(Pedido p) {
         cola.add(p);
     }
 
-    public Pedido obtenerPedido() {
-        return cola.poll();
+    public boolean hayPedidos() {
+        return !cola.isEmpty();
     }
 
     public int pedidosEnCola() {
         return cola.size();
+    }
+
+    public Pedido obtenerPedidoMasCorto() {
+        Pedido menor = cola.get(0);
+
+        for (int i = 1; i < cola.size(); i++) {
+            comparaciones++;
+            if (cola.get(i).tiempoRestante < menor.tiempoRestante) {
+                menor = cola.get(i);
+            }
+        }
+
+        cola.remove(menor);
+        return menor;
     }
 }
