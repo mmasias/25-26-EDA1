@@ -1,0 +1,69 @@
+@startuml
+
+class Usuario {
+  - id: UUID
+  - nombre: String
+  - whatsappId: String
+  + suscribirse(materia: Materia): void
+  + desuscribirse(materia: Materia): void
+}
+
+class Materia {
+  - codigo: String
+  - nombre: String
+}
+
+class Suscripcion {
+  - id: UUID
+  - usuario: Usuario
+  - materia: Materia
+  - activa: boolean
+}
+
+class NotificacionEntrante {
+  - id: UUID
+  - asuntoOriginal: String
+  - cuerpoOriginal: String
+  - fecha: LocalDateTime
+  + esRelevante(): boolean
+}
+
+class NotificacionProcesada {
+  - id: UUID
+  - profesor: String
+  - asignatura: String
+  - mensaje: String
+  + toString(): String
+}
+
+class ProcesadorNotificaciones {
+  + procesar(notificacion: NotificacionEntrante): NotificacionProcesada
+  + extraerProfesor(correo: String): String
+  + extraerAsignatura(correo: String): String
+  + extraerMensaje(correo: String): String
+}
+
+class ServicioWhatsApp {
+  + enviar(usuario: Usuario, mensaje: String): boolean
+}
+
+class Iris {
+  + recibirNotificacion(notificacion: NotificacionEntrante): void
+}
+
+' Relaciones
+Usuario "1" -- "0..*" Suscripcion : tiene >
+Materia "1" -- "0..*" Suscripcion : pertenece a >
+Suscripcion "1" --> "1" Usuario
+Suscripcion "1" --> "1" Materia
+
+Iris --> ProcesadorNotificaciones : usa
+Iris --> ServicioWhatsApp : usa
+
+NotificacionEntrante --> ProcesadorNotificaciones : procesada por
+ProcesadorNotificaciones --> NotificacionProcesada : crea
+
+NotificacionProcesada --> ServicioWhatsApp : enviada a
+Usuario --> ServicioWhatsApp : recibe
+
+@enduml
