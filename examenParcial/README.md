@@ -4,7 +4,7 @@
 
 |Grupo|Primitivas|Caso|Cliente|1º nivel|2º nivel|3º nivel||
 |:-|:-:|:-:|:-:|:-:|:-:|:-:|-|
-|1 - [fM](g1/entregas/figueroaMarco/src/)|NO|L -> A -> L|[Cliente](g1/entregas/figueroaMarco/src/Cliente.java)|[Lista](g1/entregas/figueroaMarco/src/Lista.java)|[Array](g1/entregas/figueroaMarco/src/CustomArray.java)|Lista|CustomArray con LinkedList?!?
+|1 - [fM](g1/entregas/figueroaMarco/src/)|NO|L -> A -> L|[Cliente](g1/entregas/figueroaMarco/src/Cliente.java)|[Lista](g1/entregas/figueroaMarco/src/Lista.java)|[Array](g1/entregas/figueroaMarco/src/CustomArray.java)|Lista|LinkedList?!? [***!?***](https://github.com/mmasias/25-26-EDA1/blame/7e27a2de43fa83c172d561161a42aef8ee00ed62/examenParcial/g1/entregas/figueroaMarco/src/CustomArray.java#L54)
 |2 - [sA](g2/entregas/solarAdrian/src/)|SI|A -> L -> A|[Cliente](g2/entregas/solarAdrian/src/ExamenParcial/Cliente.java)|[Array](g2/entregas/solarAdrian/src/ExamenParcial/Array.java)|[Lista](g2/entregas/solarAdrian/src/ExamenParcial/Lista.java)|Array|La lista usa Nodo!
 |3 - [lJ](g3/entregas/lomoJaime/src/)|SI|A -> L -> A|[Cliente](g3/entregas/lomoJaime/src/Principal.java)|[Array](g3/entregas/lomoJaime/src/ArrayDeListas.java)|[Lista](g3/entregas/lomoJaime/src/ListaEnteros.java)|Array
 |4 - [cJ](g4/entregas/calderonJimena/src/)|SI|A -> L -> A|[Cliente](g4/entregas/calderonJimena/src/Cliente.java)|[Array](g4/entregas/calderonJimena/src/CustomArray.java)|[Lista](g4/entregas/calderonJimena/src/ListaEnteros.java)|Array|Ok!
@@ -24,7 +24,7 @@
 
 |Caso|Carpeta de entregas|Documentación|Primitivas|Caso|Cliente|1º nivel|2º nivel|3º nivel|
 |-|-|-|:-:|:-:|:-:|:-:|:-:|:-:|
-|1|[gSOL](/examenParcial/gSOL/src/uroboros/array/)|[README](/examenParcial/gSOL/uroboros/array/propuesta.md)|-|A -> L -> A|[Cliente](gSOL/src/uroboros/array/ClienteArrayUroboro.java)|[Array](gSOL/src/uroboros/array/Array.java)|[Lista](gSOL/src/listaConArray/l001/Lista.java)|Array
-|2|[gSOL](/examenParcial/gSOL/src/uroboros/lista/)|[README](/examenParcial/gSOL/uroboros/lista/propuesta.md)|-|L -> A -> L|[Cliente](gSOL/src/uroboros/lista/ClienteListaUroboro.java)|[Lista](gSOL/src/uroboros/lista/Lista.java)|[Array](gSOL/src/arrayConLista/a000/Array.java)|[Lista](gSOL/src/arrayConLista/a000/Lista.java)
+|1|[gSOL](/examenParcial/gSOL/src/uroboros/array/)|[README](/examenParcial/gSOL/uroboros/array/propuesta.md)|SI|A -> L -> A|[Cliente](gSOL/src/uroboros/array/ClienteArrayUroboro.java)|[Array](gSOL/src/uroboros/array/Array.java)|[Lista](gSOL/src/listaConArray/l001/Lista.java)|Array
+|2|[gSOL](/examenParcial/gSOL/src/uroboros/lista/)|[README](/examenParcial/gSOL/uroboros/lista/propuesta.md)|SI|L -> A -> L|[Cliente](gSOL/src/uroboros/lista/ClienteListaUroboro.java)|[Lista](gSOL/src/uroboros/lista/Lista.java)|[Array](gSOL/src/arrayConLista/a000/Array.java)|[Lista](gSOL/src/arrayConLista/a000/Lista.java)
 
 </div>
