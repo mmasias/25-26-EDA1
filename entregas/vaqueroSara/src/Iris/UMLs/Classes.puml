@@ -1,0 +1,47 @@
+@startuml
+
+
+class Asignatura {
+id
+nombre
+activa
+publicarMsg()
+}
+
+
+class Mensaje {
+id
+contenido
+fecha
+estadoEnvio
+}
+
+
+class Alumno {
+id
+nombre
+estado
+recibirMsg()
+}
+
+
+class Suscripcion {
+fechaAlta
+estado
+cancelar()
+}
+
+
+class ServicioEnvio {
+enviar()
+reintentar()
+}
+
+
+Asignatura "1" -- "0..*" Mensaje : genera
+Asignatura "1" -- "0..*" Suscripcion
+Alumno "1" -- "0..*" Suscripcion
+Mensaje ..> ServicioEnvio : usa
+
+
+@enduml
