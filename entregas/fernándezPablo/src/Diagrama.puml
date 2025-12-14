@@ -1,0 +1,89 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+' =====================
+'    MODULOS PRINCIPALES
+' =====================
+
+class EmailReceiver {
+    + recibirCorreo(): Email
+    --
+    - colaEntrada: Queue<Email>   ' Cola FIFO de correos por procesar
+}
+
+class EmailProcessor {
+    + procesar(email: Email): Resumen
+    --
+    - pilaAnalisis: Stack<String>   ' Para limpiar y extraer contenido
+}
+
+class MessageFormatter {
+    + formatear(resumen, asignatura): Mensaje
+}
+
+class WhatsAppDispatcher {
+    + enviar(msj: Mensaje)
+    --
+    - colaEnvio: Queue<Mensaje>  ' Cola FIFO para envío al chat
+}
+
+class MessageHistoryManager {
+    + guardar(msj: Mensaje)
+    + obtenerHistorial(): List<Mensaje>
+    --
+    - historial: List<Mensaje>   ' Lista enlazada de mensajes antiguos
+}
+
+' =====================
+'        ENTIDADES
+' =====================
+
+class Email {
+    + asunto: String
+    + cuerpo: String
+    + remitente: String
+}
+
+class Resumen {
+    + texto: String
+}
+
+class Mensaje {
+    + asignatura: String
+    + contenido: String
+    + fecha: Date
+}
+
+database "IrisDB" as DB {
+}
+
+class MensajeRecord {
+    + id
+    + asignatura
+    + contenido
+    + fecha
+}
+
+' =====================
+'       RELACIONES
+' =====================
+
+EmailReceiver --> EmailProcessor : entrega email (FIFO)
+EmailProcessor --> MessageFormatter : genera resumen
+MessageFormatter --> WhatsAppDispatcher : mensaje listo
+WhatsAppDispatcher --> MessageHistoryManager : notifica mensaje enviado
+MessageHistoryManager --> DB : guarda mensaje
+
+' =====================
+'     ESTRUCTURAS INTERNAS
+' =====================
+
+EmailReceiver "1" *-- "colaEntrada" Queue
+EmailProcessor "1" *-- "pilaAnalisis 0..*" Stack
+WhatsAppDispatcher "1" *-- "colaEnvio 0..*" Queue
+MessageHistoryManager "1" *-- "historial 0..*" List
+
+DB --> MensajeRecord
+
+@enduml
