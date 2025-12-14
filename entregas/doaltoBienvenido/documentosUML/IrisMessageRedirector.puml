@@ -1,0 +1,105 @@
+@startuml IrisMessageRedirectorVertical
+
+title Modelo Vertical "Iris Message Redirector"
+
+top to bottom direction
+
+skinparam packageStyle rectangle
+
+package "Mensajes" {
+
+    class Mensaje {
+        - ID : String
+        - Contenido : String
+        - CategoriaID : String
+        - Timestamp : DateTime
+    }
+
+    class ResumenMensajes {
+        - ContenidoResumido : String
+        - MensajesIncluidos : Lista
+        - CategoriaID : String
+        - FechaGeneracion : DateTime
+    }
+
+    class HistorialMensajes {
+        + Agregar(m : Mensaje)
+        + Buscar(id : String) : Mensaje
+    }
+
+    class ColaMensajesPendientes {
+        + Encolar(m : Mensaje)
+        + Desencolar() : Mensaje
+        + EsVacia() : Boolean
+    }
+
+    Mensaje --> ColaMensajesPendientes : Encola
+    Mensaje --> HistorialMensajes : Se guarda
+}
+
+package "Árbol de Categorías" {
+
+    class NodoCategoria {
+        - CategoriaID : String
+        - Nombre : String
+        + Hijos : Lista
+        + MensajesAsociados : Lista
+    }
+
+    class ArbolCategorias {
+        - Raiz : NodoCategoria
+        + Buscar(id : String) : NodoCategoria
+        + Insertar(id : String, padre : String)
+    }
+
+    Mensaje --> NodoCategoria : Pertenece a
+    ResumenMensajes --> NodoCategoria : Resume categoría
+}
+
+package "Suscripciones" {
+
+    class Cliente {
+        - ClienteID : String
+        - DireccionEnvio : String
+    }
+
+    class Suscripcion {
+        - ClienteID : String
+        - CategoriaID : String
+    }
+
+    class GestorSuscripciones {
+        + Suscribir(cliente : String, categoria : String)
+        + ObtenerClientes(categoria : String) : Lista
+    }
+
+    Cliente --> Suscripcion
+    Suscripcion --> ArbolCategorias : Relación categoría
+    GestorSuscripciones --> Suscripcion : Consulta
+}
+
+package "Lógica Principal" {
+
+    class Emisor {
+        + Enviar(m : Mensaje)
+    }
+
+    class Procesador {
+        + ProcesarCola()
+        + GenerarResumen(categoria : String) : ResumenMensajes
+    }
+
+    class Redirector {
+        + Redirigir(resumen : ResumenMensajes, clientes : Lista)
+    }
+
+    Emisor --> ColaMensajesPendientes : Envia
+    Procesador --> ColaMensajesPendientes : Procesa
+    Procesador --> ArbolCategorias : Clasifica
+    Procesador --> ResumenMensajes : Crea resumen
+    ResumenMensajes --> GestorSuscripciones : Solicita clientes
+    GestorSuscripciones --> Redirector : Entrega clientes
+    Redirector --> Cliente : Envia resumen
+}
+
+@enduml
