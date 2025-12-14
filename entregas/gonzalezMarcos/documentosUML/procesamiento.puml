@@ -1,0 +1,21 @@
+@startuml procesamiento
+
+allowmixing
+skinparam componentStyle rectangle
+skinparam monochrome true
+
+package "Estructuras de Datos" {
+    component "Cola de Mensajes" as Cola
+    component "Índice de Asignaturas" as Hashmap
+    component "Lista de Difusión" as Lista
+}
+
+interface "Entrada (Email)" as Email
+interface "Salida (WhatsApp)" as WA
+
+Email --> Cola : 1. Poner en cola 
+Cola --> Hashmap : 2. Sacar de la cola y Buscar 
+Hashmap --> Lista : 3. Recuperar Suscriptores
+Lista --> WA : 4. Iterar y enviar
+
+@enduml
