@@ -1,0 +1,70 @@
+@startuml
+left to right direction
+
+class Message {
+  - String id
+  - String subjectCode
+  - String sender
+  - String content
+  - Instant timestamp
+  - boolean processed
+  + getters & setters
+}
+
+class Subscription {
+  - String studentId
+  - String subjectCode
+  - Instant subscribedAt
+  - boolean active
+  + getters & setters
+}
+
+class Summary {
+  - String subjectCode
+  - String sender
+  - String summarizedContent
+  - Instant createdAt
+  - List<String> recipients
+  + getters & setters
+}
+
+class IrisEngine {
+  - Map<String, Set<String>> subjectToSubscribers
+  - Map<String, Set<String>> studentToSubjects
+  - Map<String, List<Message>> pendingMessagesBySubject
+  + void processMessage(Message msg)
+  + void subscribe(String studentId, String subjectCode)
+  + void unsubscribe(String studentId, String subjectCode)
+  - String extractSummary(String content)
+}
+
+class WhatsAppSender {
+  + void send(Summary summary)
+}
+
+class Main {
+  + static void main(String[] args)
+}
+
+' Relaciones
+Main --> IrisEngine : crea y usa
+Message --> IrisEngine : procesado por
+Subscription --> IrisEngine : gestionado por
+Summary --> IrisEngine : generado por
+Summary --> WhatsAppSender : enviado por
+
+note top of Message
+  Representa un correo entrante.
+  subjectCode = asignatura (categoría).
+end note
+
+note bottom of IrisEngine
+  Motor central de Iris:
+  enruta, resume y gestiona suscripciones.
+end note
+
+note right of WhatsAppSender
+  Simula envío a WhatsApp.
+  En producción: integración con API externa.
+end note
+@enduml
