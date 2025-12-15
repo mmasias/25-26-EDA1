@@ -1,0 +1,46 @@
+@startuml Diagrama Iris
+skinparam linetype ortho
+top to bottom direction
+
+class ListaAsignaturas {
+    + insertar(a : Asignatura)
+    + buscar(codigo : String) : Asignatura
+    + estaVacia() : boolean
+}
+
+class Asignatura {
+    - nombre : String
+    - codigo : String
+    - suscriptores : ListaUsuarios
+}
+
+class ListaUsuarios {
+    + insertar(u : Usuario)
+    + obtenerTodos() : Usuario[]
+    + borrar(u : Usuario) : boolean
+    + estaVacia() : boolean
+}
+
+class Usuario {
+    - nombre : String
+    - telefono : String
+}
+
+class ColaMensajes {
+    + encolar(m : Mensaje)
+    + desencolar() : Mensaje
+    + estaVacia() : boolean
+}
+
+class Mensaje {
+    - texto : String
+    - destino : String
+}
+
+ListaAsignaturas "1" o-down-> "0..*" Asignatura : organiza el catálogo de >
+Asignatura "1" *-down-> "1" ListaUsuarios : gestiona suscriptores en >
+ListaUsuarios "1" o-down-> "0..*" Usuario : enlaza referencias a >
+
+ColaMensajes "1" o-down-> "0..*" Mensaje : procesa envíos pendientes de >
+
+@enduml
