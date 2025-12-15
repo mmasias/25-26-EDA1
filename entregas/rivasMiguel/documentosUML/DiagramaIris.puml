@@ -1,0 +1,51 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide circle
+
+class SistemaIris {
+    - colaEntrada: ColaNotificaciones
+    - colaSalida: ColaWhatsapp
+    - raizAsignaturas: NodoAsignatura
+    - raizAlumnos: NodoAlumno
+    + cicloPrincipal()
+}
+
+class ColaNotificaciones {
+    + encolar(n: Notificacion)
+    + desencolar(): Notificacion
+}
+
+class NodoAsignatura {
+    - codigo: String
+    - suscriptores: Lista<NodoAlumno>
+}
+
+class NodoAlumno {
+    - id: String
+    - telefono: String
+    - misAsignaturas: Lista<NodoAsignatura>
+    + obtenerTelefono(): String
+}
+
+class ColaWhatsapp {
+    ' Esta es la clave: recibe el teléfono y el texto
+    + encolar(telefono: String, texto: String)
+    + enviarSiguiente()
+}
+
+' --- RELACIONES ---
+
+' 1. Entrada
+SistemaIris --> ColaNotificaciones : "1. Lee Notificación"
+
+' 2. Proceso de Búsqueda
+SistemaIris --> NodoAsignatura : "2. Busca Asignatura"
+NodoAsignatura o- "0..*" NodoAlumno : "3. Tiene suscritos"
+NodoAlumno o- "0..*" NodoAsignatura : "(Bidireccional)"
+
+' 3. Salida (Lo que preguntabas)
+SistemaIris ..> NodoAlumno : "4. Extrae teléfono"
+SistemaIris --> ColaWhatsapp : "5. Encola Envío"
+
+@enduml
