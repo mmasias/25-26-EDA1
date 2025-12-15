@@ -1,7 +1,4 @@
 ```mermaid
-@startuml pyIris - Estructura 
-
-title Estructura pyIris
 
 actor "Emisor (Campus Virtual)" as EMISOR
 actor "Cliente (Estudiante)" as CLIENTE
@@ -60,7 +57,5 @@ TREE_SUSCRIPCIONES -> L_CLIENTE_DATA : Obtiene IDs de Clientes
 L_CLIENTE_DATA -> PROCESO_ENVIO : Búsqueda de Endpoint 
 
 PROCESO_ENVIO -> CLIENTE : Envía Resumen Final
-
-@enduml
 
 ```
