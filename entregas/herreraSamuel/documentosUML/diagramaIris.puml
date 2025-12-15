@@ -1,0 +1,42 @@
+## 2. Diagrama de Clases (UML)
+
+A continuación se presenta el diseño de clases que soportan estas estructuras:
+
+```mermaid
+classDiagram
+    class SistemaIris {
+        -ColaMensajes buzonEntrada
+        -NodoAsignatura raizCatalogo
+        +recibirMensaje(Mensaje m)
+        +procesarSiguiente()
+    }
+
+    class ColaMensajes {
+        +encolar(Mensaje m)
+        +desencolar() Mensaje
+    }
+
+    class NodoAsignatura {
+        -String codigo
+        -NodoAsignatura izquierda
+        -NodoAsignatura derecha
+        -ListaEstudiantes suscriptores
+    }
+
+    class Estudiante {
+        -String nombre
+        -String telefono
+        -ListaString misAsignaturas
+    }
+
+    class Mensaje {
+        -String contenido
+        -String codigoDestino
+    }
+
+    %% Relaciones
+    SistemaIris --> ColaMensajes : "1. Encola"
+    SistemaIris --> NodoAsignatura : "2. Busca en (BST)"
+    ColaMensajes o-- Mensaje : contiene
+    NodoAsignatura "1" o-- "N" Estudiante : notifica a
+    NodoAsignatura --> NodoAsignatura : izq/der
