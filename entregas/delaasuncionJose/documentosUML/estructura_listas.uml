@@ -1,0 +1,40 @@
+@startuml
+title Sistema de Suscripciones basado en Listas Enlazadas
+
+class SistemaIris {
+    - lista_clientes : Lista<Cliente>
+    - lista_asignaturas : Lista<Asignatura>
+    + buscarCliente(id)
+    + buscarAsignatura(id)
+}
+
+class Cliente {
+    - id : int
+    - nombre : String
+    - asignaturas_suscritas : Lista<Asignatura>
+    + suscribirse(a : Asignatura)
+    + desuscribirse(a : Asignatura)
+}
+
+class Asignatura {
+    - id : int
+    - nombre : String
+    - clientes_suscritos : Lista<Cliente>
+    - mensajes_pendientes : Cola<Mensaje>
+    + enviarMensaje(m : Mensaje)
+}
+
+class Mensaje {
+    - id : int
+    - contenido : String
+    - fecha : Date
+}
+
+SistemaIris "1" o-- "*" Cliente : gestiona
+SistemaIris "1" o-- "*" Asignatura : gestiona
+
+Cliente "*" -- "*" Asignatura : suscripción
+
+Asignatura "1" o-- "*" Mensaje : contiene
+
+@enduml
