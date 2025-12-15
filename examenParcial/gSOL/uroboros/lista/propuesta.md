@@ -1,4 +1,4 @@
-# Uroboro de Lista usando Array
+# Lista usando Array
 
 ## Propuesta de interfaz
 
