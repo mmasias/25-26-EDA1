@@ -1,0 +1,126 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam monochrome true
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam nodesep 70
+skinparam ranksep 250
+
+title Iris
+
+package "Iris APP" {
+    class SistemaNotificaciones {
+        -baseDatosEstudiantes : ArbolEstudiantes
+        -colaSalida : ColaEnvios
+        -clienteGmail : ConectorGmail
+        -clienteWhatsApp : PasarelaWhatsApp
+        -historialCorreos : HistorialCorreos
+
+        +ejecutarCiclo() : void
+        -procesarCorreo(c : CorreoEntrante) : void
+    }
+}
+
+package "Servicios Externos" {
+    class ConectorGmail {
+        +obtenerCorreosRecientes() : CorreoEntrante[]
+    }
+    class PasarelaWhatsApp {
+        +enviarMensaje(telefono : String, texto : String) : void
+    }
+}
+
+package "Estructuras de Datos" {
+   
+    class ArbolEstudiantes {
+        -raiz : NodoEstudiante
+        +registrarEstudiante(e : Estudiante) : void
+        +buscarPorEmail(email : String) : Estudiante
+    }
+
+    class NodoEstudiante {
+        -datos : Estudiante
+        -izquierda : NodoEstudiante
+        -derecha : NodoEstudiante
+    }
+
+    class ColaEnvios {
+        -frente : NodoCola
+        -final : NodoCola
+        +encolar(t : String, m : String) : void
+        +desencolar() : NodoCola
+    }
+
+    class NodoCola {
+        -mensaje : String
+        -telefono : String
+        -siguiente : NodoCola
+    }
+
+    class ListaMaterias {
+        -cabeza : NodoMateria
+        +agregar(n : String) : void
+        +contiene(t : String) : boolean
+    }
+
+    class NodoMateria {
+        -nombreMateria : String
+        -siguiente : NodoMateria
+    }
+
+    class HistorialCorreos {
+        -primero : NodoCorreo
+        +guardarCorreo(c : CorreoEntrante) : void
+    }
+
+    class NodoCorreo {
+        -correo : CorreoEntrante
+        -siguiente : NodoCorreo
+    }
+}
+
+package "Entidades de Negocio" {
+
+    class Estudiante {
+        -matricula : String
+        -email : String
+        -telefono : String
+        -materias : ListaMaterias
+    }
+
+    class CorreoEntrante {
+        -remitente : String
+        -asunto : String
+        -cuerpo : String
+        +limpiarContenido() : String
+    }
+}
+
+
+SistemaNotificaciones --> ConectorGmail : usa
+SistemaNotificaciones --> PasarelaWhatsApp : usa
+SistemaNotificaciones --> ArbolEstudiantes : consulta
+SistemaNotificaciones --> ColaEnvios : gestiona
+SistemaNotificaciones --> HistorialCorreos : almacena
+
+ConectorGmail --> CorreoEntrante : produce
+
+ArbolEstudiantes o-- NodoEstudiante
+NodoEstudiante --> NodoEstudiante : hijos
+NodoEstudiante --> Estudiante
+
+ColaEnvios o-- NodoCola
+NodoCola --> NodoCola : siguiente
+
+ListaMaterias o-- NodoMateria
+NodoMateria --> NodoMateria : siguiente
+
+HistorialCorreos o-- NodoCorreo
+NodoCorreo --> NodoCorreo : siguiente
+NodoCorreo --> CorreoEntrante
+
+Estudiante *-- ListaMaterias
+
+@enduml
