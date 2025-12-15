@@ -1,0 +1,64 @@
+@startuml reto-006_propuestaIris
+title PROPUESTA MEJORA IRIS
+skinparam linetype ortho
+
+class Mensaje {
+    - texto: String
+    - codigoAsignatura: String
+    - timestamp: DateTime
+}
+
+class ColaMensajes {
+    + recibir(m: Mensaje)
+    + procesar(): Mensaje
+}
+
+class Estudiante {
+    - id: String
+    - telefono: String
+}
+
+class BuzonAlumno {
+    - alumno: Estudiante
+    - mensajes: Lista<Mensaje>
+}
+
+class ListaBuzones {
+    - buzones: Lista<BuzonAlumno>
+    + agregarMensaje(e: Estudiante, m: Mensaje)
+    + obtenerMensajes(e: Estudiante): Lista<Mensaje>
+    + vaciar(e: Estudiante)
+}
+
+class HistorialMensajes {
+    - registros: Lista<Mensaje>
+    + guardar(m: Mensaje)
+    + obtenerPorAlumno(e: Estudiante): Lista<Mensaje>
+    + obtenerPorFecha(fecha: Date): Lista<Mensaje>
+}
+
+class NodoAsignatura {
+    - codigo: String
+    - izquierda: NodoAsignatura
+    - derecha: NodoAsignatura
+    - suscriptores: Lista<Estudiante>
+}
+
+class Iris {
+    - cola: ColaMensajes
+    - asignaturas: NodoAsignatura
+    - buzones: ListaBuzones
+    - historial: HistorialMensajes
+}
+
+Iris --> ColaMensajes : recibe
+Iris --> NodoAsignatura : clasifica
+Iris --> ListaBuzones : gestiona
+Iris --> HistorialMensajes : guarda
+
+ColaMensajes o-- Mensaje : FIFO
+NodoAsignatura o-- Estudiante : suscrito
+ListaBuzones *-- BuzonAlumno : contiene
+BuzonAlumno *-- Mensaje : acumula
+HistorialMensajes o-- Mensaje : almacena
+@enduml
