@@ -1,3 +1,8 @@
-# Carpeta de entregas
+# Nombre Integrantes
 
-Dentro de esta carpeta, /apellidoNombre/ y en ella las carpetas documentos, documentosUML y src
+## Ismael Cobo
+## Daniel Cotarelo
+## Alejandro De La Peña
+## Alejandro De La Riva
+## Alejandra Cuesta
+## Paula Oreja
