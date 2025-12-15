@@ -1,0 +1,100 @@
+@startuml DiagramaIris
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+class Iris {
+  - canalesPorAsignatura : Mapa<String, CanalAsignatura>
+  - alumnos : Mapa<String, Alumno>
+  - colaPendientesEnvio : Cola<EntregaPendiente>
+  - colaIncidencias : Cola<Incidencia>
+  + suscribir(idAlumno, codAsig)
+  + desuscribir(idAlumno, codAsig)
+  + publicar(m : Mensaje)
+  + procesarPendientes()
+}
+
+class CanalAsignatura {
+  - codigo : String
+  - suscriptores : Conjunto<String>
+  - bandejasPorEmisor : Mapa<String, BandejaEmisor>
+  + añadirSuscriptor(idAlumno)
+  + quitarSuscriptor(idAlumno)
+  + agregarMensaje(m : Mensaje)
+  + construirResumen() : ResumenAsignatura
+}
+
+class BandejaEmisor {
+  - idEmisor : String
+  - colaMensajes : Cola<Mensaje>
+  + añadir(m : Mensaje)
+  + vaciar() : Lista<Mensaje>
+}
+
+class Alumno {
+  - id : String
+  - estado : EstadoAlumno
+  - asignaturas : Conjunto<String>
+}
+
+enum EstadoAlumno {
+  ACTIVO
+  EXALUMNO
+}
+
+class Mensaje {
+  + id : String
+  + timestamp : long
+  + categoria : String
+  + emisor : String
+  + cuerpo : String
+}
+
+class ResumenAsignatura {
+  + codigoAsignatura : String
+  + timestamp : long
+  + items : Lista<ItemResumen>
+}
+
+class ItemResumen {
+  + emisor : String
+  + resumen : String
+  + nMensajes : int
+}
+
+class EntregaPendiente {
+  + idAlumno : String
+  + resumen : ResumenAsignatura
+  + reintentos : int
+}
+
+class Incidencia {
+  + tipo : String
+  + detalle : String
+  + mensajeId : String
+}
+
+Iris "1" o-- "*" CanalAsignatura : canalesPorAsignatura
+Iris "1" o-- "*" Alumno : alumnos
+Iris "1" o-- "*" EntregaPendiente : colaPendientesEnvio
+Iris "1" o-- "*" Incidencia : colaIncidencias
+
+CanalAsignatura "1" o-- "*" BandejaEmisor : bandejasPorEmisor
+BandejaEmisor "1" o-- "*" Mensaje : colaMensajes
+
+Alumno "1" o-- "*" CanalAsignatura : suscripción (por código)
+CanalAsignatura ..> ResumenAsignatura : construirResumen()
+ResumenAsignatura "1" o-- "*" ItemResumen
+
+note right of CanalAsignatura
+  suscriptores guarda IDs de alumno.
+  Para enviar, se recorre el conjunto
+  y se encola la entrega pendiente.
+end note
+
+note bottom of Iris
+  Categoria inválida -> colaIncidencias.
+  Fallos de envío -> colaPendientesEnvio (reintentos).
+end note
+
+@enduml
