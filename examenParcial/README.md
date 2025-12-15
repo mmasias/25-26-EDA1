@@ -7,8 +7,8 @@
 ||A -> L -> A|L -> A -> L||
 |-|:-|-:|-|
 <sub>Jimena Calderón<br>Miguel Rivas<br>Manuel Muñoz|[<- G4](g4/)|[G1 ->](g1/)|<sub>Marco Figueroa<br>José Pablo Morales<br>Sara Vaquero Relea<br>José Cabrera
-<sub>Samuel Herrera<br>Nicolás Navas<br>Gabriel Béjar<br>Miguel Gómez<br>Carlos Alvarado|[<- G5](g5/)|[G8 ->](g8/)|<sub>Juan Fernando Caicedo<br>Juan Esteban Caicedo<br>Luis Chao Zhen
-<sub>Vanesa Pak<br>Jaime Lomo<br>Marina Arce<br>Pablo Fernández|[<- G3](g3/)|[G6 ->](g6/)|<sub>Juan Carlos Quintana<br>Raúl Tascón<br>Bienvenido Doalto<br>Javier Liaño Rioz
+<sub>Samuel Herrera<br>Nicolás Navas<br>Gabriel Béjar<br>Miguel Gómez<br>Carlos Alvarado|[<- G5](g5/)|[G8 ->](g8/)|<sub>Juan Fernando Caicedo<br>Juan Esteban Caicedo<br>Chao Zhen<br>Jose Luis de la Asunción
+<sub>Vanesa Pak<br>Jaime Lomo<br>Marina Arce<br>Pablo Fernández|[<- G3](g3/)|[G6 ->](g6/)|<sub>Juan Carlos Quintana<br>Raúl Tascón<br>Bienvenido Doalto<br>Javier Liaño Rioz<br>Nicolae Hambassan
 <sub>Ricardo Rubio<br>Bernardo Zablah<br>Luis Brenes<br>Leslie Romero|[<- G7](g7/)|[G10 ->](g10/)|<sub>Bamba Niang<br>Diego Arellano<br>Aaron Ureta
 <sub>Andrea Anaya<br>Sara Moreno<br>Beatriz Orozco<br>Carla Madero|[<- G11](g11/)|[G9 ->](g9/)|<sub>Ismael Cobo<br>Daniel Cotarelo<br>Alejandro De La Peña<br>Alejandro De La Riva<br>Alejandra Cuesta<br>Paula Oreja
 <sub>Adrián Solar<br>Iñigo Vaquero<br>Diego Alonso<br>Carlos Valdés<br>Marcos González<br>Sergio Puente|[<- G2](g2/)
