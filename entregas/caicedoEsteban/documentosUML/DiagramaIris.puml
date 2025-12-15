@@ -1,0 +1,84 @@
+@startuml DiagramaIris
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam linetype ortho
+
+title Arquitectura Modular Iris 
+
+package "Domain Core" {
+    
+    class Message {
+        - id : UUID
+        - content : String
+        - timestamp : Long
+        + getContent() : String
+    }
+
+    class User {
+        - id : String
+        - email : String
+        + getContactInfo() : String
+    }
+
+    interface ISubscriptionRepository {
+        + addSubscriber(category: String, user: User)
+        + removeSubscriber(category: String, userId: String)
+        + getSubscribers(category: String) : Set<User>
+    }
+
+    interface IMessageBuffer {
+        + push(category: String, msg: Message)
+        + pullAndClear(category: String) : List<Message>
+        + isEmpty(category: String) : Boolean
+    }
+
+    interface INotificationService {
+        + sendSummary(users: Set<User>, summary: String)
+    }
+}
+
+package "Infrastructure / Implementation" {
+
+    class InMemorySubscriptionRepo implements ISubscriptionRepository {
+        - subscriptions : HashMap<String, HashSet<User>>
+    }
+
+    class InMemoryMessageBuffer implements IMessageBuffer {
+        - buffer : HashMap<String, LinkedList<Message>>
+    }
+    
+    class EmailService implements INotificationService {
+        + sendSummary(users: Set<User>, summary: String)
+    }
+}
+
+package "Application Services" {
+    class IrisEngine {
+        - subsRepo : ISubscriptionRepository
+        - msgBuffer : IMessageBuffer
+        - notifier : INotificationService
+        
+        + receive(category: String, msg: Message)
+        + processCategory(category: String)
+        - summarize(messages: List<Message>) : String
+    }
+}
+
+IrisEngine --> ISubscriptionRepository : usa
+IrisEngine --> IMessageBuffer : usa
+IrisEngine --> INotificationService : usa
+
+InMemoryMessageBuffer "1" *-- "*" Message : contiene (List)
+InMemorySubscriptionRepo "1" o-- "*" User : asocia (Set)
+
+note right of InMemoryMessageBuffer
+  <b>Estructura:</b> HashMap<String, LinkedList>
+  Optimizado para escritura O(1)
+end note
+
+note right of InMemorySubscriptionRepo
+  <b>Estructura:</b> HashMap<String, HashSet>
+  Optimizado para lectura y unicidad O(1)
+end note
+
+@enduml
