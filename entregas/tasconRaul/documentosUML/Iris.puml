@@ -1,0 +1,75 @@
+@startuml
+
+' Configuración visual opcional para que se vea más limpio
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+package "Mensajes" {
+    class Mensaje {
+        +ID : String
+        +Contenido : String
+        +CategoriaID : String
+        +Timestamp : DateTime
+    }
+    
+    class ColaMensajesPendientes {
+        -colaInterna : Queue<Mensaje>
+        +Encolar(m : Mensaje)
+        +Desencolar() : Mensaje
+        +EsVacia() : Boolean
+    }
+
+    class HistorialMensajes {
+        -log : List<Mensaje>
+        +Archivar(m : Mensaje)
+        +ObtenerPorID(id : String) : Mensaje
+    }
+}
+
+package "Organizacion" {
+    class NodoCategoria {
+        +CategoriaID : String
+        +Nombre : String
+        +Subcategorias : List<NodoCategoria>
+        +BufferTemporal : List<Mensaje>
+        +AgregarMensaje(m : Mensaje)
+        +VaciarBuffer() : List<Mensaje>
+    }
+
+    class ArbolCategorias {
+        +Raiz : NodoCategoria
+        +BuscarNodo(id : String) : NodoCategoria
+        +Insertar(id : String, padreID : String)
+    }
+}
+
+package "Distribucion" {
+    class Cliente {
+        +ClienteID : String
+        +Telefono : String
+        +Email : String
+    }
+
+    class GestorSuscripciones {
+        -mapaSuscripciones : Map<String, List<Cliente>>
+        +Suscribir(cliente : Cliente, categoriaID : String)
+        +ObtenerSuscriptores(categoriaID : String) : List<Cliente>
+    }
+
+    class ResumenMensajes {
+        +CategoriaID : String
+        +TextoResumen : String
+        +MensajesOrigen : List<Mensaje>
+        +GeneradoEn : DateTime
+    }
+}
+
+' Relaciones Principales
+Mensaje ..> ColaMensajesPendientes : "1. Entra"
+ColaMensajesPendientes --> ArbolCategorias : "2. Se clasifica en"
+NodoCategoria ..> ResumenMensajes : "3. Genera"
+ResumenMensajes --> GestorSuscripciones : "4. Consulta destinos"
+GestorSuscripciones ..> Cliente : "5. Devuelve lista"
+Mensaje --o HistorialMensajes : "Auditoría"
+
+@enduml
