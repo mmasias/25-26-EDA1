@@ -7,7 +7,7 @@ public class Array {
         assert capacidad > 0 : "Mal:la capacidad debe ser positiva";
 
         this.capacidad = capacidad;
-        this.miLista = new Lista();
+        this.miLista = new Lista(capacidad);
 
         for (int i = 0; i < capacidad; i++) {
             miLista.agregar(0);
