@@ -1,0 +1,48 @@
+```plantuml
+@startuml
+
+package "Paquete Array" {
+    class Nodo {
+        - int dato
+        - Nodo siguiente
+        + getDato(): int
+        + setDato(int)
+        + getSiguiente(): Nodo
+        + setSiguiente(Nodo)
+    }
+
+    class ListaEnlazada {
+        - Nodo cabeza
+        - int total
+        + agregar(int)
+        + obtener(int): int
+        + modificar(int, int)
+        - localizarNodo(int): Nodo
+    }
+
+    class Array {
+        - ListaEnlazada estructura
+        - int capacidad
+        + get(int): int
+        + set(int, int)
+        + longitud(): int
+    }
+}
+
+package "Paquete Lista" {
+    class Lista {
+        - Array datos
+        - int cantidad
+        + insertar(int, int)
+        + eliminar(int)
+        + obtener(int): int
+        + imprimir()
+        - redimensionar()
+    }
+}
+
+Principal --> Lista : usa
+Lista *-- Array : compone
+Array *-- ListaEnlazada : compone
+ListaEnlazada *-- Nodo : gestiona
+@enduml

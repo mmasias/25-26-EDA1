@@ -1,0 +1,15 @@
+@startuml
+actor Usuario
+participant "Principal" as P
+participant "Lista" as L
+participant "Array" as A
+participant "ListaEnlazada" as LE
+
+Usuario -> P : Solicita Insertar
+P -> L : insertar(valor, posicion)
+activate L
+L -> A : get(indice)
+A -> LE : obtener(indice)
+L -> A : set(indice + 1, valor)
+deactivate L
+@enduml
