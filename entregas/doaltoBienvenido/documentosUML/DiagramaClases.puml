@@ -1,6 +1,8 @@
 ```plantuml
 @startuml
 
+left to right direction
+
 package "Paquete Array" {
     class Nodo {
         - int dato
