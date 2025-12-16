@@ -1,0 +1,31 @@
+@startuml Diagrama Refactorizacion
+skinparam linetype ortho
+top to bottom direction
+
+class Cliente {
+    + {static} main(args : String[]) : void
+}
+
+class Array {
+    - miLista : Lista
+    - capacidad : int
+    + Array(capacidad : int)
+    + get(indice : int) : int
+    + set(indice : int, valor : int) : void
+    + longitud() : int
+}
+
+class Lista {
+    - miArray : int[]
+    - tamaño : int
+    + Lista(capacidad : int)
+    + agregar(valor : int) : void
+    + obtener(indice : int) : int
+    + modificar(indice : int, nuevoValor : int) : void
+    + longitud() : int
+}
+
+Cliente .down.> Array : usa para simulación >
+Array "1" *-down-> "1" Lista : usa y adapta >
+
+@enduml
