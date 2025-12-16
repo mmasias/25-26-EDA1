@@ -1,83 +1,56 @@
 package Lista;
-
 import Array.Array;
 
 public class Lista {
-    private Array elementos;
-    private int cantidadElementos;
-    private static final int TAMANIO_INICIAL = 1;
+    private Array datos;
+    private int cantidad;
 
     public Lista() {
-        elementos = new Array(TAMANIO_INICIAL);
-        cantidadElementos = 0;
-    }
-
-    public int getCantidadElementos() {
-        return cantidadElementos;
-    }
-
-    public void mostrarPosicionesValidas() {
-        System.out.print("Posiciones válidas para insertar: ");
-        for (int i = 0; i <= cantidadElementos; i++) {
-            System.out.print(i);
-            if (i < cantidadElementos) System.out.print(", ");
-        }
-        System.out.println();
+        this.datos = new Array(1);
+        this.cantidad = 0;
     }
 
     public void insertar(int valor, int posicion) {
-        if (cantidadElementos == elementos.longitud()) {
-            expandir();
+        assert (posicion >= 0 && posicion <= cantidad) : "Posición de inserción fuera de límites";
+        
+        if (cantidad == datos.longitud()) {
+            redimensionar();
         }
 
-        if (posicion < 0 || posicion > cantidadElementos) {
-            System.out.println("Posición inválida.");
-            return;
+        for (int indice = cantidad - 1; indice >= posicion; indice--) {
+            datos.set(indice + 1, datos.get(indice));
         }
 
-        for (int i = cantidadElementos - 1; i >= posicion; i--) {
-            elementos.set((i + 1), elementos.get(i));
-        }
-
-        elementos.set(posicion, valor);
-        cantidadElementos++;
+        datos.set(posicion, valor);
+        cantidad++;
     }
 
     public void eliminar(int posicion) {
-        if (posicion < 0 || posicion >= cantidadElementos) {
-            System.out.println("Posición inválida.");
-            return;
-        }
+        assert (posicion >= 0 && posicion < cantidad) : "Posición de eliminación inválida";
 
-        for (int i = posicion; i < cantidadElementos - 1; i++) {
-            elementos.set(i, elementos.get(i + 1));
+        for (int indice = posicion; indice < cantidad - 1; indice++) {
+            datos.set(indice, datos.get(indice + 1));
         }
+        cantidad--;
+    }
 
-        elementos.set(cantidadElementos - 1, 0);
-        cantidadElementos--;
+    private void redimensionar() {
+        Array nuevoArray = new Array(datos.longitud() + 1);
+        for (int indice = 0; indice < datos.longitud(); indice++) {
+            nuevoArray.set(indice, datos.get(indice));
+        }
+        datos = nuevoArray;
     }
 
     public int obtener(int posicion) {
-        if (posicion < 0 || posicion >= cantidadElementos) {
-            System.out.println("Posición inválida.");
-            return -1;
-        }
-        return elementos.get(posicion);
+        assert (posicion >= 0 && posicion < cantidad) : "Índice de consulta inválido";
+        return datos.get(posicion);
     }
 
-    private void expandir() {
-        Array nuevoArray = new Array(elementos.longitud() + 1);
-        for (int i = 0; i < elementos.longitud(); i++) {
-            nuevoArray.set(i, elementos.get(i));
-        }
-        elementos = nuevoArray;
-    }
-
-    public void mostrar() {
+    public void imprimir() {
         System.out.print("[");
-        for (int i = 0; i < cantidadElementos; i++) {
-            System.out.print(elementos.get(i));
-            if (i < cantidadElementos - 1) System.out.print(", ");
+        for (int indice = 0; indice < cantidad; indice++) {
+            System.out.print(datos.get(indice) + (indice < cantidad - 1 ? ", " : ""));
         }
         System.out.println("]");
     }
