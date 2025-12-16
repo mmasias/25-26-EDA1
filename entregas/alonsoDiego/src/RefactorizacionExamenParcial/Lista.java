@@ -1,52 +1,34 @@
 package RefactorizacionExamenParcial;
 
 public class Lista {
-    private Nodo cabeza;
+    private int[] miArray;
     private int tamaño;
 
-    public Lista() {
-        cabeza = null;
-        tamaño = 0;
+    public Lista(int capacidad) {
+        this.miArray = new int[capacidad];
+        this.tamaño = 0;
     }
 
     public void agregar(int valor) {
-        Nodo nuevo = new Nodo(valor);
+        assert tamaño < miArray.length : "Error: La lista está llena";
 
-        if (cabeza == null) {
-            cabeza = nuevo;
-        } else {
-            Nodo actual = cabeza;
-            while (actual.getSiguiente() != null) {
-                actual = actual.getSiguiente();
-            }
-            actual.setSiguiente(nuevo);
-        }
+        miArray[tamaño] = valor;
         tamaño++;
     }
 
     public int obtener(int indice) {
-        assert indice >= 0 && indice < tamaño
-                : "Mal: el índice esta fuera de rango";
-
-        Nodo actual = cabeza;
-        for (int i = 0; i < indice; i++) {
-            actual = actual.getSiguiente();
-        }
-        return actual.getDato();
+        assert indice >= 0 && indice < tamaño : "Error: índice fuera de rango";
+        return miArray[indice];
     }
 
     public void modificar(int indice, int nuevoValor) {
-        assert indice >= 0 && indice < tamaño
-                : "Mal: el índice esta fuera de rango";
+        assert indice >= 0 && indice < tamaño : "Error: Índice fuera de rango";
 
-        Nodo actual = cabeza;
-        for (int i = 0; i < indice; i++) {
-            actual = actual.getSiguiente();
-        }
-        actual.setDato(nuevoValor);
+        miArray[indice] = nuevoValor;
     }
 
-    public int tamaño() {
+    public int longitud() {
         return tamaño;
+
     }
 }
