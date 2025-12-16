@@ -6,7 +6,7 @@
 
 ### Diagrama de Clases (PlantUML)
 
-![Diagrama de Clases](../documentosUML/DiagramaClasess.png)
+![Diagrama de Clases](../documentosUML/DiagramaClases.png)
 
 ## 2. Vista Pública y Colaboraciones
 
