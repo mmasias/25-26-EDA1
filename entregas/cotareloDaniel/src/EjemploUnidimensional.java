@@ -1,24 +1,21 @@
 public class EjemploUnidimensional {
 
     public static void main(String[] args) {
-        EjemploUnidimensional ejemplo;
-        ejemplo = new EjemploUnidimensional();
-        ejemplo.ejecutar();
-    }
+        ListaConArray lista;
 
-    public void ejecutar() {
-        ListaComoArray lista;
+        lista = new ListaConArray(3);
 
-        lista = new ListaComoArray(5);
-
-        lista.set(0, 10);
-        lista.set(1, 20);
-        lista.set(2, 30);
-        lista.set(3, 40);
-        lista.set(4, 50);
+        lista.add(10);
+        lista.add(20);
+        lista.add(30);
+        lista.add(40);
 
         lista.imprimir();
 
-        System.out.println("Elemento en posición 2: " + lista.get(2));
+        lista.remove(1);
+
+        lista.imprimir();
+
+        System.out.println("Elemento en posición 1: " + lista.get(1));
     }
 }
