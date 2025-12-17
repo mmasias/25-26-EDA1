@@ -1,0 +1,20 @@
+@startuml
+
+class ListaConArray {
+    - int[] datos
+    - int cantidad
+    + ListaConArray(int capacidadInicial)
+    + void add(int valor)
+    + void remove(int posicion)
+    + int get(int posicion)
+    + int size()
+    + void imprimir()
+}
+
+class EjemploUnidimensional {
+    + main(String[] args)
+}
+
+EjemploUnidimensional --> ListaConArray
+
+@enduml
