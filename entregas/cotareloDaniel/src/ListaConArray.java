@@ -1,3 +1,5 @@
+package entregas.cotareloDaniel.src;
+
 public class ListaConArray {
 
     private int[] datos;
@@ -13,12 +15,14 @@ public class ListaConArray {
     }
 
     public int get(int posicion) {
-        this.validarIndice(posicion);
+        assert posicion >= 0 && posicion < this.cantidad;
+
         return this.datos[posicion];
     }
 
     public void add(int valor) {
         this.asegurarCapacidad();
+
         this.datos[this.cantidad] = valor;
         this.cantidad = this.cantidad + 1;
     }
@@ -26,7 +30,7 @@ public class ListaConArray {
     public void remove(int posicion) {
         int indice;
 
-        this.validarIndice(posicion);
+        assert posicion >= 0 && posicion < this.cantidad;
 
         indice = posicion;
         while (indice < this.cantidad - 1) {
@@ -67,16 +71,6 @@ public class ListaConArray {
         }
 
         this.datos = nuevoArray;
-    }
-
-    private void validarIndice(int posicion) {
-        boolean fueraDeRango;
-
-        fueraDeRango = posicion < 0 || posicion >= this.cantidad;
-
-        if (fueraDeRango) {
-            throw new IndexOutOfBoundsException();
-        }
     }
 
     public void imprimir() {
