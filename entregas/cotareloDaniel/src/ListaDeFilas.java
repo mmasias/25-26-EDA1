@@ -1,115 +1,67 @@
 public class ListaDeFilas {
 
-    private NodoFila cabezaFila;
+    private ListaComoArray[] filas;
     private int totalFilas;
     private int totalColumnas;
-    private int contadorCeldasUsadas;
-    private NodoCeldaUsada cabezaCeldasUsadas;
-
-    private static class NodoFila {
-        Fila fila;
-        NodoFila siguiente;
-
-        NodoFila(Fila fila) {
-            this.fila = fila;
-            this.siguiente = null;
-        }
-    }
-
-    private static class NodoCeldaUsada {
-        int filaGuardada;
-        int columnaGuardada;
-        NodoCeldaUsada siguiente;
-
-        NodoCeldaUsada(int fila, int columna) {
-            filaGuardada = fila;
-            columnaGuardada = columna;
-            siguiente = null;
-        }
-    }
 
     public ListaDeFilas(int cantidadFilas, int cantidadColumnas) {
-        totalFilas = cantidadFilas;
-        totalColumnas = cantidadColumnas;
-        cabezaFila = construirListaDeFilas(totalFilas, totalColumnas);
-        contadorCeldasUsadas = 0;
-        cabezaCeldasUsadas = null;
+        int filaActual;
+
+        this.totalFilas = cantidadFilas;
+        this.totalColumnas = cantidadColumnas;
+
+        this.filas = new ListaComoArray[this.totalFilas];
+
+        filaActual = 0;
+        while (filaActual < this.totalFilas) {
+            this.filas[filaActual] = new ListaComoArray(this.totalColumnas);
+            filaActual = filaActual + 1;
+        }
     }
 
     public void set(int fila, int columna, int valor) {
-        if (fila >= 0 && fila < totalFilas) {
-            Fila filaActual = buscarFila(fila);
-            if (!existeCeldaUsada(fila, columna)) {
-                registrarCeldaUsada(fila, columna);
-            }
-            filaActual.set(columna, valor);
-        } else {
-            System.out.println("Error: fila fuera de rango.");
-        }
+        this.validarFila(fila);
+        this.filas[fila].set(columna, valor);
     }
 
     public int get(int fila, int columna) {
-        if (fila >= 0 && fila < totalFilas) {
-            Fila filaActual = buscarFila(fila);
-            return filaActual.get(columna);
-        } else {
-            System.out.println("Error: fila fuera de rango.");
-            return -1;
-        }
+        int resultado;
+
+        this.validarFila(fila);
+        resultado = this.filas[fila].get(columna);
+
+        return resultado;
     }
 
     public void imprimirTodo() {
-        NodoFila nodoFilaActual = cabezaFila;
+        int filaActual;
+
+        filaActual = 0;
         System.out.println("[");
-        for (int filaActual = 0; filaActual < totalFilas; filaActual++) {
+
+        while (filaActual < this.totalFilas) {
             System.out.print("  ");
-            nodoFilaActual.fila.imprimirFila();
-            if (filaActual < totalFilas - 1) {
+            this.filas[filaActual].imprimir();
+
+            if (filaActual < this.totalFilas - 1) {
                 System.out.println(",");
             } else {
                 System.out.println();
             }
-            nodoFilaActual = nodoFilaActual.siguiente;
+
+            filaActual = filaActual + 1;
         }
+
         System.out.println("]");
     }
 
-    private NodoFila construirListaDeFilas(int cantidadFilas, int cantidadColumnas) {
-        if (cantidadFilas == 0) {
-            return null;
-        }
-        NodoFila primerNodoFila = new NodoFila(new Fila(cantidadColumnas));
-        NodoFila nodoFilaActual = primerNodoFila;
-        for (int filaActual = 1; filaActual < cantidadFilas; filaActual++) {
-            nodoFilaActual.siguiente = new NodoFila(new Fila(cantidadColumnas));
-            nodoFilaActual = nodoFilaActual.siguiente;
-        }
-        return primerNodoFila;
-    }
+    private void validarFila(int fila) {
+        boolean fueraDeRango;
 
-    private Fila buscarFila(int numeroFila) {
-        NodoFila nodoFilaActual = cabezaFila;
-        for (int filaActual = 0; filaActual < numeroFila; filaActual++) {
-            nodoFilaActual = nodoFilaActual.siguiente;
-        }
-        return nodoFilaActual.fila;
-    }
+        fueraDeRango = fila < 0 || fila >= this.totalFilas;
 
-    private boolean existeCeldaUsada(int fila, int columna) {
-        NodoCeldaUsada actual = cabezaCeldasUsadas;
-        while (actual != null) {
-            if (actual.filaGuardada == fila && actual.columnaGuardada == columna) {
-                return true;
-            }
-            actual = actual.siguiente;
+        if (fueraDeRango) {
+            throw new IndexOutOfBoundsException();
         }
-        return false;
-    }
-
-    private void registrarCeldaUsada(int fila, int columna) {
-        NodoCeldaUsada nuevo = new NodoCeldaUsada(fila, columna);
-        nuevo.siguiente = cabezaCeldasUsadas;
-        cabezaCeldasUsadas = nuevo;
-        contadorCeldasUsadas = contadorCeldasUsadas + 1;
     }
 }
