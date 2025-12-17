@@ -1,5 +1,3 @@
-package entregas.cotareloDaniel.src;
-
 public class ListaConArray {
 
     private int[] datos;
