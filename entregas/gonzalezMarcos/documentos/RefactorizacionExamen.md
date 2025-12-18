@@ -17,7 +17,7 @@ ARRAY (implementación interna)
 ### Estructura original
 
 - `Cliente` utiliza una clase `Array`
-- `Array` **simula un array** usando una `Lista`
+- `Array` simula un array usando una `Lista`
 - `Lista` está implementada mediante Nodos enlazados (`Nodo`)
 
 ### Problema detectado
@@ -190,7 +190,7 @@ No se modifica **ningún otro método** de `Array`.
 
 ## 11. Resultado final
 
-✔️ El cliente cree usar un array ✔️ El array está simulado con una lista ✔️ La lista está simulada con arrays ✔️ No existen nodos ni referencias reales
+El cliente cree usar un array - El array está simulado con una lista - La lista está simulada con arrays - No existen nodos ni referencias reales
 
 ```
 Cliente → Array → Lista → Arrays
