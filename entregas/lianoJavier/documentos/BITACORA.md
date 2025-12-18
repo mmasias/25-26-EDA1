@@ -2,7 +2,7 @@
 
 ## Propuesta de Solución: Corrección de Vicios
 
-Se han aplicado principios de "Clean Code" y programación defensiva para mejorar la calidad académica y profesional del código. A continuación se detallan las mejoras implementadas y su justificación.
+Se han aplicado principios de "Clean Code" y programación defensiva con asserts para mejorar la calidad y profesionalidad del código. A continuación se detallan las mejoras implementadas y su justificación.
 
 ### 1. Programación Defensiva (Asserts)
 
