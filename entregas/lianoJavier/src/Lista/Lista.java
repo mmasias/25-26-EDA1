@@ -16,13 +16,15 @@ public class Lista {
         return cantidadElementos;
     }
 
-    public void mostrarPosicionesValidas() {
-        System.out.print("Posiciones válidas para insertar: ");
-        for (int i = 0; i <= cantidadElementos; i++) {
-            System.out.print(i);
-            if (i < cantidadElementos) System.out.print(", ");
+    public String obtenerTextoPosicionesValidas() {
+        String resultado = "Posiciones válidas para insertar: ";
+        for (int indice = 0; indice <= cantidadElementos; indice++) {
+            resultado = resultado + indice;
+            if (indice < cantidadElementos) {
+                resultado = resultado + ", ";
+            }
         }
-        System.out.println();
+        return resultado;
     }
 
     public void insertar(int valor, int posicion) {
@@ -30,10 +32,7 @@ public class Lista {
             expandir();
         }
 
-        if (posicion < 0 || posicion > cantidadElementos) {
-            System.out.println("Posición inválida.");
-            return;
-        }
+        assert posicion >= 0 && posicion <= cantidadElementos : "Posición inválida";
 
         for (int i = cantidadElementos - 1; i >= posicion; i--) {
             elementos.set((i + 1), elementos.get(i));
@@ -44,10 +43,7 @@ public class Lista {
     }
 
     public void eliminar(int posicion) {
-        if (posicion < 0 || posicion >= cantidadElementos) {
-            System.out.println("Posición inválida.");
-            return;
-        }
+        assert posicion >= 0 && posicion < cantidadElementos : "Posición inválida";
 
         for (int i = posicion; i < cantidadElementos - 1; i++) {
             elementos.set(i, elementos.get(i + 1));
@@ -58,10 +54,7 @@ public class Lista {
     }
 
     public int obtener(int posicion) {
-        if (posicion < 0 || posicion >= cantidadElementos) {
-            System.out.println("Posición inválida.");
-            return -1;
-        }
+        assert posicion >= 0 && posicion < cantidadElementos : "Posición inválida";
         return elementos.get(posicion);
     }
 
@@ -73,12 +66,15 @@ public class Lista {
         elementos = nuevoArray;
     }
 
-    public void mostrar() {
-        System.out.print("[");
-        for (int i = 0; i < cantidadElementos; i++) {
-            System.out.print(elementos.get(i));
-            if (i < cantidadElementos - 1) System.out.print(", ");
+    public String obtenerTexto() {
+        String resultado = "[";
+        for (int indice = 0; indice < cantidadElementos; indice++) {
+            resultado = resultado + elementos.get(indice);
+            if (indice < cantidadElementos - 1) {
+                resultado = resultado + ", ";
+            }
         }
-        System.out.println("]");
+        resultado = resultado + "]";
+        return resultado;
     }
 }
