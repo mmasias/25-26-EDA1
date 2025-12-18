@@ -10,7 +10,12 @@ public class Principal {
         int opcion;
 
         do {
-            System.out.println("\n1. Insertar\n2. Eliminar\n3. Obtener\n4. Mostrar\n0. Salir");
+            System.out.println();
+            System.out.println("1. Insertar");
+            System.out.println("2. Eliminar");
+            System.out.println("3. Obtener");
+            System.out.println("4. Mostrar");
+            System.out.println("0. Salir");
             System.out.print("Ingrese opción: ");
             opcion = scanner.nextInt();
 
