@@ -1,0 +1,54 @@
+@startuml DiagramaRefactorizacion
+skinparam classAttributeIconSize 0
+
+class Cliente {
+  +main(args: String[]): void
+}
+
+class Lista {
+  -Array almacenamiento
+  -int tamanio
+  +Lista()
+  +void agregar(int valor)
+  +int obtener(int indice)
+  +void modificar(int indice, int valor)
+  +int tamanio()
+  -void expandir()
+}
+
+class Array {
+  -ListaEnlazada datos
+  -int capacidad
+  +Array(int capacidad)
+  +int obtener(int indice)
+  +void modificar(int indice, int valor)
+  +int capacidad()
+}
+
+class ListaEnlazada {
+  -Nodo cabeza
+  -int tamanio
+  +ListaEnlazada()
+  +void agregar(int valor)
+  +int obtener(int indice)
+  +void modificar(int indice, int valor)
+  +int tamanio()
+  -Nodo localizar(int indice)
+}
+
+class Nodo {
+  -int valor
+  -Nodo siguiente
+  +Nodo(int valor)
+  +int getValor()
+  +void setValor(int valor)
+  +Nodo getSiguiente()
+  +void setSiguiente(Nodo siguiente)
+}
+
+Cliente --> Lista : usa
+Lista --> Array : usa
+Array --> ListaEnlazada : usa
+ListaEnlazada o-- Nodo
+
+@enduml
