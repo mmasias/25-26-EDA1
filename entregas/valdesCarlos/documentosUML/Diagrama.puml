@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Cliente {
+    + main(args: String[]): void
+}
+
+class Array {
+    - capacidad: int
+    + Array(capacidad: int)
+    + get(indice: int): int
+    + set(indice: int, valor: int): void
+    + longitud(): int
+}
+
+class Lista {
+    - datos: int[]
+    - tamaño: int
+    + Lista()
+    + agregar(valor: int): void
+    + obtener(indice: int): int
+    + modificar(indice: int, valor: int): void
+    + tamaño(): int
+    - redimensionar(): void
+}
+
+Cliente .right.> Array : <<usa>>
+Array *-- Lista : - lista
+@enduml
