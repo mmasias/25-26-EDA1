@@ -13,10 +13,8 @@ public class Menu {
         int opcion = -1;
         boolean ejecutando = true;
 
-        System.out.println("AVISO: Ejecute con -ea para activar asserts.");
-
         while (ejecutando) {
-            System.out.println("\n--- GESTIÓN DE LISTA (SIN ABSTRACCIÓN) ---");
+            System.out.println("\n--- GESTIÓN DE LISTA ---");
             System.out.println("1. Insertar");
             System.out.println("2. Eliminar");
             System.out.println("3. Obtener");
@@ -31,31 +29,34 @@ public class Menu {
                 opcion = -1;
             }
 
-            if (opcion == 1) {
-                lista.mostrarPosicionesValidas();
-                System.out.print("Ingrese valor a insertar: ");
-                int valor = scanner.nextInt();
-                System.out.print("Ingrese posición: ");
-                int pos = scanner.nextInt();
-                lista.insertar(valor, pos); 
-                System.out.println("Insertado.");
-            } else if (opcion == 2) {
-                System.out.print("Ingrese posición a eliminar: ");
-                int pos = scanner.nextInt();
-                lista.eliminar(pos);
-                System.out.println("Eliminado.");
-            } else if (opcion == 3) {
-                System.out.print("Ingrese posición a obtener: ");
-                int pos = scanner.nextInt();
-                Object val = lista.obtener(pos);
-                System.out.println("Valor: " + val);
-            } else if (opcion == 4) {
-                lista.mostrar();
-            } else if (opcion == 0) {
-                System.out.println("Saliendo...");
-                ejecutando = false;
-            } else {
-                System.out.println("Opción inválida.");
+            switch (opcion) {
+                case 1 ->                     {
+                        lista.mostrarPosicionesValidas();
+                        System.out.print("Ingrese valor a insertar: ");
+                        int valor = scanner.nextInt();
+                        System.out.print("Ingrese posición: ");
+                        int pos = scanner.nextInt();
+                        lista.insertar(valor, pos);
+                        System.out.println("Insertado.");
+                    }
+                case 2 ->                     {
+                        System.out.print("Ingrese posición a eliminar: ");
+                        int pos = scanner.nextInt();
+                        lista.eliminar(pos);
+                        System.out.println("Eliminado.");
+                    }
+                case 3 ->                     {
+                        System.out.print("Ingrese posición a obtener: ");
+                        int pos = scanner.nextInt();
+                        Object val = lista.obtener(pos);
+                        System.out.println("Valor: " + val);
+                    }
+                case 4 -> lista.mostrar();
+                case 0 -> {
+                    System.out.println("Saliendo...");
+                    ejecutando = false;
+                }
+                default -> System.out.println("Opción inválida.");
             }
         }
     }
