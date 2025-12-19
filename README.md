@@ -1,3 +1,10 @@
-# EDA I - Retos
+# EDA I - Examen Parcial (Versión Refactorizada)
 
-Rama de origen para la entrega de retos
+## Integrantes
+
+- Samuel Herrera
+- Nicolas Navas
+- Carlos Alvarado
+- Gabriel Béjar
+
+[Documentación](/entregas/alvaradoCarlos/documentos/README.md)
