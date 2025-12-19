@@ -1,0 +1,46 @@
+@startuml
+
+class Nodo {
+    - valor: int
+    - siguiente: Nodo
+    + Nodo(int)
+    + getValor(): int
+    + setValor(int)
+    + getSiguiente(): Nodo
+    + setSiguiente(Nodo)
+}
+
+class ArraySimulado {
+    - capacidad: int
+    - inicio: Nodo
+    + ArraySimulado(int)
+    - construir(int)
+    + length(): int
+    - nodoEn(int): Nodo
+    + get(int): int
+    + set(int, int)
+}
+
+class ListaUsandoArraySimulado {
+    - arreglo: ArraySimulado
+    - elementos: int
+    + ListaUsandoArraySimulado()
+    + size(): int
+    + isEmpty(): boolean
+    + get(int): int
+    + set(int, int)
+    + add(int)
+    + add(int, int)
+    + remove(int): int
+    - asegurar(int)
+}
+
+class Main {
+    + main(String[]): void
+}
+
+ArraySimulado --> Nodo : usa
+ListaUsandoArraySimulado --> ArraySimulado : usa
+Main --> ListaUsandoArraySimulado : usa
+
+@enduml
