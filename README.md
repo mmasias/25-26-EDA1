@@ -3,4 +3,4 @@
     
 
 ### 📊 Modelado UML
-- **[Diagrama](./entregas/caicedoFernando/documentosUML/diagrama.puml)**
+- **[Diagrama](./entregas/caicedoFernando/documentosUML)**
