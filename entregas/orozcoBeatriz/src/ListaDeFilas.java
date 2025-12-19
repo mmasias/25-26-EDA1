@@ -13,7 +13,9 @@ public class ListaDeFilas {
     }
 
     public Fila getFila(int indiceFila) {
-        if (indiceFila < 0 || indiceFila >= numeroFilas) return null;
+        if (indiceFila < 0 || indiceFila >= numeroFilas) {
+            return null;
+        }
         return arregloDeFilas[indiceFila];
     }
 }
