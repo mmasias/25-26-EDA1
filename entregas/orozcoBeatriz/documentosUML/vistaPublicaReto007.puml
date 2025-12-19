@@ -1,0 +1,23 @@
+@startuml
+title Vista pública - Matriz
+skinparam classAttributeIconSize 0
+
+class Matriz {
+    + Matriz(numeroFilas:int, numeroColumnas:int)
+    + posicionValida(indiceFila:int, indiceColumna:int) : boolean
+    + filaValida(indiceFila:int) : boolean
+    + setValor(indiceFila:int, indiceColumna:int, valor:int) : boolean
+    + getValor(indiceFila:int, indiceColumna:int) : int
+    + imprimir() : void
+    + getFila(indiceFila:int) : Fila
+}
+
+class Fila <<internal>>
+class ListaDeFilas <<internal>>
+class Nodo <<internal>>
+
+Matriz ..> Fila : devuelve copia
+Matriz *-- ListaDeFilas : contiene
+ListaDeFilas *-- Fila : gestiona
+Fila *-- Nodo : lista enlazada
+@enduml
