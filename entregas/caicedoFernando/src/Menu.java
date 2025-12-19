@@ -35,20 +35,20 @@ public class Menu {
                         System.out.print("Ingrese valor a insertar: ");
                         int valor = scanner.nextInt();
                         System.out.print("Ingrese posición: ");
-                        int pos = scanner.nextInt();
-                        lista.insertar(valor, pos);
+                        int posicion = scanner.nextInt();
+                        lista.insertar(valor, posicion);
                         System.out.println("Insertado.");
                     }
                 case 2 ->                     {
                         System.out.print("Ingrese posición a eliminar: ");
-                        int pos = scanner.nextInt();
-                        lista.eliminar(pos);
+                        int posicion = scanner.nextInt();
+                        lista.eliminar(posicion);
                         System.out.println("Eliminado.");
                     }
                 case 3 ->                     {
                         System.out.print("Ingrese posición a obtener: ");
-                        int pos = scanner.nextInt();
-                        Object val = lista.obtener(pos);
+                        int posicion = scanner.nextInt();
+                        Object val = lista.obtener(posicion);
                         System.out.println("Valor: " + val);
                     }
                 case 4 -> lista.mostrar();
