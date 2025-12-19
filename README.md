@@ -1,3 +1,6 @@
-# EDA I - Retos
+### 📘 Documentación
+- **[Documentación](./entregas/caicedoFernando/documentos/Documentacion.md)**
+    
 
-Rama de origen para la entrega de retos
+### 📊 Modelado UML
+- **[Diagrama](./entregas/caicedoFernando/documentosUML/diagrama.puml)**
