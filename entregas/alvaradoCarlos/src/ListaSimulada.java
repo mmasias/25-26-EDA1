@@ -1,11 +1,11 @@
-public class SimuladorLista {
+public class ListaSimulada {
     private int[] datos;
     private int tamaño;
     private static final int CAPACIDAD_INICIAL = 4;
     public final int TAMAÑO_INICIAL = 0;
     public final int MULTIPLICADOR_ARRAY = 2;
 
-    public SimuladorLista() {
+    public ListaSimulada() {
         datos = new int[CAPACIDAD_INICIAL];
         tamaño = TAMAÑO_INICIAL;
     }

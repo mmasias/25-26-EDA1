@@ -1,10 +1,10 @@
-public class ArraySimulado {
-    private SimuladorLista miLista;
+public class Array {
+    private ListaSimulada miLista;
     private int capacidad;
 
-    public ArraySimulado(int capacidad){
+    public Array(int capacidad){
         this.capacidad = capacidad;
-        this.miLista = new SimuladorLista();
+        this.miLista = new ListaSimulada();
 
         for (int i = 0; i < capacidad; i++){
             miLista.agregar(0);
