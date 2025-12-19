@@ -1,0 +1,53 @@
+@startuml diagramaReto007
+title Diagrama de clases - Matriz con listas enlazadas
+skinparam classAttributeIconSize 0
+
+class Matriz {
+    - numeroFilas : int
+    - numeroColumnas : int
+    - listaDeFilas : ListaDeFilas
+    + Matriz(numeroFilas:int, numeroColumnas:int)
+    + posicionValida(indiceFila:int, indiceColumna:int) : boolean
+    + filaValida(indiceFila:int) : boolean
+    + setValor(indiceFila:int, indiceColumna:int, valor:int) : boolean
+    + getValor(indiceFila:int, indiceColumna:int) : int
+    + imprimir() : void
+    + getFila(indiceFila:int) : Fila
+}
+
+class ListaDeFilas {
+    - numeroFilas : int
+    - numeroColumnas : int
+    - arregloDeFilas : Fila[]
+    + ListaDeFilas(numeroFilas:int, numeroColumnas:int)
+    + getFila(indiceFila:int) : Fila
+}
+
+class Fila {
+    - cabeza : Nodo
+    - numeroColumnas : int
+    - nodoUltimoAcceso : Nodo
+    - indiceUltimoAcceso : int
+    + Fila(columnasTotales:int)
+    + columnaValida(indiceColumna:int) : boolean
+    + setValor(indiceColumna:int, valor:int) : boolean
+    + getValor(indiceColumna:int) : int
+    + imprimir() : void
+    - buscarNodoConCache(indiceColumnaObjetivo:int) : Nodo
+    - construirFilaVacia(totalColumnas:int) : Nodo
+}
+
+class Nodo {
+    - dato : int
+    - siguiente : Nodo
+    + Nodo(dato:int)
+    + getDato() : int
+    + setDato(dato:int) : void
+    + getSiguiente() : Nodo
+    + setSiguiente(siguiente:Nodo) : void
+}
+
+Matriz *-- ListaDeFilas
+ListaDeFilas *-- "1..*" Fila
+Fila *-- "1..*" Nodo
+@enduml
