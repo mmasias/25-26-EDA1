@@ -31,32 +31,18 @@ public class Matriz {
         }
 
         Fila filaActual = listaDeFilas.getFila(indiceFila);
-        if (filaActual == null) {
-            return false;
-        }
-
         return filaActual.setValor(indiceColumna, valor);
     }
 
     public int getValor(int indiceFila, int indiceColumna) {
-        if (!posicionValida(indiceFila, indiceColumna)) {
-            return 0;
-        }
-
         Fila filaActual = listaDeFilas.getFila(indiceFila);
-        if (filaActual == null) {
-            return 0;
-        }
-
         return filaActual.getValor(indiceColumna);
     }
 
     public void imprimir() {
         for (int indiceFila = 0; indiceFila < numeroFilas; indiceFila++) {
             Fila filaActual = listaDeFilas.getFila(indiceFila);
-            if (filaActual != null) {
-                filaActual.imprimir();
-            }
+            filaActual.imprimir();
         }
     }
 
@@ -66,10 +52,6 @@ public class Matriz {
         }
 
         Fila filaOriginal = listaDeFilas.getFila(indiceFila);
-        if (filaOriginal == null) {
-            return null;
-        }
-
         Fila filaCopia = new Fila(numeroColumnas);
 
         for (int indiceColumna = 0; indiceColumna < numeroColumnas; indiceColumna++) {
