@@ -64,7 +64,7 @@ classDiagram
         }
 
         class NodoArbolCancionPorIndice {
-                + buscarPorIndice(int indice) : NodoListaCancion
+               
         }
 
         class NodoArbolCancionPorTitulo {
