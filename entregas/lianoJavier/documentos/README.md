@@ -106,7 +106,7 @@ classDiagram
                 - int tiempoTotal
 
                 - ColaDeReproduccion colaDeReproduccion
-                - ColaDeAnuncios
+                - ColaDeAnuncios colaDeAnuncios 
 
                 - boolean esPremium
                 - int contadorParaAnuncio
