@@ -29,7 +29,7 @@ classDiagram
 
         class Cancion {
                 - String titulo
-                - Autor autor
+                - String autor
                 - int duracion
 
                 + getTitulo() : String
