@@ -49,8 +49,7 @@ classDiagram
 
                 - boolean haSonado
 
-                - int identificador
-                - String titulo
+                
 
                 + marcarComoReproducida()
                 + desmarcarComoReproducida()
