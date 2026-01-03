@@ -68,7 +68,7 @@ classDiagram
         }
 
         class NodoArbolCancionPorTitulo {
-                + buscarPorTitulo(String titulo) : NodoListaCancion
+               
         }
 
         class NodoArbolCancion {
