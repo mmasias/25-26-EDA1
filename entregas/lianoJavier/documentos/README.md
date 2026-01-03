@@ -103,7 +103,7 @@ classDiagram
 
         class Spotify {
                 - Cancion cancionMasRepetida
-                - Time tiempoTotal
+                - int tiempoTotal
 
                 - ColaDeReproduccion
                 - ColaDeAnuncios
