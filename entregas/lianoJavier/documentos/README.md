@@ -76,6 +76,7 @@ classDiagram
                 - NodoArbolCancion derecha
 
                 - NodoListaCancion nodoCancionEnlazada
+                  + buscar()
         }
 
         class ColaDeReproduccion {
