@@ -105,7 +105,7 @@ classDiagram
                 - Cancion cancionMasRepetida
                 - int tiempoTotal
 
-                - ColaDeReproduccion
+                - ColaDeReproduccion colaDeReproduccion
                 - ColaDeAnuncios
 
                 - boolean esPremium
