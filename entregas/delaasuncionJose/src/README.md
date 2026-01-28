@@ -113,7 +113,7 @@ En el proceso de diseño se consideró el uso de un **Árbol de mensajes con ite
 ## 4.0 Conclusión
 La arquitectura propuesta resuelve el problema del **almacenamiento de contexto** priorizando la velocidad de escritura y la agilidad en la generación de respuestas. 
 
-1.  **Eficiencia:** Al utilizar una estructura de **Árbol de Listas con recorrido inverso**, garantizamos que el escalado del chat no afecte al rendimiento. El coste de inserción es constante ($O(1)$) y el de recuperación de ventana depende únicamente del tamaño de la ventana de contexto ($O(W)$), no del historial total.
+1.  **Eficiencia:** Al utilizar una estructura de **Árbol de Listas con recorrido inverso**, garantizamos que el escalado del chat no afecte al rendimiento. El coste de inserción es constante ( $O(1)$ ) y el de recuperación de ventana depende únicamente del tamaño de la ventana de contexto ( $O(W)$ ), no del historial total.
 2.  **Versatilidad:** La solución permite implementar funciones avanzadas como la **edición de mensajes** y la **regeneración de respuestas** sin destruir el historial previo, facilitando una experiencia de usuario rica y no lineal (multiverso de conversaciones).
 3.  **Cero duplicacion:** Bajo ningun momento se encuentra uno con nodosMensaje duplicados, asi manteniendo una eficiencia muy alta en el uso de alamacenanmiento de datos.
 
