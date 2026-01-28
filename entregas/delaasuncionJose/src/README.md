@@ -81,7 +81,7 @@ Permite al usuario moverse entre diferentes contextos. Algorítmicamente, esto i
 ### 2.6 Construir VentanaContexto:
 Esta es la función crítica para el LLM. Desde `contextoActual`, recorremos los punteros `padre` hacia atrás hasta completar el tamaño de la ventana $W$ (e.g., 40 mensajes) o llegar a la raíz.
 
-> **Uso:** `[████████████████████] 10/10` | **Complejidad:** $O(W)$ (Donde W es el tamaño de ventana, no el total del chat)
+> **Uso:** `[████████████████████] 10/10` | **Complejidad:** $O(W)$ (Donde W es el tamaño de ventana, no necesariamente el total del chat)
 
 ### 2.7 Modificar ventana de contexto
 Ajuste dinámico del parámetro $W$ (e.g., ampliar memoria a 8k tokens). No altera la estructura de datos, simplemente modifica la condición de parada del bucle de la función **Construir VentanaContexto (2.6)**.
