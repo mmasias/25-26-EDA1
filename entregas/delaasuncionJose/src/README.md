@@ -2,6 +2,8 @@
 
 El problema a resolver es el almacenamiento eficiente de datos para contextualizar a nuestro LLM. Esto es crucial, ya que una estructura indebida genera ineficiencia de rendimiento y latencia al acceder a los datos a gran escala.
 
+---
+
 ## 1.0 Estructura y justificacion
 Una estructura eficiente es vital. Debemos asentar las bases utilizando las estructuras primitivas vistas en la asignatura:
 
@@ -92,6 +94,8 @@ Ajuste dinámico del parámetro $W$ (e.g., ampliar memoria a 8k tokens). No alte
 Usado cuando un usuario abandona el chat y vuelve, para recuperar el contexto tal cual estaba. Se recorre todo el contextoActual para obtener los mensajes de vuelta.
 
 > **Uso:** `[████████░░░░░░░░░░░░] 6/10` | **Complejidad:** $O(W)$ (Donde W es el tamaño del contextoActual)
+
+---
 
 ## 3.0 Alternativas barajadas
 En el proceso de diseño se consideró el uso de un **Árbol de mensajes con iteración hacia adelante** (hacia los hijos) en lugar de un **Árbol de listas con iteración hacia atrás** (hacia los padres).
