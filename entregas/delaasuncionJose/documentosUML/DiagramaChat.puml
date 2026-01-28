@@ -1,0 +1,28 @@
+@startuml DiagramaChat
+title DiagramaChat
+package UsuarioChat {
+    object "NodoChat 0" as Chat_0
+    object "..." as MasChats
+    object "NodoChat X" as Chat_2
+}
+package Chat {
+
+    object "NodoContexto 0" as Contexto_0
+    object "NodoContexto 1" as Contexto_1
+    object "NodoContexto 2" as Contexto_2 
+    object "NodoContexto 3" as Contexto_3 
+    object "NodoContexto 4" as Contexto_4
+    object "NodoContexto 5" as Contexto_5
+}
+
+Chat_0 -> MasChats
+MasChats -> Chat_2
+
+Chat_0 --> Contexto_0
+Contexto_0 --> Contexto_1
+Contexto_0 --> Contexto_2
+Contexto_1 --> Contexto_3
+Contexto_1 --> Contexto_4
+Contexto_2 --> Contexto_5
+
+@enduml

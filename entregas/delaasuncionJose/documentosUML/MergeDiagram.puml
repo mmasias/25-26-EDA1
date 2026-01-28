@@ -1,0 +1,91 @@
+@startuml MergeDiagram
+title DiagramaCompleto
+package UsuarioChat {
+    object "NodoChat 0" as Chat_0
+    object "..." as MasChats
+    object "NodoChat X" as Chat_2
+}
+package Chat {
+
+    object "NodoContexto 0" as Contexto_0
+    object "NodoContexto 1" as Contexto_1
+    object "NodoContexto 2" as Contexto_2 
+    object "NodoContexto 3" as Contexto_3 
+    object "NodoContexto 4" as Contexto_4
+    object "NodoContexto 5" as Contexto_5
+}
+
+package "Mensajes (no es una clase solo estetico)" {
+    left to right direction
+  package "Contexto 0" as Lista_0 {
+    object "NodoMensaje" as Mensaje_0 {
+      +nodoInicial
+      LLM=false
+      Texto="Dime solo 5 comidas no mas"
+    }
+    object "NodoMensaje" as Mensaje_1 {
+      LLM=true
+      Texto="Pizza, Hamburguesa, Tacos, Sushi, Pasta"
+    }
+    object "NodoMensaje" as Mensaje_2 {
+      LLM=false
+      Texto="Dime solo tu preferida no mas"
+    }
+    object "NodoMensaje" as Mensaje_3 {
+      LLM=true
+      Texto="Pizza 🍕"
+    }
+  }
+  
+  package "Contexto 1" as Lista_1 {
+    object "NodoMensaje" as Mensaje_4 {
+      +regenerada
+      LLM=true
+      Texto="Hamburguesa"
+    }
+  }
+  
+  package "Contexto 2" as Lista_2 {
+    object "NodoMensaje" as Mensaje_5 {
+      +editada
+      LLM=false
+      Texto="Dime solo tus dos preferida no mas"
+    }
+    object "NodoMensaje" as Mensaje_6 {
+      LLM=true
+      Texto="Pizza y sushi 🍕🍣"
+    }
+    object "NodoMensaje" as Mensaje_7 {
+      LLM=false
+      Texto="Y cual te gusta mas?"
+    }
+    object "NodoMensaje" as Mensaje_8 {
+      LLM=true
+      Texto="Sushi"
+    }
+  }
+}
+Mensaje_1 --> Mensaje_0
+Mensaje_2 --> Mensaje_1
+Mensaje_3 --> Mensaje_2
+Mensaje_4 -> Mensaje_2
+Mensaje_5 -> Mensaje_1
+Mensaje_6 --> Mensaje_5
+Mensaje_7 --> Mensaje_6
+Mensaje_8 --> Mensaje_7
+
+Chat_0 -> MasChats
+MasChats -> Chat_2
+
+Chat_0 --> Contexto_0
+Contexto_0 --> Contexto_1
+Contexto_0 --> Contexto_2
+Contexto_1 --> Contexto_3
+Contexto_1 --> Contexto_4
+Contexto_2 --> Contexto_5
+
+Contexto_0 -> Lista_0
+Contexto_1 -> Lista_1
+Contexto_2 -> Lista_2
+
+@enduml
