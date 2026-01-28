@@ -100,7 +100,7 @@ En el proceso de diseño se consideró el uso de un **Árbol de mensajes con ite
 
 * **Enfoque de Árbol Tradicional (Hacia adelante):**
     * *Ventaja:* Permite visualizar fácilmente todas las ramificaciones posibles desde un mensaje raíz.
-    * *Desventaja:* Para construir la ventana de contexto actual, el sistema debe conocer qué rama es la "activa", lo que requiere metadatos adicionales en cada nodo o una gestión compleja de punteros hacia los hijos para no perderse en chats muy ramificados.
+    * *Desventaja:* Para construir la ventana de contexto actual, el sistema debe conocer qué rama es la "activa", lo que requiere metadatos adicionales en cada nodo o una gestión compleja de punteros hacia los hijos para no perderse en chats muy ramificados y tambien requiere una complejidad $O(n)$ para insertar un mensaje ya que requiere recorrer todo el arbol hasta llegar al hijo e insertar el mensaje.
 * **Enfoque Propuesto (Iteración Inversa - Estilo Git):**
     * *Ventaja:* **Simplicidad y elegancia máxima**. El `contextoActual` siempre sabe quién es su padre, pero el padre no necesita saber cuántos hijos tiene para reconstruir la historia. Esto garantiza que la recuperación de la ventana de contexto sea siempre lineal y directa.
     * *Ventaja:* **Ahorro de memoria**. No necesitamos estructuras de datos complejas en cada nodo de mensaje, solo un puntero al predecesor.
