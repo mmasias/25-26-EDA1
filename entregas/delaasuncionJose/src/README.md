@@ -84,7 +84,7 @@ Esta es la función crítica para el LLM. Desde `contextoActual`, recorremos los
 > **Uso:** `[████████████████████] 10/10` | **Complejidad:** $O(W)$ (Donde W es el tamaño de ventana, no el total del chat)
 
 ### 2.7 Modificar ventana de contexto
-Ajuste dinámico del parámetro $W$ (e.g., ampliar memoria a 8k tokens). No altera la estructura de datos, simplemente modifica la condición de parada del bucle de la función **Recuperar contexto (2.6)**.
+Ajuste dinámico del parámetro $W$ (e.g., ampliar memoria a 8k tokens). No altera la estructura de datos, simplemente modifica la condición de parada del bucle de la función **Construir VentanaContexto (2.6)**.
 
 > **Uso:** `[██░░░░░░░░░░░░░░░░░░] 1/10` | **Complejidad:** $O(1)$ (Cambio de variable integer)
 
