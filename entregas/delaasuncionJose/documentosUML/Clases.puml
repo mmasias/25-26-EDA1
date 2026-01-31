@@ -1,0 +1,52 @@
+@startuml ClasesMejoradas
+title Diagrama de clases de UsuarioChat
+
+skinparam classAttributeIconSize 0
+
+class UsuarioChat {
+    - NodoChat nodoInicial
+    - int tamaño
+    + agregarChat()
+}
+
+class NodoChat {
+    - NodoChat siguienteNodo
+    - Chat chat
+    + agregarSiguiente()
+}
+
+class Chat {
+    - NodoContexto raiz
+    - int tamaño
+    - Contexto contextoActual
+    + agregarContexto()
+}
+
+class NodoContexto {
+    - Contexto contexto
+    - NodoContexto[] hijos
+    + agregarHijo()
+}
+
+class Contexto {
+    - NodoMensaje nodoInicial
+    - int tamaño
+    + agregarMensaje()
+}
+
+class NodoMensaje {
+    - NodoMensaje siguienteNodo
+    - boolean LLM
+    - String texto
+    + agregarSiguiente()
+}
+
+UsuarioChat "1" *-- "0/*" NodoChat : contiene
+NodoChat "1" *-- "1" Chat : contiene
+Chat "1" *-- "1" NodoContexto : raíz
+NodoContexto "1" *-- "0/*" NodoContexto : hijos
+NodoContexto "1" *-- "1" Contexto : contiene
+Contexto "1" *-- "0/*" NodoMensaje : contiene
+NodoMensaje "0/1" --> "0/1" NodoMensaje : siguiente
+
+@enduml
